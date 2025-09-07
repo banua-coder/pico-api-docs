@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "home": "Home",
+    "documentation": "Documentation",
+    "apiReference": "API Reference",
+    "liveApi": "Live API"
+  },
+  "hero": {
+    "badge": "Trusted by developers • Central Sulawesi focused",
+    "title": "PICO SulTeng",
+    "subtitle": "COVID-19 API",
+    "description": "Comprehensive COVID-19 data API for {region}",
+    "descriptionSub": "with {context} and real-time updates",
+    "tagline": "Built for developers who need reliable, fast, and well-documented health data",
+    "getStarted": "Get Started",
+    "apiDocs": "API Docs",
+    "downloadApp": "Download PICO App",
+    "apiStatus": "API Status: Live & Healthy"
+  },
+  "features": {
+    "title": "Powerful Features",
+    "subtitle": "Everything you need for reliable COVID-19 data integration in Central Sulawesi",
+    "realTimeData": {
+      "title": "Real-time Data",
+      "description": "Up-to-date COVID-19 statistics for Central Sulawesi with daily updates and comprehensive metrics",
+      "badge": "Live updates every 24h"
+    },
+    "highPerformance": {
+      "title": "High Performance",
+      "description": "Built with Go for lightning-fast API responses with intelligent hybrid pagination system",
+      "badge": "< 100ms avg response"
+    },
+    "secureReliable": {
+      "title": "Secure & Reliable",
+      "description": "Robust error handling and secure data access"
+    },
+    "richDocumentation": {
+      "title": "Rich Documentation",
+      "description": "Interactive Swagger UI with examples"
+    },
+    "regionalFocus": {
+      "title": "Regional Focus",
+      "description": "Specialized for Central Sulawesi data"
+    },
+    "developerFriendly": {
+      "title": "Developer Friendly",
+      "description": "RESTful API with JSON responses, CORS support, and flexible query parameters"
+    }
+  },
+  "apiPreview": {
+    "title": "Quick API Overview",
+    "subtitle": "Essential endpoints to get you started",
+    "healthCheck": {
+      "title": "Health Check",
+      "description": "Check API status and database connectivity"
+    },
+    "nationalData": {
+      "title": "National Data",
+      "description": "National COVID-19 statistics and latest data"
+    },
+    "provinceData": {
+      "title": "Province Data",
+      "description": "Province information and case data with pagination"
+    },
+    "specificProvince": {
+      "title": "Specific Province",
+      "description": "Central Sulawesi specific COVID-19 data"
+    }
+  },
+  "dataSources": {
+    "title": "Trusted Data Sources",
+    "subtitle": "Our API aggregates data from reliable sources to ensure accuracy and completeness",
+    "trustedBy": "Data aggregated from",
+    "partners": {
+      "inacovid": "INACOVID-19 - National COVID-19 Task Force",
+      "dinkes": "Central Sulawesi Health Department",
+      "sultengLawan": "Central Sulawesi Anti-COVID-19 Campaign",
+      "detexi": "Detexi - Health Technology Platform",
+      "banuaCoder": "Banua Coders - Development Team",
+      "ethicalHacker": "Ethical Hacker Indonesia - Security Partner"
+    }
+  },
+  "footer": {
+    "description": "Comprehensive COVID-19 data API for Central Sulawesi, providing real-time statistics and historical data.",
+    "createdBy": "Created by {author}",
+    "quickLinks": "Quick Links",
+    "apiBaseUrl": "API Base URL",
+    "picoApp": "PICO Mobile App",
+    "copyright": "© 2024 Banua Coders. All rights reserved."
+  },
+  "common": {
+    "centralSulawesi": "Central Sulawesi",
+    "nationalContext": "national context",
+    "author": "Fajrian Aidil Pratama"
+  }
+}

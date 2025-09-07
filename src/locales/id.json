@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "documentation": "Dokumentasi",
+    "apiReference": "Referensi API",
+    "liveApi": "Live API"
+  },
+  "hero": {
+    "badge": "Dipercaya developer • Fokus Sulawesi Tengah",
+    "title": "PICO SulTeng",
+    "subtitle": "COVID-19 API",
+    "description": "API data COVID-19 komprehensif untuk {region}",
+    "descriptionSub": "dengan {context} dan update real-time",
+    "tagline": "Dibangun untuk developer yang membutuhkan data kesehatan yang andal, cepat, dan terdokumentasi dengan baik",
+    "getStarted": "Mulai Sekarang",
+    "apiDocs": "Dokumentasi API",
+    "downloadApp": "Unduh Aplikasi PICO",
+    "apiStatus": "Status API: Live & Sehat"
+  },
+  "features": {
+    "title": "Fitur Canggih",
+    "subtitle": "Semua yang Anda butuhkan untuk integrasi data COVID-19 yang andal di Sulawesi Tengah",
+    "realTimeData": {
+      "title": "Data Real-time",
+      "description": "Statistik COVID-19 terkini untuk Sulawesi Tengah dengan update harian dan metrik komprehensif",
+      "badge": "Update live setiap 24 jam"
+    },
+    "highPerformance": {
+      "title": "Performa Tinggi",
+      "description": "Dibangun dengan Go untuk respons API yang sangat cepat dengan sistem paginasi hibrid yang cerdas",
+      "badge": "< 100ms respons rata-rata"
+    },
+    "secureReliable": {
+      "title": "Aman & Andal",
+      "description": "Penanganan error yang robust dan akses data yang aman"
+    },
+    "richDocumentation": {
+      "title": "Dokumentasi Lengkap",
+      "description": "Swagger UI interaktif dengan contoh-contoh"
+    },
+    "regionalFocus": {
+      "title": "Fokus Regional",
+      "description": "Khusus untuk data Sulawesi Tengah"
+    },
+    "developerFriendly": {
+      "title": "Ramah Developer",
+      "description": "RESTful API dengan respons JSON, dukungan CORS, dan parameter query fleksibel"
+    }
+  },
+  "apiPreview": {
+    "title": "Gambaran Cepat API",
+    "subtitle": "Endpoint penting untuk memulai",
+    "healthCheck": {
+      "title": "Health Check",
+      "description": "Cek status API dan konektivitas database"
+    },
+    "nationalData": {
+      "title": "Data Nasional",
+      "description": "Statistik COVID-19 nasional dan data terbaru"
+    },
+    "provinceData": {
+      "title": "Data Provinsi",
+      "description": "Informasi provinsi dan data kasus dengan paginasi"
+    },
+    "specificProvince": {
+      "title": "Provinsi Spesifik",
+      "description": "Data COVID-19 khusus Sulawesi Tengah"
+    }
+  },
+  "dataSources": {
+    "title": "Sumber Data Terpercaya",
+    "subtitle": "API kami mengagregasi data dari sumber terpercaya untuk memastikan akurasi dan kelengkapan",
+    "trustedBy": "Data diagregasi dari",
+    "partners": {
+      "inacovid": "INACOVID-19 - Gugus Tugas Nasional COVID-19",
+      "dinkes": "Dinas Kesehatan Sulawesi Tengah",
+      "sultengLawan": "Kampanye Sulteng Lawan COVID-19",
+      "detexi": "Detexi - Platform Teknologi Kesehatan",
+      "banuaCoder": "Banua Coders - Tim Pengembang",
+      "ethicalHacker": "Ethical Hacker Indonesia - Partner Keamanan"
+    }
+  },
+  "footer": {
+    "description": "API data COVID-19 komprehensif untuk Sulawesi Tengah, menyediakan statistik real-time dan data historis.",
+    "createdBy": "Dibuat oleh {author}",
+    "quickLinks": "Link Cepat",
+    "apiBaseUrl": "URL Dasar API",
+    "picoApp": "Aplikasi PICO Mobile",
+    "copyright": "© 2024 Banua Coders. Seluruh hak cipta dilindungi."
+  },
+  "common": {
+    "centralSulawesi": "Sulawesi Tengah",
+    "nationalContext": "konteks nasional",
+    "author": "Fajrian Aidil Pratama"
+  }
+}
