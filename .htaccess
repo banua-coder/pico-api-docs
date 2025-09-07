@@ -1,0 +1,123 @@
+# PICO SulTeng API Documentation Site Configuration
+# Combines Vue SPA routing + COVID-19 API Reverse Proxy
+
+# Enable rewrite engine
+RewriteEngine On
+RewriteBase /
+
+# =============================================================================
+# API PROXY CONFIGURATION (from your current setup)
+# =============================================================================
+
+# Add CORS headers for API requests
+<IfModule mod_headers.c>
+    # Handle preflight OPTIONS requests
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^api/v1/ [R=200,L]
+    
+    # Add CORS headers for API responses
+    <FilesMatch "\.(json)$">
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+        Header always set Access-Control-Max-Age "86400"
+    </FilesMatch>
+    
+    # Add CORS headers for API routes
+    <LocationMatch "^/api/v1/">
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    </LocationMatch>
+</IfModule>
+
+# Proxy API requests to port 8080 (main API proxy rules)
+RewriteCond %{REQUEST_URI} ^/api/v1/
+RewriteRule ^api/v1/(.*)$ http://localhost:8080/api/v1/$1 [P,L]
+
+# Handle root API endpoint
+RewriteRule ^api/v1/?$ http://localhost:8080/api/v1/ [P,L]
+
+# Optional: API documentation redirect
+RewriteRule ^api/?$ /api/v1/health [R=302,L]
+
+# =============================================================================
+# VUE SPA ROUTING CONFIGURATION (for documentation site)
+# =============================================================================
+
+# Handle Vue Router - redirect all non-file requests to index.html
+# BUT exclude API routes which are handled above
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule . /index.html [L]
+
+# =============================================================================
+# SECURITY HEADERS
+# =============================================================================
+
+<IfModule mod_headers.c>
+    # Security headers for API endpoints
+    <LocationMatch "^/api/">
+        Header always set X-Content-Type-Options nosniff
+        Header always set X-Frame-Options DENY
+        Header always set X-XSS-Protection "1; mode=block"
+        Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    </LocationMatch>
+    
+    # Security headers for documentation site
+    <LocationMatch "^(?!/api/)">
+        Header always set X-Frame-Options "SAMEORIGIN"
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set X-XSS-Protection "1; mode=block"
+        Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    </LocationMatch>
+</IfModule>
+
+# =============================================================================
+# PERFORMANCE OPTIMIZATION
+# =============================================================================
+
+# Cache static assets
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType application/woff2 "access plus 1 year"
+</IfModule>
+
+# =============================================================================
+# ERROR HANDLING
+# =============================================================================
+
+# Custom error pages for API proxy failures
+ErrorDocument 502 /api-down.html
+ErrorDocument 503 /api-down.html
+
+# =============================================================================
+# FILE PROTECTION
+# =============================================================================
+
+# Prevent access to sensitive files
+<Files ~ "^\.env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files ~ "watchdog\.log|api\.log">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect git files and other sensitive files
+<Files ~ "^\.git|^\.htaccess|^\.env|\.md$">
+    Order allow,deny
+    Deny from all
+</Files>
