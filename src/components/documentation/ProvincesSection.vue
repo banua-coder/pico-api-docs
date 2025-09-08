@@ -12,36 +12,81 @@
       </div>
       
       <div class="p-8">
-        <div class="grid lg:grid-cols-2 gap-8">
-          <div class="bg-gray-50 rounded-xl p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">{{ t('documentation.provinces.endpoint') }}</h3>
-            <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm">
-              <span class="text-green-400">GET</span> 
-              <span class="text-white">{{ apiBaseUrl }}/provinces</span>
-            </div>
-          </div>
-          
-          <div class="bg-indigo-50 rounded-xl p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">{{ t('documentation.provinces.queryParameters') }}</h3>
-            <div class="text-sm text-gray-600">
-              <p>{{ t('documentation.provinces.excludeLatestCase') }}</p>
-            </div>
+        <!-- Parameters Table -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Parameters</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Parameter</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Required</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr>
+                  <td class="py-3 px-4 font-mono text-pico-deep">exclude_latest_case</td>
+                  <td class="py-3 px-4 text-gray-600">boolean</td>
+                  <td class="py-3 px-4 text-gray-600">Exclude latest case data from response</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <div class="mt-8 flex flex-col sm:flex-row gap-4">
-          <button 
-            @click="testLiveApi"
-            :disabled="loading"
-            class="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg transition-colors"
+        <!-- Response Fields Table -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Fields</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Field</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">id</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Unique province identifier</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">name</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Province name</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">latest_case</td>
+                  <td class="py-3 px-4 text-gray-600">object</td>
+                  <td class="py-3 px-4 text-gray-600">Latest COVID-19 case data for the province</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono text-pico-deep">coordinates</td>
+                  <td class="py-3 px-4 text-gray-600">object</td>
+                  <td class="py-3 px-4 text-gray-600">Province geographic coordinates (lat, lng)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Try It Button -->
+        <div class="text-center">
+          <a 
+            href="https://pico-api.banuacoder.com/swagger/index.html" 
+            target="_blank"
+            class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
           >
-            {{ loading ? t('common.loading') : t('documentation.nationalLatest.tryLiveApi') }}
-          </button>
-        </div>
-
-        <div v-if="apiResponse" class="mt-8 bg-gray-900 rounded-xl p-6">
-          <h3 class="text-lg font-semibold text-white mb-4">{{ t('documentation.nationalLatest.response') }}</h3>
-          <pre class="text-green-400 text-sm overflow-x-auto"><code>{{ apiResponse }}</code></pre>
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+            {{ t('documentation.nationalLatest.tryLiveApi') }}
+          </a>
         </div>
       </div>
     </div>
@@ -49,7 +94,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 interface Props {
@@ -58,23 +102,4 @@ interface Props {
 
 defineProps<Props>()
 const { t } = useI18n()
-
-const apiBaseUrl = 'https://pico-api.banuacoder.com/api/v1'
-const apiResponse = ref<string | null>(null)
-const loading = ref(false)
-
-const testLiveApi = async () => {
-  loading.value = true
-  apiResponse.value = null
-  
-  try {
-    const response = await fetch(`${apiBaseUrl}/provinces`)
-    const data = await response.json()
-    apiResponse.value = JSON.stringify(data, null, 2)
-  } catch (error) {
-    apiResponse.value = `Error: ${error}`
-  } finally {
-    loading.value = false
-  }
-}
 </script>
