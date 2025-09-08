@@ -86,10 +86,10 @@ jobs:
             # Create PR using GitHub CLI
             PR_TITLE="chore: backmerge v${{ steps.version.outputs.version }} to develop"
             
-            cat > pr_body.md << 'PREOF'
+            cat > pr_body.md << EOF
             ## Automated Backmerge
             
-            This PR automatically backmerges changes from `main` to `develop` branch.
+            This PR automatically backmerges changes from \`main\` to \`develop\` branch.
             
             ### Source
             - **Original PR:** #${{ github.event.pull_request.number }}
@@ -98,7 +98,7 @@ jobs:
             - **Merged at:** ${{ github.event.pull_request.merged_at }}
             
             ### Branch Information
-            - **Source branch:** `${{ github.event.pull_request.head.ref }}`
+            - **Source branch:** \`${{ github.event.pull_request.head.ref }}\`
             - **Type:** ${{ github.event.pull_request.head.ref }}
             
             ### Actions Required
@@ -109,7 +109,7 @@ jobs:
             
             ---
             *This PR was automatically created by GitHub Actions workflow.*
-            PREOF
+            EOF
             
             # Create PR with review requirements
             # Uncomment --draft if you want PRs to be created as draft
@@ -136,10 +136,10 @@ jobs:
             # Create PR with conflict warning
             PR_TITLE="chore: backmerge v${{ steps.version.outputs.version }} to develop (conflicts)"
             
-            cat > pr_conflict_body.md << 'CONFLICT_EOF'
+            cat > pr_conflict_body.md << EOF
             ## ⚠️ Automated Backmerge with Conflicts
             
-            This PR attempts to backmerge changes from `main` to `develop` branch, but **conflicts were detected**.
+            This PR attempts to backmerge changes from \`main\` to \`develop\` branch, but **conflicts were detected**.
             
             ### Source
             - **Original PR:** #${{ github.event.pull_request.number }}
@@ -148,28 +148,28 @@ jobs:
             - **Merged at:** ${{ github.event.pull_request.merged_at }}
             
             ### Branch Information
-            - **Source branch:** `${{ github.event.pull_request.head.ref }}`
+            - **Source branch:** \`${{ github.event.pull_request.head.ref }}\`
             - **Type:** ${{ github.event.pull_request.head.ref }}
             
             ### ⚠️ Manual Actions Required
             1. Checkout the branch locally
-            2. Merge `main` and resolve conflicts manually
+            2. Merge \`main\` and resolve conflicts manually
             3. Push the resolved changes
             4. Request review and merge this PR
             
-            ```bash
+            \`\`\`bash
             git fetch origin
-            git checkout -b ${BACKMERGE_BRANCH} origin/${BACKMERGE_BRANCH}
+            git checkout -b \${BACKMERGE_BRANCH} origin/\${BACKMERGE_BRANCH}
             git merge origin/main
             # Resolve conflicts in your editor
             git add .
             git commit
-            git push origin ${BACKMERGE_BRANCH}
-            ```
+            git push origin \${BACKMERGE_BRANCH}
+            \`\`\`
             
             ---
             *This PR was automatically created by GitHub Actions workflow. Manual conflict resolution is required.*
-            CONFLICT_EOF
+            EOF
             
             gh pr create \
               --base develop \
