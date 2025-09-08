@@ -1,3 +1,10 @@
+## [v1.1.1] - 2025-09-08
+
+### Fixed
+
+- Correct changelog script arguments in create-release workflow (4b1f559)
+
+
 ## [v1.1.0] - 2025-09-08
 
 ### Added
