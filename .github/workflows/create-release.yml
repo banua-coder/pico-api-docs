@@ -1,0 +1,215 @@
+name: Create Release and Tag
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  create-release:
+    # Only run if PR was merged (not just closed) and came from release/* or hotfix/* branch
+    if: |
+      github.event.pull_request.merged == true &&
+      (startsWith(github.event.pull_request.head.ref, 'release/') || 
+       startsWith(github.event.pull_request.head.ref, 'hotfix/'))
+    
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pull-requests: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for changelog generation
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Extract version from branch name
+        id: version
+        run: |
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          if [[ $BRANCH_NAME == release/v* ]]; then
+            VERSION=$(echo $BRANCH_NAME | sed 's/release\/v//')
+            TYPE="release"
+            IS_PRERELEASE="false"
+          elif [[ $BRANCH_NAME == hotfix/v* ]]; then
+            VERSION=$(echo $BRANCH_NAME | sed 's/hotfix\/v//')
+            TYPE="hotfix"
+            IS_PRERELEASE="false"
+          fi
+          
+          # Validate version format
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "❌ Invalid version format: $VERSION"
+            echo "Version must be in format x.y.z"
+            exit 1
+          fi
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "type=$TYPE" >> $GITHUB_OUTPUT
+          echo "tag_name=v$VERSION" >> $GITHUB_OUTPUT
+          echo "is_prerelease=$IS_PRERELEASE" >> $GITHUB_OUTPUT
+          
+          echo "✅ Extracted version: $VERSION ($TYPE)"
+      
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          TAG_NAME="v${{ steps.version.outputs.version }}"
+          
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Tag $TAG_NAME already exists"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "✅ Tag $TAG_NAME does not exist, ready to create"
+          fi
+      
+      - name: Generate changelog for release
+        id: changelog
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          
+          echo "Generating changelog for version $VERSION..."
+          
+          # Generate changelog using the Ruby script
+          ruby scripts/generate_changelog.rb \
+            --version "$VERSION" \
+            --output "RELEASE_CHANGELOG.md"
+          
+          if [ -f "RELEASE_CHANGELOG.md" ]; then
+            echo "✅ Changelog generated successfully"
+            
+            # Save changelog content for release body (limit to reasonable size)
+            echo "changelog<<EOF" >> $GITHUB_OUTPUT
+            head -c 4000 RELEASE_CHANGELOG.md >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Failed to generate changelog"
+            exit 1
+          fi
+      
+      - name: Create Git tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          TAG_NAME="${{ steps.version.outputs.tag_name }}"
+          VERSION="${{ steps.version.outputs.version }}"
+          TYPE="${{ steps.version.outputs.type }}"
+          
+          # Create annotated tag
+          if [ "$TYPE" = "release" ]; then
+            TAG_MESSAGE="Release v$VERSION"
+          else
+            TAG_MESSAGE="Hotfix v$VERSION"
+          fi
+          
+          git tag -a "$TAG_NAME" -m "$TAG_MESSAGE"
+          git push origin "$TAG_NAME"
+          
+          echo "✅ Created and pushed tag: $TAG_NAME"
+      
+      - name: Create GitHub Release
+        if: steps.check_tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME="${{ steps.version.outputs.tag_name }}"
+          VERSION="${{ steps.version.outputs.version }}"
+          TYPE="${{ steps.version.outputs.type }}"
+          IS_PRERELEASE="${{ steps.version.outputs.is_prerelease }}"
+          
+          # Set release title and flags
+          if [ "$TYPE" = "release" ]; then
+            RELEASE_TITLE="🚀 Release v$VERSION"
+            RELEASE_FLAGS=""
+          else
+            RELEASE_TITLE="🔥 Hotfix v$VERSION"
+            RELEASE_FLAGS=""
+          fi
+          
+          # Add prerelease flag if needed
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            RELEASE_FLAGS="$RELEASE_FLAGS --prerelease"
+          fi
+          
+          # Create the GitHub release
+          cat > release_body.md << 'RELEASE_EOF'
+          ${{ steps.changelog.outputs.changelog }}
+          
+          ---
+          
+          ## 📦 Installation
+          
+          ### Docker
+          ```bash
+          docker pull ghcr.io/banua-coder/pico-api-docs:v${{ steps.version.outputs.version }}
+          ```
+          
+          ### Manual Download
+          Download the latest build artifacts from this release.
+          
+          ## 🔗 Related Links
+          
+          - **API Documentation**: https://pico-api-docs.banuacoder.com
+          - **Source Code**: https://github.com/banua-coder/pico-api-docs
+          - **Issues**: https://github.com/banua-coder/pico-api-docs/issues
+          
+          ## 📋 Changelog
+          
+          For detailed changes, see [CHANGELOG.md](https://github.com/banua-coder/pico-api-docs/blob/main/CHANGELOG.md)
+          RELEASE_EOF
+          
+          # Create the release
+          gh release create "$TAG_NAME" \
+            --title "$RELEASE_TITLE" \
+            --notes-file release_body.md \
+            --target main \
+            $RELEASE_FLAGS
+          
+          echo "✅ GitHub release created: $TAG_NAME"
+          
+          # Get release URL for summary
+          RELEASE_URL=$(gh release view "$TAG_NAME" --json url -q '.url')
+          echo "release_url=$RELEASE_URL" >> $GITHUB_OUTPUT
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Release Creation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Source PR:** #${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Source Branch:** \`${{ github.event.pull_request.head.ref }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** v${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Type:** ${{ steps.version.outputs.type }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag:** \`${{ steps.version.outputs.tag_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.check_tag.outputs.exists }}" == "true" ]; then
+            echo "⚠️ **Status:** Skipped - tag already exists" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **Status:** Release created successfully" >> $GITHUB_STEP_SUMMARY
+            if [ -n "${{ steps.create-release.outputs.release_url || '' }}" ]; then
+              echo "🔗 **Release URL:** ${{ steps.create-release.outputs.release_url }}" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
+          echo "1. ✅ Tag and release created" >> $GITHUB_STEP_SUMMARY
+          echo "2. 🔄 Backmerge to develop will run automatically" >> $GITHUB_STEP_SUMMARY
+          echo "3. 🚀 Deployment pipeline will trigger automatically" >> $GITHUB_STEP_SUMMARY
