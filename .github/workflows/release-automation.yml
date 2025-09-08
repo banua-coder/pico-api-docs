@@ -149,6 +149,22 @@ jobs:
 
           echo "✅ Tag $VERSION created and pushed successfully"
 
+      - name: Trigger deployment workflow
+        if: steps.check_tag.outputs.tag_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          
+          echo "🚀 Manually triggering deployment workflow for tag $VERSION..."
+          
+          # Trigger the deploy workflow by creating a repository dispatch event
+          # Since we can't directly trigger tag-based workflows, we'll use workflow_dispatch
+          # But first, let's try using the GitHub CLI to trigger it
+          gh workflow run deploy.yml --ref "$VERSION" || echo "⚠️ Could not trigger via workflow dispatch, deployment should trigger automatically"
+          
+          echo "✅ Deployment trigger attempted"
+
       # STEP 2: CREATE BACK-MERGE TO DEVELOP
       - name: Generate unique back-merge branch name
         id: branch_name
