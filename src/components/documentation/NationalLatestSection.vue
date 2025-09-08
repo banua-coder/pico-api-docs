@@ -143,7 +143,7 @@
         <div class="mt-6 text-center">
           <a href="https://pico-api.banuacoder.com/swagger/index.html" 
              target="_blank" 
-             class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl">
+             class="inline-flex items-center px-6 py-3 bg-pico-blue hover:bg-pico-deep text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>

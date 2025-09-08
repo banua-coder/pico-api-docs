@@ -40,7 +40,7 @@
           <button 
             @click="testHealthCheck"
             :disabled="loading"
-            class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg transition-colors"
+            class="bg-pico-blue hover:bg-pico-deep disabled:bg-gray-400 text-white px-6 py-2 rounded-lg transition-colors"
           >
             {{ loading ? t('common.loading') : t('documentation.nationalLatest.tryLiveApi') }}
           </button>
