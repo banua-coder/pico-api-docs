@@ -117,6 +117,10 @@ jobs:
           VERSION="${{ steps.extract_version.outputs.version }}"
           BRANCH_TYPE="${{ steps.extract_version.outputs.branch_type }}"
           
+          # Create a new branch for the release preparation
+          PREP_BRANCH="chore/prepare-${BRANCH_TYPE}-v${VERSION}"
+          git checkout -b "$PREP_BRANCH"
+          
           # Stage changes
           git add -A
           
@@ -132,11 +136,12 @@ jobs:
               git commit -m "fix(hotfix): prepare hotfix v$VERSION"
             fi
             
-            # Push changes
-            git push origin "${{ github.event.ref }}"
+            # Push the new branch
+            git push origin "$PREP_BRANCH"
             
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "✅ Changes committed and pushed"
+            echo "prep_branch=$PREP_BRANCH" >> $GITHUB_OUTPUT
+            echo "✅ Changes committed and pushed to $PREP_BRANCH"
           fi
       
       - name: Create Pull Request
@@ -146,24 +151,25 @@ jobs:
         run: |
           VERSION="${{ steps.extract_version.outputs.version }}"
           BRANCH_TYPE="${{ steps.extract_version.outputs.branch_type }}"
-          BRANCH_NAME="${{ github.event.ref }}"
+          PREP_BRANCH="${{ steps.commit.outputs.prep_branch }}"
+          SOURCE_BRANCH="${{ github.event.ref }}"
           
-          # Determine target branch
+          # Determine target branch (should be the release branch)
+          TARGET_BRANCH="$SOURCE_BRANCH"
+          
           if [ "$BRANCH_TYPE" = "release" ]; then
-            TARGET_BRANCH="main"
-            PR_TITLE="chore(release): release v$VERSION"
+            PR_TITLE="chore(release): prepare release v$VERSION"
             LABELS="release,auto-generated"
           else
-            TARGET_BRANCH="main"
-            PR_TITLE="fix(hotfix): hotfix v$VERSION"
+            PR_TITLE="fix(hotfix): prepare hotfix v$VERSION"
             LABELS="hotfix,auto-generated,priority:high"
           fi
           
           # Create PR body
           cat > pr_body.md << 'PREOF'
-          ## 🚀 ${{ steps.extract_version.outputs.branch_type == 'release' && 'Release' || 'Hotfix' }} v${{ steps.extract_version.outputs.version }}
+          ## 🚀 Prepare ${{ steps.extract_version.outputs.branch_type == 'release' && 'Release' || 'Hotfix' }} v${{ steps.extract_version.outputs.version }}
           
-          This PR contains the following changes for v${{ steps.extract_version.outputs.version }}:
+          This PR prepares the following changes for v${{ steps.extract_version.outputs.version }}:
           
           ### 📋 Changes Included
           - ✅ Version bumped to v${{ steps.extract_version.outputs.version }}
@@ -173,26 +179,21 @@ jobs:
           
           ${{ steps.changelog.outputs.changelog }}
           
-          ### ✔️ Checklist
-          - [ ] All tests passing
-          - [ ] Documentation updated (if needed)
-          - [ ] Breaking changes documented (if any)
-          - [ ] Ready for production
-          
-          ### 🔄 Post-Merge Actions
-          After merging this PR:
-          1. A tag `v${{ steps.extract_version.outputs.version }}` will be created automatically
-          2. A GitHub release will be created with the changelog
-          3. Changes will be backmerged to `develop` branch
+          ### ✔️ Next Steps
+          1. Review and merge this PR into `${{ github.event.ref }}`
+          2. Create a PR from `${{ github.event.ref }}` to `main`
+          3. After merging to `main`, a tag `v${{ steps.extract_version.outputs.version }}` will be created
+          4. A GitHub release will be created with the changelog
+          5. Changes will be backmerged to `develop` branch
           
           ---
           *This PR was automatically generated when the ${{ github.event.ref }} branch was created.*
           PREOF
           
-          # Create the pull request
+          # Create the pull request from prep branch to release/hotfix branch
           gh pr create \
             --base "$TARGET_BRANCH" \
-            --head "$BRANCH_NAME" \
+            --head "$PREP_BRANCH" \
             --title "$PR_TITLE" \
             --body-file pr_body.md \
             --label "$LABELS"
