@@ -63,21 +63,29 @@ class ChangelogGenerator
     range = @from_tag ? "#{@from_tag}..#{@to_ref}" : @to_ref
     merge_flag = @include_merge_commits ? '' : '--no-merges'
     
-    # Get commit information in a parseable format
-    format = '%H|%s|%b|%an|%ae|%ad'
-    commits_raw = `git log #{merge_flag} --format="#{format}" --date=short #{range}`
+    # Get commit information in a parseable format using a unique delimiter
+    delimiter = '|||DELIMITER|||'
+    format = "%H#{delimiter}%s#{delimiter}%b#{delimiter}%an#{delimiter}%ae#{delimiter}%ad"
+    commits_raw = `git log #{merge_flag} --format="#{format}#{delimiter}END" --date=short #{range}`
     
-    commits_raw.split("\n").map do |line|
-      parts = line.split('|')
-      {
+    commits = []
+    commits_raw.split("#{delimiter}END").each do |commit_block|
+      next if commit_block.strip.empty?
+      
+      parts = commit_block.split(delimiter)
+      next unless parts && parts.length >= 6
+      
+      commits << {
         hash: parts[0][0..7], # Short hash
-        subject: parts[1],
-        body: parts[2],
-        author: parts[3],
-        email: parts[4],
-        date: parts[5]
+        subject: parts[1] || '',
+        body: parts[2] || '',
+        author: parts[3] || '',
+        email: parts[4] || '',
+        date: parts[5] || ''
       }
     end
+    
+    commits
   end
 
   def group_commits_by_type(commits)
