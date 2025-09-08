@@ -44,27 +44,27 @@ const dataSources: DataSource[] = [
   {
     image: '/dinkes-sulteng.webp',
     alt: 'Dinkes Sulteng',
-    url: 'https://dinkes.sultengprov.go.id'
+    url: 'https://dinkes.sultengprov.go.id/category/covid-19/'
   },
   {
     image: '/sulteng-lawan-covid.webp',
     alt: 'Sulteng Lawan COVID',
-    url: 'https://covid19.sultengprov.go.id'
+    url: 'https://www.instagram.com/sultenglawancovid/'
   },
   {
     image: '/detexi.webp',
     alt: 'Detexi',
-    url: 'https://detexi.com'
+    url: 'https://detexi.id'
   },
   {
     image: '/banua-coder.webp',
-    alt: 'Banua Coders',
-    url: 'https://banuacoders.com'
+    alt: 'Banua Coder',
+    url: 'https://banuacoder.com'
   },
   {
     image: '/ethical-hacker-indonesia.webp',
     alt: 'Ethical Hacker Indonesia',
-    url: 'https://ethicalhacker.id'
+    url: 'https://hack.co.id'
   }
 ]
 </script>
