@@ -1,0 +1,186 @@
+name: Backmerge to Develop
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  backmerge:
+    # Only run if PR was merged (not just closed) and came from release/* or hotfix/* branch
+    if: |
+      github.event.pull_request.merged == true &&
+      (startsWith(github.event.pull_request.head.ref, 'release/') || 
+       startsWith(github.event.pull_request.head.ref, 'hotfix/'))
+    
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for all branches
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Check if develop branch exists
+        id: check_develop
+        run: |
+          if git ls-remote --heads origin develop | grep -q develop; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Develop branch does not exist. Skipping backmerge."
+          fi
+      
+      - name: Create backmerge pull request
+        if: steps.check_develop.outputs.exists == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create a unique branch name for the backmerge
+          BACKMERGE_BRANCH="backmerge/main-to-develop-$(date +%Y%m%d-%H%M%S)"
+          
+          # Fetch and checkout develop
+          git fetch origin develop:develop
+          
+          # Create new branch from develop
+          git checkout -b $BACKMERGE_BRANCH develop
+          
+          # Merge main into the backmerge branch
+          echo "Attempting to merge main into $BACKMERGE_BRANCH..."
+          
+          # Try to merge main
+          if git merge origin/main --no-edit; then
+            echo "✅ Merge successful, no conflicts"
+            
+            # Push the backmerge branch
+            git push origin $BACKMERGE_BRANCH
+            
+            # Create PR using GitHub CLI
+            PR_TITLE="🔄 Backmerge: main → develop"
+            
+            cat > pr_body.md << 'PREOF'
+            ## Automated Backmerge
+            
+            This PR automatically backmerges changes from `main` to `develop` branch.
+            
+            ### Source
+            - **Original PR:** #${{ github.event.pull_request.number }}
+            - **Title:** ${{ github.event.pull_request.title }}
+            - **Merged by:** @${{ github.event.pull_request.merged_by.login }}
+            - **Merged at:** ${{ github.event.pull_request.merged_at }}
+            
+            ### Branch Information
+            - **Source branch:** `${{ github.event.pull_request.head.ref }}`
+            - **Type:** ${{ github.event.pull_request.head.ref }}
+            
+            ### Actions Required
+            - 👀 **Review Required** - This PR needs approval before merging
+            - ✅ Ensure all CI/CD checks pass
+            - ✅ Review changes for any conflicts or issues
+            - ✅ Merge after approval
+            
+            ---
+            *This PR was automatically created by GitHub Actions workflow.*
+            PREOF
+            
+            # Create PR with review requirements
+            # Uncomment --draft if you want PRs to be created as draft
+            # Add --reviewer "username1,username2" to auto-assign reviewers
+            gh pr create \
+              --base develop \
+              --head $BACKMERGE_BRANCH \
+              --title "$PR_TITLE" \
+              --body-file pr_body.md \
+              --label "chore,auto-generated" \
+              --no-maintainer-edit
+            
+            echo "✅ Pull request created successfully"
+            
+          else
+            echo "❌ Merge conflicts detected"
+            
+            # Reset merge
+            git merge --abort
+            
+            # Push the branch anyway for manual resolution
+            git push origin $BACKMERGE_BRANCH
+            
+            # Create PR with conflict warning
+            PR_TITLE="🔄 Backmerge: main → develop (Manual Resolution Required)"
+            
+            cat > pr_conflict_body.md << 'PREOF'
+            ## ⚠️ Automated Backmerge with Conflicts
+            
+            This PR attempts to backmerge changes from `main` to `develop` branch, but **conflicts were detected**.
+            
+            ### Source
+            - **Original PR:** #${{ github.event.pull_request.number }}
+            - **Title:** ${{ github.event.pull_request.title }}
+            - **Merged by:** @${{ github.event.pull_request.merged_by.login }}
+            - **Merged at:** ${{ github.event.pull_request.merged_at }}
+            
+            ### Branch Information
+            - **Source branch:** `${{ github.event.pull_request.head.ref }}`
+            - **Type:** ${{ github.event.pull_request.head.ref }}
+            
+            ### ⚠️ Manual Actions Required
+            1. Checkout the branch locally
+            2. Merge `main` and resolve conflicts manually
+            3. Push the resolved changes
+            4. Request review and merge this PR
+            
+            ```bash
+            git fetch origin
+            git checkout -b ${BACKMERGE_BRANCH} origin/${BACKMERGE_BRANCH}
+            git merge origin/main
+            # Resolve conflicts in your editor
+            git add .
+            git commit
+            git push origin ${BACKMERGE_BRANCH}
+            ```
+            
+            ---
+            *This PR was automatically created by GitHub Actions workflow. Manual conflict resolution is required.*
+            PREOF
+            
+            gh pr create \
+              --base develop \
+              --head $BACKMERGE_BRANCH \
+              --title "$PR_TITLE" \
+              --body-file pr_conflict_body.md \
+              --label "chore,auto-generated,has-conflicts" \
+              --no-maintainer-edit
+            
+            echo "⚠️ Pull request created with conflict warning"
+            
+            # Exit with error to mark the job as failed
+            exit 1
+          fi
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Backmerge Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Source PR:** #${{ github.event.pull_request.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Source Branch:** \`${{ github.event.pull_request.head.ref }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target Branch:** \`develop\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered by:** @${{ github.event.pull_request.merged_by.login }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.check_develop.outputs.exists }}" == "false" ]; then
+            echo "⚠️ **Status:** Skipped - develop branch does not exist" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **Status:** Backmerge PR created" >> $GITHUB_STEP_SUMMARY
+          fi
