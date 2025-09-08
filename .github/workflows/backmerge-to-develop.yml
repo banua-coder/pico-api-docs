@@ -67,7 +67,7 @@ jobs:
             git push origin $BACKMERGE_BRANCH
             
             # Create PR using GitHub CLI
-            PR_TITLE="🔄 Backmerge: main → develop"
+            PR_TITLE="chore: backmerge main to develop"
             
             cat > pr_body.md << 'PREOF'
             ## Automated Backmerge
@@ -117,7 +117,7 @@ jobs:
             git push origin $BACKMERGE_BRANCH
             
             # Create PR with conflict warning
-            PR_TITLE="🔄 Backmerge: main → develop (Manual Resolution Required)"
+            PR_TITLE="chore: backmerge main to develop (conflicts)"
             
             cat > pr_conflict_body.md << 'PREOF'
             ## ⚠️ Automated Backmerge with Conflicts
