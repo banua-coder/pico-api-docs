@@ -56,7 +56,7 @@
                 <div class="bg-blue-50 rounded-lg p-4 text-sm">
                   <p class="font-semibold text-blue-900 mb-2">{{ t('documentation.glossary.reproductionRate.epiEstimTitle') }}</p>
                   <ul class="space-y-1 text-blue-800">
-                    <li v-for="(detail, index) in $tm('documentation.glossary.reproductionRate.methodDetails')" :key="index">
+                    <li v-for="(detail, index) in tm('documentation.glossary.reproductionRate.methodDetails')" :key="index">
                       • {{ detail }}
                     </li>
                   </ul>
@@ -336,5 +336,5 @@ interface Props {
 }
 
 defineProps<Props>()
-const { t } = useI18n()
+const { t, tm } = useI18n()
 </script>

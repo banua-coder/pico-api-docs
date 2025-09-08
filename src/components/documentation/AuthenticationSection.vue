@@ -28,7 +28,7 @@
           <div class="bg-blue-50 rounded-xl p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">{{ t('documentation.authentication.rateLimiting') }}</h3>
             <ul class="space-y-2 text-gray-600">
-              <li v-for="(detail, index) in $tm('documentation.authentication.rateLimitDetails')" :key="index" class="flex items-center">
+              <li v-for="(detail, index) in tm('documentation.authentication.rateLimitDetails')" :key="index" class="flex items-center">
                 <svg class="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
@@ -40,7 +40,7 @@
           <div class="bg-purple-50 rounded-xl p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">{{ t('documentation.authentication.bestPractices') }}</h3>
             <ul class="space-y-2 text-gray-600">
-              <li v-for="(practice, index) in $tm('documentation.authentication.practiceDetails')" :key="index" class="flex items-center">
+              <li v-for="(practice, index) in tm('documentation.authentication.practiceDetails')" :key="index" class="flex items-center">
                 <svg class="w-4 h-4 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path>
                 </svg>
@@ -62,5 +62,5 @@ interface Props {
 }
 
 defineProps<Props>()
-const { t, tm: $tm } = useI18n()
+const { t, tm } = useI18n()
 </script>
