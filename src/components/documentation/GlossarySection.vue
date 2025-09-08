@@ -82,37 +82,23 @@
                   <div class="bg-white rounded-lg p-4 border border-purple-200">
                     <div class="space-y-4 text-sm">
                       <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-2">1. Calculate total infectiousness:</div>
-                        <mjx-container class="text-center">
-                          <mathjax>
-                            $$\lambda_t = \sum_{s=1}^{t-1} I_{t-s} \cdot w_s$$
-                          </mathjax>
-                        </mjx-container>
+                        <div class="font-semibold mb-3">1. Calculate total infectiousness:</div>
+                        <MathFormula formula="\lambda_t = \sum_{s=1}^{t-1} I_{t-s} \cdot w_s" />
                       </div>
                       <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-2">2. Where:</div>
-                        <mjx-container class="text-center">
-                          <mathjax>
-                            $$I_{t-s} = \text{incidence at time } (t-s)$$
-                            $$w_s = \text{serial interval probability}$$
-                          </mathjax>
-                        </mjx-container>
+                        <div class="font-semibold mb-3">2. Where:</div>
+                        <div class="space-y-2">
+                          <MathFormula formula="I_{t-s} = \text{incidence at time } (t-s)" />
+                          <MathFormula formula="w_s = \text{serial interval probability}" />
+                        </div>
                       </div>
                       <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-2">3. Posterior distribution:</div>
-                        <mjx-container class="text-center">
-                          <mathjax>
-                            $$R_t | \text{data} \sim \text{Gamma}\left(a + \sum I_t, \, b + \sum \lambda_t\right)$$
-                          </mathjax>
-                        </mjx-container>
+                        <div class="font-semibold mb-3">3. Posterior distribution:</div>
+                        <MathFormula formula="R_t | \text{data} \sim \text{Gamma}\left(a + \sum I_t, \, b + \sum \lambda_t\right)" />
                       </div>
                       <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-2">4. Point estimate:</div>
-                        <mjx-container class="text-center">
-                          <mathjax>
-                            $$\mathbb{E}[R_t | \text{data}] = \frac{a + \sum I_t}{b + \sum \lambda_t}$$
-                          </mathjax>
-                        </mjx-container>
+                        <div class="font-semibold mb-3">4. Point estimate:</div>
+                        <MathFormula formula="\mathbb{E}[R_t | \text{data}] = \frac{a + \sum I_t}{b + \sum \lambda_t}" />
                       </div>
                     </div>
                   </div>
@@ -244,6 +230,8 @@
 </template>
 
 <script setup lang="ts">
+import MathFormula from '@/components/MathFormula.vue'
+
 interface Props {
   isActive: boolean
 }
