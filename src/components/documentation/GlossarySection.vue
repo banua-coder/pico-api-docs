@@ -80,18 +80,39 @@
                   <p class="text-purple-800 text-sm mb-4">The reproduction number Rt is estimated using Bayesian inference with the following key components:</p>
                   
                   <div class="bg-white rounded-lg p-4 border border-purple-200">
-                    <div class="space-y-3 text-sm font-mono">
-                      <div class="text-purple-900 bg-purple-25 p-2 rounded border-l-4 border-purple-300">
-                        1. Calculate total infectiousness: λt = Σ(s=1 to t-1) I(t-s) × w(s)
+                    <div class="space-y-4 text-sm">
+                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2">1. Calculate total infectiousness:</div>
+                        <mjx-container class="text-center">
+                          <mathjax>
+                            $$\lambda_t = \sum_{s=1}^{t-1} I_{t-s} \cdot w_s$$
+                          </mathjax>
+                        </mjx-container>
                       </div>
-                      <div class="text-purple-900 bg-purple-25 p-2 rounded border-l-4 border-purple-300">
-                        2. Where I(t-s) = incidence at time (t-s), w(s) = serial interval probability
+                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2">2. Where:</div>
+                        <mjx-container class="text-center">
+                          <mathjax>
+                            $$I_{t-s} = \text{incidence at time } (t-s)$$
+                            $$w_s = \text{serial interval probability}$$
+                          </mathjax>
+                        </mjx-container>
                       </div>
-                      <div class="text-purple-900 bg-purple-25 p-2 rounded border-l-4 border-purple-300">
-                        3. Posterior distribution: Rt|data ~ Gamma(a + Σ I(t), b + Σ λ(t))
+                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2">3. Posterior distribution:</div>
+                        <mjx-container class="text-center">
+                          <mathjax>
+                            $$R_t | \text{data} \sim \text{Gamma}\left(a + \sum I_t, \, b + \sum \lambda_t\right)$$
+                          </mathjax>
+                        </mjx-container>
                       </div>
-                      <div class="text-purple-900 bg-purple-25 p-2 rounded border-l-4 border-purple-300">
-                        4. Point estimate: E[Rt|data] = (a + Σ I(t)) / (b + Σ λ(t))
+                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2">4. Point estimate:</div>
+                        <mjx-container class="text-center">
+                          <mathjax>
+                            $$\mathbb{E}[R_t | \text{data}] = \frac{a + \sum I_t}{b + \sum \lambda_t}$$
+                          </mathjax>
+                        </mjx-container>
                       </div>
                     </div>
                   </div>
