@@ -98,8 +98,127 @@
         <!-- Response Fields Table -->
         <div class="mb-8">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Fields</h3>
-          <div class="bg-gray-50 rounded-lg p-4 text-gray-600">
-            <p>Returns paginated province case data. Each province object contains the same COVID-19 case structure as national data with province-specific information.</p>
+          
+          <!-- Province Structure Note -->
+          <div class="bg-blue-50 rounded-lg p-4 mb-4 border-l-4 border-blue-400">
+            <div class="flex">
+              <svg class="w-5 h-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div class="text-blue-800">
+                <p class="font-medium">Provincial Data Structure</p>
+                <p class="text-sm">Returns array of province COVID-19 data with enhanced ODP/PDP tracking. Each object includes:</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Field</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">date</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Date of the case report (YYYY-MM-DD format)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">day</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Day number since first case reported</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">province.id</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Province ID (e.g., '72' for Sulawesi Tengah)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">province.name</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Province name</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.positive</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily new confirmed cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.recovered</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily new recovered cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.deceased</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily new death cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.odp.active</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily active ODP (Orang Dalam Pengawasan)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.odp.finished</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily finished ODP observations</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.pdp.active</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily active PDP (Pasien Dalam Pengawasan)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.pdp.finished</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily finished PDP supervisions</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.positive</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total confirmed cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.recovered</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total recovered cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.deceased</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total death cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.active</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Current active cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.odp.total</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total ODP cases (active + finished)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.pdp.total</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total PDP cases (active + finished)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.*</td>
+                  <td class="py-3 px-4 text-gray-600">float</td>
+                  <td class="py-3 px-4 text-gray-600">Percentage breakdown (active, recovered, deceased)</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate.*</td>
+                  <td class="py-3 px-4 text-gray-600">object</td>
+                  <td class="py-3 px-4 text-gray-600">Reproduction rate with confidence bounds</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
