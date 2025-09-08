@@ -1,46 +1,7 @@
 <template>
   <div class="min-h-screen bg-white">
     <!-- Navigation -->
-    <nav ref="navbar" class="fixed w-full top-0 z-50 transition-all duration-500 ease-out" :class="navbarClass">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <div class="flex items-center">
-            <div class="flex-shrink-0 flex items-center space-x-3">
-              <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-10 w-auto">
-              <h1 class="text-2xl font-bold gradient-text">PICO SulTeng</h1>
-            </div>
-          </div>
-          <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <router-link to="/" class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
-                {{ t('nav.home') }}
-              </router-link>
-              <router-link to="/docs" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
-                {{ t('nav.documentation') }}
-              </router-link>
-              <router-link to="/api" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
-                {{ t('nav.apiReference') }}
-              </router-link>
-              <a href="https://pico-api.banuacoder.com/api/v1" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                {{ t('nav.liveApi') }}
-              </a>
-              <!-- Language Toggle -->
-              <div class="flex items-center space-x-2 ml-4">
-                <button 
-                  @click="toggleLanguage"
-                  class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors bg-white/80 backdrop-blur-sm"
-                >
-                  <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-                  </svg>
-                  <span class="text-sm font-medium text-gray-700">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <Navigation />
 
     <!-- Hero Section -->
     <div class="relative overflow-hidden min-h-screen flex items-center pt-16">
@@ -78,7 +39,7 @@
       </div>
       
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           <!-- Left Content -->
           <div class="text-center lg:text-left">
             <!-- Badge -->
@@ -90,21 +51,21 @@
             </div>
             
             <!-- Main heading with improved typography -->
-            <h1 class="text-4xl md:text-5xl xl:text-6xl font-extrabold tracking-tight mb-8 leading-[1.1]">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-extrabold tracking-tight mb-6 md:mb-8 leading-[1.1]">
               <span class="block">
                 <span class="gradient-text inline-block animate-fade-in-up">{{ t('hero.title').split(' ')[0] }}</span>
                 <span class="text-gray-800 inline-block animate-fade-in-up animation-delay-200 ml-2">{{ t('hero.title').split(' ')[1] }}</span>
               </span>
-              <span class="block text-2xl md:text-3xl xl:text-4xl text-gray-600 mt-3 font-bold animate-fade-in-up animation-delay-400">{{ t('hero.subtitle') }}</span>
+              <span class="block text-xl sm:text-2xl md:text-3xl xl:text-4xl text-gray-600 mt-2 md:mt-3 font-bold animate-fade-in-up animation-delay-400">{{ t('hero.subtitle') }}</span>
             </h1>
             
             <!-- Enhanced subtitle with better typography -->
-            <div class="space-y-3 mb-10 animate-fade-in-up animation-delay-600">
-              <p class="text-lg md:text-xl text-gray-700 font-medium leading-relaxed max-w-xl lg:max-w-none">
+            <div class="space-y-3 mb-8 md:mb-10 animate-fade-in-up animation-delay-600">
+              <p class="text-base sm:text-lg md:text-xl text-gray-700 font-medium leading-relaxed max-w-xl lg:max-w-none">
                 <span v-html="t('hero.description', { region: `<span class='font-bold text-blue-600'>${t('common.centralSulawesi')}</span>` })"></span>
                 <span class="block mt-1" v-html="t('hero.descriptionSub', { context: `<span class='font-semibold text-indigo-600'>${t('common.nationalContext')}</span>` })"></span>
               </p>
-              <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+              <p class="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
                 {{ t('hero.tagline') }}
               </p>
             </div>
@@ -162,7 +123,7 @@
           </div>
 
           <!-- Right Content - API Demo -->
-          <div class="lg:block animate-fade-in-up animation-delay-1200">
+          <div class="order-first lg:order-last animate-fade-in-up animation-delay-1200 mt-8 lg:mt-0">
             <div class="relative">
               <!-- Floating decoration elements -->
               <div class="absolute -top-3 -right-3 w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-20 animate-pulse"></div>
@@ -189,7 +150,7 @@
                 </div>
               
                 <!-- Code Content -->
-                <div class="p-4 font-mono text-xs relative bg-gray-900/50">
+                <div class="p-3 sm:p-4 font-mono text-xs sm:text-sm relative bg-gray-900/50">
                 <!-- Request -->
                 <div class="mb-6">
                   <div class="text-green-400 mb-2 typing-animation">
@@ -251,48 +212,26 @@
         </div>
         
         <!-- Data sources section integrated in hero -->
-        <div class="mt-20 text-center">
-          <p class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-8">{{ t('dataSources.trustedBy') }}</p>
-          <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60 hover:opacity-80 transition-opacity duration-300">
-            <div class="flex items-center justify-center h-12 w-32 grayscale hover:grayscale-0 transition-all duration-300">
-              <img src="/inacovid.webp" alt="INACOVID-19" class="max-h-8 w-auto">
-            </div>
-            <div class="flex items-center justify-center h-12 w-32 grayscale hover:grayscale-0 transition-all duration-300">
-              <img src="/dinkes-sulteng.webp" alt="Dinkes Sulteng" class="max-h-8 w-auto">
-            </div>
-            <div class="flex items-center justify-center h-12 w-32 grayscale hover:grayscale-0 transition-all duration-300">
-              <img src="/sulteng-lawan-covid.webp" alt="Sulteng Lawan COVID" class="max-h-8 w-auto">
-            </div>
-            <div class="flex items-center justify-center h-12 w-32 grayscale hover:grayscale-0 transition-all duration-300">
-              <img src="/detexi.webp" alt="Detexi" class="max-h-8 w-auto">
-            </div>
-            <div class="flex items-center justify-center h-12 w-32 grayscale hover:grayscale-0 transition-all duration-300">
-              <img src="/banua-coder.webp" alt="Banua Coders" class="max-h-8 w-auto">
-            </div>
-            <div class="flex items-center justify-center h-12 w-32 grayscale hover:grayscale-0 transition-all duration-300">
-              <img src="/ethical-hacker-indonesia.webp" alt="Ethical Hacker Indonesia" class="max-h-8 w-auto">
-            </div>
-          </div>
-        </div>
+        <DataSources />
       </div>
     </div>
 
     <!-- Features Section -->
-    <div class="py-24 bg-gradient-to-b from-white to-gray-50">
+    <div class="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <div class="text-center mb-12 md:mb-20">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
             {{ t('features.title') }}
           </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             {{ t('features.subtitle') }}
           </p>
         </div>
         
         <!-- Bento Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 max-w-6xl mx-auto">
           <!-- Large Feature Card -->
-          <div class="md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-8 rounded-3xl border border-blue-100/50 hover:border-blue-200/70 transition-all duration-300 hover:shadow-lg group">
+          <div class="sm:col-span-2 md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6 md:p-8 rounded-3xl border border-blue-100/50 hover:border-blue-200/70 transition-all duration-300 hover:shadow-lg group">
             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -311,7 +250,7 @@
           </div>
 
           <!-- Performance Card -->
-          <div class="md:col-span-2 lg:col-span-3 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 p-8 rounded-3xl border border-green-100/50 hover:border-green-200/70 transition-all duration-300 hover:shadow-lg group">
+          <div class="sm:col-span-2 md:col-span-2 lg:col-span-3 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 p-6 md:p-8 rounded-3xl border border-green-100/50 hover:border-green-200/70 transition-all duration-300 hover:shadow-lg group">
             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -325,42 +264,42 @@
           </div>
 
           <!-- Security Card -->
-          <div class="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 p-6 rounded-3xl border border-purple-100/50 hover:border-purple-200/70 transition-all duration-300 hover:shadow-lg group">
+          <div class="sm:col-span-1 md:col-span-2 lg:col-span-2 bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 p-4 md:p-6 rounded-3xl border border-purple-100/50 hover:border-purple-200/70 transition-all duration-300 hover:shadow-lg group">
             <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Secure & Reliable</h3>
-            <p class="text-gray-600">Robust error handling and secure data access</p>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">Secure & Reliable</h3>
+            <p class="text-sm md:text-base text-gray-600">Robust error handling and secure data access</p>
           </div>
 
           <!-- Documentation Card -->
-          <div class="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 p-6 rounded-3xl border border-yellow-100/50 hover:border-yellow-200/70 transition-all duration-300 hover:shadow-lg group">
+          <div class="sm:col-span-1 md:col-span-2 lg:col-span-2 bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 p-4 md:p-6 rounded-3xl border border-yellow-100/50 hover:border-yellow-200/70 transition-all duration-300 hover:shadow-lg group">
             <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Rich Documentation</h3>
-            <p class="text-gray-600">Interactive Swagger UI with examples</p>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">Rich Documentation</h3>
+            <p class="text-sm md:text-base text-gray-600">Interactive Swagger UI with examples</p>
           </div>
 
           <!-- Regional Focus Card -->
-          <div class="md:col-span-2 lg:col-span-2 bg-gradient-to-br from-red-50 via-rose-50 to-pink-50 p-6 rounded-3xl border border-red-100/50 hover:border-red-200/70 transition-all duration-300 hover:shadow-lg group">
+          <div class="sm:col-span-2 md:col-span-4 lg:col-span-2 bg-gradient-to-br from-red-50 via-rose-50 to-pink-50 p-4 md:p-6 rounded-3xl border border-red-100/50 hover:border-red-200/70 transition-all duration-300 hover:shadow-lg group">
             <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Regional Focus</h3>
-            <p class="text-gray-600">Specialized for Central Sulawesi data</p>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">Regional Focus</h3>
+            <p class="text-sm md:text-base text-gray-600">Specialized for Central Sulawesi data</p>
           </div>
 
           <!-- Developer Friendly - Full width -->
-          <div class="md:col-span-4 lg:col-span-6 bg-gradient-to-r from-gray-50 via-slate-50 to-gray-50 p-8 rounded-3xl border border-gray-200/50 hover:border-gray-300/70 transition-all duration-300 hover:shadow-lg group">
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+          <div class="sm:col-span-2 md:col-span-4 lg:col-span-6 bg-gradient-to-r from-gray-50 via-slate-50 to-gray-50 p-6 md:p-8 rounded-3xl border border-gray-200/50 hover:border-gray-300/70 transition-all duration-300 hover:shadow-lg group">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between">
               <div class="flex items-center mb-4 md:mb-0">
                 <div class="w-14 h-14 bg-gradient-to-br from-gray-700 to-slate-800 rounded-xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
                   <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -443,8 +382,8 @@
               {{ t('footer.description') }}
             </p>
             <p class="text-gray-400 text-sm">
-              <span v-html="t('footer.createdBy', { author: `<a href='#' class='text-blue-400 hover:text-blue-300'>${t('common.author')}</a>` })"></span><br/>
-              <a href="https://banuacoders.com" class="text-blue-400 hover:text-blue-300">Banua Coders</a>
+              <span v-html="t('footer.createdBy', { author: `<a href='https://github.com/ryanaidilp' target='_blank' class='text-blue-400 hover:text-blue-300'>${t('common.author')}</a>` })"></span><br/>
+              <a href="https://banuacoder.com" target="_blank" class="text-blue-400 hover:text-blue-300">Banua Coder</a>
             </p>
           </div>
           
@@ -455,7 +394,8 @@
               <li><router-link to="/api" class="text-gray-400 hover:text-white">{{ t('nav.apiReference') }}</router-link></li>
               <li><a href="https://pico-api.banuacoder.com/swagger/index.html" target="_blank" class="text-gray-400 hover:text-white">Swagger UI</a></li>
               <li><a href="https://banuacoders.com/app/pico/" target="_blank" class="text-gray-400 hover:text-white">{{ t('footer.picoApp') }}</a></li>
-              <li><a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white">GitHub</a></li>
+              <li><a href="https://github.com/banua-coder/pico-api-go" target="_blank" class="text-gray-400 hover:text-white">API Source Code</a></li>
+              <li><a href="https://github.com/ryanaidilp" target="_blank" class="text-gray-400 hover:text-white">Developer GitHub</a></li>
             </ul>
           </div>
 
@@ -476,40 +416,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Navigation from '@/components/Navigation.vue'
+import DataSources from '@/components/DataSources.vue'
 
 const { t, locale } = useI18n()
-
-// Navigation scroll behavior
-const navbar = ref<HTMLElement | null>(null)
-const scrollY = ref(0)
-const isScrolled = ref(false)
-
-const navbarClass = computed(() => {
-  return isScrolled.value 
-    ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/50' 
-    : 'bg-transparent'
-})
-
-// Scroll handler
-const handleScroll = () => {
-  scrollY.value = window.scrollY
-  isScrolled.value = scrollY.value > 50
-}
-
-// Toggle language function
-const toggleLanguage = () => {
-  const newLocale = locale.value === 'en' ? 'id' : 'en'
-  locale.value = newLocale
-  localStorage.setItem('pico-language', newLocale)
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll, { passive: true })
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
 </script>

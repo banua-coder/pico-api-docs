@@ -114,6 +114,7 @@ The site integrates with PICO SulTeng API:
 - **Base URL**: `https://pico-api.banuacoder.com/api/v1`
 - **Documentation**: `https://pico-api.banuacoder.com/swagger/index.html`
 - **Health Check**: `https://pico-api.banuacoder.com/api/v1/health`
+- **Source Code**: `https://github.com/banua-coder/pico-api-go`
 
 ## Available Scripts
 
@@ -154,9 +155,11 @@ pnpm run vue-tsc  # Type check without emit
 
 ## License
 
-This project is licensed under the ISC License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
 **Created for PICO SulTeng API**  
-Banua Coders • Central Sulawesi COVID-19 Data API
+[Banua Coder](https://banuacoder.com) • Central Sulawesi COVID-19 Data API
+
+**Developer**: [Fajrian Aidil Pratama](https://github.com/ryanaidilp)
