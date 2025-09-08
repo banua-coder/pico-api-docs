@@ -7,9 +7,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900">Get Historical National Data</h1>
+        <h1 class="text-3xl font-bold text-gray-900">{{ t('documentation.nationalHistorical.title') }}</h1>
       </div>
-      <p class="text-lg text-gray-600 mb-6">Access historical national COVID-19 data with pagination support. Returns an array of data objects with the same structure as the latest endpoint.</p>
+      <p class="text-lg text-gray-600 mb-6">{{ t('documentation.nationalHistorical.description') }}</p>
     </div>
 
     <!-- Endpoint Details -->
@@ -24,15 +24,15 @@
       <div class="p-8">
         <!-- Query Parameters -->
         <div class="mb-8">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Query Parameters</h3>
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.queryParameters') }}</h3>
           <div class="overflow-x-auto">
             <table class="min-w-full bg-gray-50 rounded-lg">
               <thead class="bg-gray-100">
                 <tr>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">Parameter</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">Type</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">Description</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">Default</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.parameter') }}</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.type') }}</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.description') }}</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.default') }}</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
@@ -61,21 +61,21 @@
 
         <div class="grid lg:grid-cols-2 gap-8">
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Example Request</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.exampleRequest') }}</h3>
             <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm">
               <div class="text-green-400">GET /api/v1/national?page=1&limit=5&sort=desc</div>
             </div>
           </div>
           
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Try It</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.tryIt') }}</h3>
             <a href="https://pico-api.banuacoder.com/api/v1/national?page=1&limit=5" 
                target="_blank" 
                class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors">
               <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
               </svg>
-              Test in Browser
+              {{ t('documentation.nationalHistorical.testInBrowser') }}
             </a>
           </div>
         </div>
@@ -85,9 +85,12 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 interface Props {
   isActive: boolean
 }
 
 defineProps<Props>()
+const { t } = useI18n()
 </script>

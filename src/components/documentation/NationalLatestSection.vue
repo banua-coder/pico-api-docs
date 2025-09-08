@@ -7,9 +7,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
           </svg>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900">Get Latest National Data</h1>
+        <h1 class="text-3xl font-bold text-gray-900">{{ t('documentation.nationalLatest.title') }}</h1>
       </div>
-      <p class="text-lg text-gray-600 mb-6">Retrieve the most recent national COVID-19 statistics for Indonesia.</p>
+      <p class="text-lg text-gray-600 mb-6">{{ t('documentation.nationalLatest.description') }}</p>
     </div>
 
     <!-- Endpoint Details Card -->
@@ -25,7 +25,7 @@
         <div class="grid lg:grid-cols-2 gap-8">
           <!-- Request Example -->
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Request</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalLatest.request') }}</h3>
             <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm overflow-x-auto">
               <div class="text-green-400 mb-1">GET /api/v1/national/latest HTTP/1.1</div>
               <div class="text-blue-300 mb-1">Host: pico-api.banuacoder.com</div>
@@ -35,7 +35,7 @@
           
           <!-- Response Example -->
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Response</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalLatest.response') }}</h3>
             <div class="bg-gray-900 rounded-lg p-4 font-mono text-xs overflow-x-auto max-h-96">
               <div class="text-blue-400">{</div>
               <div class="ml-2">
@@ -88,7 +88,7 @@
 
         <!-- Response Fields -->
         <div class="mt-8 bg-blue-50 rounded-xl p-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Response Fields</h3>
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalLatest.responseFields') }}</h3>
           <div class="overflow-x-auto">
             <table class="min-w-full">
               <thead>
@@ -147,7 +147,7 @@
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>
-            Try Live API
+            {{ t('documentation.nationalLatest.tryLiveApi') }}
           </a>
         </div>
       </div>
@@ -156,9 +156,12 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 interface Props {
   isActive: boolean
 }
 
 defineProps<Props>()
+const { t } = useI18n()
 </script>
