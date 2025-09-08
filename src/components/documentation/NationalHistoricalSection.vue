@@ -15,69 +15,69 @@
     <!-- Endpoint Details -->
     <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
       <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-6">
-        <div class="flex flex-wrap items-center gap-4">
-          <span class="bg-white text-purple-800 px-4 py-2 rounded-lg text-sm font-bold">GET</span>
+        <div class="flex items-center gap-4">
+          <span class="bg-white text-purple-700 px-3 py-1 rounded-lg font-mono text-sm font-bold">GET</span>
           <code class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg font-mono text-sm">/national</code>
         </div>
+        <p class="text-white/90 mt-2">{{ t('documentation.nationalHistorical.description') }}</p>
       </div>
       
       <div class="p-8">
         <!-- Query Parameters -->
         <div class="mb-8">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.queryParameters') }}</h3>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Parameters</h3>
           <div class="overflow-x-auto">
-            <table class="min-w-full bg-gray-50 rounded-lg">
-              <thead class="bg-gray-100">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+              <thead class="bg-gray-50">
                 <tr>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.parameter') }}</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.type') }}</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.description') }}</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900">{{ t('documentation.nationalHistorical.default') }}</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Parameter</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Required</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
                 <tr class="border-b">
-                  <td class="py-3 px-4 font-mono text-purple-600">page</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Page number (1-based)</td>
-                  <td class="py-3 px-4 text-gray-600">1</td>
+                  <td class="py-3 px-4 font-mono text-pico-deep">start_date</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Start date for filtering data (YYYY-MM-DD format)</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
                 </tr>
                 <tr class="border-b">
-                  <td class="py-3 px-4 font-mono text-purple-600">limit</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Items per page (1-100)</td>
-                  <td class="py-3 px-4 text-gray-600">10</td>
+                  <td class="py-3 px-4 font-mono text-pico-deep">end_date</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">End date for filtering data (YYYY-MM-DD format)</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
                 </tr>
                 <tr>
-                  <td class="py-3 px-4 font-mono text-purple-600">sort</td>
+                  <td class="py-3 px-4 font-mono text-pico-deep">sort</td>
                   <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">Sort order: "asc" or "desc"</td>
-                  <td class="py-3 px-4 text-gray-600">desc</td>
+                  <td class="py-3 px-4 text-gray-600">Sort by field:order (e.g., date:desc, positive:asc). Default: date:asc</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-8">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.exampleRequest') }}</h3>
-            <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm">
-              <div class="text-green-400">GET /api/v1/national?page=1&limit=5&sort=desc</div>
-            </div>
+        <!-- Response Fields Table -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Fields</h3>
+          <div class="bg-gray-50 rounded-lg p-4 text-gray-600">
+            <p>Returns an array of national COVID-19 data objects. Each object has the same structure as the <strong>/national/latest</strong> endpoint response.</p>
           </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.tryIt') }}</h3>
-            <a href="https://pico-api.banuacoder.com/api/v1/national?page=1&limit=5" 
-               target="_blank" 
-               class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-              </svg>
-              {{ t('documentation.nationalHistorical.testInBrowser') }}
-            </a>
-          </div>
+        </div>
+
+        <!-- Try It Button -->
+        <div class="text-center">
+          <a href="https://pico-api.banuacoder.com/swagger/index.html" 
+             target="_blank" 
+             class="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+            {{ t('documentation.nationalHistorical.testInBrowser') }}
+          </a>
         </div>
       </div>
     </div>

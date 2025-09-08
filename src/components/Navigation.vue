@@ -14,33 +14,33 @@
           <div class="ml-10 flex items-baseline space-x-4">
             <router-link 
               to="/" 
-              class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
               :class="{ 'text-gray-900': $route.path === '/' }"
             >
               {{ t('nav.home') }}
             </router-link>
             <router-link 
               to="/docs" 
-              class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
               :class="{ 'text-gray-900': $route.path === '/docs' }"
             >
               {{ t('nav.documentation') }}
             </router-link>
             <router-link 
               to="/api" 
-              class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
               :class="{ 'text-gray-900': $route.path === '/api' }"
             >
               {{ t('nav.apiReference') }}
             </router-link>
-            <a href="https://pico-api.banuacoder.com/api/v1" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+            <a href="https://pico-api.banuacoder.com/api/v1" target="_blank" class="bg-pico-blue hover:bg-pico-deep text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
               {{ t('nav.liveApi') }}
             </a>
             <!-- Language Toggle -->
             <div class="flex items-center space-x-2 ml-4">
               <button 
                 @click="toggleLanguage"
-                class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors bg-white/80 backdrop-blur-sm"
+                class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm"
               >
                 <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
@@ -56,7 +56,7 @@
           <!-- Language Toggle for Mobile -->
           <button 
             @click="toggleLanguage"
-            class="flex items-center space-x-1 px-2 py-1.5 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors bg-white/80 backdrop-blur-sm"
+            class="flex items-center space-x-1 px-2 py-1.5 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm"
           >
             <svg class="w-3 h-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
@@ -68,7 +68,7 @@
           <button 
             @click="toggleMobileMenu"
             type="button"
-            class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-pico-blue hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pico-blue transition-colors"
             :aria-expanded="mobileMenuOpen"
           >
             <span class="sr-only">Open main menu</span>
@@ -109,7 +109,7 @@
           <router-link 
             to="/" 
             @click="closeMobileMenu"
-            class="block text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
+            class="block text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
             :class="{ 'text-gray-900': $route.path === '/' }"
           >
             {{ t('nav.home') }}
@@ -117,7 +117,7 @@
           <router-link 
             to="/docs" 
             @click="closeMobileMenu"
-            class="block text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
+            class="block text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
             :class="{ 'text-gray-900': $route.path === '/docs' }"
           >
             {{ t('nav.documentation') }}
@@ -125,7 +125,7 @@
           <router-link 
             to="/api" 
             @click="closeMobileMenu"
-            class="block text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
+            class="block text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
             :class="{ 'text-gray-900': $route.path === '/api' }"
           >
             {{ t('nav.apiReference') }}
@@ -134,7 +134,7 @@
             href="https://pico-api.banuacoder.com/api/v1" 
             target="_blank" 
             @click="closeMobileMenu"
-            class="block bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg text-base font-medium transition-colors text-center"
+            class="block bg-pico-blue hover:bg-pico-deep text-white px-4 py-3 rounded-lg text-base font-medium transition-colors text-center"
           >
             {{ t('nav.liveApi') }}
           </a>

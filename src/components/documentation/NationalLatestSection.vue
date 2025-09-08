@@ -1,138 +1,86 @@
 <template>
   <section v-show="isActive" id="national-latest" class="mb-16">
     <div class="mb-8">
-      <div class="flex items-center mb-4">
-        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-          </svg>
-        </div>
-        <h1 class="text-3xl font-bold text-gray-900">{{ t('documentation.nationalLatest.title') }}</h1>
-      </div>
-      <p class="text-lg text-gray-600 mb-6">{{ t('documentation.nationalLatest.description') }}</p>
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ t('documentation.nationalLatest.title') }}</h1>
+      <p class="text-lg text-gray-600">{{ t('documentation.nationalLatest.description') }}</p>
     </div>
 
-    <!-- Endpoint Details Card -->
     <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-      <div class="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-6">
-        <div class="flex flex-wrap items-center gap-4">
-          <span class="bg-white text-green-800 px-4 py-2 rounded-lg text-sm font-bold">GET</span>
+      <!-- Endpoint Header -->
+      <div class="bg-gradient-to-r from-pico-blue to-pico-deep px-8 py-6">
+        <div class="flex items-center gap-4">
+          <span class="bg-white text-pico-deep px-3 py-1 rounded-lg font-mono text-sm font-bold">GET</span>
           <code class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg font-mono text-sm">/national/latest</code>
         </div>
+        <p class="text-white/90 mt-2">{{ t('documentation.nationalLatest.description') }}</p>
       </div>
       
       <div class="p-8">
-        <div class="grid lg:grid-cols-2 gap-8">
-          <!-- Request Example -->
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalLatest.request') }}</h3>
-            <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm overflow-x-auto">
-              <div class="text-green-400 mb-1">GET /api/v1/national/latest HTTP/1.1</div>
-              <div class="text-blue-300 mb-1">Host: pico-api.banuacoder.com</div>
-              <div class="text-yellow-300">Accept: application/json</div>
-            </div>
-          </div>
-          
-          <!-- Response Example -->
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalLatest.response') }}</h3>
-            <div class="bg-gray-900 rounded-lg p-4 font-mono text-xs overflow-x-auto max-h-96">
-              <div class="text-blue-400">{</div>
-              <div class="ml-2">
-                <div><span class="text-yellow-400">"status"</span>: <span class="text-green-300">"success"</span>,</div>
-                <div><span class="text-yellow-400">"data"</span>: {</div>
-                <div class="ml-2">
-                  <div><span class="text-yellow-400">"day"</span>: <span class="text-orange-400">883</span>,</div>
-                  <div><span class="text-yellow-400">"date"</span>: <span class="text-green-300">"2022-12-18T16:37:54Z"</span>,</div>
-                  <div><span class="text-yellow-400">"daily"</span>: {</div>
-                  <div class="ml-2">
-                    <div><span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">860</span>,</div>
-                    <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">2035</span>,</div>
-                    <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">14</span>,</div>
-                    <div><span class="text-yellow-400">"active"</span>: <span class="text-orange-400">-1189</span></div>
-                  </div>
-                  <div>},</div>
-                  <div><span class="text-yellow-400">"cumulative"</span>: {</div>
-                  <div class="ml-2">
-                    <div><span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">6295729</span>,</div>
-                    <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">6126860</span>,</div>
-                    <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">157730</span>,</div>
-                    <div><span class="text-yellow-400">"active"</span>: <span class="text-orange-400">11139</span></div>
-                  </div>
-                  <div>},</div>
-                  <div><span class="text-yellow-400">"statistics"</span>: {</div>
-                  <div class="ml-2">
-                    <div><span class="text-yellow-400">"percentages"</span>: {</div>
-                    <div class="ml-2">
-                      <div><span class="text-yellow-400">"active"</span>: <span class="text-orange-400">0.177</span>,</div>
-                      <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">97.318</span>,</div>
-                      <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">2.505</span></div>
-                    </div>
-                    <div>},</div>
-                    <div><span class="text-yellow-400">"reproduction_rate"</span>: {</div>
-                    <div class="ml-2">
-                      <div><span class="text-yellow-400">"value"</span>: <span class="text-gray-400">null</span>,</div>
-                      <div><span class="text-yellow-400">"upper_bound"</span>: <span class="text-gray-400">null</span>,</div>
-                      <div><span class="text-yellow-400">"lower_bound"</span>: <span class="text-gray-400">null</span></div>
-                    </div>
-                    <div>}</div>
-                  </div>
-                  <div>}</div>
-                </div>
-                <div>}</div>
-              </div>
-              <div class="text-blue-400">}</div>
-            </div>
+        <!-- Parameters Table -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Parameters</h3>
+          <div class="bg-gray-50 rounded-lg p-4 text-center text-gray-500">
+            No parameters required
           </div>
         </div>
 
-        <!-- Response Fields -->
-        <div class="mt-8 bg-blue-50 rounded-xl p-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalLatest.responseFields') }}</h3>
+        <!-- Response Fields Table -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Fields</h3>
           <div class="overflow-x-auto">
-            <table class="min-w-full">
-              <thead>
-                <tr class="border-b border-blue-200">
-                  <th class="text-left py-3 pr-4 font-semibold text-gray-900">Field</th>
-                  <th class="text-left py-3 pr-4 font-semibold text-gray-900">Type</th>
-                  <th class="text-left py-3 font-semibold text-gray-900">Description</th>
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Field</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
-                <tr class="border-b border-blue-100">
-                  <td class="py-3 pr-4 font-mono text-blue-600">status</td>
-                  <td class="py-3 pr-4 text-gray-600">string</td>
-                  <td class="py-3 text-gray-600">Response status ("success" or "error")</td>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">date</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Date of the COVID-19 case report (YYYY-MM-DD)</td>
                 </tr>
-                <tr class="border-b border-blue-100">
-                  <td class="py-3 pr-4 font-mono text-blue-600">data.day</td>
-                  <td class="py-3 pr-4 text-gray-600">integer</td>
-                  <td class="py-3 text-gray-600">Days since pandemic start</td>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">day</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Day number since first case reported</td>
                 </tr>
-                <tr class="border-b border-blue-100">
-                  <td class="py-3 pr-4 font-mono text-blue-600">data.date</td>
-                  <td class="py-3 pr-4 text-gray-600">string</td>
-                  <td class="py-3 text-gray-600">ISO 8601 date of the data</td>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.positive</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total confirmed COVID-19 cases</td>
                 </tr>
-                <tr class="border-b border-blue-100">
-                  <td class="py-3 pr-4 font-mono text-blue-600">data.daily.*</td>
-                  <td class="py-3 pr-4 text-gray-600">integer</td>
-                  <td class="py-3 text-gray-600">Daily new cases (positive, recovered, deceased, active)</td>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.recovered</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total recovered cases</td>
                 </tr>
-                <tr class="border-b border-blue-100">
-                  <td class="py-3 pr-4 font-mono text-blue-600">data.cumulative.*</td>
-                  <td class="py-3 pr-4 text-gray-600">integer</td>
-                  <td class="py-3 text-gray-600">Cumulative totals (positive, recovered, deceased, active)</td>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.deceased</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total death cases</td>
                 </tr>
-                <tr class="border-b border-blue-100">
-                  <td class="py-3 pr-4 font-mono text-blue-600">data.statistics.percentages.*</td>
-                  <td class="py-3 pr-4 text-gray-600">float</td>
-                  <td class="py-3 text-gray-600">Percentage breakdown (active, recovered, deceased)</td>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.active</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Current active cases (positive - recovered - deceased)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.*</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily new cases for each category</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.*</td>
+                  <td class="py-3 px-4 text-gray-600">number</td>
+                  <td class="py-3 px-4 text-gray-600">Percentage distribution of cases</td>
                 </tr>
                 <tr>
-                  <td class="py-3 pr-4 font-mono text-blue-600">data.statistics.reproduction_rate.*</td>
-                  <td class="py-3 pr-4 text-gray-600">float|null</td>
-                  <td class="py-3 text-gray-600">Reproduction rate data (value, upper_bound, lower_bound)</td>
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate</td>
+                  <td class="py-3 px-4 text-gray-600">object</td>
+                  <td class="py-3 px-4 text-gray-600">COVID-19 reproduction rate with confidence bounds</td>
                 </tr>
               </tbody>
             </table>
@@ -140,10 +88,12 @@
         </div>
 
         <!-- Try It Button -->
-        <div class="mt-6 text-center">
-          <a href="https://pico-api.banuacoder.com/api/v1/national/latest" 
-             target="_blank" 
-             class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl">
+        <div class="text-center">
+          <a 
+            href="https://pico-api.banuacoder.com/swagger/index.html" 
+            target="_blank"
+            class="inline-flex items-center px-6 py-3 bg-pico-blue hover:bg-pico-deep text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
+          >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>

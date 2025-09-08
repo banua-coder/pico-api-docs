@@ -114,6 +114,50 @@
       "tryIt": "Try It",
       "testInBrowser": "Test in Browser"
     },
+    "rootEndpoint": {
+      "title": "Get All Available Endpoints",
+      "description": "Retrieve a list of all available API endpoints with descriptions and usage examples.",
+      "endpoint": "GET /",
+      "response": "Response",
+      "responseDescription": "Returns JSON object containing all available endpoints with their descriptions"
+    },
+    "healthCheck": {
+      "title": "Health Check",
+      "description": "Check API health status and database connectivity. Essential for monitoring API availability.",
+      "endpoint": "GET /health",
+      "responses": "Responses",
+      "status200": "200: API is healthy and operational",
+      "status503": "503: API is degraded or experiencing issues"
+    },
+    "provinces": {
+      "title": "Get All Provinces",
+      "description": "Retrieve all Indonesian provinces with their latest COVID-19 case data.",
+      "endpoint": "GET /provinces",
+      "queryParameters": "Query Parameters",
+      "excludeLatestCase": "exclude_latest_case (boolean) - Optional: exclude latest case data from response"
+    },
+    "provinceCases": {
+      "title": "Get Province Cases",
+      "description": "Retrieve COVID-19 cases for specific provinces with hybrid pagination and flexible filtering options.",
+      "endpoints": "Endpoints",
+      "allProvinces": "GET /provinces/cases - All provinces cases data",
+      "specificProvince": "GET /provinces/{provinceId}/cases - Specific province cases",
+      "parameters": [
+        "limit (integer) - Records per page for pagination",
+        "offset (integer) - Number of records to skip",
+        "all (boolean) - Return all data without pagination",
+        "start_date (string) - Filter data from this date (YYYY-MM-DD)",
+        "end_date (string) - Filter data until this date (YYYY-MM-DD)",
+        "sort (string) - Sorting options (e.g., date:desc, date:asc)"
+      ],
+      "features": "Key Features",
+      "featuresList": [
+        "Hybrid pagination support",
+        "Flexible date filtering",
+        "Multiple sorting options",
+        "Province-specific data access"
+      ]
+    },
     "authentication": {
       "title": "Authentication",
       "subtitle": "API access and security information",
