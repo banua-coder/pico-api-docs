@@ -136,7 +136,7 @@ jobs:
             # Create PR with conflict warning
             PR_TITLE="chore: backmerge v${{ steps.version.outputs.version }} to develop (conflicts)"
             
-            cat > pr_conflict_body.md << 'PREOF'
+            cat > pr_conflict_body.md << 'CONFLICT_EOF'
             ## ⚠️ Automated Backmerge with Conflicts
             
             This PR attempts to backmerge changes from `main` to `develop` branch, but **conflicts were detected**.
@@ -169,7 +169,7 @@ jobs:
             
             ---
             *This PR was automatically created by GitHub Actions workflow. Manual conflict resolution is required.*
-            PREOF
+CONFLICT_EOF
             
             gh pr create \
               --base develop \
