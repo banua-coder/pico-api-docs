@@ -16,9 +16,8 @@ RewriteRule ^api/v1/(.*)$ http://localhost:8080/api/v1/$1 [P,L]
 # Handle root API endpoint
 RewriteRule ^api/v1/?$ http://localhost:8080/api/v1/ [P,L]
 
-# Proxy Swagger UI requests to Go application
-RewriteCond %{REQUEST_URI} ^/swagger/
-RewriteRule ^swagger/(.*)$ http://localhost:8080/swagger/$1 [P,L]
+# Serve Swagger UI static files (no proxy needed)
+# Static files will be served directly by web server
 
 # Handle docs route for Vue documentation site
 RewriteRule ^docs/?$ /index.html [L]

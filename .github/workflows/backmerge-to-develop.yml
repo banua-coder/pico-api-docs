@@ -13,31 +13,31 @@ jobs:
       github.event.pull_request.merged == true &&
       (startsWith(github.event.pull_request.head.ref, 'release/') || 
        startsWith(github.event.pull_request.head.ref, 'hotfix/'))
-    
+
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: write
       pull-requests: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for all branches
+          fetch-depth: 0 # Fetch all history for all branches
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      
+
       - name: Extract version from branch name
         id: version
         run: |
           BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          
+
           if [[ $BRANCH_NAME == release/v* ]]; then
             VERSION=$(echo $BRANCH_NAME | sed 's/release\/v//')
             TYPE="release"
@@ -45,10 +45,10 @@ jobs:
             VERSION=$(echo $BRANCH_NAME | sed 's/hotfix\/v//')
             TYPE="hotfix"
           fi
-          
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "type=$TYPE" >> $GITHUB_OUTPUT
-      
+
       - name: Check if develop branch exists
         id: check_develop
         run: |
@@ -58,7 +58,7 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
             echo "⚠️ Develop branch does not exist. Skipping backmerge."
           fi
-      
+
       - name: Create backmerge pull request
         if: steps.check_develop.outputs.exists == 'true'
         env:
@@ -66,16 +66,16 @@ jobs:
         run: |
           # Create a unique branch name for the backmerge
           BACKMERGE_BRANCH="backmerge/main-to-develop-$(date +%Y%m%d-%H%M%S)"
-          
+
           # Fetch and checkout develop
           git fetch origin develop:develop
-          
+
           # Create new branch from develop
           git checkout -b $BACKMERGE_BRANCH develop
-          
+
           # Merge main into the backmerge branch
           echo "Attempting to merge main into $BACKMERGE_BRANCH..."
-          
+
           # Try to merge main
           if git merge origin/main --no-edit; then
             echo "✅ Merge successful, no conflicts"
@@ -184,7 +184,7 @@ jobs:
             # Exit with error to mark the job as failed
             exit 1
           fi
-      
+
       - name: Summary
         if: always()
         run: |
@@ -195,7 +195,7 @@ jobs:
           echo "- **Target Branch:** \`develop\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Triggered by:** @${{ github.event.pull_request.merged_by.login }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ steps.check_develop.outputs.exists }}" == "false" ]; then
             echo "⚠️ **Status:** Skipped - develop branch does not exist" >> $GITHUB_STEP_SUMMARY
           else

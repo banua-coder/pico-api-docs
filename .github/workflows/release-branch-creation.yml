@@ -60,17 +60,17 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
+          ruby-version: "3.2"
 
       - name: Generate changelog using Ruby script
         id: changelog
         run: |
           VERSION="${{ steps.version_info.outputs.version }}"
           echo "🚀 Generating changelog for $VERSION..."
-          
+
           # Make the script executable
           chmod +x scripts/generate_changelog.rb
-          
+
           # Run changelog generation
           if ruby scripts/generate_changelog.rb --version "$VERSION" --force 2>&1; then
             echo "✅ Changelog generation completed"
@@ -95,7 +95,7 @@ jobs:
         run: |
           VERSION="${{ steps.version_info.outputs.clean_version }}"
           echo "📝 Updating version to $VERSION in package.json..."
-          
+
           if [ -f "package.json" ]; then
             node -e "
               const fs = require('fs');
@@ -112,15 +112,15 @@ jobs:
           VERSION="${{ steps.version_info.outputs.version }}"
           TYPE="${{ steps.version_info.outputs.type }}"
           RELEASE_BRANCH="${{ steps.version_info.outputs.branch_name }}"
-          
+
           # Create PR branch for changelog and version updates
           PR_BRANCH="chore/prepare-$TYPE-$VERSION"
           git checkout -b "$PR_BRANCH"
           echo "pr_branch=$PR_BRANCH" >> $GITHUB_OUTPUT
-          
+
           # Add all changes
           git add .
-          
+
           # Check if there are changes to commit
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -158,30 +158,30 @@ jobs:
           RELEASE_BRANCH="${{ steps.version_info.outputs.branch_name }}"
           PR_BRANCH="${{ steps.pr_branch.outputs.pr_branch }}"
           CHANGELOG_STATUS="${{ steps.changelog.outputs.changelog_updated }}"
-          
+
           # Build PR body based on changelog status
           if [[ "$CHANGELOG_STATUS" == "true" ]]; then
             CHANGELOG_SECTION="- ✅ Generated changelog entries\n- Categorized commits since last release"
           else
             CHANGELOG_SECTION="- ⚠️ Changelog generation was skipped (manual update needed)\n- Please manually update CHANGELOG.md before merging"
           fi
-          
+
           PR_BODY="## Summary
           Automated preparation for $TYPE $VERSION.
-          
+
           This PR was automatically created when the $RELEASE_BRANCH branch was detected.
-          
+
           ## Changes Made
-          
+
           ### 📝 Version Updates
           - Updated version to ${{ steps.version_info.outputs.clean_version }} in package.json
-          
+
           ### 📋 Changelog
           $CHANGELOG_SECTION
-          
+
           ## Auto-generated
           This PR was automatically created by GitHub Actions when the $TYPE branch was created.
-          
+
           **Review and merge when ready** - this prepares the $TYPE branch for completion."
 
           # Create PR to the release branch
@@ -257,7 +257,7 @@ jobs:
           # Auto-calculate next version (default behavior - always minor bump)
           MAJOR=$(echo $CURRENT_VERSION | sed 's/v\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/')
           MINOR=$(echo $CURRENT_VERSION | sed 's/v\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/')
-          
+
           # Increment minor version for next development cycle
           NEXT_MINOR=$((MINOR + 1))
           NEXT_VERSION="v$MAJOR.$NEXT_MINOR.0"

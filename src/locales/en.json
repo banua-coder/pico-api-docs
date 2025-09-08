@@ -104,11 +104,12 @@
     },
     "nationalHistorical": {
       "title": "Get Historical National Data",
-      "description": "Access historical national COVID-19 data with pagination support. Returns an array of data objects with the same structure as the latest endpoint.",
+      "description": "Retrieve comprehensive historical COVID-19 data for Indonesia with flexible date filtering and sorting options. This endpoint is ideal for trend analysis, data visualization, and research purposes, allowing you to access daily statistics from the beginning of the pandemic.",
+      "usageNote": "Use this endpoint when you need time-series data, want to analyze trends over specific periods, or require historical context for current statistics. For real-time or latest data only, use the /national/latest endpoint instead.",
       "queryParameters": "Query Parameters",
       "parameter": "Parameter",
       "type": "Type",
-      "description": "Description",
+      "descriptionLabel": "Description",
       "default": "Default",
       "exampleRequest": "Example Request",
       "tryIt": "Try It",
@@ -320,3 +321,4 @@
     "author": "Fajrian Aidil Pratama"
   }
 }
+

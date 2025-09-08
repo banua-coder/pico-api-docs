@@ -9,7 +9,20 @@
         </div>
         <h1 class="text-3xl font-bold text-gray-900">{{ t('documentation.nationalHistorical.title') }}</h1>
       </div>
-      <p class="text-lg text-gray-600 mb-6">{{ t('documentation.nationalHistorical.description') }}</p>
+      <p class="text-lg text-gray-600 mb-4">{{ t('documentation.nationalHistorical.description') }}</p>
+      
+      <!-- Usage Note -->
+      <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-400 mb-6">
+        <div class="flex">
+          <svg class="w-5 h-5 text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <div class="text-green-800">
+            <p class="font-medium mb-1">When to use this endpoint</p>
+            <p class="text-sm">{{ t('documentation.nationalHistorical.usageNote') }}</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Endpoint Details -->
@@ -63,8 +76,82 @@
         <!-- Response Fields Table -->
         <div class="mb-8">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Fields</h3>
-          <div class="bg-gray-50 rounded-lg p-4 text-gray-600">
-            <p>Returns an array of national COVID-19 data objects. Each object has the same structure as the <strong>/national/latest</strong> endpoint response.</p>
+          
+          <!-- Array Structure Note -->
+          <div class="bg-blue-50 rounded-lg p-4 mb-4 border-l-4 border-blue-400">
+            <div class="flex">
+              <svg class="w-5 h-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div class="text-blue-800">
+                <p class="font-medium">Array Response</p>
+                <p class="text-sm">Returns an array of daily COVID-19 data objects. Each object contains the following fields:</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Field</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">date</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Date of the COVID-19 case report (YYYY-MM-DD)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">day</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Day number since first case reported</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.positive</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total confirmed COVID-19 cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.recovered</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total recovered cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.deceased</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Total death cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">cumulative.active</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Current active cases (positive - recovered - deceased)</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.positive</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily new confirmed cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.recovered</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily new recovered cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.deceased</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily new death cases</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono text-pico-deep">daily.active</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Daily change in active cases</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
