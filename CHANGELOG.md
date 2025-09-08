@@ -4,6 +4,13 @@
 
 - Correct changelog script arguments in create-release workflow (4b1f559)
 
+### Maintenance
+
+- Prepare v1.1.1 hotfix (ebdc3b8)
+
+### Other
+
+- Duplicate create-release.yml workflow (2a30f06)
 
 ## [v1.1.0] - 2025-09-08
 
