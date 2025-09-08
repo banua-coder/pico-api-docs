@@ -15,25 +15,8 @@
         <!-- Parameters Table -->
         <div class="mb-8">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Parameters</h3>
-          <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Parameter</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Required</th>
-                </tr>
-              </thead>
-              <tbody class="text-sm">
-                <tr>
-                  <td class="py-3 px-4 font-mono text-pico-deep">exclude_latest_case</td>
-                  <td class="py-3 px-4 text-gray-600">boolean</td>
-                  <td class="py-3 px-4 text-gray-600">Exclude latest case data from response</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="bg-gray-50 rounded-lg p-4 text-center text-gray-500">
+            No parameters required
           </div>
         </div>
 
@@ -63,7 +46,7 @@
                 <tr class="border-b">
                   <td class="py-3 px-4 font-mono text-pico-deep">latest_case</td>
                   <td class="py-3 px-4 text-gray-600">object</td>
-                  <td class="py-3 px-4 text-gray-600">Latest COVID-19 case data for the province</td>
+                  <td class="py-3 px-4 text-gray-600">Latest COVID-19 case data for the province (always included)</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-4 font-mono text-pico-deep">coordinates</td>
