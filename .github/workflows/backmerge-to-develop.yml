@@ -169,7 +169,7 @@ jobs:
             
             ---
             *This PR was automatically created by GitHub Actions workflow. Manual conflict resolution is required.*
-CONFLICT_EOF
+            CONFLICT_EOF
             
             gh pr create \
               --base develop \
