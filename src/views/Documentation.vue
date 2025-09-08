@@ -131,20 +131,40 @@
                         <div><span class="text-yellow-400">"status"</span>: <span class="text-green-300">"success"</span>,</div>
                         <div><span class="text-yellow-400">"data"</span>: {</div>
                         <div class="ml-2">
-                          <div><span class="text-yellow-400">"day"</span>: <span class="text-orange-400">1247</span>,</div>
-                          <div><span class="text-yellow-400">"date"</span>: <span class="text-green-300">"2024-09-07T00:00:00Z"</span>,</div>
+                          <div><span class="text-yellow-400">"day"</span>: <span class="text-orange-400">883</span>,</div>
+                          <div><span class="text-yellow-400">"date"</span>: <span class="text-green-300">"2022-12-18T16:37:54Z"</span>,</div>
                           <div><span class="text-yellow-400">"daily"</span>: {</div>
                           <div class="ml-2">
-                            <div><span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">127</span>,</div>
-                            <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">98</span>,</div>
-                            <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">2</span></div>
+                            <div><span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">860</span>,</div>
+                            <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">2035</span>,</div>
+                            <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">14</span>,</div>
+                            <div><span class="text-yellow-400">"active"</span>: <span class="text-orange-400">-1189</span></div>
                           </div>
                           <div>},</div>
                           <div><span class="text-yellow-400">"cumulative"</span>: {</div>
                           <div class="ml-2">
-                            <div><span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">6754298</span>,</div>
-                            <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">6589567</span>,</div>
-                            <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">161031</span></div>
+                            <div><span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">6295729</span>,</div>
+                            <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">6126860</span>,</div>
+                            <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">157730</span>,</div>
+                            <div><span class="text-yellow-400">"active"</span>: <span class="text-orange-400">11139</span></div>
+                          </div>
+                          <div>},</div>
+                          <div><span class="text-yellow-400">"statistics"</span>: {</div>
+                          <div class="ml-2">
+                            <div><span class="text-yellow-400">"percentages"</span>: {</div>
+                            <div class="ml-2">
+                              <div><span class="text-yellow-400">"active"</span>: <span class="text-orange-400">0.177</span>,</div>
+                              <div><span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">97.318</span>,</div>
+                              <div><span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">2.505</span></div>
+                            </div>
+                            <div>},</div>
+                            <div><span class="text-yellow-400">"reproduction_rate"</span>: {</div>
+                            <div class="ml-2">
+                              <div><span class="text-yellow-400">"value"</span>: <span class="text-gray-400">null</span>,</div>
+                              <div><span class="text-yellow-400">"upper_bound"</span>: <span class="text-gray-400">null</span>,</div>
+                              <div><span class="text-yellow-400">"lower_bound"</span>: <span class="text-gray-400">null</span></div>
+                            </div>
+                            <div>}</div>
                           </div>
                           <div>}</div>
                         </div>
@@ -185,14 +205,39 @@
                         <td class="py-3 text-gray-600">ISO 8601 date of the data</td>
                       </tr>
                       <tr class="border-b border-blue-100">
-                        <td class="py-3 pr-4 font-mono text-blue-600">data.daily.*</td>
+                        <td class="py-3 pr-4 font-mono text-blue-600">data.daily.positive</td>
                         <td class="py-3 pr-4 text-gray-600">integer</td>
-                        <td class="py-3 text-gray-600">Daily new cases (positive, recovered, deceased)</td>
+                        <td class="py-3 text-gray-600">Daily new positive cases</td>
                       </tr>
-                      <tr>
+                      <tr class="border-b border-blue-100">
+                        <td class="py-3 pr-4 font-mono text-blue-600">data.daily.recovered</td>
+                        <td class="py-3 pr-4 text-gray-600">integer</td>
+                        <td class="py-3 text-gray-600">Daily new recovered cases</td>
+                      </tr>
+                      <tr class="border-b border-blue-100">
+                        <td class="py-3 pr-4 font-mono text-blue-600">data.daily.deceased</td>
+                        <td class="py-3 pr-4 text-gray-600">integer</td>
+                        <td class="py-3 text-gray-600">Daily new deceased cases</td>
+                      </tr>
+                      <tr class="border-b border-blue-100">
+                        <td class="py-3 pr-4 font-mono text-blue-600">data.daily.active</td>
+                        <td class="py-3 pr-4 text-gray-600">integer</td>
+                        <td class="py-3 text-gray-600">Daily change in active cases (can be negative)</td>
+                      </tr>
+                      <tr class="border-b border-blue-100">
                         <td class="py-3 pr-4 font-mono text-blue-600">data.cumulative.*</td>
                         <td class="py-3 pr-4 text-gray-600">integer</td>
-                        <td class="py-3 text-gray-600">Cumulative totals (positive, recovered, deceased)</td>
+                        <td class="py-3 text-gray-600">Cumulative totals (positive, recovered, deceased, active)</td>
+                      </tr>
+                      <tr class="border-b border-blue-100">
+                        <td class="py-3 pr-4 font-mono text-blue-600">data.statistics.percentages.*</td>
+                        <td class="py-3 pr-4 text-gray-600">float</td>
+                        <td class="py-3 text-gray-600">Percentage breakdown (active, recovered, deceased)</td>
+                      </tr>
+                      <tr>
+                        <td class="py-3 pr-4 font-mono text-blue-600">data.statistics.reproduction_rate.*</td>
+                        <td class="py-3 pr-4 text-gray-600">float|null</td>
+                        <td class="py-3 text-gray-600">Reproduction rate data (value, upper_bound, lower_bound)</td>
                       </tr>
                     </tbody>
                   </table>
@@ -209,7 +254,7 @@
                 <h3 class="text-2xl font-semibold text-gray-900">Get Historical National Data</h3>
               </div>
               
-              <p class="text-gray-600 mb-6">Access historical national COVID-19 data with pagination support.</p>
+              <p class="text-gray-600 mb-6">Access historical national COVID-19 data with pagination support. Returns an array of data objects with the same structure as the latest endpoint.</p>
               
               <div class="bg-gray-50 rounded-xl p-6 mb-6">
                 <div class="flex flex-wrap items-center gap-4 mb-4">
