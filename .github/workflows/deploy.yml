@@ -23,7 +23,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         # No cache since pnpm-lock.yaml is excluded from git
 
     - name: Get version from tag
