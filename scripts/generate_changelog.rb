@@ -33,7 +33,8 @@ class ChangelogGenerator
     'chore' => { category: 'Maintenance', breaking: false },
     'ci' => { category: 'CI/CD', breaking: false },
     'build' => { category: 'Build', breaking: false },
-    'revert' => { category: 'Reverted', breaking: false }
+    'revert' => { category: 'Reverted', breaking: false },
+    'merge' => { category: 'Merged Features', breaking: false }
   }.freeze
 
   # Release and hotfix branch patterns
@@ -226,20 +227,20 @@ class ChangelogGenerator
     
     puts "📋 Fetching commits since #{last_tag || 'beginning'}..."
     
-    commit_format = '%H|%s|%b|%an|%ae|%ad'
+    commit_format = '%H|%s|%an|%ae|%ad'
     commits_output = `git log #{range} --pretty=format:"#{commit_format}" --date=iso`
     
     commits = commits_output.split("\n").map do |line|
-      parts = line.split('|', 6)
-      next if parts.length < 6
+      parts = line.split('|', 5)
+      next if parts.length < 5
 
       {
         hash: parts[0],
         subject: parts[1],
-        body: parts[2],
-        author_name: parts[3],
-        author_email: parts[4],
-        date: parts[5]
+        body: '',
+        author_name: parts[2],
+        author_email: parts[3],
+        date: parts[4]
       }
     end.compact
     
@@ -301,6 +302,26 @@ class ChangelogGenerator
   # @param subject [String] Commit subject line
   # @return [Array] [type, scope, description, breaking]
   def parse_conventional_commit(subject)
+    # Handle merge commits from pull requests
+    if subject.start_with?('Merge pull request')
+      # Extract PR info and try to parse meaningful content
+      pr_match = subject.match(/Merge pull request #(\d+) from .+\/(.+)/)
+      if pr_match
+        branch_name = pr_match[2]
+        # Try to infer type from branch name (feature/fix/etc)
+        if branch_name.match(/^(feature|feat)\//)
+          return ['feat', nil, "Merge #{branch_name}", false]
+        elsif branch_name.match(/^(fix|bugfix|hotfix)\//)
+          return ['fix', nil, "Merge #{branch_name}", false]
+        elsif branch_name.match(/^chore\//)
+          return ['chore', nil, "Merge #{branch_name}", false]
+        else
+          return ['merge', nil, "Merge #{branch_name}", false]
+        end
+      end
+      return ['merge', nil, subject, false]
+    end
+    
     # Match conventional commit format: type(scope): description
     match = subject.match(/^(\w+)(?:\(([^)]+)\))?(!)?: (.+)$/)
     
@@ -327,9 +348,6 @@ class ChangelogGenerator
   # @param commit [Hash] Commit information
   # @return [Boolean] true if commit should be skipped
   def should_skip_commit?(type, commit)
-    # Skip merge commits
-    return true if commit[:subject].start_with?('Merge ')
-    
     # Skip certain types if configured
     skip_types = options[:skip_types] || []
     skip_types.include?(type)
