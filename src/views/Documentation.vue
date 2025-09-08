@@ -79,64 +79,35 @@
 
                 <!-- Regional Endpoints -->
                 <li>
-                  <div class="flex items-center justify-between">
-                    <button @click="toggleSection('regional')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 hover:bg-gray-50 flex-1 text-left">
-                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="flex items-center justify-between opacity-60">
+                    <div class="flex items-center px-3 py-2 text-sm rounded-lg flex-1 text-left cursor-not-allowed">
+                      <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      Regional Data
-                      <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Coming Soon</span>
-                    </button>
-                    <svg class="w-4 h-4 text-gray-400 transition-transform" :class="expandedSections.regional ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
+                      <span class="text-gray-500">Regional Data</span>
+                      <span class="ml-auto text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-md font-medium">Coming Soon</span>
+                    </div>
                   </div>
-                  <ul v-show="expandedSections.regional" class="ml-7 mt-2 space-y-1">
-                    <li>
-                      <span class="flex items-center px-3 py-2 text-sm text-gray-400 cursor-not-allowed">
-                        Central Sulawesi
-                      </span>
-                    </li>
-                    <li>
-                      <span class="flex items-center px-3 py-2 text-sm text-gray-400 cursor-not-allowed">
-                        City/Regency Data
-                      </span>
-                    </li>
-                  </ul>
+                  <div class="ml-7 mt-1 text-xs text-gray-400 px-3">
+                    Central Sulawesi • City/Regency Data
+                  </div>
                 </li>
 
                 <!-- Healthcare Endpoints -->
                 <li>
-                  <div class="flex items-center justify-between">
-                    <button @click="toggleSection('healthcare')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 hover:bg-gray-50 flex-1 text-left">
-                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                  <div class="flex items-center justify-between opacity-60">
+                    <div class="flex items-center px-3 py-2 text-sm rounded-lg flex-1 text-left cursor-not-allowed">
+                      <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                       </svg>
-                      Healthcare Data
-                      <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Coming Soon</span>
-                    </button>
-                    <svg class="w-4 h-4 text-gray-400 transition-transform" :class="expandedSections.healthcare ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
+                      <span class="text-gray-500">Healthcare Data</span>
+                      <span class="ml-auto text-xs bg-green-100 text-green-600 px-2 py-1 rounded-md font-medium">Coming Soon</span>
+                    </div>
                   </div>
-                  <ul v-show="expandedSections.healthcare" class="ml-7 mt-2 space-y-1">
-                    <li>
-                      <span class="flex items-center px-3 py-2 text-sm text-gray-400 cursor-not-allowed">
-                        Hospital Beds
-                      </span>
-                    </li>
-                    <li>
-                      <span class="flex items-center px-3 py-2 text-sm text-gray-400 cursor-not-allowed">
-                        Vaccine Status
-                      </span>
-                    </li>
-                    <li>
-                      <span class="flex items-center px-3 py-2 text-sm text-gray-400 cursor-not-allowed">
-                        Testing Centers
-                      </span>
-                    </li>
-                  </ul>
+                  <div class="ml-7 mt-1 text-xs text-gray-400 px-3">
+                    Hospital Beds • Vaccines • Testing Centers
+                  </div>
                 </li>
               </ul>
             </div>
@@ -171,7 +142,7 @@
       <div v-if="sidebarOpen" @click="closeSidebar" class="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"></div>
 
       <!-- Main content -->
-      <main class="flex-1 lg:ml-64">
+      <main class="flex-1 lg:ml-64 w-full min-w-0">
         <!-- Mobile header with sidebar toggle -->
         <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-4">
           <button @click="openSidebar" class="flex items-center text-gray-600 hover:text-gray-900">
@@ -182,7 +153,7 @@
           </button>
         </div>
 
-        <div class="p-6 lg:p-8">
+        <div class="p-4 sm:p-6 lg:p-8">
           <!-- Overview Section -->
           <section v-show="activeSection === 'overview'" id="overview" class="mb-16">
             <div class="mb-8">
