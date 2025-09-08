@@ -394,7 +394,8 @@
               <li><router-link to="/api" class="text-gray-400 hover:text-white">{{ t('nav.apiReference') }}</router-link></li>
               <li><a href="https://pico-api.banuacoder.com/swagger/index.html" target="_blank" class="text-gray-400 hover:text-white">Swagger UI</a></li>
               <li><a href="https://banuacoders.com/app/pico/" target="_blank" class="text-gray-400 hover:text-white">{{ t('footer.picoApp') }}</a></li>
-              <li><a href="https://github.com/ryanaidilp" target="_blank" class="text-gray-400 hover:text-white">GitHub</a></li>
+              <li><a href="https://github.com/banua-coder/pico-api-go" target="_blank" class="text-gray-400 hover:text-white">API Source Code</a></li>
+              <li><a href="https://github.com/ryanaidilp" target="_blank" class="text-gray-400 hover:text-white">Developer GitHub</a></li>
             </ul>
           </div>
 
