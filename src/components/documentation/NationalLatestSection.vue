@@ -141,7 +141,7 @@
 
         <!-- Try It Button -->
         <div class="mt-6 text-center">
-          <a href="https://pico-api.banuacoder.com/api/v1/national/latest" 
+          <a href="https://pico-api.banuacoder.com/swagger/index.html" 
              target="_blank" 
              class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

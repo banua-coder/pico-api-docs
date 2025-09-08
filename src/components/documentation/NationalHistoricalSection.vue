@@ -37,22 +37,22 @@
               </thead>
               <tbody class="text-sm">
                 <tr class="border-b">
-                  <td class="py-3 px-4 font-mono text-purple-600">page</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Page number (1-based)</td>
-                  <td class="py-3 px-4 text-gray-600">1</td>
+                  <td class="py-3 px-4 font-mono text-purple-600">start_date</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">Start date (YYYY-MM-DD format)</td>
+                  <td class="py-3 px-4 text-gray-600">-</td>
                 </tr>
                 <tr class="border-b">
-                  <td class="py-3 px-4 font-mono text-purple-600">limit</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Items per page (1-100)</td>
-                  <td class="py-3 px-4 text-gray-600">10</td>
+                  <td class="py-3 px-4 font-mono text-purple-600">end_date</td>
+                  <td class="py-3 px-4 text-gray-600">string</td>
+                  <td class="py-3 px-4 text-gray-600">End date (YYYY-MM-DD format)</td>
+                  <td class="py-3 px-4 text-gray-600">-</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-4 font-mono text-purple-600">sort</td>
                   <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">Sort order: "asc" or "desc"</td>
-                  <td class="py-3 px-4 text-gray-600">desc</td>
+                  <td class="py-3 px-4 text-gray-600">Sort by field:order (e.g., date:desc, positive:asc)</td>
+                  <td class="py-3 px-4 text-gray-600">date:asc</td>
                 </tr>
               </tbody>
             </table>
@@ -63,13 +63,13 @@
           <div>
             <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.exampleRequest') }}</h3>
             <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm">
-              <div class="text-green-400">GET /api/v1/national?page=1&limit=5&sort=desc</div>
+              <div class="text-green-400">GET /api/v1/national?start_date=2023-01-01&end_date=2023-12-31&sort=date:desc</div>
             </div>
           </div>
           
           <div>
             <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ t('documentation.nationalHistorical.tryIt') }}</h3>
-            <a href="https://pico-api.banuacoder.com/api/v1/national?page=1&limit=5" 
+            <a href="https://pico-api.banuacoder.com/swagger/index.html" 
                target="_blank" 
                class="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors">
               <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
