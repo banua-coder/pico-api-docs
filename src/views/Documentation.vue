@@ -20,7 +20,7 @@
               <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Getting Started</h3>
               <ul class="space-y-1">
                 <li>
-                  <a href="#overview" @click="setActiveSection('overview')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'overview' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-50'">
+                  <a href="#overview" @click="setActiveSection('overview')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'overview' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-700 hover:bg-gray-50'">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -28,7 +28,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#authentication" @click="setActiveSection('authentication')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'authentication' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-50'">
+                  <a href="#authentication" @click="setActiveSection('authentication')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'authentication' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-700 hover:bg-gray-50'">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                     </svg>
@@ -36,7 +36,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#error-handling" @click="setActiveSection('error-handling')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'error-handling' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-50'">
+                  <a href="#error-handling" @click="setActiveSection('error-handling')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'error-handling' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-700 hover:bg-gray-50'">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -44,7 +44,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#glossary" @click="setActiveSection('glossary')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'glossary' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-50'">
+                  <a href="#glossary" @click="setActiveSection('glossary')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'glossary' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-700 hover:bg-gray-50'">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                     </svg>
@@ -73,13 +73,59 @@
                   </div>
                   <ul v-show="expandedSections.national" class="ml-7 mt-2 space-y-1">
                     <li>
-                      <a href="#national-latest" @click="setActiveSection('national-latest')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'national-latest' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'">
+                      <a href="#national-latest" @click="setActiveSection('national-latest')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'national-latest' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-600 hover:bg-gray-50'">
                         Latest Data
                       </a>
                     </li>
                     <li>
-                      <a href="#national-historical" @click="setActiveSection('national-historical')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'national-historical' ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-600 hover:bg-gray-50'">
+                      <a href="#national-historical" @click="setActiveSection('national-historical')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'national-historical' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-600 hover:bg-gray-50'">
                         Historical Data
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Core Endpoints -->
+                <li>
+                  <a href="#root-endpoint" @click="setActiveSection('root-endpoint')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'root-endpoint' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-700 hover:bg-gray-50'">
+                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Root Endpoint
+                  </a>
+                </li>
+                <li>
+                  <a href="#health-check" @click="setActiveSection('health-check')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'health-check' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-700 hover:bg-gray-50'">
+                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Health Check
+                  </a>
+                </li>
+
+                <!-- Province Endpoints -->
+                <li>
+                  <div class="flex items-center justify-between">
+                    <button @click="toggleSection('provinces')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 hover:bg-gray-50 flex-1 text-left">
+                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      Province Data
+                    </button>
+                    <svg class="w-4 h-4 text-gray-400 transition-transform" :class="expandedSections.provinces ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </div>
+                  <ul v-show="expandedSections.provinces" class="ml-7 mt-2 space-y-1">
+                    <li>
+                      <a href="#provinces" @click="setActiveSection('provinces')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'provinces' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-600 hover:bg-gray-50'">
+                        All Provinces
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#province-cases" @click="setActiveSection('province-cases')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'province-cases' ? 'bg-pico-sky/20 text-pico-deep font-medium' : 'text-gray-600 hover:bg-gray-50'">
+                        Province Cases
                       </a>
                     </li>
                   </ul>
@@ -94,7 +140,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
                       <span class="text-gray-500">Regional Data</span>
-                      <span class="ml-auto text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-md font-medium">Coming Soon</span>
+                      <span class="ml-auto text-xs bg-pico-sky/30 text-pico-deep px-2 py-1 rounded-md font-medium">Coming Soon</span>
                     </div>
                   </div>
                   <div class="ml-7 mt-1 text-xs text-gray-400 px-3">
@@ -164,8 +210,12 @@
         <div class="p-4 sm:p-6 lg:p-8">
           <!-- Dynamic Section Components -->
           <OverviewSection :isActive="activeSection === 'overview'" />
+          <RootEndpointSection :isActive="activeSection === 'root-endpoint'" />
+          <HealthCheckSection :isActive="activeSection === 'health-check'" />
           <NationalLatestSection :isActive="activeSection === 'national-latest'" />
           <NationalHistoricalSection :isActive="activeSection === 'national-historical'" />
+          <ProvincesSection :isActive="activeSection === 'provinces'" />
+          <ProvinceCasesSection :isActive="activeSection === 'province-cases'" />
           <AuthenticationSection :isActive="activeSection === 'authentication'" />
           <ErrorHandlingSection :isActive="activeSection === 'error-handling'" />
           <GlossarySection :isActive="activeSection === 'glossary'" />
@@ -181,6 +231,10 @@ import Navigation from '@/components/Navigation.vue'
 import OverviewSection from '@/components/documentation/OverviewSection.vue'
 import NationalLatestSection from '@/components/documentation/NationalLatestSection.vue'
 import NationalHistoricalSection from '@/components/documentation/NationalHistoricalSection.vue'
+import RootEndpointSection from '@/components/documentation/RootEndpointSection.vue'
+import HealthCheckSection from '@/components/documentation/HealthCheckSection.vue'
+import ProvincesSection from '@/components/documentation/ProvincesSection.vue'
+import ProvinceCasesSection from '@/components/documentation/ProvinceCasesSection.vue'
 import AuthenticationSection from '@/components/documentation/AuthenticationSection.vue'
 import ErrorHandlingSection from '@/components/documentation/ErrorHandlingSection.vue'
 import GlossarySection from '@/components/documentation/GlossarySection.vue'
@@ -192,6 +246,7 @@ const activeSection = ref('overview')
 // Expandable sections
 const expandedSections = reactive({
   national: true,
+  provinces: false,
   regional: false,
   healthcare: false
 })

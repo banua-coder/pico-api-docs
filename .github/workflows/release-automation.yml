@@ -1,218 +1,351 @@
-name: Release Automation
+name: Release Workflow - Tag, Deploy & Back-merge
 
 on:
-  create:
+  pull_request:
+    branches: [main]
+    types: [closed]
 
 jobs:
-  prepare-release:
-    if: |
-      github.event.ref_type == 'branch' &&
-      (startsWith(github.event.ref, 'release/v') || startsWith(github.event.ref, 'hotfix/v'))
-    
+  release-process:
+    if: github.event.pull_request.merged == true && (startsWith(github.head_ref, 'release/') || startsWith(github.head_ref, 'hotfix/'))
     runs-on: ubuntu-latest
-    
     permissions:
       contents: write
       pull-requests: write
-    
+      actions: write
+
     steps:
-      - name: Checkout repository
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Need full history for changelog generation
+          ref: main
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-      
+
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      
+
       - name: Extract version from branch name
-        id: extract_version
+        id: version
         run: |
-          BRANCH_NAME="${{ github.event.ref }}"
-          # Extract version from branch name (release/v1.2.3 or hotfix/v1.2.3)
-          VERSION=$(echo "$BRANCH_NAME" | sed 's/.*\/v//')
-          
-          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "❌ Invalid version format: $VERSION"
-            echo "Version must be in format x.y.z"
-            exit 1
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+          if [[ $BRANCH_NAME == release/* ]]; then
+            VERSION=$(echo $BRANCH_NAME | sed 's/release\///')
+            TYPE="release"
+            BASE_BRANCH="develop"
+          elif [[ $BRANCH_NAME == hotfix/* ]]; then
+            VERSION=$(echo $BRANCH_NAME | sed 's/hotfix\///')
+            TYPE="hotfix"
+            BASE_BRANCH="main"
           fi
-          
+
+          # Ensure version starts with 'v'
+          if [[ ! $VERSION == v* ]]; then
+            VERSION="v$VERSION"
+          fi
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "branch_type=$(echo "$BRANCH_NAME" | cut -d'/' -f1)" >> $GITHUB_OUTPUT
-          echo "✅ Extracted version: $VERSION"
-      
-      - name: Update package.json version
+          echo "type=$TYPE" >> $GITHUB_OUTPUT
+          echo "base_branch=$BASE_BRANCH" >> $GITHUB_OUTPUT
+          echo "clean_version=$(echo $VERSION | sed 's/^v//')" >> $GITHUB_OUTPUT
+
+      # STEP 1: CREATE TAG AND TRIGGER DEPLOYMENT
+      - name: Check if tag already exists
+        id: check_tag
         run: |
-          VERSION="${{ steps.extract_version.outputs.version }}"
-          
-          # Update version in package.json
-          if [ -f "package.json" ]; then
-            # Use jq to update version if available, otherwise use sed
-            if command -v jq >/dev/null 2>&1; then
-              jq ".version = \"$VERSION\"" package.json > package.json.tmp && mv package.json.tmp package.json
-            else
-              sed -i.bak "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" package.json && rm package.json.bak
-            fi
-            echo "✅ Updated package.json to version $VERSION"
+          VERSION="${{ steps.version.outputs.version }}"
+
+          if git tag -l | grep -q "^${VERSION}$"; then
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️  Tag $VERSION already exists"
           else
-            echo "⚠️ package.json not found, skipping version update"
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
+            echo "✅ Tag $VERSION does not exist, will create"
           fi
-      
-      - name: Generate changelog
-        id: changelog
+
+      - name: Get previous tag for changelog
+        id: previous_tag
         run: |
-          VERSION="${{ steps.extract_version.outputs.version }}"
-          
-          # Generate changelog using the Ruby script
-          echo "Generating changelog for version $VERSION..."
-          
-          # Create CHANGELOG.md if it doesn't exist
-          if [ ! -f "CHANGELOG.md" ]; then
-            echo "# Changelog" > CHANGELOG.md
-            echo "" >> CHANGELOG.md
-            echo "All notable changes to this project will be documented in this file." >> CHANGELOG.md
-            echo "" >> CHANGELOG.md
-          fi
-          
-          # Generate changelog for this version
-          ruby scripts/generate_changelog.rb \
-            --version "$VERSION" \
-            --output "CHANGELOG_NEW.md"
-          
-          # Prepend new changelog to existing one
-          if [ -f "CHANGELOG_NEW.md" ]; then
-            # Add separator
-            echo "" >> CHANGELOG_NEW.md
-            echo "---" >> CHANGELOG_NEW.md
-            echo "" >> CHANGELOG_NEW.md
-            
-            # Append existing changelog (skip first 3 lines if they're the header)
-            if [ -f "CHANGELOG.md" ]; then
-              tail -n +4 CHANGELOG.md >> CHANGELOG_NEW.md 2>/dev/null || cat CHANGELOG.md >> CHANGELOG_NEW.md
-            fi
-            
-            mv CHANGELOG_NEW.md CHANGELOG.md
-            echo "✅ Changelog generated successfully"
+          # Get the most recent tag before this one
+          PREVIOUS_TAG=$(git tag --sort=-version:refname | head -n1 || echo "")
+          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+          echo "Previous tag: $PREVIOUS_TAG"
+
+          # Determine base commit for changelog
+          if [ -n "$PREVIOUS_TAG" ]; then
+            BASE_COMMIT="$PREVIOUS_TAG"
           else
-            echo "❌ Failed to generate changelog"
+            # If no tags exist, use first commit
+            BASE_COMMIT=$(git rev-list --max-parents=0 HEAD)
+          fi
+          echo "base_commit=$BASE_COMMIT" >> $GITHUB_OUTPUT
+
+      - name: Generate tag message and changelog
+        id: tag_info
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TYPE="${{ steps.version.outputs.type }}"
+          PREVIOUS_TAG="${{ steps.previous_tag.outputs.previous_tag }}"
+          BASE_COMMIT="${{ steps.previous_tag.outputs.base_commit }}"
+
+          # Create tag message
+          TAG_MESSAGE="$TYPE: $VERSION"
+          echo "tag_message=$TAG_MESSAGE" >> $GITHUB_OUTPUT
+
+          # Generate categorized changelog for tag annotation
+          CHANGELOG_FILE="tag_changelog.txt"
+
+          echo "$TYPE $VERSION" > $CHANGELOG_FILE
+          echo "" >> $CHANGELOG_FILE
+          echo "Merged PR: ${{ github.event.pull_request.html_url }}" >> $CHANGELOG_FILE
+          echo "Merged by: @${{ github.event.pull_request.merged_by.login }}" >> $CHANGELOG_FILE
+          echo "" >> $CHANGELOG_FILE
+
+          if [ -n "$PREVIOUS_TAG" ]; then
+            echo "Changes since $PREVIOUS_TAG:" >> $CHANGELOG_FILE
+          else
+            echo "Initial release changes:" >> $CHANGELOG_FILE
+          fi
+          echo "" >> $CHANGELOG_FILE
+
+          # Categorize changes
+          echo "🚀 Features:" >> $CHANGELOG_FILE
+          git log --pretty=format:"- %s (%h)" "$BASE_COMMIT..HEAD" | \
+          grep -E "^- (feat|feature):" | head -10 >> $CHANGELOG_FILE || echo "- No new features" >> $CHANGELOG_FILE
+          echo "" >> $CHANGELOG_FILE
+
+          echo "🐛 Bug Fixes:" >> $CHANGELOG_FILE
+          git log --pretty=format:"- %s (%h)" "$BASE_COMMIT..HEAD" | \
+          grep -E "^- (fix|bugfix):" | head -10 >> $CHANGELOG_FILE || echo "- No bug fixes" >> $CHANGELOG_FILE
+          echo "" >> $CHANGELOG_FILE
+
+          echo "🛠️ Other Changes:" >> $CHANGELOG_FILE
+          git log --pretty=format:"- %s (%h)" "$BASE_COMMIT..HEAD" | \
+          grep -vE "^- (feat|feature|fix|bugfix):|Merge branch|Merge pull request|chore.*auto-bump|chore.*back-merge" | \
+          head -10 >> $CHANGELOG_FILE || echo "- No other changes" >> $CHANGELOG_FILE
+          echo "" >> $CHANGELOG_FILE
+          echo "🚀 Deployment will be triggered automatically." >> $CHANGELOG_FILE
+
+          echo "changelog_file=$CHANGELOG_FILE" >> $GITHUB_OUTPUT
+
+      - name: Create and push tag
+        if: steps.check_tag.outputs.tag_exists == 'false'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TAG_MESSAGE="${{ steps.tag_info.outputs.tag_message }}"
+          CHANGELOG_FILE="${{ steps.tag_info.outputs.changelog_file }}"
+
+          echo "🏷️  Creating annotated tag $VERSION..."
+
+          # Create annotated tag with changelog
+          git tag -a "$VERSION" -F "$CHANGELOG_FILE"
+
+          # Push the tag
+          git push origin "$VERSION"
+
+          echo "✅ Tag $VERSION created and pushed successfully"
+
+      # STEP 2: CREATE BACK-MERGE TO DEVELOP
+      - name: Generate unique back-merge branch name
+        id: branch_name
+        run: |
+          BASE_BRANCH="chore/back-merge-${{ steps.version.outputs.version }}-to-develop"
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          UNIQUE_BRANCH="${BASE_BRANCH}-${TIMESTAMP}"
+
+          echo "base_branch=$BASE_BRANCH" >> $GITHUB_OUTPUT
+          echo "unique_branch=$UNIQUE_BRANCH" >> $GITHUB_OUTPUT
+          echo "Generated unique branch name: $UNIQUE_BRANCH"
+
+      - name: Check for existing back-merge branches
+        id: check_branch
+        run: |
+          BASE_BRANCH="${{ steps.branch_name.outputs.base_branch }}"
+          UNIQUE_BRANCH="${{ steps.branch_name.outputs.unique_branch }}"
+
+          # Check if base branch name already exists
+          if git ls-remote --heads origin "$BASE_BRANCH" | grep -q "$BASE_BRANCH"; then
+            echo "base_branch_exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️  Base branch $BASE_BRANCH already exists, using unique name"
+            FINAL_BRANCH="$UNIQUE_BRANCH"
+          else
+            echo "base_branch_exists=false" >> $GITHUB_OUTPUT
+            echo "✅ Base branch $BASE_BRANCH available"
+            FINAL_BRANCH="$BASE_BRANCH"
+          fi
+
+          echo "final_branch=$FINAL_BRANCH" >> $GITHUB_OUTPUT
+          echo "Final branch name: $FINAL_BRANCH"
+
+      - name: Create back-merge branch
+        id: backmerge
+        run: |
+          BACKMERGE_BRANCH="${{ steps.check_branch.outputs.final_branch }}"
+          echo "backmerge_branch=$BACKMERGE_BRANCH" >> $GITHUB_OUTPUT
+
+          # Fetch latest develop
+          git fetch origin develop:develop
+
+          # Create and checkout new branch from develop
+          echo "🌿 Creating branch $BACKMERGE_BRANCH from develop"
+          git checkout -b "$BACKMERGE_BRANCH" develop
+
+          # Verify we're on the correct branch
+          CURRENT_BRANCH=$(git branch --show-current)
+          echo "Current branch: $CURRENT_BRANCH"
+
+          if [ "$CURRENT_BRANCH" != "$BACKMERGE_BRANCH" ]; then
+            echo "❌ Failed to create/checkout branch $BACKMERGE_BRANCH"
             exit 1
           fi
-          
-          # Save changelog content for PR body
-          echo "changelog<<EOF" >> $GITHUB_OUTPUT
-          ruby scripts/generate_changelog.rb --version "$VERSION" | head -50 >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-      
-      - name: Commit changes
-        id: commit
-        run: |
-          VERSION="${{ steps.extract_version.outputs.version }}"
-          BRANCH_TYPE="${{ steps.extract_version.outputs.branch_type }}"
-          
-          # Create a new branch for the release preparation
-          PREP_BRANCH="chore/prepare-${BRANCH_TYPE}-v${VERSION}"
-          git checkout -b "$PREP_BRANCH"
-          
-          # Stage changes
-          git add -A
-          
-          # Check if there are changes to commit
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            # Commit with conventional commit message
-            if [ "$BRANCH_TYPE" = "release" ]; then
-              git commit -m "chore(release): prepare release v$VERSION"
-            else
-              git commit -m "fix(hotfix): prepare hotfix v$VERSION"
+
+          # Merge main into the back-merge branch with conflict resolution
+          echo "🔄 Merging main into $BACKMERGE_BRANCH"
+
+          # Attempt merge, if conflicts occur, resolve them automatically
+          if ! git merge --no-ff main -m "chore: back-merge ${{ steps.version.outputs.version }} from main to develop
+
+          Automated back-merge of ${{ steps.version.outputs.type }} ${{ steps.version.outputs.version }} from main branch.
+
+          Original PR: ${{ github.event.pull_request.html_url }}
+          Merged commit: ${{ github.event.pull_request.merge_commit_sha }}
+          Tag created: ${{ steps.version.outputs.version }}
+          Branch: $BACKMERGE_BRANCH"; then
+            
+            echo "⚠️ Merge conflicts detected, resolving automatically..."
+            
+            # For version-related conflicts, prefer develop branch (newer) changes
+            if git status --porcelain | grep -q "package.json"; then
+              echo "🔄 Resolving version conflict in package.json (keeping develop version)"
+              git checkout --ours package.json
             fi
             
-            # Push the new branch
-            git push origin "$PREP_BRANCH"
-            
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "prep_branch=$PREP_BRANCH" >> $GITHUB_OUTPUT
-            echo "✅ Changes committed and pushed to $PREP_BRANCH"
+            # Check for any remaining conflicts
+            if git status --porcelain | grep -q "^UU\|^AA"; then
+              echo "❌ Unresolved conflicts remain after automatic resolution"
+              git status --porcelain
+              echo "Manual intervention required - marking PR for review"
+              
+              # Stage resolved files
+              git add .
+              git commit -m "resolve: automatic conflict resolution for back-merge
+              
+              Conflicts resolved automatically:
+              - Version files: kept develop branch versions (newer)
+              - Other conflicts may require manual review"
+            else
+              # All conflicts resolved, stage and commit
+              git add .
+              git commit -m "resolve: automatic conflict resolution for back-merge
+              
+              Successfully resolved version conflicts by keeping develop branch changes."
+            fi
           fi
-      
-      - name: Create Pull Request
-        if: steps.commit.outputs.has_changes == 'true'
+
+          # Push the back-merge branch
+          echo "⬆️  Pushing $BACKMERGE_BRANCH to origin"
+          git push origin "$BACKMERGE_BRANCH"
+
+          echo "✅ Back-merge branch created and pushed successfully"
+
+      - name: Create back-merge PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION="${{ steps.extract_version.outputs.version }}"
-          BRANCH_TYPE="${{ steps.extract_version.outputs.branch_type }}"
-          PREP_BRANCH="${{ steps.commit.outputs.prep_branch }}"
-          SOURCE_BRANCH="${{ github.event.ref }}"
-          
-          # Determine target branch (should be the release branch)
-          TARGET_BRANCH="$SOURCE_BRANCH"
-          
-          if [ "$BRANCH_TYPE" = "release" ]; then
-            PR_TITLE="chore(release): prepare release v$VERSION"
-            LABELS="release,auto-generated"
+          BACKMERGE_BRANCH="${{ steps.backmerge.outputs.backmerge_branch }}"
+          BASE_BRANCH_EXISTS="${{ steps.check_branch.outputs.base_branch_exists }}"
+
+          # Add branch conflict info to description if needed
+          if [[ "$BASE_BRANCH_EXISTS" == "true" ]]; then
+            BRANCH_INFO="- **Branch**: \`$BACKMERGE_BRANCH\` ⚠️ (unique name due to conflict)"
           else
-            PR_TITLE="fix(hotfix): prepare hotfix v$VERSION"
-            LABELS="hotfix,auto-generated,priority:high"
+            BRANCH_INFO="- **Branch**: \`$BACKMERGE_BRANCH\`"
           fi
-          
-          # Create PR body
-          cat > pr_body.md << 'PREOF'
-          ## 🚀 Prepare ${{ steps.extract_version.outputs.branch_type == 'release' && 'Release' || 'Hotfix' }} v${{ steps.extract_version.outputs.version }}
-          
-          This PR prepares the following changes for v${{ steps.extract_version.outputs.version }}:
-          
-          ### 📋 Changes Included
-          - ✅ Version bumped to v${{ steps.extract_version.outputs.version }}
-          - ✅ Changelog updated
-          
-          ### 📝 Changelog Preview
-          
-          ${{ steps.changelog.outputs.changelog }}
-          
-          ### ✔️ Next Steps
-          1. Review and merge this PR into `${{ github.event.ref }}`
-          2. Create a PR from `${{ github.event.ref }}` to `main`
-          3. After merging to `main`, a tag `v${{ steps.extract_version.outputs.version }}` will be created
-          4. A GitHub release will be created with the changelog
-          5. Changes will be backmerged to `develop` branch
-          
-          ---
-          *This PR was automatically generated when the ${{ github.event.ref }} branch was created.*
-          PREOF
-          
-          # Create the pull request from prep branch to release/hotfix branch
+
           gh pr create \
-            --base "$TARGET_BRANCH" \
-            --head "$PREP_BRANCH" \
-            --title "$PR_TITLE" \
-            --body-file pr_body.md \
-            --label "$LABELS"
-          
-          echo "✅ Pull request created successfully"
-      
-      - name: Summary
-        if: always()
+            --base develop \
+            --head "$BACKMERGE_BRANCH" \
+            --title "chore: back-merge ${{ steps.version.outputs.version }} from main to develop" \
+            --body "$(cat <<EOF
+          ## Summary
+          Automated back-merge of ${{ steps.version.outputs.type }} ${{ steps.version.outputs.version }} from main to develop branch.
+
+          ## Details
+          - **Original PR**: ${{ github.event.pull_request.html_url }}
+          - **Merged Branch**: \`${{ steps.version.outputs.branch_name }}\`
+          - **Version**: ${{ steps.version.outputs.version }}
+          - **Type**: ${{ steps.version.outputs.type }}
+          - **Merge Commit**: ${{ github.event.pull_request.merge_commit_sha }}
+          - **Tag Created**: ${{ steps.check_tag.outputs.tag_exists == 'false' && '✅ Yes' || '⚠️ Already existed' }}
+          $BRANCH_INFO
+
+          ## What this PR does
+          - Syncs develop branch with main after ${{ steps.version.outputs.type }} merge
+          - Ensures develop has all changes from the ${{ steps.version.outputs.version }} ${{ steps.version.outputs.type }}
+          - Maintains Git Flow branching model integrity
+          - Automatically resolves common version conflicts (keeps develop version if newer)
+
+          ## Auto-generated
+          This PR was automatically created by GitHub Actions.
+
+          **Review and merge when ready** - this should typically be a straightforward merge unless there are conflicts that need manual resolution.
+          EOF
+          )" \
+            --label "chore" \
+            --label "auto-generated"
+
+      # STEP 3: CLEANUP MERGED BRANCH
+      - name: Delete merged release/hotfix branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "## Release Preparation Summary" >> $GITHUB_STEP_SUMMARY
+          BRANCH_NAME="${{ steps.version.outputs.branch_name }}"
+
+          echo "🧹 Cleaning up merged branch: $BRANCH_NAME"
+
+          # Delete the remote branch
+          git push origin --delete "$BRANCH_NAME" || echo "⚠️  Branch $BRANCH_NAME may have already been deleted"
+
+          echo "✅ Branch cleanup completed"
+
+      - name: Create workflow summary
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TYPE="${{ steps.version.outputs.type }}"
+          BRANCH_NAME="${{ steps.version.outputs.branch_name }}"
+          BACKMERGE_BRANCH="${{ steps.backmerge.outputs.backmerge_branch }}"
+          BASE_BRANCH_EXISTS="${{ steps.check_branch.outputs.base_branch_exists }}"
+
+          echo "## 🚀 Release Workflow Completed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Branch:** ${{ github.event.ref }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Type:** ${{ steps.extract_version.outputs.branch_type }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version:** v${{ steps.extract_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Changes Committed:** ${{ steps.commit.outputs.has_changes == 'true' && '✅ Yes' || '❌ No' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Version**: \`$VERSION\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Type**: $TYPE" >> $GITHUB_STEP_SUMMARY
+          echo "**Original Branch**: \`$BRANCH_NAME\` (cleaned up)" >> $GITHUB_STEP_SUMMARY
+          echo "**Back-merge Branch**: \`$BACKMERGE_BRANCH\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Merge Commit**: \`${{ github.event.pull_request.merge_commit_sha }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
-          if [ "${{ steps.commit.outputs.has_changes }}" == "true" ]; then
-            echo "✅ **Status:** Pull request created for v${{ steps.extract_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Completed Actions" >> $GITHUB_STEP_SUMMARY
+
+          if [[ "${{ steps.check_tag.outputs.tag_exists }}" == "true" ]]; then
+            echo "- ⚠️  Tag \`$VERSION\` already existed (no new deployment)" >> $GITHUB_STEP_SUMMARY
           else
-            echo "⚠️ **Status:** No changes needed" >> $GITHUB_STEP_SUMMARY
+            echo "- 🏷️ Created and pushed tag \`$VERSION\`" >> $GITHUB_STEP_SUMMARY
+            echo "- 🚀 Triggered deployment workflow" >> $GITHUB_STEP_SUMMARY
           fi
+
+          if [[ "$BASE_BRANCH_EXISTS" == "true" ]]; then
+            echo "- 🔄 Created back-merge PR to develop (unique branch name due to conflict)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- 🔄 Created back-merge PR to develop" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "- 🧹 Deleted merged branch \`$BRANCH_NAME\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Next Steps" >> $GITHUB_STEP_SUMMARY
+          echo "1. 🔍 [Monitor deployment progress](${{ github.server_url }}/${{ github.repository }}/actions)" >> $GITHUB_STEP_SUMMARY
+          echo "2. ✅ Review and merge the back-merge PR to develop" >> $GITHUB_STEP_SUMMARY
+          echo "3. 🎉 Release process complete!" >> $GITHUB_STEP_SUMMARY

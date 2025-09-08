@@ -104,15 +104,60 @@
     },
     "nationalHistorical": {
       "title": "Dapatkan Data Nasional Historis",
-      "description": "Akses data COVID-19 nasional historis dengan dukungan paginasi. Mengembalikan array objek data dengan struktur yang sama dengan endpoint terbaru.",
+      "description": "Ambil data historis COVID-19 Indonesia yang komprehensif dengan opsi filter tanggal dan pengurutan yang fleksibel. Endpoint ini ideal untuk analisis tren, visualisasi data, dan tujuan penelitian, memungkinkan Anda mengakses statistik harian sejak awal pandemi.",
+      "usageNote": "Gunakan endpoint ini ketika Anda membutuhkan data time-series, ingin menganalisis tren dalam periode tertentu, atau memerlukan konteks historis untuk statistik terkini. Untuk data real-time atau terbaru saja, gunakan endpoint /national/latest sebagai gantinya.",
       "queryParameters": "Parameter Query",
       "parameter": "Parameter",
       "type": "Tipe",
-      "description": "Deskripsi",
+      "descriptionLabel": "Deskripsi",
       "default": "Default",
       "exampleRequest": "Contoh Permintaan",
       "tryIt": "Coba",
       "testInBrowser": "Tes di Browser"
+    },
+    "rootEndpoint": {
+      "title": "Dapatkan Semua Endpoint yang Tersedia",
+      "description": "Ambil daftar semua endpoint API yang tersedia dengan deskripsi dan contoh penggunaan.",
+      "endpoint": "GET /",
+      "response": "Respons",
+      "responseDescription": "Mengembalikan objek JSON berisi semua endpoint yang tersedia dengan deskripsinya"
+    },
+    "healthCheck": {
+      "title": "Pemeriksaan Kesehatan",
+      "description": "Periksa status kesehatan API dan konektivitas database. Penting untuk memantau ketersediaan API.",
+      "endpoint": "GET /health",
+      "responses": "Respons",
+      "status200": "200: API sehat dan beroperasi normal",
+      "status503": "503: API mengalami penurunan atau masalah"
+    },
+    "provinces": {
+      "title": "Dapatkan Semua Provinsi",
+      "description": "Ambil semua provinsi Indonesia dengan data kasus COVID-19 terbaru mereka.",
+      "endpoint": "GET /provinces",
+      "queryParameters": "Parameter Query",
+      "excludeLatestCase": "exclude_latest_case (boolean) - Opsional: kecualikan data kasus terbaru dari respons"
+    },
+    "provinceCases": {
+      "title": "Dapatkan Kasus Provinsi",
+      "description": "Ambil kasus COVID-19 untuk provinsi tertentu dengan paginasi hibrid dan opsi filtering fleksibel.",
+      "endpoints": "Endpoints",
+      "allProvinces": "GET /provinces/cases - Data kasus semua provinsi",
+      "specificProvince": "GET /provinces/{provinceId}/cases - Kasus provinsi tertentu",
+      "parameters": [
+        "limit (integer) - Jumlah record per halaman untuk paginasi",
+        "offset (integer) - Jumlah record yang dilewati",
+        "all (boolean) - Kembalikan semua data tanpa paginasi",
+        "start_date (string) - Filter data mulai tanggal ini (YYYY-MM-DD)",
+        "end_date (string) - Filter data sampai tanggal ini (YYYY-MM-DD)",
+        "sort (string) - Opsi pengurutan (contoh: date:desc, date:asc)"
+      ],
+      "features": "Fitur Utama",
+      "featuresList": [
+        "Dukungan paginasi hibrid",
+        "Filtering tanggal fleksibel",
+        "Beragam opsi pengurutan",
+        "Akses data spesifik provinsi"
+      ]
     },
     "authentication": {
       "title": "Autentikasi",

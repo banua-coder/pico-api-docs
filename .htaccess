@@ -1,35 +1,13 @@
 # PICO SulTeng API Documentation Site Configuration
-# Combines Vue SPA routing + COVID-19 API Reverse Proxy
+# Combines Vue SPA routing + COVID-19 API Reverse Proxy + Swagger UI
 
 # Enable rewrite engine
 RewriteEngine On
 RewriteBase /
 
 # =============================================================================
-# API PROXY CONFIGURATION (from your current setup)
+# API PROXY CONFIGURATION
 # =============================================================================
-
-# Add CORS headers for API requests
-<IfModule mod_headers.c>
-    # Handle preflight OPTIONS requests
-    RewriteCond %{REQUEST_METHOD} OPTIONS
-    RewriteRule ^api/v1/ [R=200,L]
-    
-    # Add CORS headers for API responses
-    <FilesMatch "\.(json)$">
-        Header always set Access-Control-Allow-Origin "*"
-        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
-        Header always set Access-Control-Max-Age "86400"
-    </FilesMatch>
-    
-    # Add CORS headers for API routes
-    <LocationMatch "^/api/v1/">
-        Header always set Access-Control-Allow-Origin "*"
-        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
-    </LocationMatch>
-</IfModule>
 
 # Proxy API requests to port 8080 (main API proxy rules)
 RewriteCond %{REQUEST_URI} ^/api/v1/
@@ -38,19 +16,52 @@ RewriteRule ^api/v1/(.*)$ http://localhost:8080/api/v1/$1 [P,L]
 # Handle root API endpoint
 RewriteRule ^api/v1/?$ http://localhost:8080/api/v1/ [P,L]
 
+# Serve Swagger UI static files (no proxy needed)
+# Static files will be served directly by web server
+
+# Handle docs route for Vue documentation site
+RewriteRule ^docs/?$ /index.html [L]
+
 # Optional: API documentation redirect
 RewriteRule ^api/?$ /api/v1/health [R=302,L]
+
+# =============================================================================
+# CORS HEADERS CONFIGURATION
+# =============================================================================
+
+<IfModule mod_headers.c>
+    # Handle preflight OPTIONS requests
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^api/v1/ [R=200,L]
+    
+    # Add CORS headers for API responses
+    <FilesMatch "\\.(json)$">
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+        Header always set Access-Control-Max-Age "86400"
+    </FilesMatch>
+    
+    # Add CORS headers for API and Swagger routes
+    <LocationMatch "^/(api/v1|swagger|docs)/">
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    </LocationMatch>
+</IfModule>
 
 # =============================================================================
 # VUE SPA ROUTING CONFIGURATION (for documentation site)
 # =============================================================================
 
 # Handle Vue Router - redirect all non-file requests to index.html
-# BUT exclude API routes which are handled above
+# BUT exclude API and Swagger routes which are handled above
 RewriteRule ^index\.html$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !^/swagger/
+RewriteCond %{REQUEST_URI} !^/docs/?$
 RewriteRule . /index.html [L]
 
 # =============================================================================
@@ -58,8 +69,8 @@ RewriteRule . /index.html [L]
 # =============================================================================
 
 <IfModule mod_headers.c>
-    # Security headers for API endpoints
-    <LocationMatch "^/api/">
+    # Security headers for API and Swagger endpoints
+    <LocationMatch "^/(api|swagger|docs)/">
         Header always set X-Content-Type-Options nosniff
         Header always set X-Frame-Options DENY
         Header always set X-XSS-Protection "1; mode=block"
@@ -67,7 +78,7 @@ RewriteRule . /index.html [L]
     </LocationMatch>
     
     # Security headers for documentation site
-    <LocationMatch "^(?!/api/)">
+    <LocationMatch "^(?!/(api|swagger|docs)/)">
         Header always set X-Frame-Options "SAMEORIGIN"
         Header always set X-Content-Type-Options "nosniff"
         Header always set X-XSS-Protection "1; mode=block"
@@ -92,6 +103,24 @@ RewriteRule . /index.html [L]
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType application/woff2 "access plus 1 year"
 </IfModule>
+
+# Compress text files
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# Serve static files for everything else
+# (index.html, assets, images, etc.)
+DirectoryIndex index.html
 
 # =============================================================================
 # ERROR HANDLING
