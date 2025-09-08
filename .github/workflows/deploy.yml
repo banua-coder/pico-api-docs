@@ -24,7 +24,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'pnpm'
+        # No cache since pnpm-lock.yaml is excluded from git
 
     - name: Get version from tag
       run: |
@@ -32,7 +32,7 @@ jobs:
         echo "Deploying documentation version: ${GITHUB_REF#refs/tags/}"
 
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: pnpm install
 
     - name: Build documentation site
       run: |
