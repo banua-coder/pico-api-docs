@@ -32,6 +32,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
       
+      - name: Extract version from branch name
+        id: version
+        run: |
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          if [[ $BRANCH_NAME == release/v* ]]; then
+            VERSION=$(echo $BRANCH_NAME | sed 's/release\/v//')
+            TYPE="release"
+          elif [[ $BRANCH_NAME == hotfix/v* ]]; then
+            VERSION=$(echo $BRANCH_NAME | sed 's/hotfix\/v//')
+            TYPE="hotfix"
+          fi
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "type=$TYPE" >> $GITHUB_OUTPUT
+      
       - name: Check if develop branch exists
         id: check_develop
         run: |
@@ -67,7 +84,7 @@ jobs:
             git push origin $BACKMERGE_BRANCH
             
             # Create PR using GitHub CLI
-            PR_TITLE="chore: backmerge main to develop"
+            PR_TITLE="chore: backmerge v${{ steps.version.outputs.version }} to develop"
             
             cat > pr_body.md << 'PREOF'
             ## Automated Backmerge
@@ -117,7 +134,7 @@ jobs:
             git push origin $BACKMERGE_BRANCH
             
             # Create PR with conflict warning
-            PR_TITLE="chore: backmerge main to develop (conflicts)"
+            PR_TITLE="chore: backmerge v${{ steps.version.outputs.version }} to develop (conflicts)"
             
             cat > pr_conflict_body.md << 'PREOF'
             ## ⚠️ Automated Backmerge with Conflicts
