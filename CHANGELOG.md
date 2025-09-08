@@ -1,3 +1,10 @@
+## [v1.1.0] - 2025-09-08
+
+### Maintenance
+
+- Remove unnecessary image.png file (e7807a8)
+
+
 # Changelog for v1.0.0
 
 Generated on 2025-09-08
