@@ -80,6 +80,188 @@
       "ethicalHacker": "Ethical Hacker Indonesia - Security Partner"
     }
   },
+  "documentation": {
+    "title": "API Documentation",
+    "subtitle": "Comprehensive guide for integrating with the PICO SulTeng COVID-19 API",
+    "overview": {
+      "title": "API Documentation",
+      "subtitle": "Comprehensive guide for integrating with the PICO SulTeng COVID-19 API. Get real-time Indonesian COVID-19 data with our RESTful endpoints.",
+      "apiStatus": "API Status: Operational",
+      "gettingStarted": "Getting Started",
+      "gettingStartedSub": "Quick start guide to using the PICO SulTeng API",
+      "baseUrl": "Base URL",
+      "contentType": "Content Type",
+      "quickExample": "Quick Example",
+      "noAuthRequired": "No authentication required for public endpoints"
+    },
+    "nationalLatest": {
+      "title": "Get Latest National Data",
+      "description": "Retrieve the most recent national COVID-19 statistics for Indonesia.",
+      "request": "Request",
+      "response": "Response",
+      "responseFields": "Response Fields",
+      "tryLiveApi": "Try Live API"
+    },
+    "nationalHistorical": {
+      "title": "Get Historical National Data",
+      "description": "Access historical national COVID-19 data with pagination support. Returns an array of data objects with the same structure as the latest endpoint.",
+      "queryParameters": "Query Parameters",
+      "parameter": "Parameter",
+      "type": "Type",
+      "description": "Description",
+      "default": "Default",
+      "exampleRequest": "Example Request",
+      "tryIt": "Try It",
+      "testInBrowser": "Test in Browser"
+    },
+    "authentication": {
+      "title": "Authentication",
+      "subtitle": "API access and security information",
+      "noAuthRequired": "No Authentication Required",
+      "noAuthDescription": "All PICO SulTeng API endpoints are publicly accessible and do not require authentication keys or tokens.",
+      "rateLimiting": "Rate Limiting",
+      "bestPractices": "Best Practices",
+      "rateLimitDetails": [
+        "100 requests per minute per IP",
+        "20 burst size for initial requests",
+        "No API key required",
+        "CORS enabled for all origins"
+      ],
+      "practiceDetails": [
+        "Cache responses appropriately",
+        "Use HTTPS for secure connections",
+        "Handle rate limit responses"
+      ]
+    },
+    "errorHandling": {
+      "title": "Error Handling",
+      "subtitle": "HTTP status codes and error responses",
+      "httpStatusCodes": "HTTP Status Codes",
+      "errorResponseFormat": "Error Response Format",
+      "errorResponse": "Error Response",
+      "errorFields": "Error Fields",
+      "statusCodes": {
+        "200": { "title": "OK", "description": "Request successful" },
+        "400": { "title": "Bad Request", "description": "Invalid parameters or malformed request" },
+        "404": { "title": "Not Found", "description": "Endpoint or resource not found" },
+        "429": { "title": "Too Many Requests", "description": "Rate limit exceeded" },
+        "500": { "title": "Internal Server Error", "description": "Server encountered an unexpected error" }
+      },
+      "fieldDescriptions": {
+        "status": "Always \"error\" for error responses",
+        "code": "HTTP status code",
+        "message": "Human-readable error message",
+        "details": "Additional error information"
+      }
+    },
+    "glossary": {
+      "title": "Glossary",
+      "subtitle": "Key terms and concepts used in the PICO SulTeng COVID-19 API",
+      "cardTitle": "API Terms & Concepts",
+      "cardSubtitle": "Understanding key terminology and calculations",
+      "reproductionRate": {
+        "title": "Reproduction Rate (Rt)",
+        "definition": "Definition",
+        "definitionText": "The effective reproduction number representing the average number of secondary infections caused by one infected individual at time t.",
+        "interpretation": "Interpretation",
+        "growing": "Epidemic is growing (each case infects >1 person)",
+        "stable": "Epidemic is stable",
+        "declining": "Epidemic is declining",
+        "calculationMethod": "Calculation Method",
+        "epiEstimTitle": "EpiEstim Approach (Cori et al. 2013)",
+        "methodDetails": [
+          "Bayesian framework with Gamma priors",
+          "Serial interval: 5.0 ± 3.0 days",
+          "7-day sliding window",
+          "95% credible intervals"
+        ],
+        "dataAvailability": "Data Availability",
+        "dataAvailabilityText": "Values may be null during the first 7 days or when there's insufficient data for reliable calculation.",
+        "formula": "Mathematical Formula",
+        "formulaTitle": "EpiEstim Bayesian Estimation",
+        "formulaDescription": "The reproduction number Rt is estimated using Bayesian inference with the following key components:",
+        "formulaSteps": [
+          "Calculate total infectiousness:",
+          "Where:",
+          "Posterior distribution:",
+          "Point estimate:"
+        ],
+        "references": "References"
+      },
+      "caseClassifications": {
+        "title": "Case Classifications",
+        "positive": { "title": "Positive Cases", "description": "Confirmed COVID-19 infections through testing" },
+        "recovered": { "title": "Recovered Cases", "description": "Patients who have recovered from COVID-19" },
+        "deceased": { "title": "Deceased Cases", "description": "Deaths attributed to COVID-19" },
+        "active": { "title": "Active Cases", "description": "Currently infected patients (positive - recovered - deceased)" }
+      },
+      "dataTypes": {
+        "title": "Data Types",
+        "daily": { "title": "Daily Data", "description": "New cases reported for a specific day" },
+        "cumulative": { "title": "Cumulative Data", "description": "Total cases accumulated since the start of tracking" },
+        "percentages": { "title": "Percentages", "description": "Distribution of cases as percentage of total positive cases" },
+        "serialInterval": { "title": "Serial Interval", "description": "Time between symptom onset in successive cases in a chain of transmission" }
+      },
+      "indonesianTerminology": {
+        "title": "Indonesian COVID-19 Terminology",
+        "subtitle": "Official Ministry of Health (Kemenkes) terminology for COVID-19 case classification",
+        "currentTerms": "Current Terms (Official Kemenkes Classification)",
+        "legacyTerms": "Legacy Terms (2020-2021)",
+        "officialNote": "Official basis for COVID-19 data reporting as of 2021",
+        "kasusSuspect": {
+          "name": "Kasus Suspect",
+          "translation": "Suspect Case",
+          "description": "Person from an area with local transmission within 14 days before illness, or had contact with confirmed/probable case, or severe respiratory infection requiring hospitalization with no specific identified cause."
+        },
+        "kasusProbable": {
+          "name": "Kasus Probable",
+          "translation": "Probable Case",
+          "description": "Clinical COVID-19 case with severe symptoms, ARDS or severe respiratory distress, not yet laboratory tested via RT-PCR."
+        },
+        "kontakErat": {
+          "name": "Kontak Erat",
+          "translation": "Close Contact",
+          "description": "Person who contacted a confirmed or probable case within the infectious period."
+        },
+        "kasusKonfirmasi": {
+          "name": "Kasus Konfirmasi",
+          "translation": "Confirmed Case",
+          "description": "Positive RT-PCR test result with two subcategories: symptomatic and asymptomatic cases."
+        },
+        "otg": {
+          "acronym": "OTG",
+          "fullName": "Orang Tanpa Gejala",
+          "translation": "Asymptomatic Person",
+          "description": "Legacy term: Individuals who test positive for COVID-19 but show no symptoms. Now classified under confirmed cases (asymptomatic).",
+          "status": "legacy",
+          "replacedBy": "Kasus Konfirmasi (Asimtomatis)"
+        },
+        "odp": {
+          "acronym": "ODP",
+          "fullName": "Orang Dalam Pemantauan",
+          "translation": "Person Under Observation",
+          "description": "Legacy term: Individuals monitored for 14 days after exposure. Now classified as Suspect Cases.",
+          "status": "legacy",
+          "replacedBy": "Kasus Suspect"
+        },
+        "pdp": {
+          "acronym": "PDP",
+          "fullName": "Pasien Dalam Pengawasan",
+          "translation": "Patient Under Supervision",
+          "description": "Legacy term: Patients with symptoms requiring medical supervision. Now classified as Probable Cases.",
+          "status": "legacy",
+          "replacedBy": "Kasus Probable"
+        },
+        "classificationProgression": {
+          "title": "Official Classification System",
+          "description": "Kemenkes updated terminology in 2021 for more precise epidemiological classification and reporting mechanisms",
+          "officialQuote": "This calculation basis will be used starting today for COVID-19 data reporting",
+          "currentFlow": "Official: Suspect → Probable → Confirmed (Symptomatic/Asymptomatic)",
+          "legacyFlow": "Legacy: ODP → PDP → OTG → Confirmed"
+        }
+      }
+    }
+  },
   "footer": {
     "description": "Comprehensive COVID-19 data API for Central Sulawesi, providing real-time statistics and historical data.",
     "createdBy": "Created by {author}",

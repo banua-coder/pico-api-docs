@@ -1,27 +1,9 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Navigation (same as home) -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <div class="flex items-center">
-            <router-link to="/" class="text-2xl font-bold gradient-text">PICO SulTeng</router-link>
-          </div>
-          <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <router-link to="/" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</router-link>
-              <router-link to="/docs" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Documentation</router-link>
-              <router-link to="/api" class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">API Reference</router-link>
-              <a href="https://pico-api.banuacoder.com/api/v1" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                Live API
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <!-- Navigation -->
+    <Navigation variant="solid" />
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-20">
       <div class="prose prose-lg max-w-none">
         <h1>API Reference</h1>
         <p class="lead">Complete API endpoint reference for PICO SulTeng</p>
@@ -50,5 +32,5 @@
 </template>
 
 <script setup lang="ts">
-// API Reference page component
+import Navigation from '@/components/Navigation.vue'
 </script>
