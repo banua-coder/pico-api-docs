@@ -1,0 +1,108 @@
+{
+  "glossary": {
+    "title": "Glossary",
+    "subtitle": "Key terms and concepts used in the PICO SulTeng COVID-19 API",
+    "cardTitle": "API Terms & Concepts",
+    "cardSubtitle": "Understanding key terminology and calculations",
+    "reproductionRate": {
+      "title": "Reproduction Rate (Rt)",
+      "definition": "Definition",
+      "definitionText": "The effective reproduction number representing the average number of secondary infections caused by one infected individual at time t.",
+      "interpretation": "Interpretation",
+      "growing": "Epidemic is growing (each case infects >1 person)",
+      "stable": "Epidemic is stable",
+      "declining": "Epidemic is declining",
+      "calculationMethod": "Calculation Method",
+      "epiEstimTitle": "EpiEstim Approach (Cori et al. 2013)",
+      "methodDetails": [
+        "Bayesian framework with Gamma priors",
+        "Serial interval: 5.0 ± 3.0 days",
+        "7-day sliding window",
+        "95% credible intervals"
+      ],
+      "dataAvailability": "Data Availability",
+      "dataAvailabilityText": "Values may be {nullCode} during the first 7 days or when there's insufficient data for reliable calculation.",
+      "formula": "Mathematical Formula",
+      "formulaTitle": "EpiEstim Bayesian Estimation",
+      "formulaDescription": "The reproduction number Rt is estimated using Bayesian inference with the following key components:",
+      "formulaSteps": [
+        "Calculate total infectiousness: λt = Σ(s=1 to t-1) I(t-s) × w(s)",
+        "Where I(t-s) = incidence at time (t-s), w(s) = serial interval probability",
+        "Posterior distribution: Rt|data ~ Gamma(a + Σ I(t), b + Σ λ(t))",
+        "Point estimate: E[Rt|data] = (a + Σ I(t)) / (b + Σ λ(t))"
+      ],
+      "references": "References",
+      "referenceList": [
+        {
+          "title": "Cori, A., Ferguson, N. M., Fraser, C., & Cauchemez, S. (2013)",
+          "journal": "American Journal of Epidemiology",
+          "details": "A new framework and software to estimate time-varying reproduction numbers during epidemics. 178(9), 1505-1512.",
+          "doi": "10.1093/aje/kwt133"
+        },
+        {
+          "title": "Thompson, R. N., et al. (2019)",
+          "journal": "Epidemics",
+          "details": "Improved inference of time-varying reproduction numbers during infectious disease outbreaks. 29, 100356.",
+          "doi": "10.1016/j.epidem.2019.100356"
+        }
+      ]
+    },
+    "caseClassifications": {
+      "title": "Case Classifications",
+      "positive": {
+        "title": "Positive Cases",
+        "description": "Confirmed COVID-19 infections through testing"
+      },
+      "recovered": {
+        "title": "Recovered Cases",
+        "description": "Patients who have recovered from COVID-19"
+      },
+      "deceased": {
+        "title": "Deceased Cases",
+        "description": "Deaths attributed to COVID-19"
+      },
+      "active": {
+        "title": "Active Cases",
+        "description": "Currently infected patients (positive - recovered - deceased)"
+      }
+    },
+    "dataTypes": {
+      "title": "Data Types",
+      "daily": {
+        "title": "Daily Data",
+        "description": "New cases reported for a specific day"
+      },
+      "cumulative": {
+        "title": "Cumulative Data",
+        "description": "Total cases accumulated since the start of tracking"
+      },
+      "percentages": {
+        "title": "Percentages",
+        "description": "Distribution of cases as percentage of total positive cases"
+      },
+      "serialInterval": {
+        "title": "Serial Interval",
+        "description": "Time between symptom onset in successive cases in a chain of transmission"
+      }
+    },
+    "indonesianTerminology": {
+      "title": "Indonesian COVID-19 Terminology",
+      "odp": {
+        "acronym": "ODP",
+        "fullName": "Orang Dalam Pemantauan",
+        "translation": "Person Under Observation",
+        "description": "Individuals who have been exposed to COVID-19 or have traveled from affected areas but show no symptoms. They are monitored for 14 days for potential symptom development."
+      },
+      "pdp": {
+        "acronym": "PDP",
+        "fullName": "Pasien Dalam Pengawasan",
+        "translation": "Patient Under Supervision",
+        "description": "Individuals showing COVID-19 symptoms (fever, cough, breathing difficulties) with a history of exposure or travel from affected areas. They require medical supervision and testing."
+      },
+      "classificationProgression": {
+        "title": "Classification Progression",
+        "description": "Individuals may progress from ODP to PDP if symptoms develop, then receive testing for final diagnosis"
+      }
+    }
+  }
+}
