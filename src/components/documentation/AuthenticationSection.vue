@@ -49,6 +49,33 @@
             </ul>
           </div>
         </div>
+
+        <!-- Rate Limit Headers -->
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Rate Limit Response Headers</h3>
+          <div class="bg-gray-50 rounded-lg p-6">
+            <div class="grid md:grid-cols-1 gap-4">
+              <div class="space-y-3">
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <code class="text-sm font-mono text-gray-800">X-RateLimit-Limit</code>
+                  <span class="text-sm text-gray-600">Request limit per window</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <code class="text-sm font-mono text-gray-800">X-RateLimit-Remaining</code>
+                  <span class="text-sm text-gray-600">Requests remaining in current window</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <code class="text-sm font-mono text-gray-800">X-RateLimit-Reset</code>
+                  <span class="text-sm text-gray-600">Unix timestamp when rate limit resets</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                  <code class="text-sm font-mono text-gray-800">Retry-After</code>
+                  <span class="text-sm text-gray-600">Seconds to wait before retrying (on 429 errors)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

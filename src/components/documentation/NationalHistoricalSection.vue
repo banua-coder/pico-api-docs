@@ -51,6 +51,30 @@
               </thead>
               <tbody class="text-sm">
                 <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">limit</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Records per page (default: 50, max: 1000)</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">offset</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Records to skip (default: 0)</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">page</td>
+                  <td class="py-3 px-4 text-gray-600">integer</td>
+                  <td class="py-3 px-4 text-gray-600">Page number (1-based, alternative to offset)</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">all</td>
+                  <td class="py-3 px-4 text-gray-600">boolean</td>
+                  <td class="py-3 px-4 text-gray-600">Return all data without pagination</td>
+                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                </tr>
+                <tr class="border-b">
                   <td class="py-3 px-4 font-mono text-pico-deep">start_date</td>
                   <td class="py-3 px-4 text-gray-600">string</td>
                   <td class="py-3 px-4 text-gray-600">Start date for filtering data (YYYY-MM-DD format)</td>
@@ -145,10 +169,40 @@
                   <td class="py-3 px-4 text-gray-600">integer</td>
                   <td class="py-3 px-4 text-gray-600">Daily new death cases</td>
                 </tr>
-                <tr>
+                <tr class="border-b">
                   <td class="py-3 px-4 font-mono text-pico-deep">daily.active</td>
                   <td class="py-3 px-4 text-gray-600">integer</td>
                   <td class="py-3 px-4 text-gray-600">Daily change in active cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.active</td>
+                  <td class="py-3 px-4 text-gray-600">float</td>
+                  <td class="py-3 px-4 text-gray-600">Percentage of active cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.recovered</td>
+                  <td class="py-3 px-4 text-gray-600">float</td>
+                  <td class="py-3 px-4 text-gray-600">Percentage of recovered cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.deceased</td>
+                  <td class="py-3 px-4 text-gray-600">float</td>
+                  <td class="py-3 px-4 text-gray-600">Percentage of deceased cases</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate.value</td>
+                  <td class="py-3 px-4 text-gray-600">float</td>
+                  <td class="py-3 px-4 text-gray-600">Reproduction rate (Rt) estimate</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate.upper_bound</td>
+                  <td class="py-3 px-4 text-gray-600">float</td>
+                  <td class="py-3 px-4 text-gray-600">Upper confidence bound for reproduction rate</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate.lower_bound</td>
+                  <td class="py-3 px-4 text-gray-600">float</td>
+                  <td class="py-3 px-4 text-gray-600">Lower confidence bound for reproduction rate</td>
                 </tr>
               </tbody>
             </table>
