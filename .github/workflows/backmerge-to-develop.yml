@@ -109,7 +109,7 @@ jobs:
             
             ---
             *This PR was automatically created by GitHub Actions workflow.*
-            PREOF
+PREOF
             
             # Create PR with review requirements
             # Uncomment --draft if you want PRs to be created as draft
@@ -169,7 +169,7 @@ jobs:
             
             ---
             *This PR was automatically created by GitHub Actions workflow. Manual conflict resolution is required.*
-            CONFLICT_EOF
+CONFLICT_EOF
             
             gh pr create \
               --base develop \
