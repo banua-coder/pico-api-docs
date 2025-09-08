@@ -80,6 +80,188 @@
       "ethicalHacker": "Ethical Hacker Indonesia - Partner Keamanan"
     }
   },
+  "documentation": {
+    "title": "Dokumentasi API",
+    "subtitle": "Panduan komprehensif untuk integrasi dengan API COVID-19 PICO SulTeng",
+    "overview": {
+      "title": "Dokumentasi API",
+      "subtitle": "Panduan komprehensif untuk integrasi dengan API COVID-19 PICO SulTeng. Dapatkan data COVID-19 Indonesia real-time dengan endpoint RESTful kami.",
+      "apiStatus": "Status API: Operasional",
+      "gettingStarted": "Memulai",
+      "gettingStartedSub": "Panduan cepat menggunakan API PICO SulTeng",
+      "baseUrl": "URL Dasar",
+      "contentType": "Tipe Konten",
+      "quickExample": "Contoh Cepat",
+      "noAuthRequired": "Tidak memerlukan autentikasi untuk endpoint publik"
+    },
+    "nationalLatest": {
+      "title": "Dapatkan Data Nasional Terbaru",
+      "description": "Mengambil statistik COVID-19 nasional terbaru untuk Indonesia.",
+      "request": "Permintaan",
+      "response": "Respons",
+      "responseFields": "Field Respons",
+      "tryLiveApi": "Coba API Langsung"
+    },
+    "nationalHistorical": {
+      "title": "Dapatkan Data Nasional Historis",
+      "description": "Akses data COVID-19 nasional historis dengan dukungan paginasi. Mengembalikan array objek data dengan struktur yang sama dengan endpoint terbaru.",
+      "queryParameters": "Parameter Query",
+      "parameter": "Parameter",
+      "type": "Tipe",
+      "description": "Deskripsi",
+      "default": "Default",
+      "exampleRequest": "Contoh Permintaan",
+      "tryIt": "Coba",
+      "testInBrowser": "Tes di Browser"
+    },
+    "authentication": {
+      "title": "Autentikasi",
+      "subtitle": "Informasi akses API dan keamanan",
+      "noAuthRequired": "Tidak Memerlukan Autentikasi",
+      "noAuthDescription": "Semua endpoint API PICO SulTeng dapat diakses publik dan tidak memerlukan kunci autentikasi atau token.",
+      "rateLimiting": "Pembatasan Rate",
+      "bestPractices": "Praktik Terbaik",
+      "rateLimitDetails": [
+        "100 permintaan per menit per IP",
+        "20 burst size untuk permintaan awal",
+        "Tidak memerlukan kunci API",
+        "CORS diaktifkan untuk semua origin"
+      ],
+      "practiceDetails": [
+        "Cache respons dengan tepat",
+        "Gunakan HTTPS untuk koneksi aman",
+        "Tangani respons batas rate"
+      ]
+    },
+    "errorHandling": {
+      "title": "Penanganan Error",
+      "subtitle": "Kode status HTTP dan respons error",
+      "httpStatusCodes": "Kode Status HTTP",
+      "errorResponseFormat": "Format Respons Error",
+      "errorResponse": "Respons Error",
+      "errorFields": "Field Error",
+      "statusCodes": {
+        "200": { "title": "OK", "description": "Permintaan berhasil" },
+        "400": { "title": "Bad Request", "description": "Parameter tidak valid atau permintaan salah format" },
+        "404": { "title": "Not Found", "description": "Endpoint atau resource tidak ditemukan" },
+        "429": { "title": "Too Many Requests", "description": "Batas rate terlampaui" },
+        "500": { "title": "Internal Server Error", "description": "Server mengalami error yang tidak terduga" }
+      },
+      "fieldDescriptions": {
+        "status": "Selalu \"error\" untuk respons error",
+        "code": "Kode status HTTP",
+        "message": "Pesan error yang dapat dibaca manusia",
+        "details": "Informasi error tambahan"
+      }
+    },
+    "glossary": {
+      "title": "Glosarium",
+      "subtitle": "Istilah dan konsep kunci yang digunakan dalam API COVID-19 PICO SulTeng",
+      "cardTitle": "Istilah & Konsep API",
+      "cardSubtitle": "Memahami terminologi dan perhitungan kunci",
+      "reproductionRate": {
+        "title": "Angka Reproduksi (Rt)",
+        "definition": "Definisi",
+        "definitionText": "Angka reproduksi efektif yang mewakili rata-rata infeksi sekunder yang disebabkan oleh satu individu terinfeksi pada waktu t.",
+        "interpretation": "Interpretasi",
+        "growing": "Epidemi berkembang (setiap kasus menginfeksi >1 orang)",
+        "stable": "Epidemi stabil",
+        "declining": "Epidemi menurun",
+        "calculationMethod": "Metode Perhitungan",
+        "epiEstimTitle": "Pendekatan EpiEstim (Cori et al. 2013)",
+        "methodDetails": [
+          "Kerangka Bayesian dengan prior Gamma",
+          "Interval serial: 5,0 ± 3,0 hari",
+          "Jendela geser 7 hari",
+          "Interval kredibel 95%"
+        ],
+        "dataAvailability": "Ketersediaan Data",
+        "dataAvailabilityText": "Nilai dapat berupa null selama 7 hari pertama atau ketika data tidak mencukupi untuk perhitungan yang dapat diandalkan.",
+        "formula": "Formula Matematika",
+        "formulaTitle": "Estimasi Bayesian EpiEstim",
+        "formulaDescription": "Angka reproduksi Rt diestimasi menggunakan inferensi Bayesian dengan komponen kunci berikut:",
+        "formulaSteps": [
+          "Hitung total infektivitas:",
+          "Dimana:",
+          "Distribusi posterior:",
+          "Estimasi titik:"
+        ],
+        "references": "Referensi"
+      },
+      "caseClassifications": {
+        "title": "Klasifikasi Kasus",
+        "positive": { "title": "Kasus Positif", "description": "Infeksi COVID-19 yang dikonfirmasi melalui tes" },
+        "recovered": { "title": "Kasus Sembuh", "description": "Pasien yang telah sembuh dari COVID-19" },
+        "deceased": { "title": "Kasus Meninggal", "description": "Kematian yang disebabkan oleh COVID-19" },
+        "active": { "title": "Kasus Aktif", "description": "Pasien yang saat ini terinfeksi (positif - sembuh - meninggal)" }
+      },
+      "dataTypes": {
+        "title": "Tipe Data",
+        "daily": { "title": "Data Harian", "description": "Kasus baru yang dilaporkan untuk hari tertentu" },
+        "cumulative": { "title": "Data Kumulatif", "description": "Total kasus yang terakumulasi sejak awal pelacakan" },
+        "percentages": { "title": "Persentase", "description": "Distribusi kasus sebagai persentase dari total kasus positif" },
+        "serialInterval": { "title": "Interval Serial", "description": "Waktu antara onset gejala pada kasus berturut-turut dalam rantai transmisi" }
+      },
+      "indonesianTerminology": {
+        "title": "Terminologi COVID-19 Indonesia",
+        "subtitle": "Terminologi resmi Kementerian Kesehatan (Kemenkes) untuk klasifikasi kasus COVID-19",
+        "currentTerms": "Istilah Terkini (Klasifikasi Resmi Kemenkes)",
+        "legacyTerms": "Istilah Lama (2020-2021)",
+        "officialNote": "Dasar resmi untuk pelaporan data COVID-19 sejak 2021",
+        "kasusSuspect": {
+          "name": "Kasus Suspect",
+          "translation": "Suspect Case",
+          "description": "Orang dari daerah transmisi lokal dalam 14 hari sebelum sakit, atau kontak dengan kasus konfirmasi/probable, atau infeksi pernapasan berat memerlukan rawat inap tanpa penyebab spesifik."
+        },
+        "kasusProbable": {
+          "name": "Kasus Probable",
+          "translation": "Probable Case",
+          "description": "Kasus klinis COVID-19 dengan gejala berat, ARDS atau gangguan pernapasan berat, belum diuji laboratorium melalui RT-PCR."
+        },
+        "kontakErat": {
+          "name": "Kontak Erat",
+          "translation": "Close Contact",
+          "description": "Orang yang kontak dengan kasus konfirmasi atau probable dalam periode infeksius."
+        },
+        "kasusKonfirmasi": {
+          "name": "Kasus Konfirmasi",
+          "translation": "Confirmed Case",
+          "description": "Hasil tes RT-PCR positif dengan dua subkategori: kasus simtomatis dan asimtomatis."
+        },
+        "otg": {
+          "acronym": "OTG",
+          "fullName": "Orang Tanpa Gejala",
+          "translation": "Asymptomatic Person",
+          "description": "Istilah lama: Individu positif COVID-19 tanpa gejala. Kini diklasifikasikan sebagai kasus konfirmasi (asimtomatis).",
+          "status": "legacy",
+          "replacedBy": "Kasus Konfirmasi (Asimtomatis)"
+        },
+        "odp": {
+          "acronym": "ODP",
+          "fullName": "Orang Dalam Pemantauan",
+          "translation": "Person Under Observation",
+          "description": "Istilah lama: Individu dipantau 14 hari setelah paparan. Kini diklasifikasikan sebagai Kasus Suspect.",
+          "status": "legacy",
+          "replacedBy": "Kasus Suspect"
+        },
+        "pdp": {
+          "acronym": "PDP",
+          "fullName": "Pasien Dalam Pengawasan",
+          "translation": "Patient Under Supervision",
+          "description": "Istilah lama: Pasien bergejala memerlukan pengawasan medis. Kini diklasifikasikan sebagai Kasus Probable.",
+          "status": "legacy",
+          "replacedBy": "Kasus Probable"
+        },
+        "classificationProgression": {
+          "title": "Sistem Klasifikasi Resmi",
+          "description": "Kemenkes memperbarui terminologi pada 2021 untuk klasifikasi epidemiologi dan mekanisme pelaporan yang lebih presisi",
+          "officialQuote": "Basis perhitungan ini akan digunakan mulai hari ini untuk pelaporan data COVID-19",
+          "currentFlow": "Resmi: Suspect → Probable → Konfirmasi (Simtomatis/Asimtomatis)",
+          "legacyFlow": "Lama: ODP → PDP → OTG → Konfirmasi"
+        }
+      }
+    }
+  },
   "footer": {
     "description": "API data COVID-19 komprehensif untuk Sulawesi Tengah, menyediakan statistik real-time dan data historis.",
     "createdBy": "Dibuat oleh {author}",
