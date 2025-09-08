@@ -1,0 +1,217 @@
+name: Release Automation
+
+on:
+  create:
+
+jobs:
+  prepare-release:
+    if: |
+      github.event.ref_type == 'branch' &&
+      (startsWith(github.event.ref, 'release/v') || startsWith(github.event.ref, 'hotfix/v'))
+    
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for changelog generation
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Extract version from branch name
+        id: extract_version
+        run: |
+          BRANCH_NAME="${{ github.event.ref }}"
+          # Extract version from branch name (release/v1.2.3 or hotfix/v1.2.3)
+          VERSION=$(echo "$BRANCH_NAME" | sed 's/.*\/v//')
+          
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "❌ Invalid version format: $VERSION"
+            echo "Version must be in format x.y.z"
+            exit 1
+          fi
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "branch_type=$(echo "$BRANCH_NAME" | cut -d'/' -f1)" >> $GITHUB_OUTPUT
+          echo "✅ Extracted version: $VERSION"
+      
+      - name: Update package.json version
+        run: |
+          VERSION="${{ steps.extract_version.outputs.version }}"
+          
+          # Update version in package.json
+          if [ -f "package.json" ]; then
+            # Use jq to update version if available, otherwise use sed
+            if command -v jq >/dev/null 2>&1; then
+              jq ".version = \"$VERSION\"" package.json > package.json.tmp && mv package.json.tmp package.json
+            else
+              sed -i.bak "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" package.json && rm package.json.bak
+            fi
+            echo "✅ Updated package.json to version $VERSION"
+          else
+            echo "⚠️ package.json not found, skipping version update"
+          fi
+      
+      - name: Generate changelog
+        id: changelog
+        run: |
+          VERSION="${{ steps.extract_version.outputs.version }}"
+          
+          # Generate changelog using the Ruby script
+          echo "Generating changelog for version $VERSION..."
+          
+          # Create CHANGELOG.md if it doesn't exist
+          if [ ! -f "CHANGELOG.md" ]; then
+            echo "# Changelog" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            echo "All notable changes to this project will be documented in this file." >> CHANGELOG.md
+            echo "" >> CHANGELOG.md
+          fi
+          
+          # Generate changelog for this version
+          ruby scripts/generate_changelog.rb \
+            --version "$VERSION" \
+            --output "CHANGELOG_NEW.md"
+          
+          # Prepend new changelog to existing one
+          if [ -f "CHANGELOG_NEW.md" ]; then
+            # Add separator
+            echo "" >> CHANGELOG_NEW.md
+            echo "---" >> CHANGELOG_NEW.md
+            echo "" >> CHANGELOG_NEW.md
+            
+            # Append existing changelog (skip first 3 lines if they're the header)
+            if [ -f "CHANGELOG.md" ]; then
+              tail -n +4 CHANGELOG.md >> CHANGELOG_NEW.md 2>/dev/null || cat CHANGELOG.md >> CHANGELOG_NEW.md
+            fi
+            
+            mv CHANGELOG_NEW.md CHANGELOG.md
+            echo "✅ Changelog generated successfully"
+          else
+            echo "❌ Failed to generate changelog"
+            exit 1
+          fi
+          
+          # Save changelog content for PR body
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          ruby scripts/generate_changelog.rb --version "$VERSION" | head -50 >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Commit changes
+        id: commit
+        run: |
+          VERSION="${{ steps.extract_version.outputs.version }}"
+          BRANCH_TYPE="${{ steps.extract_version.outputs.branch_type }}"
+          
+          # Stage changes
+          git add -A
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            # Commit with conventional commit message
+            if [ "$BRANCH_TYPE" = "release" ]; then
+              git commit -m "chore(release): prepare release v$VERSION"
+            else
+              git commit -m "fix(hotfix): prepare hotfix v$VERSION"
+            fi
+            
+            # Push changes
+            git push origin "${{ github.event.ref }}"
+            
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✅ Changes committed and pushed"
+          fi
+      
+      - name: Create Pull Request
+        if: steps.commit.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.extract_version.outputs.version }}"
+          BRANCH_TYPE="${{ steps.extract_version.outputs.branch_type }}"
+          BRANCH_NAME="${{ github.event.ref }}"
+          
+          # Determine target branch
+          if [ "$BRANCH_TYPE" = "release" ]; then
+            TARGET_BRANCH="main"
+            PR_TITLE="chore(release): release v$VERSION"
+            LABELS="release,auto-generated"
+          else
+            TARGET_BRANCH="main"
+            PR_TITLE="fix(hotfix): hotfix v$VERSION"
+            LABELS="hotfix,auto-generated,priority:high"
+          fi
+          
+          # Create PR body
+          cat > pr_body.md << 'PREOF'
+          ## 🚀 ${{ steps.extract_version.outputs.branch_type == 'release' && 'Release' || 'Hotfix' }} v${{ steps.extract_version.outputs.version }}
+          
+          This PR contains the following changes for v${{ steps.extract_version.outputs.version }}:
+          
+          ### 📋 Changes Included
+          - ✅ Version bumped to v${{ steps.extract_version.outputs.version }}
+          - ✅ Changelog updated
+          
+          ### 📝 Changelog Preview
+          
+          ${{ steps.changelog.outputs.changelog }}
+          
+          ### ✔️ Checklist
+          - [ ] All tests passing
+          - [ ] Documentation updated (if needed)
+          - [ ] Breaking changes documented (if any)
+          - [ ] Ready for production
+          
+          ### 🔄 Post-Merge Actions
+          After merging this PR:
+          1. A tag `v${{ steps.extract_version.outputs.version }}` will be created automatically
+          2. A GitHub release will be created with the changelog
+          3. Changes will be backmerged to `develop` branch
+          
+          ---
+          *This PR was automatically generated when the ${{ github.event.ref }} branch was created.*
+          PREOF
+          
+          # Create the pull request
+          gh pr create \
+            --base "$TARGET_BRANCH" \
+            --head "$BRANCH_NAME" \
+            --title "$PR_TITLE" \
+            --body-file pr_body.md \
+            --label "$LABELS"
+          
+          echo "✅ Pull request created successfully"
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Release Preparation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** ${{ github.event.ref }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Type:** ${{ steps.extract_version.outputs.branch_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** v${{ steps.extract_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Changes Committed:** ${{ steps.commit.outputs.has_changes == 'true' && '✅ Yes' || '❌ No' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.commit.outputs.has_changes }}" == "true" ]; then
+            echo "✅ **Status:** Pull request created for v${{ steps.extract_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **Status:** No changes needed" >> $GITHUB_STEP_SUMMARY
+          fi
