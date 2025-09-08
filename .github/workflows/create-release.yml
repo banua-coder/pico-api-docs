@@ -90,10 +90,13 @@ jobs:
           # Generate changelog using the Ruby script
           ruby scripts/generate_changelog.rb \
             --version "$VERSION" \
-            --output "RELEASE_CHANGELOG.md"
+            --force
 
-          if [ -f "RELEASE_CHANGELOG.md" ]; then
+          if [ -f "CHANGELOG.md" ]; then
             echo "✅ Changelog generated successfully"
+            
+            # Extract just the latest version section for the release notes
+            sed -n "/## \[v$VERSION\]/,/## \[/p" CHANGELOG.md | head -n -1 > RELEASE_CHANGELOG.md
             
             # Save changelog content for release body (limit to reasonable size)
             echo "changelog<<EOF" >> $GITHUB_OUTPUT
@@ -203,8 +206,8 @@ jobs:
             echo "⚠️ **Status:** Skipped - tag already exists" >> $GITHUB_STEP_SUMMARY
           else
             echo "✅ **Status:** Release created successfully" >> $GITHUB_STEP_SUMMARY
-            if [ -n "${{ steps.create-release.outputs.release_url || '' }}" ]; then
-              echo "🔗 **Release URL:** ${{ steps.create-release.outputs.release_url }}" >> $GITHUB_STEP_SUMMARY
+            if [ -n "${{ steps.changelog.outputs.release_url || '' }}" ]; then
+              echo "🔗 **Release URL:** ${{ steps.changelog.outputs.release_url }}" >> $GITHUB_STEP_SUMMARY
             fi
           fi
 
