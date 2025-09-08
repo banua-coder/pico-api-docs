@@ -1,5 +1,12 @@
 ## [v1.1.0] - 2025-09-08
 
+### Fixed
+
+- Correct changelog script arguments in workflows (af5d049)
+
+
+## [v1.1.0] - 2025-09-08
+
 ### Added
 
 - Update api documentation to match latest backend implementation (79c1094)
