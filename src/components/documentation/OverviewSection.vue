@@ -20,37 +20,37 @@
         <p class="text-sm sm:text-base text-blue-100">{{ t('documentation.overview.gettingStartedSub') }}</p>
       </div>
       
-      <div class="p-4 sm:p-6 lg:p-8">
-        <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+      <div class="p-3 sm:p-4 md:p-6 lg:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           <div>
-            <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">{{ t('documentation.overview.baseUrl') }}</h3>
-            <div class="bg-gray-50 rounded-lg p-3 sm:p-4 font-mono text-xs sm:text-sm border overflow-x-auto">
-              <code class="text-blue-600 whitespace-nowrap">https://pico-api.banuacoder.com/api/v1</code>
+            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">{{ t('documentation.overview.baseUrl') }}</h3>
+            <div class="bg-gray-50 rounded-lg p-2 sm:p-3 md:p-4 font-mono text-[10px] sm:text-xs md:text-sm border overflow-x-auto">
+              <code class="text-blue-600 whitespace-nowrap block">https://pico-api.banuacoder.com/api/v1</code>
             </div>
             
-            <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mt-4 sm:mt-6 mb-3 sm:mb-4">{{ t('documentation.overview.contentType') }}</h3>
-            <div class="bg-gray-50 rounded-lg p-3 sm:p-4 font-mono text-xs sm:text-sm border">
+            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mt-3 sm:mt-4 md:mt-6 mb-2 sm:mb-3 md:mb-4">{{ t('documentation.overview.contentType') }}</h3>
+            <div class="bg-gray-50 rounded-lg p-2 sm:p-3 md:p-4 font-mono text-[10px] sm:text-xs md:text-sm border">
               <code class="text-green-600">application/json</code>
             </div>
           </div>
           
           <div>
-            <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">{{ t('documentation.overview.quickExample') }}</h3>
-            <div class="bg-gray-900 rounded-lg p-3 sm:p-4 font-mono text-xs sm:text-sm overflow-x-auto">
-              <div class="text-green-400 mb-2 whitespace-nowrap">
+            <h3 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">{{ t('documentation.overview.quickExample') }}</h3>
+            <div class="bg-gray-900 rounded-lg p-2 sm:p-3 md:p-4 font-mono text-[10px] sm:text-xs md:text-sm overflow-x-auto">
+              <div class="text-green-400 mb-1 sm:mb-2">
                 <span class="text-gray-500">$</span> curl -X GET \
               </div>
-              <div class="text-blue-300 ml-2 sm:ml-4 whitespace-nowrap">
+              <div class="text-blue-300 ml-2 sm:ml-3 md:ml-4 break-all">
                 "https://pico-api.banuacoder.com/api/v1/national/latest"
               </div>
             </div>
             
-            <div class="mt-3 sm:mt-4 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg">
-              <div class="flex items-center text-green-800">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="mt-2 sm:mt-3 md:mt-4 p-2 sm:p-3 md:p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div class="flex items-start sm:items-center text-green-800">
+                <svg class="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5 sm:mt-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <span class="text-xs sm:text-sm font-medium">{{ t('documentation.overview.noAuthRequired') }}</span>
+                <span class="text-[11px] sm:text-xs md:text-sm font-medium">{{ t('documentation.overview.noAuthRequired') }}</span>
               </div>
             </div>
           </div>
