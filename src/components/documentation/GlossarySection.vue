@@ -302,27 +302,31 @@
             <div class="space-y-4">
               <div>
                 <h5 class="text-sm font-medium text-gray-900 mb-2">{{ t('documentation.glossary.indonesianTerminology.classificationProgression.currentFlow') }}</h5>
-                <div class="flex items-center space-x-2 text-xs flex-wrap">
-                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded font-medium">Suspect</span>
-                  <span class="text-gray-400">→</span>
-                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded font-medium">Probable</span>
-                  <span class="text-gray-400">→</span>
-                  <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded font-medium">Confirmed</span>
-                  <span class="text-gray-400">→</span>
-                  <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded font-medium">Recovery/Death</span>
+                <div class="overflow-x-auto">
+                  <div class="flex items-center space-x-1 sm:space-x-2 text-[10px] sm:text-xs min-w-max">
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-100 text-green-700 rounded font-medium whitespace-nowrap">Suspect</span>
+                    <span class="text-gray-400">→</span>
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-100 text-green-700 rounded font-medium whitespace-nowrap">Probable</span>
+                    <span class="text-gray-400">→</span>
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-blue-100 text-blue-700 rounded font-medium whitespace-nowrap">Confirmed</span>
+                    <span class="text-gray-400">→</span>
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-700 rounded font-medium whitespace-nowrap">Recovery/Death</span>
+                  </div>
                 </div>
               </div>
               
               <div>
                 <h5 class="text-sm font-medium text-gray-900 mb-2">{{ t('documentation.glossary.indonesianTerminology.classificationProgression.legacyFlow') }}</h5>
-                <div class="flex items-center space-x-2 text-xs flex-wrap opacity-75">
-                  <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded font-medium">ODP</span>
-                  <span class="text-gray-400">→</span>
-                  <span class="px-2 py-1 bg-orange-100 text-orange-700 rounded font-medium">PDP</span>
-                  <span class="text-gray-400">→</span>
-                  <span class="px-2 py-1 bg-purple-100 text-purple-700 rounded font-medium">OTG</span>
-                  <span class="text-gray-400">→</span>
-                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded font-medium">Confirmed</span>
+                <div class="overflow-x-auto opacity-75">
+                  <div class="flex items-center space-x-1 sm:space-x-2 text-[10px] sm:text-xs min-w-max">
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-blue-100 text-blue-700 rounded font-medium whitespace-nowrap">ODP</span>
+                    <span class="text-gray-400">→</span>
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-orange-100 text-orange-700 rounded font-medium whitespace-nowrap">PDP</span>
+                    <span class="text-gray-400">→</span>
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-purple-100 text-purple-700 rounded font-medium whitespace-nowrap">OTG</span>
+                    <span class="text-gray-400">→</span>
+                    <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-100 text-green-700 rounded font-medium whitespace-nowrap">Confirmed</span>
+                  </div>
                 </div>
               </div>
             </div>
