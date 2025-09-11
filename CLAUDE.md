@@ -1,0 +1,1 @@
+- for this project, always use frontend expert agent

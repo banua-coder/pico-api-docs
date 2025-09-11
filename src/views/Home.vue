@@ -134,72 +134,74 @@
                 <div class="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/5 to-purple-500/5 pointer-events-none"></div>
                 
                 <!-- Terminal Header -->
-                <div class="bg-gray-800/90 backdrop-blur-sm px-4 py-3 flex items-center space-x-2 border-b border-gray-700/50">
-                  <div class="flex space-x-1.5">
-                    <div class="w-2.5 h-2.5 bg-red-500 rounded-full hover:bg-red-400 transition-colors cursor-pointer"></div>
-                    <div class="w-2.5 h-2.5 bg-yellow-500 rounded-full hover:bg-yellow-400 transition-colors cursor-pointer"></div>
-                    <div class="w-2.5 h-2.5 bg-green-500 rounded-full hover:bg-green-400 transition-colors cursor-pointer"></div>
+                <div class="bg-gray-800/90 backdrop-blur-sm px-2 sm:px-4 py-2 sm:py-3 flex items-center space-x-2 border-b border-gray-700/50">
+                  <div class="flex space-x-1">
+                    <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-red-500 rounded-full hover:bg-red-400 transition-colors cursor-pointer"></div>
+                    <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-yellow-500 rounded-full hover:bg-yellow-400 transition-colors cursor-pointer"></div>
+                    <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-500 rounded-full hover:bg-green-400 transition-colors cursor-pointer"></div>
                   </div>
                   <div class="flex-1 text-center">
-                    <span class="text-gray-300 text-xs font-medium">PICO API Terminal</span>
+                    <span class="text-gray-300 text-[10px] sm:text-xs font-medium">PICO API Terminal</span>
                   </div>
-                  <div class="flex items-center space-x-1.5 text-xs text-gray-500">
-                    <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                    <span class="text-xs">Live</span>
+                  <div class="flex items-center space-x-1 text-[10px] sm:text-xs text-gray-500">
+                    <div class="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                    <span>Live</span>
                   </div>
                 </div>
               
                 <!-- Code Content -->
-                <div class="p-2 sm:p-3 md:p-4 font-mono text-xs relative bg-gray-900/50 overflow-x-auto">
+                <div class="p-1 sm:p-2 md:p-4 font-mono text-[8px] sm:text-xs relative bg-gray-900/50 overflow-x-auto">
                 <!-- Request -->
-                <div class="mb-4 sm:mb-6">
-                  <div class="text-green-400 mb-2 typing-animation whitespace-nowrap overflow-x-auto">
-                    <span class="text-gray-500">$</span> curl https://pico-api.banuacoder.com/api/v1/national/latest
+                <div class="mb-2 sm:mb-4">
+                  <div class="text-green-400 mb-1 sm:mb-2 typing-animation overflow-x-auto">
+                    <div class="whitespace-nowrap">
+                      <span class="text-gray-500">$</span> curl https://pico-api.banuacoder.com/api/v1/national/latest
+                    </div>
                   </div>
                 </div>
                 
                 <!-- Response -->
-                <div class="text-gray-300 leading-tight sm:leading-relaxed response-animation opacity-0 overflow-x-auto">
+                <div class="text-gray-300 leading-none sm:leading-tight md:leading-relaxed response-animation opacity-0 overflow-x-auto">
                   <div class="text-blue-400">{</div>
-                  <div class="pl-2 sm:pl-4">
+                  <div class="pl-1 sm:pl-2 md:pl-4">
                     <span class="text-yellow-400">"status"</span>: <span class="text-green-300">"success"</span>,
                   </div>
-                  <div class="pl-2 sm:pl-4">
+                  <div class="pl-1 sm:pl-2 md:pl-4">
                     <span class="text-yellow-400">"data"</span>: <div class="text-blue-400 inline">{</div>
                   </div>
-                  <div class="pl-4 sm:pl-8">
+                  <div class="pl-2 sm:pl-4 md:pl-8">
                     <span class="text-yellow-400">"day"</span>: <span class="text-orange-400">1247</span>,
                   </div>
-                  <div class="pl-4 sm:pl-8">
+                  <div class="pl-2 sm:pl-4 md:pl-8">
                     <span class="text-yellow-400">"date"</span>: <span class="text-green-300">"2024-09-07T00:00:00Z"</span>,
                   </div>
-                  <div class="pl-4 sm:pl-8">
+                  <div class="pl-2 sm:pl-4 md:pl-8">
                     <span class="text-yellow-400">"daily"</span>: <div class="text-blue-400 inline">{</div>
                   </div>
-                  <div class="pl-6 sm:pl-12">
+                  <div class="pl-3 sm:pl-6 md:pl-12">
                     <span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">127</span>,
                   </div>
-                  <div class="pl-6 sm:pl-12">
+                  <div class="pl-3 sm:pl-6 md:pl-12">
                     <span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">98</span>,
                   </div>
-                  <div class="pl-6 sm:pl-12">
+                  <div class="pl-3 sm:pl-6 md:pl-12">
                     <span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">2</span>
                   </div>
-                  <div class="pl-4 sm:pl-8 text-blue-400">},</div>
-                  <div class="pl-4 sm:pl-8">
+                  <div class="pl-2 sm:pl-4 md:pl-8 text-blue-400">},</div>
+                  <div class="pl-2 sm:pl-4 md:pl-8">
                     <span class="text-yellow-400">"cumulative"</span>: <div class="text-blue-400 inline">{</div>
                   </div>
-                  <div class="pl-6 sm:pl-12">
+                  <div class="pl-3 sm:pl-6 md:pl-12">
                     <span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">6754298</span>,
                   </div>
-                  <div class="pl-6 sm:pl-12">
+                  <div class="pl-3 sm:pl-6 md:pl-12">
                     <span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">6589567</span>,
                   </div>
-                  <div class="pl-6 sm:pl-12">
+                  <div class="pl-3 sm:pl-6 md:pl-12">
                     <span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">161031</span>
                   </div>
-                  <div class="pl-4 sm:pl-8 text-blue-400">}</div>
-                  <div class="pl-2 sm:pl-4 text-blue-400">}</div>
+                  <div class="pl-2 sm:pl-4 md:pl-8 text-blue-400">}</div>
+                  <div class="pl-1 sm:pl-2 md:pl-4 text-blue-400">}</div>
                   <div class="text-blue-400">}</div>
                   
                   <!-- Typing cursor -->
@@ -321,53 +323,6 @@
         </div>
       </div>
     </div>
-
-    <!-- API Endpoints Preview -->
-    <div class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Quick API Overview</h2>
-          <p class="text-xl text-gray-600">Essential endpoints to get you started</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Health Check</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/health
-            </div>
-            <p class="text-gray-600 mt-4">Check API status and database connectivity</p>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">National Data</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/national<br/>
-              GET /api/v1/national/latest
-            </div>
-            <p class="text-gray-600 mt-4">National COVID-19 statistics and latest data</p>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Province Data</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/provinces<br/>
-              GET /api/v1/provinces/cases
-            </div>
-            <p class="text-gray-600 mt-4">Province information and case data with pagination</p>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Specific Province</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/provinces/72/cases
-            </div>
-            <p class="text-gray-600 mt-4">Central Sulawesi specific COVID-19 data</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
