@@ -1,41 +1,41 @@
 <template>
-  <section v-show="isActive" id="glossary" class="mb-16">
-    <div class="mb-8">
-      <div class="flex items-center mb-4">
-        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <section v-show="isActive" id="glossary" class="mb-12 md:mb-16">
+    <div class="mb-6 md:mb-8">
+      <div class="flex items-center mb-3 md:mb-4">
+        <div class="w-6 h-6 sm:w-8 sm:h-8 bg-indigo-600 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
           </svg>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900">{{ t('documentation.glossary.title') }}</h1>
+        <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">{{ t('documentation.glossary.title') }}</h1>
       </div>
-      <p class="text-lg text-gray-600">{{ t('documentation.glossary.subtitle') }}</p>
+      <p class="text-sm sm:text-base lg:text-lg text-gray-600">{{ t('documentation.glossary.subtitle') }}</p>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-6">
-        <h2 class="text-2xl font-bold text-white mb-2">{{ t('documentation.glossary.cardTitle') }}</h2>
-        <p class="text-indigo-100">{{ t('documentation.glossary.cardSubtitle') }}</p>
+    <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <h2 class="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2">{{ t('documentation.glossary.cardTitle') }}</h2>
+        <p class="text-sm sm:text-base text-indigo-100">{{ t('documentation.glossary.cardSubtitle') }}</p>
       </div>
       
-      <div class="p-8 space-y-8">
+      <div class="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
         <!-- Reproduction Rate -->
-        <div class="border-b border-gray-200 pb-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-            <div class="w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center mr-3 text-sm font-bold">Rt</div>
+        <div class="border-b border-gray-200 pb-6 sm:pb-8">
+          <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
+            <div class="w-5 h-5 sm:w-6 sm:h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center mr-2 sm:mr-3 text-xs sm:text-sm font-bold">Rt</div>
             {{ t('documentation.glossary.reproductionRate.title') }}
           </h3>
           
-          <div class="grid lg:grid-cols-2 gap-8">
-            <div class="space-y-6">
+          <div class="grid lg:grid-cols-2 gap-6 sm:gap-8">
+            <div class="space-y-4 sm:space-y-6">
               <div>
-                <h4 class="font-semibold text-gray-900 mb-3">{{ t('documentation.glossary.reproductionRate.definition') }}</h4>
-                <p class="text-gray-600 mb-4">{{ t('documentation.glossary.reproductionRate.definitionText') }}</p>
+                <h4 class="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">{{ t('documentation.glossary.reproductionRate.definition') }}</h4>
+                <p class="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">{{ t('documentation.glossary.reproductionRate.definitionText') }}</p>
               </div>
               
               <div>
-                <h4 class="font-semibold text-gray-900 mb-3">{{ t('documentation.glossary.reproductionRate.interpretation') }}</h4>
-                <div class="space-y-2 text-sm">
+                <h4 class="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">{{ t('documentation.glossary.reproductionRate.interpretation') }}</h4>
+                <div class="space-y-2 text-xs sm:text-sm">
                   <div class="flex items-center p-2 bg-red-50 rounded-lg">
                     <span class="font-mono font-bold text-red-600 mr-2">Rt > 1:</span>
                     <span class="text-gray-700">{{ t('documentation.glossary.reproductionRate.growing') }}</span>
@@ -52,8 +52,8 @@
               </div>
               
               <div>
-                <h4 class="font-semibold text-gray-900 mb-3">{{ t('documentation.glossary.reproductionRate.calculationMethod') }}</h4>
-                <div class="bg-blue-50 rounded-lg p-4 text-sm">
+                <h4 class="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">{{ t('documentation.glossary.reproductionRate.calculationMethod') }}</h4>
+                <div class="bg-blue-50 rounded-lg p-3 sm:p-4 text-xs sm:text-sm">
                   <p class="font-semibold text-blue-900 mb-2">{{ t('documentation.glossary.reproductionRate.epiEstimTitle') }}</p>
                   <ul class="space-y-1 text-blue-800">
                     <li v-for="(detail, index) in methodDetails" :key="index">
@@ -64,40 +64,46 @@
               </div>
               
               <div>
-                <h4 class="font-semibold text-gray-900 mb-3">{{ t('documentation.glossary.reproductionRate.dataAvailability') }}</h4>
-                <div class="bg-gray-50 rounded-lg p-3 text-sm text-gray-600">
+                <h4 class="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">{{ t('documentation.glossary.reproductionRate.dataAvailability') }}</h4>
+                <div class="bg-gray-50 rounded-lg p-3 text-xs sm:text-sm text-gray-600">
                   <p>{{ t('documentation.glossary.reproductionRate.dataAvailabilityText') }}</p>
                 </div>
               </div>
             </div>
             
-            <div class="space-y-6">
+            <div class="space-y-4 sm:space-y-6">
               <div>
-                <h4 class="font-semibold text-gray-900 mb-3">{{ t('documentation.glossary.reproductionRate.formula') }}</h4>
-                <div class="bg-purple-50 rounded-lg p-4">
-                  <p class="font-semibold text-purple-900 mb-3">{{ t('documentation.glossary.reproductionRate.formulaTitle') }}</p>
-                  <p class="text-purple-800 text-sm mb-4">{{ t('documentation.glossary.reproductionRate.formulaDescription') }}</p>
+                <h4 class="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">{{ t('documentation.glossary.reproductionRate.formula') }}</h4>
+                <div class="bg-purple-50 rounded-lg p-3 sm:p-4">
+                  <p class="font-semibold text-purple-900 mb-2 sm:mb-3 text-sm sm:text-base">{{ t('documentation.glossary.reproductionRate.formulaTitle') }}</p>
+                  <p class="text-purple-800 text-xs sm:text-sm mb-3 sm:mb-4">{{ t('documentation.glossary.reproductionRate.formulaDescription') }}</p>
                   
-                  <div class="bg-white rounded-lg p-4 border border-purple-200">
-                    <div class="space-y-4 text-sm">
-                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-3">1. {{ t('documentation.glossary.reproductionRate.formulaSteps.0') }}</div>
-                        <MathFormula formula="\lambda_t = \sum_{s=1}^{t-1} I_{t-s} \cdot w_s" />
+                  <div class="bg-white rounded-lg p-3 sm:p-4 border border-purple-200 overflow-x-auto">
+                    <div class="space-y-3 sm:space-y-4 text-xs sm:text-sm min-w-0">
+                      <div class="text-purple-900 bg-purple-25 p-2 sm:p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2 sm:mb-3">1. {{ t('documentation.glossary.reproductionRate.formulaSteps.0') }}</div>
+                        <div class="overflow-x-auto">
+                          <MathFormula formula="\lambda_t = \sum_{s=1}^{t-1} I_{t-s} \cdot w_s" />
+                        </div>
                       </div>
-                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-3">2. {{ t('documentation.glossary.reproductionRate.formulaSteps.1') }}</div>
-                        <div class="space-y-2">
+                      <div class="text-purple-900 bg-purple-25 p-2 sm:p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2 sm:mb-3">2. {{ t('documentation.glossary.reproductionRate.formulaSteps.1') }}</div>
+                        <div class="space-y-2 overflow-x-auto">
                           <MathFormula formula="I_{t-s} = \text{incidence at time } (t-s)" />
                           <MathFormula formula="w_s = \text{serial interval probability}" />
                         </div>
                       </div>
-                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-3">3. {{ t('documentation.glossary.reproductionRate.formulaSteps.2') }}</div>
-                        <MathFormula formula="R_t | \text{data} \sim \text{Gamma}\left(a + \sum I_t, \, b + \sum \lambda_t\right)" />
+                      <div class="text-purple-900 bg-purple-25 p-2 sm:p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2 sm:mb-3">3. {{ t('documentation.glossary.reproductionRate.formulaSteps.2') }}</div>
+                        <div class="overflow-x-auto">
+                          <MathFormula formula="R_t | \text{data} \sim \text{Gamma}\left(a + \sum I_t, \, b + \sum \lambda_t\right)" />
+                        </div>
                       </div>
-                      <div class="text-purple-900 bg-purple-25 p-3 rounded border-l-4 border-purple-300">
-                        <div class="font-semibold mb-3">4. {{ t('documentation.glossary.reproductionRate.formulaSteps.3') }}</div>
-                        <MathFormula formula="\mathbb{E}[R_t | \text{data}] = \frac{a + \sum I_t}{b + \sum \lambda_t}" />
+                      <div class="text-purple-900 bg-purple-25 p-2 sm:p-3 rounded border-l-4 border-purple-300">
+                        <div class="font-semibold mb-2 sm:mb-3">4. {{ t('documentation.glossary.reproductionRate.formulaSteps.3') }}</div>
+                        <div class="overflow-x-auto">
+                          <MathFormula formula="\mathbb{E}[R_t | \text{data}] = \frac{a + \sum I_t}{b + \sum \lambda_t}" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -105,21 +111,21 @@
               </div>
               
               <div>
-                <h4 class="font-semibold text-gray-900 mb-3">{{ t('documentation.glossary.reproductionRate.references') }}</h4>
-                <div class="space-y-3">
-                  <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-indigo-300">
-                    <p class="font-semibold text-gray-900 text-sm">Cori, A., Ferguson, N. M., Fraser, C., & Cauchemez, S. (2013)</p>
+                <h4 class="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">{{ t('documentation.glossary.reproductionRate.references') }}</h4>
+                <div class="space-y-2 sm:space-y-3">
+                  <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-indigo-300">
+                    <p class="font-semibold text-gray-900 text-xs sm:text-sm">Cori, A., Ferguson, N. M., Fraser, C., & Cauchemez, S. (2013)</p>
                     <p class="text-indigo-700 font-medium text-xs">American Journal of Epidemiology</p>
                     <p class="text-gray-600 text-xs mt-1">A new framework and software to estimate time-varying reproduction numbers during epidemics. 178(9), 1505-1512.</p>
-                    <p class="text-blue-600 text-xs mt-1">
+                    <p class="text-blue-600 text-xs mt-1 break-all">
                       DOI: <a href="https://doi.org/10.1093/aje/kwt133" target="_blank" class="hover:underline">10.1093/aje/kwt133</a>
                     </p>
                   </div>
-                  <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-indigo-300">
-                    <p class="font-semibold text-gray-900 text-sm">Thompson, R. N., et al. (2019)</p>
+                  <div class="bg-gray-50 rounded-lg p-3 sm:p-4 border-l-4 border-indigo-300">
+                    <p class="font-semibold text-gray-900 text-xs sm:text-sm">Thompson, R. N., et al. (2019)</p>
                     <p class="text-indigo-700 font-medium text-xs">Epidemics</p>
                     <p class="text-gray-600 text-xs mt-1">Improved inference of time-varying reproduction numbers during infectious disease outbreaks. 29, 100356.</p>
-                    <p class="text-blue-600 text-xs mt-1">
+                    <p class="text-blue-600 text-xs mt-1 break-all">
                       DOI: <a href="https://doi.org/10.1016/j.epidem.2019.100356" target="_blank" class="hover:underline">10.1016/j.epidem.2019.100356</a>
                     </p>
                   </div>

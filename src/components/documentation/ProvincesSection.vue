@@ -58,6 +58,27 @@
           </div>
         </div>
 
+        <!-- Code Examples -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Example Request</h3>
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div>
+              <CodeBlock 
+                :code="curlExample"
+                language="bash"
+                title="cURL Request"
+              />
+            </div>
+            <div>
+              <CodeBlock 
+                :code="responseExample"
+                language="json"
+                title="Response"
+              />
+            </div>
+          </div>
+        </div>
+
         <!-- Try It Button -->
         <div class="text-center">
           <a 
@@ -78,6 +99,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 interface Props {
   isActive: boolean
@@ -85,4 +107,120 @@ interface Props {
 
 defineProps<Props>()
 const { t } = useI18n()
+
+const curlExample = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/provinces"`
+
+const responseExample = `[
+  {
+    "id": "72",
+    "name": "Sulawesi Tengah",
+    "latest_case": {
+      "date": "2024-09-07T00:00:00Z",
+      "day": 1247,
+      "province": {
+        "id": "72",
+        "name": "Sulawesi Tengah"
+      },
+      "daily": {
+        "positive": 12,
+        "recovered": 8,
+        "deceased": 0,
+        "active": 0,
+        "odp": {
+          "active": 5,
+          "finished": 45
+        },
+        "pdp": {
+          "active": 2,
+          "finished": 23
+        }
+      },
+      "cumulative": {
+        "positive": 89543,
+        "recovered": 87234,
+        "deceased": 1876,
+        "active": 433,
+        "odp": {
+          "active": 25,
+          "finished": 1250,
+          "total": 1275
+        },
+        "pdp": {
+          "active": 8,
+          "finished": 567,
+          "total": 575
+        }
+      },
+      "statistics": {
+        "percentages": {
+          "positive": 100.0,
+          "recovered": 97.42,
+          "deceased": 2.09,
+          "active": 0.48
+        },
+        "reproduction_rate": {
+          "value": 0.78,
+          "lower_bound": 0.68,
+          "upper_bound": 0.88
+        }
+      }
+    }
+  },
+  {
+    "id": "73", 
+    "name": "Sulawesi Selatan",
+    "latest_case": {
+      "date": "2024-09-07T00:00:00Z",
+      "day": 1247,
+      "province": {
+        "id": "73",
+        "name": "Sulawesi Selatan"
+      },
+      "daily": {
+        "positive": 45,
+        "recovered": 52,
+        "deceased": 1,
+        "active": 0,
+        "odp": {
+          "active": 12,
+          "finished": 89
+        },
+        "pdp": {
+          "active": 7,
+          "finished": 34
+        }
+      },
+      "cumulative": {
+        "positive": 198765,
+        "recovered": 195123,
+        "deceased": 3098,
+        "active": 544,
+        "odp": {
+          "active": 67,
+          "finished": 2890,
+          "total": 2957
+        },
+        "pdp": {
+          "active": 23,
+          "finished": 1234,
+          "total": 1257
+        }
+      },
+      "statistics": {
+        "percentages": {
+          "positive": 100.0,
+          "recovered": 98.17,
+          "deceased": 1.56,
+          "active": 0.27
+        },
+        "reproduction_rate": {
+          "value": 0.82,
+          "lower_bound": 0.72,
+          "upper_bound": 0.92
+        }
+      }
+    }
+  }
+]`
 </script>
