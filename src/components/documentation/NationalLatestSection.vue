@@ -87,6 +87,27 @@
           </div>
         </div>
 
+        <!-- Code Examples -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Example Request</h3>
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div>
+              <CodeBlock 
+                :code="curlExample"
+                language="bash"
+                title="cURL Request"
+              />
+            </div>
+            <div>
+              <CodeBlock 
+                :code="responseExample"
+                language="json"
+                title="Response"
+              />
+            </div>
+          </div>
+        </div>
+
         <!-- Try It Button -->
         <div class="text-center">
           <a 
@@ -107,6 +128,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 interface Props {
   isActive: boolean
@@ -114,4 +136,39 @@ interface Props {
 
 defineProps<Props>()
 const { t } = useI18n()
+
+const curlExample = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/national/latest"`
+
+const responseExample = `{
+  "status": "success",
+  "data": {
+    "day": 1247,
+    "date": "2024-09-07T00:00:00Z",
+    "daily": {
+      "positive": 127,
+      "recovered": 98,
+      "deceased": 2
+    },
+    "cumulative": {
+      "positive": 6754298,
+      "recovered": 6589567,
+      "deceased": 161031,
+      "active": 3700
+    },
+    "statistics": {
+      "percentages": {
+        "positive": 100.0,
+        "recovered": 97.56,
+        "deceased": 2.38,
+        "active": 0.05
+      },
+      "reproduction_rate": {
+        "value": 0.85,
+        "lower_bound": 0.75,
+        "upper_bound": 0.95
+      }
+    }
+  }
+}`
 </script>

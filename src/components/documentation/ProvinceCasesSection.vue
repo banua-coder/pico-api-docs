@@ -16,14 +16,16 @@
           <div class="bg-gray-50 rounded-xl p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">{{ t('documentation.provinceCases.endpoints') }}</h3>
             <div class="space-y-3">
-              <div class="bg-gray-900 rounded-lg p-3 font-mono text-sm">
-                <span class="text-green-400">GET</span> 
-                <span class="text-white">/provinces/cases</span>
-              </div>
-              <div class="bg-gray-900 rounded-lg p-3 font-mono text-sm">
-                <span class="text-green-400">GET</span> 
-                <span class="text-white">/provinces/{provinceId}/cases</span>
-              </div>
+              <CodeBlock 
+                :code="provinceCasesEndpoint"
+                language="bash"
+                title="All Provinces"
+              />
+              <CodeBlock 
+                :code="specificProvinceEndpoint"
+                language="bash"
+                title="Specific Province"
+              />
             </div>
           </div>
           
@@ -222,6 +224,16 @@
           </div>
         </div>
 
+        <!-- Response Example -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Example</h3>
+          <CodeBlock 
+            :code="provinceCasesResponse"
+            language="json"
+            title="Province Cases Response (Array)"
+          />
+        </div>
+
         <!-- Try It Button -->
         <div class="text-center">
           <a 
@@ -243,6 +255,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 interface Props {
   isActive: boolean
@@ -252,4 +265,115 @@ defineProps<Props>()
 const { t, tm } = useI18n()
 
 const featuresList = computed(() => tm('documentation.provinceCases.featuresList') as string[])
+
+const provinceCasesEndpoint = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/provinces/cases?limit=10"`
+
+const specificProvinceEndpoint = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/provinces/72/cases?limit=5&start_date=2024-01-01"`
+
+const provinceCasesResponse = `[
+  {
+    "date": "2024-09-07T00:00:00Z",
+    "day": 1247,
+    "province": {
+      "id": "72",
+      "name": "Sulawesi Tengah"
+    },
+    "daily": {
+      "positive": 12,
+      "recovered": 15,
+      "deceased": 0,
+      "active": -3,
+      "odp": {
+        "active": 5,
+        "finished": 8
+      },
+      "pdp": {
+        "active": 2,
+        "finished": 3
+      }
+    },
+    "cumulative": {
+      "positive": 89543,
+      "recovered": 87234,
+      "deceased": 1876,
+      "active": 433,
+      "odp": {
+        "active": 25,
+        "finished": 1250,
+        "total": 1275
+      },
+      "pdp": {
+        "active": 8,
+        "finished": 567,
+        "total": 575
+      }
+    },
+    "statistics": {
+      "percentages": {
+        "positive": 100.0,
+        "recovered": 97.42,
+        "deceased": 2.09,
+        "active": 0.48
+      },
+      "reproduction_rate": {
+        "value": 0.78,
+        "lower_bound": 0.68,
+        "upper_bound": 0.88
+      }
+    }
+  },
+  {
+    "date": "2024-09-06T00:00:00Z",
+    "day": 1246,
+    "province": {
+      "id": "72", 
+      "name": "Sulawesi Tengah"
+    },
+    "daily": {
+      "positive": 8,
+      "recovered": 12,
+      "deceased": 1,
+      "active": -5,
+      "odp": {
+        "active": 3,
+        "finished": 7
+      },
+      "pdp": {
+        "active": 1,
+        "finished": 4
+      }
+    },
+    "cumulative": {
+      "positive": 89531,
+      "recovered": 87219,
+      "deceased": 1876,
+      "active": 436,
+      "odp": {
+        "active": 20,
+        "finished": 1242,
+        "total": 1262
+      },
+      "pdp": {
+        "active": 6,
+        "finished": 564,
+        "total": 570
+      }
+    },
+    "statistics": {
+      "percentages": {
+        "positive": 100.0,
+        "recovered": 97.41,
+        "deceased": 2.09,
+        "active": 0.49
+      },
+      "reproduction_rate": {
+        "value": 0.76,
+        "lower_bound": 0.66,
+        "upper_bound": 0.86
+      }
+    }
+  }
+]`
 </script>

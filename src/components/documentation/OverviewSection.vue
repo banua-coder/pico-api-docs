@@ -36,14 +36,11 @@
           
           <div>
             <h3 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 md:mb-4">{{ t('documentation.overview.quickExample') }}</h3>
-            <div class="bg-gray-900 rounded-lg p-2 sm:p-3 md:p-4 font-mono text-[10px] sm:text-xs md:text-sm overflow-x-auto">
-              <div class="text-green-400 mb-1 sm:mb-2">
-                <span class="text-gray-500">$</span> curl -X GET \
-              </div>
-              <div class="text-blue-300 ml-2 sm:ml-3 md:ml-4 break-all">
-                "https://pico-api.banuacoder.com/api/v1/national/latest"
-              </div>
-            </div>
+            <CodeBlock 
+              :code="quickExampleCode"
+              language="bash"
+              title="cURL Request"
+            />
             
             <div class="mt-2 sm:mt-3 md:mt-4 p-2 sm:p-3 md:p-4 bg-green-50 border border-green-200 rounded-lg">
               <div class="flex items-start sm:items-center text-green-800">
@@ -62,6 +59,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 interface Props {
   isActive: boolean
@@ -69,4 +67,7 @@ interface Props {
 
 defineProps<Props>()
 const { t } = useI18n()
+
+const quickExampleCode = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/national/latest"`
 </script>

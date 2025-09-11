@@ -209,13 +209,41 @@
           </div>
         </div>
 
+        <!-- Code Examples -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Example Requests</h3>
+          <div class="grid lg:grid-cols-2 gap-6 mb-6">
+            <div>
+              <CodeBlock 
+                :code="basicExample"
+                language="bash"
+                title="Basic Request"
+              />
+            </div>
+            <div>
+              <CodeBlock 
+                :code="paginatedExample"
+                language="bash"
+                title="With Pagination & Date Filter"
+              />
+            </div>
+          </div>
+          <div>
+            <CodeBlock 
+              :code="responseExample"
+              language="json"
+              title="Response (Array)"
+            />
+          </div>
+        </div>
+
         <!-- Try It Button -->
         <div class="text-center">
           <a href="https://pico-api.banuacoder.com/swagger/index.html" 
              target="_blank" 
              class="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>
             {{ t('documentation.nationalHistorical.testInBrowser') }}
           </a>
@@ -227,6 +255,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 interface Props {
   isActive: boolean
@@ -234,4 +263,69 @@ interface Props {
 
 defineProps<Props>()
 const { t } = useI18n()
+
+const basicExample = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/national/historical"`
+
+const paginatedExample = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/national/historical?limit=10&offset=0&start_date=2024-01-01&end_date=2024-01-31"`
+
+const responseExample = `[
+  {
+    "date": "2024-01-01T00:00:00Z",
+    "day": 1218,
+    "daily": {
+      "positive": 85,
+      "recovered": 142,
+      "deceased": 1
+    },
+    "cumulative": {
+      "positive": 6753956,
+      "recovered": 6589234,
+      "deceased": 161025,
+      "active": 3697
+    },
+    "statistics": {
+      "percentages": {
+        "positive": 100.0,
+        "recovered": 97.56,
+        "deceased": 2.38,
+        "active": 0.05
+      },
+      "reproduction_rate": {
+        "value": 0.82,
+        "lower_bound": 0.72,
+        "upper_bound": 0.92
+      }
+    }
+  },
+  {
+    "date": "2024-01-02T00:00:00Z",
+    "day": 1219,
+    "daily": {
+      "positive": 98,
+      "recovered": 156,
+      "deceased": 2
+    },
+    "cumulative": {
+      "positive": 6754054,
+      "recovered": 6589390,
+      "deceased": 161027,
+      "active": 3637
+    },
+    "statistics": {
+      "percentages": {
+        "positive": 100.0,
+        "recovered": 97.56,
+        "deceased": 2.38,
+        "active": 0.05
+      },
+      "reproduction_rate": {
+        "value": 0.84,
+        "lower_bound": 0.74,
+        "upper_bound": 0.94
+      }
+    }
+  }
+]`
 </script>

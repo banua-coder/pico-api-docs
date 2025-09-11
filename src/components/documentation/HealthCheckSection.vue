@@ -91,6 +91,27 @@
           </div>
         </div>
 
+        <!-- Code Examples -->
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Example Request</h3>
+          <div class="grid lg:grid-cols-2 gap-6">
+            <div>
+              <CodeBlock 
+                :code="curlExample"
+                language="bash"
+                title="cURL Request"
+              />
+            </div>
+            <div>
+              <CodeBlock 
+                :code="responseExample"
+                language="json"
+                title="Response"
+              />
+            </div>
+          </div>
+        </div>
+
         <!-- Try It Button -->
         <div class="text-center">
           <a 
@@ -111,6 +132,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 interface Props {
   isActive: boolean
@@ -118,4 +140,18 @@ interface Props {
 
 defineProps<Props>()
 const { t } = useI18n()
+
+const curlExample = `curl -X GET \\
+  "https://pico-api.banuacoder.com/api/v1/health"`
+
+const responseExample = `{
+  "status": "healthy",
+  "timestamp": "2024-09-07T10:30:45Z",
+  "services": {
+    "database": "connected",
+    "cache": "active"
+  },
+  "version": "1.0.0",
+  "uptime": "72h 15m 30s"
+}`
 </script>

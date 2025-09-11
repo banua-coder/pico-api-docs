@@ -65,20 +65,11 @@
             <div class="grid lg:grid-cols-2 gap-6">
               <div>
                 <h4 class="font-semibold text-gray-900 mb-3">{{ t('documentation.errorHandling.errorResponse') }}</h4>
-                <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm">
-                  <div class="text-blue-400">{</div>
-                  <div class="ml-2">
-                    <div><span class="text-yellow-400">"status"</span>: <span class="text-red-300">"error"</span>,</div>
-                    <div><span class="text-yellow-400">"error"</span>: {</div>
-                    <div class="ml-2">
-                      <div><span class="text-yellow-400">"code"</span>: <span class="text-orange-400">400</span>,</div>
-                      <div><span class="text-yellow-400">"message"</span>: <span class="text-green-300">"Invalid page parameter"</span>,</div>
-                      <div><span class="text-yellow-400">"details"</span>: <span class="text-green-300">"Page must be a positive integer"</span></div>
-                    </div>
-                    <div>}</div>
-                  </div>
-                  <div class="text-blue-400">}</div>
-                </div>
+                <CodeBlock 
+                  :code="errorResponseExample"
+                  language="json"
+                  title="Error Response"
+                />
               </div>
               
               <div>
@@ -112,6 +103,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import CodeBlock from '@/components/CodeBlock.vue'
 
 interface Props {
   isActive: boolean
@@ -119,4 +111,13 @@ interface Props {
 
 defineProps<Props>()
 const { t } = useI18n()
+
+const errorResponseExample = `{
+  "status": "error",
+  "error": {
+    "code": 400,
+    "message": "Invalid page parameter",
+    "details": "Page must be a positive integer"
+  }
+}`
 </script>
