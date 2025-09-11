@@ -1,5 +1,8 @@
 <template>
   <div class="min-h-screen bg-white">
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Navigation -->
     <Navigation />
 
@@ -38,7 +41,7 @@
         <div class="absolute bottom-20 left-20 w-10 h-10 bg-cyan-500/20 rounded-lg rotate-45 animate-bounce animation-delay-3000"></div>
       </div>
       
-      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
+      <div id="main-content" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center">
           <!-- Left Content -->
           <div class="text-center lg:text-left">

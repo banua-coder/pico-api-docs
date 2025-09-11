@@ -1,11 +1,22 @@
 <template>
-  <div id="app">
-    <router-view />
+  <div id="app" class="transition-colors duration-200">
+    <PageTransition>
+      <router-view />
+    </PageTransition>
   </div>
 </template>
 
 <script setup lang="ts">
-// App root component
+import { onMounted } from 'vue'
+import PageTransition from '@/components/PageTransition.vue'
+import { useTheme } from '@/composables/useTheme'
+
+// Initialize theme on app start
+const { initTheme } = useTheme()
+
+onMounted(() => {
+  initTheme()
+})
 </script>
 
 <style>
