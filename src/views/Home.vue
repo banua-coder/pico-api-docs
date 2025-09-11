@@ -324,53 +324,6 @@
       </div>
     </div>
 
-    <!-- API Endpoints Preview -->
-    <div class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Quick API Overview</h2>
-          <p class="text-xl text-gray-600">Essential endpoints to get you started</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Health Check</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/health
-            </div>
-            <p class="text-gray-600 mt-4">Check API status and database connectivity</p>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">National Data</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/national<br/>
-              GET /api/v1/national/latest
-            </div>
-            <p class="text-gray-600 mt-4">National COVID-19 statistics and latest data</p>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Province Data</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/provinces<br/>
-              GET /api/v1/provinces/cases
-            </div>
-            <p class="text-gray-600 mt-4">Province information and case data with pagination</p>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-lg p-8">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Specific Province</h3>
-            <div class="bg-gray-900 rounded-lg p-4 text-green-400 font-mono text-sm">
-              GET /api/v1/provinces/72/cases
-            </div>
-            <p class="text-gray-600 mt-4">Central Sulawesi specific COVID-19 data</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
