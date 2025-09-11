@@ -231,6 +231,78 @@
           "Distribusi posterior:",
           "Estimasi titik:"
         ],
+        "practicalExample": {
+          "title": "Contoh Praktis",
+          "subtitle": "Kasus COVID-19 Sulawesi Tengah (periode 7 hari)",
+          "table": {
+            "day": "Hari",
+            "date": "Tanggal",
+            "newCases": "Kasus Baru (I_t)"
+          },
+          "dates": {
+            "jan1": "1 Jan",
+            "jan2": "2 Jan",
+            "jan3": "3 Jan",
+            "jan4": "4 Jan",
+            "jan5": "5 Jan",
+            "jan6": "6 Jan",
+            "jan7": "7 Jan"
+          },
+          "calculationTitle": "Perhitungan langkah demi langkah untuk R_t pada 7 Jan:",
+          "step1": {
+            "title": "1. Hitung tingkat infeksi (λ_t):",
+            "formula": "λ₇ = (12×0.1) + (18×0.2) + (25×0.3) + (31×0.25) + (28×0.1) + (35×0.05)",
+            "calculation": "λ₇ = 1.2 + 3.6 + 7.5 + 7.75 + 2.8 + 1.75 = 24.6"
+          },
+          "step2": {
+            "title": "2. Terapkan estimasi Bayesian:",
+            "formula": "R₇ = (a + I₇) / (b + λ₇)",
+            "calculation": "R₇ = (1 + 42) / (1 + 24.6) = 43 / 25.6 = 1.68"
+          },
+          "step3": {
+            "title": "3. Hitung interval kredibel 95%:",
+            "explanation": "Menggunakan distribusi posterior Gamma: R_t | data ~ Gamma(43, 25.6)",
+            "gammaQuantileFormula": {
+              "title": "Formula Kuantil Gamma:",
+              "formula": "Q(p; α, β) = F⁻¹(p; α, β) dimana F adalah CDF Gamma",
+              "description": "Untuk distribusi Gamma dengan shape α=43 dan rate β=25.6:"
+            },
+            "detailedCalculations": {
+              "title": "Perhitungan Kuantil Rinci:",
+              "lowerBoundStep": {
+                "title": "Persentil ke-2.5 (Batas Bawah):",
+                "formula": "Q(0.025; 43, 25.6) = Γ⁻¹(0.025; 43, 25.6)",
+                "approximation": "Menggunakan aproksimasi Wilson-Hilferty:",
+                "wilsonHilfertyFormula": "x ≈ (α/β) × [1 + (z_p/√(9α)) - (1/(9α))]³",
+                "substitution": "x ≈ (43/25.6) × [1 + (-1.96/√(387)) - (1/387)]³",
+                "calculation": "x ≈ 1.68 × [1 - 0.0996 - 0.0026]³ ≈ 1.68 × 0.898³ ≈ 1.25"
+              },
+              "upperBoundStep": {
+                "title": "Persentil ke-97.5 (Batas Atas):",
+                "formula": "Q(0.975; 43, 25.6) = Γ⁻¹(0.975; 43, 25.6)",
+                "calculation": "x ≈ 1.68 × [1 + (1.96/√(387)) - (1/387)]³ ≈ 1.68 × 1.096³ ≈ 2.18"
+              }
+            },
+            "formulas": {
+              "lowerBound": "Batas bawah = Gamma_quantile(0.025, 43, 25.6)",
+              "upperBound": "Batas atas = Gamma_quantile(0.975, 43, 25.6)"
+            },
+            "calculations": {
+              "lowerBound": "Batas bawah = 1.25",
+              "upperBound": "Batas atas = 2.18"
+            },
+            "confidenceInterval": "95% CI: [1.25, 2.18]",
+            "mathematicalNote": "Catatan: Dalam praktiknya, perangkat lunak statistik menggunakan metode numerik yang lebih presisi (Newton-Raphson, metode Brent) untuk perhitungan invers Gamma."
+          },
+          "result": {
+            "title": "Hasil Akhir:",
+            "interpretation": "R_t = 1.68 (95% CI: 1.25-2.18) → Epidemi sedang bertumbuh dengan tingkat kepercayaan tinggi"
+          },
+          "note": {
+            "title": "Catatan:",
+            "content": "Bobot interval serial (w_s) berdasarkan distribusi gamma dengan rata-rata=5.0 hari, standar deviasi=3.0 hari"
+          }
+        },
         "references": "Referensi"
       },
       "caseClassifications": {

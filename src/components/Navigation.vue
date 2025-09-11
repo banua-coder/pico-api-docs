@@ -4,7 +4,7 @@
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0 flex items-center space-x-3">
-            <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-10 w-auto">
+            <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-10 w-auto logo-dark-mode">
             <router-link to="/" class="text-2xl font-bold gradient-text">PICO SulTeng</router-link>
           </div>
         </div>
@@ -14,22 +14,22 @@
           <div class="ml-10 flex items-baseline space-x-4">
             <router-link 
               to="/" 
-              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="{ 'text-gray-900': $route.path === '/' }"
+              class="text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              :class="{ 'text-gray-900 dark:text-white': $route.path === '/' }"
             >
               {{ t('nav.home') }}
             </router-link>
             <router-link 
               to="/docs" 
-              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="{ 'text-gray-900': $route.path === '/docs' }"
+              class="text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              :class="{ 'text-gray-900 dark:text-white': $route.path === '/docs' }"
             >
               {{ t('nav.documentation') }}
             </router-link>
             <router-link 
               to="/api" 
-              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="{ 'text-gray-900': $route.path === '/api' }"
+              class="text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              :class="{ 'text-gray-900 dark:text-white': $route.path === '/api' }"
             >
               {{ t('nav.apiReference') }}
             </router-link>
@@ -38,40 +38,37 @@
             </a>
             <!-- Theme & Language Controls -->
             <div class="flex items-center space-x-2 ml-4">
-              <!-- Theme Toggle -->
-              <ThemeToggle />
-              
               <!-- Language Toggle -->
               <button 
                 @click="toggleLanguage"
-                class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:border-gray-600 dark:hover:border-pico-sky"
+                class="flex items-center justify-center px-3 py-2 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 bg-white hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
                 :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
               >
-                <svg class="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
                 </svg>
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
+                <span class="ml-1.5 text-sm font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'EN' : 'ID' }}</span>
               </button>
+              
+              <!-- Theme Toggle -->
+              <ThemeToggle />
             </div>
           </div>
         </div>
 
         <!-- Mobile menu button -->
-        <div class="md:hidden flex items-center space-x-2">
-          <!-- Theme Toggle for Mobile -->
-          <ThemeToggle variant="compact" />
-          
+        <div class="md:hidden flex items-center space-x-1.5">
           <!-- Language Toggle for Mobile -->
           <button 
             @click="toggleLanguage"
-            class="flex items-center space-x-1 px-2 py-1.5 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:border-gray-600"
+            class="flex items-center justify-center p-2 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 bg-white hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
             :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
           >
-            <svg class="w-3 h-3 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-            </svg>
-            <span class="text-xs font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
+            <span class="text-xs font-semibold text-gray-600 dark:text-gray-300">{{ locale === 'en' ? 'EN' : 'ID' }}</span>
           </button>
+          
+          <!-- Theme Toggle for Mobile -->
+          <ThemeToggle variant="compact" />
           
           <!-- Hamburger button -->
           <button 
@@ -113,7 +110,7 @@
     <!-- Mobile menu -->
     <div 
       id="mobile-menu"
-      class="fixed top-0 right-0 z-50 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden"
+      class="fixed top-0 right-0 z-50 w-64 h-full bg-white dark:bg-gray-900 shadow-lg transform transition-transform duration-300 ease-in-out md:hidden"
       :class="mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
       role="navigation"
       :aria-hidden="!mobileMenuOpen"
@@ -184,11 +181,11 @@ const mobileMenuOpen = ref(false)
 
 const navbarClass = computed(() => {
   if (props.variant === 'solid') {
-    return 'bg-white shadow-sm'
+    return 'bg-white dark:bg-gray-900 shadow-sm dark:shadow-gray-800/50'
   }
   
   return isScrolled.value 
-    ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/50' 
+    ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-lg border-b border-gray-200/50 dark:border-gray-800/50' 
     : 'bg-transparent'
 })
 
