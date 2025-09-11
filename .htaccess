@@ -16,14 +16,23 @@ RewriteRule ^api/v1/(.*)$ http://localhost:8080/api/v1/$1 [P,L]
 # Handle root API endpoint
 RewriteRule ^api/v1/?$ http://localhost:8080/api/v1/ [P,L]
 
-# Serve Swagger UI static files (no proxy needed)
-# Static files will be served directly by web server
+# =============================================================================
+# SWAGGER UI STATIC FILES CONFIGURATION
+# =============================================================================
+
+ # Serve Swagger UI
+ RewriteRule ^swagger/?$ /dist/index.html [L]
+ RewriteRule ^swagger/(.*)$ /dist/$1 [L]
+
+ # Serve docs directory (swagger.json, swagger.yaml, swagger.html)
+ RewriteRule ^docs/(.*)$ /docs/$1 [L]
+
 
 # Handle docs route for Vue documentation site
 RewriteRule ^docs/?$ /index.html [L]
 
-# Optional: API documentation redirect
-RewriteRule ^api/?$ /api/v1/health [R=302,L]
+# Redirect /api/ to Swagger UI documentation
+RewriteRule ^api/?$ /swagger/ [R=302,L]
 
 # =============================================================================
 # CORS HEADERS CONFIGURATION

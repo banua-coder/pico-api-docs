@@ -4,7 +4,7 @@
     <Navigation />
 
     <!-- Hero Section -->
-    <div class="relative overflow-hidden min-h-screen flex items-center pt-16">
+    <div class="relative overflow-hidden min-h-screen flex items-center pt-16 pb-8">
       <!-- Background Pattern -->
       <div class="absolute inset-0 overflow-hidden">
         <!-- Gradient mesh background -->
@@ -38,12 +38,12 @@
         <div class="absolute bottom-20 left-20 w-10 h-10 bg-cyan-500/20 rounded-lg rotate-45 animate-bounce animation-delay-3000"></div>
       </div>
       
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center">
           <!-- Left Content -->
           <div class="text-center lg:text-left">
             <!-- Badge -->
-            <div class="inline-flex items-center px-4 py-2 mb-8 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-full">
+            <div class="inline-flex items-center px-3 py-1.5 mb-6 text-xs sm:text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-full">
               <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
@@ -51,28 +51,28 @@
             </div>
             
             <!-- Main heading with improved typography -->
-            <h1 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-extrabold tracking-tight mb-6 md:mb-8 leading-[1.1]">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight mb-4 md:mb-6 leading-[1.15]">
               <span class="block">
                 <span class="gradient-text inline-block animate-fade-in-up">{{ t('hero.title').split(' ')[0] }}</span>
-                <span class="text-gray-800 inline-block animate-fade-in-up animation-delay-200 ml-2">{{ t('hero.title').split(' ')[1] }}</span>
+                <span class="text-gray-800 inline-block animate-fade-in-up animation-delay-200 ml-1 sm:ml-2">{{ t('hero.title').split(' ')[1] }}</span>
               </span>
-              <span class="block text-xl sm:text-2xl md:text-3xl xl:text-4xl text-gray-600 mt-2 md:mt-3 font-bold animate-fade-in-up animation-delay-400">{{ t('hero.subtitle') }}</span>
+              <span class="block text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-gray-600 mt-1 md:mt-2 font-bold animate-fade-in-up animation-delay-400">{{ t('hero.subtitle') }}</span>
             </h1>
             
             <!-- Enhanced subtitle with better typography -->
-            <div class="space-y-3 mb-8 md:mb-10 animate-fade-in-up animation-delay-600">
-              <p class="text-base sm:text-lg md:text-xl text-gray-700 font-medium leading-relaxed max-w-xl lg:max-w-none">
+            <div class="space-y-2 sm:space-y-3 mb-6 md:mb-8 animate-fade-in-up animation-delay-600">
+              <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium leading-relaxed max-w-xl lg:max-w-none">
                 <span v-html="t('hero.description', { region: `<span class='font-bold text-blue-600'>${t('common.centralSulawesi')}</span>` })"></span>
                 <span class="block mt-1" v-html="t('hero.descriptionSub', { context: `<span class='font-semibold text-indigo-600'>${t('common.nationalContext')}</span>` })"></span>
               </p>
-              <p class="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
+              <p class="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
                 {{ t('hero.tagline') }}
               </p>
             </div>
             
             <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start animate-fade-in-up animation-delay-800">
-              <router-link to="/docs" class="group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center lg:justify-start animate-fade-in-up animation-delay-800">
+              <router-link to="/docs" class="group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base">
                 <span class="flex items-center justify-center">
                   {{ t('hero.getStarted') }}
                   <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@
                   </svg>
                 </span>
               </router-link>
-              <a href="https://pico-api.banuacoder.com/swagger/index.html" target="_blank" class="group border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 px-6 py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm bg-white/70 hover:bg-white/90 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              <a href="https://pico-api.banuacoder.com/swagger/index.html" target="_blank" class="group border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-all duration-300 backdrop-blur-sm bg-white/70 hover:bg-white/90 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base">
                 <span class="flex items-center justify-center">
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -150,56 +150,56 @@
                 </div>
               
                 <!-- Code Content -->
-                <div class="p-3 sm:p-4 font-mono text-xs sm:text-sm relative bg-gray-900/50">
+                <div class="p-2 sm:p-3 md:p-4 font-mono text-xs relative bg-gray-900/50 overflow-x-auto">
                 <!-- Request -->
-                <div class="mb-6">
-                  <div class="text-green-400 mb-2 typing-animation">
+                <div class="mb-4 sm:mb-6">
+                  <div class="text-green-400 mb-2 typing-animation whitespace-nowrap overflow-x-auto">
                     <span class="text-gray-500">$</span> curl https://pico-api.banuacoder.com/api/v1/national/latest
                   </div>
                 </div>
                 
                 <!-- Response -->
-                <div class="text-gray-300 leading-relaxed response-animation opacity-0">
+                <div class="text-gray-300 leading-tight sm:leading-relaxed response-animation opacity-0 overflow-x-auto">
                   <div class="text-blue-400">{</div>
-                  <div class="pl-4">
+                  <div class="pl-2 sm:pl-4">
                     <span class="text-yellow-400">"status"</span>: <span class="text-green-300">"success"</span>,
                   </div>
-                  <div class="pl-4">
+                  <div class="pl-2 sm:pl-4">
                     <span class="text-yellow-400">"data"</span>: <div class="text-blue-400 inline">{</div>
                   </div>
-                  <div class="pl-8">
+                  <div class="pl-4 sm:pl-8">
                     <span class="text-yellow-400">"day"</span>: <span class="text-orange-400">1247</span>,
                   </div>
-                  <div class="pl-8">
+                  <div class="pl-4 sm:pl-8">
                     <span class="text-yellow-400">"date"</span>: <span class="text-green-300">"2024-09-07T00:00:00Z"</span>,
                   </div>
-                  <div class="pl-8">
+                  <div class="pl-4 sm:pl-8">
                     <span class="text-yellow-400">"daily"</span>: <div class="text-blue-400 inline">{</div>
                   </div>
-                  <div class="pl-12">
+                  <div class="pl-6 sm:pl-12">
                     <span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">127</span>,
                   </div>
-                  <div class="pl-12">
+                  <div class="pl-6 sm:pl-12">
                     <span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">98</span>,
                   </div>
-                  <div class="pl-12">
+                  <div class="pl-6 sm:pl-12">
                     <span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">2</span>
                   </div>
-                  <div class="pl-8 text-blue-400">},</div>
-                  <div class="pl-8">
+                  <div class="pl-4 sm:pl-8 text-blue-400">},</div>
+                  <div class="pl-4 sm:pl-8">
                     <span class="text-yellow-400">"cumulative"</span>: <div class="text-blue-400 inline">{</div>
                   </div>
-                  <div class="pl-12">
+                  <div class="pl-6 sm:pl-12">
                     <span class="text-yellow-400">"positive"</span>: <span class="text-orange-400">6754298</span>,
                   </div>
-                  <div class="pl-12">
+                  <div class="pl-6 sm:pl-12">
                     <span class="text-yellow-400">"recovered"</span>: <span class="text-orange-400">6589567</span>,
                   </div>
-                  <div class="pl-12">
+                  <div class="pl-6 sm:pl-12">
                     <span class="text-yellow-400">"deceased"</span>: <span class="text-orange-400">161031</span>
                   </div>
-                  <div class="pl-8 text-blue-400">}</div>
-                  <div class="pl-4 text-blue-400">}</div>
+                  <div class="pl-4 sm:pl-8 text-blue-400">}</div>
+                  <div class="pl-2 sm:pl-4 text-blue-400">}</div>
                   <div class="text-blue-400">}</div>
                   
                   <!-- Typing cursor -->
@@ -229,7 +229,7 @@
         </div>
         
         <!-- Bento Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 max-w-6xl mx-auto">
           <!-- Large Feature Card -->
           <div class="sm:col-span-2 md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6 md:p-8 rounded-3xl border border-blue-100/50 hover:border-blue-200/70 transition-all duration-300 hover:shadow-lg group">
             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">

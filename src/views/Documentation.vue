@@ -5,12 +5,12 @@
 
     <div class="flex min-h-screen pt-16">
       <!-- Sidebar -->
-      <aside class="w-64 bg-white shadow-lg border-r border-gray-200 fixed left-0 top-16 bottom-0 overflow-y-auto z-30 transform transition-transform duration-300 ease-in-out lg:translate-x-0" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
-        <div class="p-6">
+      <aside class="w-72 sm:w-64 bg-white shadow-lg border-r border-gray-200 fixed left-0 top-16 bottom-0 overflow-y-auto z-30 transform transition-transform duration-300 ease-in-out lg:translate-x-0" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+        <div class="p-4 sm:p-6">
           <!-- Header -->
-          <div class="mb-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-2">API Documentation</h2>
-            <p class="text-sm text-gray-600">PICO SulTeng COVID-19 API</p>
+          <div class="mb-6 sm:mb-8">
+            <h2 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">API Documentation</h2>
+            <p class="text-xs sm:text-sm text-gray-600">PICO SulTeng COVID-19 API</p>
           </div>
 
           <!-- Navigation Menu -->
@@ -207,7 +207,7 @@
           </button>
         </div>
 
-        <div class="p-4 sm:p-6 lg:p-8">
+        <div class="p-3 sm:p-4 md:p-6 lg:p-8">
           <!-- Dynamic Section Components -->
           <OverviewSection :isActive="activeSection === 'overview'" />
           <RootEndpointSection :isActive="activeSection === 'root-endpoint'" />
