@@ -7,26 +7,26 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900">{{ t('documentation.nationalHistorical.title') }}</h1>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">{{ t('documentation.nationalHistorical.title') }}</h1>
       </div>
-      <p class="text-lg text-gray-600 mb-4">{{ t('documentation.nationalHistorical.description') }}</p>
+      <p class="text-lg text-gray-600 dark:text-gray-400 mb-4">{{ t('documentation.nationalHistorical.description') }}</p>
       
       <!-- Usage Note -->
-      <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-400 mb-6">
+      <div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-4 border-l-4 border-green-400 dark:border-green-800 mb-6">
         <div class="flex">
           <svg class="w-5 h-5 text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          <div class="text-green-800">
+          <div class="text-green-800 dark:text-green-400">
             <p class="font-medium mb-1">When to use this endpoint</p>
-            <p class="text-sm">{{ t('documentation.nationalHistorical.usageNote') }}</p>
+            <p class="text-sm text-green-700 dark:text-green-400">{{ t('documentation.nationalHistorical.usageNote') }}</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Endpoint Details -->
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
       <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-6">
         <div class="flex items-center gap-4">
           <span class="bg-white text-purple-700 px-3 py-1 rounded-lg font-mono text-sm font-bold">GET</span>
@@ -38,59 +38,59 @@
       <div class="p-8">
         <!-- Query Parameters -->
         <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4">Parameters</h3>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Parameters</h3>
           <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-              <thead class="bg-gray-50">
+            <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <thead class="bg-gray-50 dark:bg-gray-900">
                 <tr>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Parameter</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Required</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Parameter</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Description</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Required</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">limit</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Records per page (default: 50, max: 1000)</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Records per page (default: 50, max: 1000)</td>
+                  <td class="py-3 px-4 text-gray-500 dark:text-gray-500">Optional</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">offset</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Records to skip (default: 0)</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Records to skip (default: 0)</td>
+                  <td class="py-3 px-4 text-gray-500 dark:text-gray-500">Optional</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">page</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Page number (1-based, alternative to offset)</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Page number (1-based, alternative to offset)</td>
+                  <td class="py-3 px-4 text-gray-500 dark:text-gray-500">Optional</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">all</td>
-                  <td class="py-3 px-4 text-gray-600">boolean</td>
-                  <td class="py-3 px-4 text-gray-600">Return all data without pagination</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">boolean</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Return all data without pagination</td>
+                  <td class="py-3 px-4 text-gray-500 dark:text-gray-500">Optional</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">start_date</td>
-                  <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">Start date for filtering data (YYYY-MM-DD format)</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">string</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Start date for filtering data (YYYY-MM-DD format)</td>
+                  <td class="py-3 px-4 text-gray-500 dark:text-gray-500">Optional</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">end_date</td>
-                  <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">End date for filtering data (YYYY-MM-DD format)</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">string</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">End date for filtering data (YYYY-MM-DD format)</td>
+                  <td class="py-3 px-4 text-gray-500 dark:text-gray-500">Optional</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-4 font-mono text-pico-deep">sort</td>
-                  <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">Sort by field:order (e.g., date:desc, positive:asc). Default: date:asc</td>
-                  <td class="py-3 px-4 text-gray-500">Optional</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">string</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Sort by field:order (e.g., date:desc, positive:asc). Default: date:asc</td>
+                  <td class="py-3 px-4 text-gray-500 dark:text-gray-500">Optional</td>
                 </tr>
               </tbody>
             </table>
@@ -99,110 +99,110 @@
 
         <!-- Response Fields Table -->
         <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Fields</h3>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Response Fields</h3>
           
           <!-- Array Structure Note -->
-          <div class="bg-blue-50 rounded-lg p-4 mb-4 border-l-4 border-blue-400">
+          <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 mb-4 border-l-4 border-blue-400 dark:border-blue-800">
             <div class="flex">
               <svg class="w-5 h-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <div class="text-blue-800">
+              <div class="text-blue-800 dark:text-blue-400">
                 <p class="font-medium">Array Response</p>
-                <p class="text-sm">Returns an array of daily COVID-19 data objects. Each object contains the following fields:</p>
+                <p class="text-sm text-blue-700 dark:text-blue-400">Returns an array of daily COVID-19 data objects. Each object contains the following fields:</p>
               </div>
             </div>
           </div>
 
           <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-              <thead class="bg-gray-50">
+            <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <thead class="bg-gray-50 dark:bg-gray-900">
                 <tr>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Field</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Field</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Description</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">date</td>
-                  <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">Date of the COVID-19 case report (YYYY-MM-DD)</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">string</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Date of the COVID-19 case report (YYYY-MM-DD)</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">day</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Day number since first case reported</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Day number since first case reported</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">cumulative.positive</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Total confirmed COVID-19 cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Total confirmed COVID-19 cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">cumulative.recovered</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Total recovered cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Total recovered cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">cumulative.deceased</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Total death cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Total death cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">cumulative.active</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Current active cases (positive - recovered - deceased)</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Current active cases (positive - recovered - deceased)</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">daily.positive</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Daily new confirmed cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Daily new confirmed cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">daily.recovered</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Daily new recovered cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Daily new recovered cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">daily.deceased</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Daily new death cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Daily new death cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">daily.active</td>
-                  <td class="py-3 px-4 text-gray-600">integer</td>
-                  <td class="py-3 px-4 text-gray-600">Daily change in active cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Daily change in active cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.active</td>
-                  <td class="py-3 px-4 text-gray-600">float</td>
-                  <td class="py-3 px-4 text-gray-600">Percentage of active cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">float</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Percentage of active cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.recovered</td>
-                  <td class="py-3 px-4 text-gray-600">float</td>
-                  <td class="py-3 px-4 text-gray-600">Percentage of recovered cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">float</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Percentage of recovered cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">statistics.percentages.deceased</td>
-                  <td class="py-3 px-4 text-gray-600">float</td>
-                  <td class="py-3 px-4 text-gray-600">Percentage of deceased cases</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">float</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Percentage of deceased cases</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate.value</td>
-                  <td class="py-3 px-4 text-gray-600">float</td>
-                  <td class="py-3 px-4 text-gray-600">Reproduction rate (Rt) estimate</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">float</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Reproduction rate (Rt) estimate</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate.upper_bound</td>
-                  <td class="py-3 px-4 text-gray-600">float</td>
-                  <td class="py-3 px-4 text-gray-600">Upper confidence bound for reproduction rate</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">float</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Upper confidence bound for reproduction rate</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-4 font-mono text-pico-deep">statistics.reproduction_rate.lower_bound</td>
-                  <td class="py-3 px-4 text-gray-600">float</td>
-                  <td class="py-3 px-4 text-gray-600">Lower confidence bound for reproduction rate</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">float</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Lower confidence bound for reproduction rate</td>
                 </tr>
               </tbody>
             </table>
@@ -211,7 +211,7 @@
 
         <!-- Code Examples -->
         <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4">Example Requests</h3>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Requests</h3>
           <div class="grid lg:grid-cols-2 gap-6 mb-6">
             <div>
               <CodeBlock 

@@ -1,11 +1,11 @@
 <template>
   <section v-show="isActive" id="root-endpoint" class="mb-16">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ t('documentation.rootEndpoint.title') }}</h1>
-      <p class="text-lg text-gray-600">{{ t('documentation.rootEndpoint.description') }}</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.rootEndpoint.title') }}</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.rootEndpoint.description') }}</p>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
       <!-- Endpoint Header -->
       <div class="bg-gradient-to-r from-pico-sky to-pico-blue px-8 py-6">
         <div class="flex items-center gap-4">
@@ -18,44 +18,44 @@
       <div class="p-8">
         <!-- Parameters Table -->
         <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4">Parameters</h3>
-          <div class="bg-gray-50 rounded-lg p-4 text-center text-gray-500">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Parameters</h3>
+          <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-center text-gray-500 dark:text-gray-400">
             No parameters required
           </div>
         </div>
 
         <!-- Response Fields Table -->
         <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4">Response Fields</h3>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Response Fields</h3>
           <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
-              <thead class="bg-gray-50">
+            <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <thead class="bg-gray-50 dark:bg-gray-900">
                 <tr>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Field</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Type</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-900 border-b">Description</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Field</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Type</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-gray-100 border-b dark:border-gray-600">Description</th>
                 </tr>
               </thead>
               <tbody class="text-sm">
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">endpoints</td>
-                  <td class="py-3 px-4 text-gray-600">object</td>
-                  <td class="py-3 px-4 text-gray-600">List of all available API endpoints</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">object</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">List of all available API endpoints</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">version</td>
-                  <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">Current API version</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">string</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Current API version</td>
                 </tr>
-                <tr class="border-b">
+                <tr class="border-b dark:border-gray-600">
                   <td class="py-3 px-4 font-mono text-pico-deep">description</td>
-                  <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">API description and purpose</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">string</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">API description and purpose</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-4 font-mono text-pico-deep">documentation</td>
-                  <td class="py-3 px-4 text-gray-600">string</td>
-                  <td class="py-3 px-4 text-gray-600">URL to API documentation</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">string</td>
+                  <td class="py-3 px-4 text-gray-600 dark:text-gray-400">URL to API documentation</td>
                 </tr>
               </tbody>
             </table>
@@ -64,7 +64,7 @@
 
         <!-- Code Examples -->
         <div class="mb-8">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4">Example Request</h3>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Request</h3>
           <div class="grid lg:grid-cols-2 gap-6">
             <div>
               <CodeBlock 

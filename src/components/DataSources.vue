@@ -9,7 +9,10 @@
         <a :href="source.url" target="_blank" rel="noopener noreferrer"
           class="flex w-full h-full items-center justify-center hover:scale-110 transition-transform duration-300 p-2"
           :title="source.alt">
-          <img :src="source.image" :alt="source.alt" class="max-h-8 sm:max-h-10 md:max-h-12 w-auto object-contain" loading="lazy">
+          <img :src="source.image" :alt="source.alt" 
+               class="max-h-8 sm:max-h-10 md:max-h-12 w-auto object-contain"
+               :class="getImageDarkModeClass(source.image)" 
+               loading="lazy">
         </a>
       </div>
     </div>
@@ -55,4 +58,24 @@ const dataSources: DataSource[] = [
     url: 'https://hack.co.id'
   }
 ]
+
+const getImageDarkModeClass = (imagePath: string): string => {
+  // Images that need background removal (non-transparent white backgrounds)
+  if (imagePath.includes('inacovid')) {
+    return 'image-remove-bg'
+  }
+  
+  // Images with government logos that need selective typography color inversion
+  if (imagePath.includes('dinkes-sulteng')) {
+    return 'image-gov-logo'
+  }
+  
+  // Images that should remain unchanged in dark mode
+  if (imagePath.includes('sulteng-lawan-covid')) {
+    return ''
+  }
+  
+  // Default: apply standard logo dark mode treatment for other logos
+  return 'logo-dark-mode'
+}
 </script>

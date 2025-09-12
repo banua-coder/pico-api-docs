@@ -92,6 +92,8 @@ import 'prismjs/components/prism-javascript'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-python'
 import 'prismjs/components/prism-go'
+import 'prismjs/components/prism-markup' // Must be loaded before PHP
+import 'prismjs/components/prism-markup-templating' // Required for PHP
 import 'prismjs/components/prism-php'
 import 'prismjs/components/prism-java'
 import 'prismjs/components/prism-c'
@@ -99,7 +101,6 @@ import 'prismjs/components/prism-cpp'
 import 'prismjs/components/prism-csharp'
 import 'prismjs/components/prism-css'
 import 'prismjs/components/prism-scss'
-import 'prismjs/components/prism-markup'
 import 'prismjs/components/prism-yaml'
 import 'prismjs/components/prism-docker'
 import 'prismjs/components/prism-sql'
@@ -241,13 +242,10 @@ const codeClasses = computed(() => [
 
 const highlightCode = () => {
   if (codeElement.value) {
-    // Ensure the language is loaded
+    // Check if the language is available
     if (!Prism.languages[detectedLanguage.value] && detectedLanguage.value !== 'text') {
-      try {
-        require(`prismjs/components/prism-${detectedLanguage.value}`)
-      } catch (e) {
-        console.warn(`Language ${detectedLanguage.value} not available in Prism.js`)
-      }
+      console.warn(`Language ${detectedLanguage.value} not available in Prism.js`)
+      return
     }
     
     Prism.highlightElement(codeElement.value)
