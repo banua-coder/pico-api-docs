@@ -36,16 +36,21 @@
             <a href="https://pico-api.banuacoder.com/api/v1" target="_blank" class="bg-pico-blue hover:bg-pico-deep text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
               {{ t('nav.liveApi') }}
             </a>
-            <!-- Language Toggle -->
+            <!-- Theme & Language Controls -->
             <div class="flex items-center space-x-2 ml-4">
+              <!-- Theme Toggle -->
+              <ThemeToggle />
+              
+              <!-- Language Toggle -->
               <button 
                 @click="toggleLanguage"
-                class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm"
+                class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:border-gray-600 dark:hover:border-pico-sky"
+                :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
               >
-                <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
                 </svg>
-                <span class="text-sm font-medium text-gray-700">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
               </button>
             </div>
           </div>
@@ -53,15 +58,19 @@
 
         <!-- Mobile menu button -->
         <div class="md:hidden flex items-center space-x-2">
+          <!-- Theme Toggle for Mobile -->
+          <ThemeToggle variant="compact" />
+          
           <!-- Language Toggle for Mobile -->
           <button 
             @click="toggleLanguage"
-            class="flex items-center space-x-1 px-2 py-1.5 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm"
+            class="flex items-center space-x-1 px-2 py-1.5 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:border-gray-600"
+            :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
           >
-            <svg class="w-3 h-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3 h-3 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
             </svg>
-            <span class="text-xs font-medium text-gray-700">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
+            <span class="text-xs font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
           </button>
           
           <!-- Hamburger button -->
@@ -70,6 +79,8 @@
             type="button"
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-pico-blue hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pico-blue transition-colors"
             :aria-expanded="mobileMenuOpen"
+            aria-label="Toggle mobile navigation menu"
+            :aria-controls="mobileMenuOpen ? 'mobile-menu' : undefined"
           >
             <span class="sr-only">Open main menu</span>
             <!-- Hamburger icon -->
@@ -101,8 +112,11 @@
 
     <!-- Mobile menu -->
     <div 
+      id="mobile-menu"
       class="fixed top-0 right-0 z-50 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden"
       :class="mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
+      role="navigation"
+      :aria-hidden="!mobileMenuOpen"
     >
       <div class="p-6 pt-20">
         <div class="space-y-4">
@@ -147,6 +161,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ThemeToggle from './ThemeToggle.vue'
 
 const { t, locale } = useI18n()
 
