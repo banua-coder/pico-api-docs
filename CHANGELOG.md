@@ -1,3 +1,10 @@
+## [v1.2.1] - 2025-09-14
+
+### Fixed
+
+- Resolve git fetch error in release-automation workflow (87b28f1)
+
+
 ## [v1.2.0] - 2025-09-14
 
 ### Added
