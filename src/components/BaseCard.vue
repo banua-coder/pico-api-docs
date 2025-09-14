@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 
 interface Props {
   variant?: 'default' | 'elevated' | 'outlined' | 'ghost'
@@ -57,6 +57,8 @@ const props = withDefaults(defineProps<Props>(), {
   rounded: 'lg',
   padding: 'md'
 })
+
+const slots = useSlots()
 
 // Base classes
 const baseClasses = 'relative transition-all duration-300'
@@ -143,7 +145,7 @@ const headerClasses = computed(() => [
 const contentClasses = computed(() => [
   {
     [paddingClasses[props.padding]]: props.padding !== 'none',
-    'pt-0': (props.$slots.header || props.title) && props.padding !== 'none'
+    'pt-0': (slots.header || props.title) && props.padding !== 'none'
   }
 ])
 

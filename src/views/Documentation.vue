@@ -278,7 +278,7 @@ import AuthenticationSection from '@/components/documentation/AuthenticationSect
 import ErrorHandlingSection from '@/components/documentation/ErrorHandlingSection.vue'
 import GlossarySection from '@/components/documentation/GlossarySection.vue'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 
 // Version from package.json
 const version = packageJson.version
