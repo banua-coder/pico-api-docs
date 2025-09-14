@@ -47,8 +47,8 @@ jobs:
       - name: Install dependencies
         run: |
           echo "📦 Installing dependencies..."
-          # Force pnpm to treat this as a single package project
-          pnpm install --frozen-lockfile --prefer-frozen-lockfile
+          # Install dependencies without frozen lockfile since lockfile is not committed
+          pnpm install
 
       - name: Build documentation site
         run: |
