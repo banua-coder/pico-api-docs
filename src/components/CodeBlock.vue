@@ -204,8 +204,8 @@ const formatLanguageName = (lang: string): string => {
 }
 
 // Get badge variant based on language
-const getBadgeVariant = (lang: string) => {
-  const variantMap: Record<string, string> = {
+const getBadgeVariant = (lang: string): 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' => {
+  const variantMap: Record<string, 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'> = {
     'javascript': 'warning',
     'typescript': 'primary',
     'python': 'success',
@@ -218,7 +218,7 @@ const getBadgeVariant = (lang: string) => {
     'html': 'danger',
     'sql': 'success'
   }
-  
+
   return variantMap[lang] || 'default'
 }
 
