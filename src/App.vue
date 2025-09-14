@@ -1,11 +1,16 @@
 <template>
   <div id="app" class="transition-colors duration-200">
     <router-view v-slot="{ Component, route }">
-      <transition 
-        :name="(route.meta?.transition as string) || 'slide-left'" 
+      <transition
+        :name="(route.meta?.transition as string) || 'slide-left'"
         mode="out-in"
       >
-        <component :is="Component" :key="route.path" />
+        <Suspense>
+          <component :is="Component" :key="route.path" />
+          <template #fallback>
+            <LoadingSpinner />
+          </template>
+        </Suspense>
       </transition>
     </router-view>
   </div>
@@ -14,6 +19,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useTheme } from '@/composables/useTheme'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 
 // Initialize theme on app start
 const { initTheme } = useTheme()
