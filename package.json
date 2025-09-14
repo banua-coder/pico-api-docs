@@ -1,6 +1,6 @@
 {
   "name": "pico-api-docs",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "PICO SulTeng API Documentation - COVID-19 Sulawesi Tengah Data API",
   "main": "index.js",
   "scripts": {
@@ -17,10 +17,12 @@
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.16",
     "@types/aos": "^3.0.7",
+    "@types/node": "^24.4.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "3.4.15",
+    "terser": "^5.44.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.4",
     "vue-tsc": "^3.0.6"

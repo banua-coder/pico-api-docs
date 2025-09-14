@@ -1,3 +1,19 @@
+## [v1.2.5] - 2025-09-14
+
+### Added
+
+- Implement comprehensive bundle optimization and code splitting (79fa266)
+
+### Fixed
+
+- Resolve typescript errors in vite config for pnpm es modules (cc42a21)
+- Resolve typescript errors in vue components (beebe25)
+
+### Maintenance
+
+- Prepare v1.2.5 hotfix (825a6f7)
+
+
 ## [v1.2.3] - 2025-09-14
 
 ### Fixed
