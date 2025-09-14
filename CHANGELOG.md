@@ -1,3 +1,10 @@
+## [v1.2.2] - 2025-09-14
+
+### Fixed
+
+- Resolve pnpm workspace configuration error in deploy workflow (9b14edb)
+
+
 ## [v1.2.1] - 2025-09-14
 
 ### Fixed
