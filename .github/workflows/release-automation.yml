@@ -88,7 +88,7 @@ jobs:
           fi
           echo "base_commit=$BASE_COMMIT" >> $GITHUB_OUTPUT
 
-      - name: Generate tag message and changelog
+      - name: Generate tag message
         id: tag_info
         run: |
           VERSION="${{ steps.version.outputs.version }}"
@@ -96,65 +96,32 @@ jobs:
           PREVIOUS_TAG="${{ steps.previous_tag.outputs.previous_tag }}"
           BASE_COMMIT="${{ steps.previous_tag.outputs.base_commit }}"
 
-          # Create tag message
-          TAG_MESSAGE="$TYPE: $VERSION"
-          echo "tag_message=$TAG_MESSAGE" >> $GITHUB_OUTPUT
+          # Create simple tag message
+          TAG_MESSAGE="$TYPE: $VERSION
 
-          # Generate categorized changelog for tag annotation
-          CHANGELOG_FILE="tag_changelog.txt"
+          Merged PR: ${{ github.event.pull_request.html_url }}
+          Merged by: @${{ github.event.pull_request.merged_by.login }}
 
-          echo "$TYPE $VERSION" > $CHANGELOG_FILE
-          echo "" >> $CHANGELOG_FILE
-          echo "Merged PR: ${{ github.event.pull_request.html_url }}" >> $CHANGELOG_FILE
-          echo "Merged by: @${{ github.event.pull_request.merged_by.login }}" >> $CHANGELOG_FILE
-          echo "" >> $CHANGELOG_FILE
+          🚀 Deployment will be triggered automatically."
 
-          if [ -n "$PREVIOUS_TAG" ]; then
-            echo "Changes since $PREVIOUS_TAG:" >> $CHANGELOG_FILE
-          else
-            echo "Initial release changes:" >> $CHANGELOG_FILE
-          fi
-          echo "" >> $CHANGELOG_FILE
-
-          # Categorize changes
-          echo "🚀 Features:" >> $CHANGELOG_FILE
-          git log --pretty=format:"- %s (%h)" "$BASE_COMMIT..HEAD" | \
-          grep -E "^- (feat|feature):" | head -10 >> $CHANGELOG_FILE || echo "- No new features" >> $CHANGELOG_FILE
-          echo "" >> $CHANGELOG_FILE
-
-          echo "🐛 Bug Fixes:" >> $CHANGELOG_FILE
-          git log --pretty=format:"- %s (%h)" "$BASE_COMMIT..HEAD" | \
-          grep -E "^- (fix|bugfix):" | head -10 >> $CHANGELOG_FILE || echo "- No bug fixes" >> $CHANGELOG_FILE
-          echo "" >> $CHANGELOG_FILE
-
-          echo "🛠️ Other Changes:" >> $CHANGELOG_FILE
-          git log --pretty=format:"- %s (%h)" "$BASE_COMMIT..HEAD" | \
-          grep -vE "^- (feat|feature|fix|bugfix):|Merge branch|Merge pull request|chore.*auto-bump|chore.*back-merge" | \
-          head -10 >> $CHANGELOG_FILE || echo "- No other changes" >> $CHANGELOG_FILE
-          echo "" >> $CHANGELOG_FILE
-          echo "🚀 Deployment will be triggered automatically." >> $CHANGELOG_FILE
-
-          echo "changelog_file=$CHANGELOG_FILE" >> $GITHUB_OUTPUT
+          echo "tag_message<<EOF" >> $GITHUB_OUTPUT
+          echo "$TAG_MESSAGE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create and push tag
         if: steps.check_tag.outputs.tag_exists == 'false'
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          TAG_MESSAGE="${{ steps.tag_info.outputs.tag_message }}"
-          CHANGELOG_FILE="${{ steps.tag_info.outputs.changelog_file }}"
 
           echo "🏷️  Creating annotated tag $VERSION..."
-          echo "📄 Tag message file contents:"
-          cat "$CHANGELOG_FILE"
-          echo ""
 
           # Ensure we're on the main branch and have the latest commit
           git checkout main
           echo "📍 Current commit: $(git rev-parse HEAD)"
           echo "📍 Current branch: $(git branch --show-current)"
 
-          # Create annotated tag with changelog
-          git tag -a "$VERSION" -F "$CHANGELOG_FILE"
+          # Create annotated tag with message (no temporary files)
+          git tag -a "$VERSION" -m "${{ steps.tag_info.outputs.tag_message }}"
 
           echo "🏷️ Tag created locally. Pushing to origin..."
 
