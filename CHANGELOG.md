@@ -1,3 +1,14 @@
+## [v1.2.6] - 2025-09-14
+
+### Fixed
+
+- Resolve version extraction issue in deploy workflow release job (00458cf)
+
+### Maintenance
+
+- Prepare v1.2.6 hotfix (841d94f)
+
+
 ## [v1.2.5] - 2025-09-14
 
 ### Added
