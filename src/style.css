@@ -14,6 +14,117 @@
 body {
   margin: 0;
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Accessibility improvements */
+.focus-visible:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Improved high contrast mode support */
+@media (prefers-contrast: high) {
+  .gradient-text {
+    background: #000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-pulse,
+  .animate-bounce,
+  .animate-spin {
+    animation: none;
+  }
+  
+  .typing-animation,
+  .response-animation,
+  .typing-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Touch target improvements for mobile */
+@media (max-width: 768px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    position: relative;
+  }
+  
+  /* Larger tap areas for small buttons */
+  button:before, a:before, [role="button"]:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+  }
+}
+
+/* Better mobile scrolling */
+@media (max-width: 640px) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Better touch scrolling on mobile */
+  .overflow-x-auto, .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+}
+
+/* Mobile-first responsive text */
+.responsive-text {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+
+@media (min-width: 640px) {
+  .responsive-text {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-text {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+  }
 }
 
 .gradient-bg {
@@ -116,4 +227,270 @@ body {
   animation: response-fade-in 0.8s ease-out;
   animation-delay: 4.3s;
   animation-fill-mode: both;
+}
+
+/* COVID Virus-themed Animations */
+@keyframes virus-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-12px) rotate(270deg);
+  }
+}
+
+@keyframes molecular-drift {
+  0%, 100% {
+    transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+  }
+  20% {
+    transform: translateX(4px) translateY(-6px) rotate(45deg) scale(1.05);
+  }
+  40% {
+    transform: translateX(-2px) translateY(-8px) rotate(90deg) scale(0.95);
+  }
+  60% {
+    transform: translateX(6px) translateY(-2px) rotate(180deg) scale(1.1);
+  }
+  80% {
+    transform: translateX(-4px) translateY(-10px) rotate(270deg) scale(0.9);
+  }
+}
+
+@keyframes organic-pulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.15;
+  }
+  15% {
+    transform: scale(1.08) rotate(20deg);
+    opacity: 0.12;
+  }
+  30% {
+    transform: scale(0.95) rotate(-10deg);
+    opacity: 0.18;
+  }
+  45% {
+    transform: scale(1.12) rotate(35deg);
+    opacity: 0.10;
+  }
+  60% {
+    transform: scale(0.9) rotate(-25deg);
+    opacity: 0.20;
+  }
+  75% {
+    transform: scale(1.05) rotate(15deg);
+    opacity: 0.14;
+  }
+}
+
+@keyframes spiral-rotation {
+  0% {
+    transform: rotate(0deg) translateX(0) translateY(0) scale(1);
+  }
+  25% {
+    transform: rotate(90deg) translateX(2px) translateY(-2px) scale(1.02);
+  }
+  50% {
+    transform: rotate(180deg) translateX(0) translateY(-4px) scale(0.98);
+  }
+  75% {
+    transform: rotate(270deg) translateX(-2px) translateY(-2px) scale(1.04);
+  }
+  100% {
+    transform: rotate(360deg) translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* Animation classes */
+.animate-virus-float {
+  animation: virus-float 6s ease-in-out infinite;
+}
+
+.animate-molecular-drift {
+  animation: molecular-drift 8s ease-in-out infinite;
+}
+
+.animate-organic-pulse {
+  animation: organic-pulse 5s ease-in-out infinite;
+}
+
+.animate-spiral-rotation {
+  animation: spiral-rotation 10s linear infinite;
+}
+
+/* Scroll-driven animations */
+@keyframes reveal-on-scroll {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes virus-hover-dance {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-5px) rotate(10deg) scale(1.05);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-5deg) scale(1.1);
+  }
+  75% {
+    transform: translateY(-3px) rotate(8deg) scale(1.02);
+  }
+}
+
+@keyframes particle-interaction {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.15;
+  }
+}
+
+/* Scroll-driven animation classes */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.animate-slide-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-slide-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.animate-slide-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Hover interaction animations */
+.virus-interactive:hover {
+  animation: virus-hover-dance 0.8s ease-in-out;
+}
+
+.particle-interactive:hover {
+  animation: particle-interaction 1.2s ease-in-out;
+}
+
+.feature-card-hover {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.feature-card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Dark mode image styles */
+.dark-mode-invert {
+  transition: filter 0.3s ease-in-out;
+}
+
+.dark .dark-mode-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Logo specific dark mode handling */
+.logo-dark-mode {
+  transition: filter 0.3s ease-in-out;
+}
+
+.dark .logo-dark-mode {
+  filter: brightness(0) invert(1);
+}
+
+/* Image background removal for better dark mode */
+.image-no-bg {
+  mix-blend-mode: multiply;
+  transition: mix-blend-mode 0.3s ease-in-out;
+}
+
+.dark .image-no-bg {
+  mix-blend-mode: screen;
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* Remove white backgrounds from images like INACOVID */
+.image-remove-bg {
+  transition: mix-blend-mode 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.dark .image-remove-bg {
+  mix-blend-mode: screen;
+  filter: contrast(1.5) brightness(1.1);
+}
+
+/* Government logos with selective typography inversion */
+.image-gov-logo {
+  transition: filter 0.3s ease-in-out;
+}
+
+.dark .image-gov-logo {
+  /* This creates a complex filter that attempts to invert only dark text while preserving colored elements */
+  filter: 
+    brightness(1.2) 
+    contrast(1.3) 
+    sepia(0.1) 
+    hue-rotate(180deg) 
+    invert(0.15);
 }

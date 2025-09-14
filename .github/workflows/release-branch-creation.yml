@@ -238,12 +238,32 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check for existing version bump PRs
+        id: check_prs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Check if there's already a version bump PR open for develop
+          EXISTING_PRS=$(gh pr list --base develop --state open --label "version-bump" --json number,title)
+
+          if [ "$(echo "$EXISTING_PRS" | jq '. | length')" -gt 0 ]; then
+            echo "⚠️ Found existing version bump PR(s):"
+            echo "$EXISTING_PRS" | jq -r '.[] | "#\(.number): \(.title)"'
+            echo "skip_bump=true" >> $GITHUB_OUTPUT
+            echo "Skipping version bump to avoid conflicts"
+          else
+            echo "✅ No existing version bump PRs found"
+            echo "skip_bump=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Configure Git
+        if: steps.check_prs.outputs.skip_bump == 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Calculate next development version
+        if: steps.check_prs.outputs.skip_bump == 'false'
         id: next_version
         run: |
           RELEASE_BRANCH="${{ github.event.ref }}"
@@ -270,7 +290,30 @@ jobs:
           echo "Current release: $CURRENT_VERSION"
           echo "Next development version: $NEXT_VERSION"
 
+      - name: Check current develop version
+        if: steps.check_prs.outputs.skip_bump == 'false'
+        id: current_dev_version
+        run: |
+          CURRENT_DEV_VERSION=$(jq -r '.version' package.json 2>/dev/null || echo "0.0.0")
+          NEXT_VERSION="${{ steps.next_version.outputs.clean_next_version }}"
+
+          echo "current_dev_version=$CURRENT_DEV_VERSION" >> $GITHUB_OUTPUT
+
+          # Check if develop already has a higher or equal version
+          if [ "$(printf '%s\n' "$CURRENT_DEV_VERSION" "$NEXT_VERSION" | sort -V | tail -n1)" = "$CURRENT_DEV_VERSION" ]; then
+            if [ "$CURRENT_DEV_VERSION" = "$NEXT_VERSION" ]; then
+              echo "⚠️ Develop already has the target version: $CURRENT_DEV_VERSION"
+            else
+              echo "⚠️ Develop already has a higher version: $CURRENT_DEV_VERSION > $NEXT_VERSION"
+            fi
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Will update from $CURRENT_DEV_VERSION to $NEXT_VERSION"
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Update develop branch with next version
+        if: steps.check_prs.outputs.skip_bump == 'false' && steps.current_dev_version.outputs.skip_update == 'false'
         run: |
           CLEAN_VERSION="${{ steps.next_version.outputs.clean_next_version }}"
           echo "📝 Updating develop branch to $CLEAN_VERSION..."
@@ -286,6 +329,7 @@ jobs:
           fi
 
       - name: Create version bump PR
+        if: steps.check_prs.outputs.skip_bump == 'false' && steps.current_dev_version.outputs.skip_update == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -348,17 +392,25 @@ jobs:
             --label "version-bump"
 
       - name: Create develop bump summary
+        if: always()
         run: |
-          RELEASE_VERSION="${{ steps.next_version.outputs.current_version }}"
-          NEXT_VERSION="${{ steps.next_version.outputs.next_version }}"
-
           echo "## 🔄 Develop Version Bump" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Release Branch**: \`${{ github.event.ref }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "**Release Version**: $RELEASE_VERSION" >> $GITHUB_STEP_SUMMARY
-          echo "**Next Dev Version**: $NEXT_VERSION" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### ✅ Actions Completed" >> $GITHUB_STEP_SUMMARY
-          echo "- 🎯 Calculated next minor version: $NEXT_VERSION" >> $GITHUB_STEP_SUMMARY
-          echo "- 📝 Updated develop branch package.json" >> $GITHUB_STEP_SUMMARY
-          echo "- 🔄 Created PR to merge version bump" >> $GITHUB_STEP_SUMMARY
+
+          if [[ "${{ steps.check_prs.outputs.skip_bump }}" == "true" ]]; then
+            echo "**Status**: ⚠️ Skipped - existing version bump PR found" >> $GITHUB_STEP_SUMMARY
+          elif [[ "${{ steps.current_dev_version.outputs.skip_update }}" == "true" ]]; then
+            echo "**Status**: ⚠️ Skipped - develop already has target or higher version" >> $GITHUB_STEP_SUMMARY
+            echo "**Current Version**: ${{ steps.current_dev_version.outputs.current_dev_version }}" >> $GITHUB_STEP_SUMMARY
+          else
+            RELEASE_VERSION="${{ steps.next_version.outputs.current_version }}"
+            NEXT_VERSION="${{ steps.next_version.outputs.next_version }}"
+            echo "**Release Version**: $RELEASE_VERSION" >> $GITHUB_STEP_SUMMARY
+            echo "**Next Dev Version**: $NEXT_VERSION" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### ✅ Actions Completed" >> $GITHUB_STEP_SUMMARY
+            echo "- 🎯 Calculated next minor version: $NEXT_VERSION" >> $GITHUB_STEP_SUMMARY
+            echo "- 📝 Updated develop branch package.json" >> $GITHUB_STEP_SUMMARY
+            echo "- 🔄 Created PR to merge version bump" >> $GITHUB_STEP_SUMMARY
+          fi

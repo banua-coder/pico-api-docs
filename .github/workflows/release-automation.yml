@@ -149,7 +149,57 @@ jobs:
 
           echo "✅ Tag $VERSION created and pushed successfully"
 
-      # STEP 2: CREATE BACK-MERGE TO DEVELOP
+      - name: Wait for deployment workflow to trigger
+        if: steps.check_tag.outputs.tag_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+
+          echo "🚀 Waiting for deployment workflow to trigger for tag $VERSION..."
+
+          # Wait a moment for the tag push to trigger the deployment workflow
+          sleep 5
+
+          # Check if deployment workflow has started
+          echo "🔍 Checking for deployment workflow runs..."
+
+          # Get the latest workflow runs for deploy.yml
+          WORKFLOW_RUNS=$(gh run list --workflow=deploy.yml --limit=5 --json status,headBranch,createdAt,conclusion)
+
+          # Check if a run for our tag exists
+          if echo "$WORKFLOW_RUNS" | jq -r ".[] | select(.headBranch==\"$VERSION\")"; then
+            echo "✅ Deployment workflow triggered successfully for $VERSION"
+          else
+            echo "⚠️ Deployment workflow may not have triggered automatically. Please check manually."
+            echo "   You can manually trigger deployment by:"
+            echo "   1. Go to Actions tab"
+            echo "   2. Select 'Deploy Documentation to Production' workflow"
+            echo "   3. Re-run the workflow for tag $VERSION"
+          fi
+
+      # STEP 2: SYNC DEVELOP WITH MAIN AND CREATE BACK-MERGE
+      - name: Sync develop with main before back-merge
+        id: sync_develop
+        run: |
+          echo "🔄 Syncing develop with main to prevent conflicts..."
+
+          # Fetch latest develop and main
+          git fetch origin develop:develop
+          git fetch origin main:main
+
+          # Check if develop is behind main
+          BEHIND_COUNT=$(git rev-list --count develop..main)
+          echo "behind_count=$BEHIND_COUNT" >> $GITHUB_OUTPUT
+
+          if [ "$BEHIND_COUNT" -gt 0 ]; then
+            echo "⚠️ Develop is $BEHIND_COUNT commits behind main"
+            echo "needs_sync=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Develop is up to date with main"
+            echo "needs_sync=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Generate unique back-merge branch name
         id: branch_name
         run: |
@@ -187,12 +237,46 @@ jobs:
           BACKMERGE_BRANCH="${{ steps.check_branch.outputs.final_branch }}"
           echo "backmerge_branch=$BACKMERGE_BRANCH" >> $GITHUB_OUTPUT
 
-          # Fetch latest develop
+          # Fetch latest develop and main
           git fetch origin develop:develop
+          git fetch origin main:main
 
-          # Create and checkout new branch from develop
-          echo "🌿 Creating branch $BACKMERGE_BRANCH from develop"
-          git checkout -b "$BACKMERGE_BRANCH" develop
+          # Create and checkout new branch from main (not develop) to avoid conflicts
+          echo "🌿 Creating branch $BACKMERGE_BRANCH from main"
+          git checkout -b "$BACKMERGE_BRANCH" main
+
+          # Now merge develop into this branch to see what needs to be preserved
+          echo "🔄 Checking for develop-specific changes..."
+
+          # Try to merge develop to see if there are any develop-specific changes
+          if git merge develop --no-commit --no-ff 2>/dev/null; then
+            # Check if there are actual changes from develop
+            if git diff --cached --quiet; then
+              echo "✅ No develop-specific changes to preserve"
+              git merge --abort
+              # Stay on main-based branch
+            else
+              echo "📝 Found develop-specific changes to preserve"
+              # Get the list of changed files
+              CHANGED_FILES=$(git diff --cached --name-only)
+              echo "Changed files from develop: $CHANGED_FILES"
+
+              # Abort the merge
+              git merge --abort
+
+              # Now create the branch from develop instead
+              git checkout -b "${BACKMERGE_BRANCH}_temp" develop
+              git branch -D "$BACKMERGE_BRANCH"
+              git branch -m "${BACKMERGE_BRANCH}_temp" "$BACKMERGE_BRANCH"
+            fi
+          else
+            echo "⚠️ Conflicts detected between main and develop"
+            git merge --abort
+            # Create from develop in this case
+            git checkout -b "${BACKMERGE_BRANCH}_temp" develop
+            git branch -D "$BACKMERGE_BRANCH" 2>/dev/null || true
+            git branch -m "${BACKMERGE_BRANCH}_temp" "$BACKMERGE_BRANCH"
+          fi
 
           # Verify we're on the correct branch
           CURRENT_BRANCH=$(git branch --show-current)
@@ -203,11 +287,20 @@ jobs:
             exit 1
           fi
 
-          # Merge main into the back-merge branch with conflict resolution
-          echo "🔄 Merging main into $BACKMERGE_BRANCH"
+          # Now perform the actual merge based on the branch base
+          CURRENT_BASE=$(git merge-base HEAD main)
+          MAIN_BASE=$(git merge-base main main)
 
-          # Attempt merge, if conflicts occur, resolve them automatically
-          if ! git merge --no-ff main -m "chore: back-merge ${{ steps.version.outputs.version }} from main to develop
+          if [ "$CURRENT_BASE" = "$MAIN_BASE" ]; then
+            echo "🔄 Branch is based on main, merging develop changes..."
+            MERGE_TARGET="develop"
+          else
+            echo "🔄 Branch is based on develop, merging main changes..."
+            MERGE_TARGET="main"
+          fi
+
+          # Attempt merge with automatic conflict resolution
+          if ! git merge --no-ff "$MERGE_TARGET" -m "chore: back-merge ${{ steps.version.outputs.version }} from main to develop
 
           Automated back-merge of ${{ steps.version.outputs.type }} ${{ steps.version.outputs.version }} from main branch.
 
@@ -218,10 +311,36 @@ jobs:
             
             echo "⚠️ Merge conflicts detected, resolving automatically..."
             
-            # For version-related conflicts, prefer develop branch (newer) changes
+            # For version-related conflicts, intelligently resolve based on versions
             if git status --porcelain | grep -q "package.json"; then
-              echo "🔄 Resolving version conflict in package.json (keeping develop version)"
-              git checkout --ours package.json
+              echo "🔄 Resolving version conflict in package.json..."
+
+              # Get versions from both branches
+              MAIN_VERSION=$(git show main:package.json | jq -r '.version' 2>/dev/null || echo "0.0.0")
+              DEVELOP_VERSION=$(git show develop:package.json | jq -r '.version' 2>/dev/null || echo "0.0.0")
+              CURRENT_VERSION=$(jq -r '.version' package.json 2>/dev/null || echo "0.0.0")
+
+              echo "  Main version: $MAIN_VERSION"
+              echo "  Develop version: $DEVELOP_VERSION"
+              echo "  Current (conflicted) version: $CURRENT_VERSION"
+
+              # Use the higher version number
+              if [ "$(printf '%s\n' "$MAIN_VERSION" "$DEVELOP_VERSION" | sort -V | tail -n1)" = "$DEVELOP_VERSION" ]; then
+                echo "  ✅ Keeping develop version (higher): $DEVELOP_VERSION"
+                git checkout develop -- package.json
+              else
+                echo "  ✅ Keeping main version (higher): $MAIN_VERSION"
+                git checkout main -- package.json
+              fi
+              git add package.json
+            fi
+
+            # Handle CHANGELOG.md conflicts
+            if git status --porcelain | grep -q "CHANGELOG.md"; then
+              echo "🔄 Resolving CHANGELOG.md conflicts..."
+              # For CHANGELOG, we want to keep all entries from both branches
+              git checkout --ours CHANGELOG.md
+              git add CHANGELOG.md
             fi
             
             # Check for any remaining conflicts

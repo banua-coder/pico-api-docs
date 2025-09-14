@@ -1,11 +1,11 @@
 <template>
-  <nav ref="navbar" class="fixed w-full top-0 z-50 transition-all duration-500 ease-out" :class="navbarClass">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
+  <nav ref="navbar" class="fixed w-full top-0 left-0 z-50 transition-all duration-500 ease-out px-4 sm:px-6 lg:px-8 pt-4" :class="navbarClass">
+    <div class="max-w-7xl mx-auto rounded-2xl transition-all duration-500 ease-out" :class="innerContainerClass">
+      <div class="flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8">
         <div class="flex items-center">
           <div class="flex-shrink-0 flex items-center space-x-3">
-            <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-10 w-auto">
-            <router-link to="/" class="text-2xl font-bold gradient-text">PICO SulTeng</router-link>
+            <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-10 w-auto logo-dark-mode">
+            <router-link to="/" class="text-2xl font-bold gradient-text flex items-center">PICO SulTeng</router-link>
           </div>
         </div>
         
@@ -14,62 +14,55 @@
           <div class="ml-10 flex items-baseline space-x-4">
             <router-link 
               to="/" 
-              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="{ 'text-gray-900': $route.path === '/' }"
+              :class="[navLinkClass, { [activeNavLinkClass]: $route.path === '/' }]"
             >
               {{ t('nav.home') }}
             </router-link>
             <router-link 
               to="/docs" 
-              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="{ 'text-gray-900': $route.path === '/docs' }"
+              :class="[navLinkClass, { [activeNavLinkClass]: $route.path === '/docs' }]"
             >
               {{ t('nav.documentation') }}
             </router-link>
             <router-link 
               to="/api" 
-              class="text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              :class="{ 'text-gray-900': $route.path === '/api' }"
+              :class="[navLinkClass, { [activeNavLinkClass]: $route.path === '/api' }]"
             >
               {{ t('nav.apiReference') }}
             </router-link>
             <a href="https://pico-api.banuacoder.com/api/v1" target="_blank" class="bg-pico-blue hover:bg-pico-deep text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
               {{ t('nav.liveApi') }}
             </a>
-            <!-- Language Toggle -->
+            <!-- Theme & Language Controls -->
             <div class="flex items-center space-x-2 ml-4">
+              <!-- Language Toggle -->
               <button 
                 @click="toggleLanguage"
-                class="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm"
+                class="flex items-center justify-center px-3 py-2 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 bg-white hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
+                :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
               >
-                <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
                 </svg>
-                <span class="text-sm font-medium text-gray-700">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
+                <span class="ml-1.5 text-sm font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'EN' : 'ID' }}</span>
               </button>
+              
+              <!-- Theme Toggle -->
+              <ThemeToggle />
             </div>
           </div>
         </div>
 
         <!-- Mobile menu button -->
-        <div class="md:hidden flex items-center space-x-2">
-          <!-- Language Toggle for Mobile -->
-          <button 
-            @click="toggleLanguage"
-            class="flex items-center space-x-1 px-2 py-1.5 rounded-lg border border-gray-200 hover:border-pico-sky transition-colors bg-white/80 backdrop-blur-sm"
-          >
-            <svg class="w-3 h-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-            </svg>
-            <span class="text-xs font-medium text-gray-700">{{ locale === 'en' ? 'ID' : 'EN' }}</span>
-          </button>
-          
+        <div class="md:hidden">
           <!-- Hamburger button -->
           <button 
             @click="toggleMobileMenu"
             type="button"
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-pico-blue hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pico-blue transition-colors"
             :aria-expanded="mobileMenuOpen"
+            aria-label="Toggle mobile navigation menu"
+            :aria-controls="mobileMenuOpen ? 'mobile-menu' : undefined"
           >
             <span class="sr-only">Open main menu</span>
             <!-- Hamburger icon -->
@@ -101,32 +94,31 @@
 
     <!-- Mobile menu -->
     <div 
-      class="fixed top-0 right-0 z-50 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden"
-      :class="mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'"
+      id="mobile-menu"
+      :class="[mobileMenuClass, mobileMenuOpen ? 'translate-x-0' : 'translate-x-full']"
+      role="navigation"
+      :aria-hidden="!mobileMenuOpen"
     >
       <div class="p-6 pt-20">
         <div class="space-y-4">
           <router-link 
             to="/" 
             @click="closeMobileMenu"
-            class="block text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
-            :class="{ 'text-gray-900': $route.path === '/' }"
+            :class="[mobileNavLinkClass, { [activeMobileNavLinkClass]: $route.path === '/' }]"
           >
             {{ t('nav.home') }}
           </router-link>
           <router-link 
             to="/docs" 
             @click="closeMobileMenu"
-            class="block text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
-            :class="{ 'text-gray-900': $route.path === '/docs' }"
+            :class="[mobileNavLinkClass, { [activeMobileNavLinkClass]: $route.path === '/docs' }]"
           >
             {{ t('nav.documentation') }}
           </router-link>
           <router-link 
             to="/api" 
             @click="closeMobileMenu"
-            class="block text-gray-600 hover:text-pico-blue px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 transition-colors"
-            :class="{ 'text-gray-900': $route.path === '/api' }"
+            :class="[mobileNavLinkClass, { [activeMobileNavLinkClass]: $route.path === '/api' }]"
           >
             {{ t('nav.apiReference') }}
           </router-link>
@@ -138,6 +130,27 @@
           >
             {{ t('nav.liveApi') }}
           </a>
+          
+          <!-- Mobile Controls Section -->
+          <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700 space-y-4">
+            <!-- Language Toggle for Mobile -->
+            <div class="flex items-center justify-between px-3 py-2">
+              <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Language</span>
+              <button 
+                @click="toggleLanguage"
+                class="flex items-center justify-center px-3 py-1.5 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 bg-white hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
+                :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
+              >
+                <span class="text-sm font-semibold text-gray-600 dark:text-gray-300">{{ locale === 'en' ? 'EN' : 'ID' }}</span>
+              </button>
+            </div>
+            
+            <!-- Theme Toggle for Mobile -->
+            <div class="flex items-center justify-between px-3 py-2">
+              <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Theme</span>
+              <ThemeToggle variant="compact" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -147,6 +160,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ThemeToggle from './ThemeToggle.vue'
 
 const { t, locale } = useI18n()
 
@@ -169,13 +183,49 @@ const mobileMenuOpen = ref(false)
 
 const navbarClass = computed(() => {
   if (props.variant === 'solid') {
-    return 'bg-white shadow-sm'
+    return '!pt-0'
+  }
+  
+  return ''
+})
+
+// Mobile menu background should always be solid
+const mobileMenuClass = computed(() => 
+  'fixed top-0 right-0 z-50 w-64 h-full bg-white dark:bg-gray-900 shadow-lg transform transition-transform duration-300 ease-in-out md:hidden'
+)
+
+const innerContainerClass = computed(() => {
+  if (props.variant === 'solid') {
+    return 'bg-white dark:bg-gray-900 shadow-sm dark:shadow-gray-800/50 !rounded-none'
   }
   
   return isScrolled.value 
-    ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200/50' 
-    : 'bg-transparent'
+    ? 'bg-white/10 dark:bg-gray-900/10 backdrop-filter backdrop-blur-[20px] backdrop-saturate-[180%] shadow-2xl border border-white/20 dark:border-gray-800/20 md:rounded-2xl' 
+    : 'bg-white/0 dark:bg-gray-900/0 border border-gray-200/0 dark:border-gray-800/0 md:rounded-2xl'
 })
+
+// Dynamic text color classes based on glass state
+const navLinkClass = computed(() => {
+  const baseClasses = 'px-3 py-2 rounded-md text-sm font-medium transition-all duration-200'
+  
+  if (props.variant === 'solid') {
+    return `${baseClasses} text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky`
+  }
+  
+  return isScrolled.value 
+    ? `${baseClasses} text-gray-900 dark:text-white hover:text-pico-blue dark:hover:text-pico-sky font-semibold` 
+    : `${baseClasses} text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky`
+})
+
+const activeNavLinkClass = computed(() => {
+  return isScrolled.value && props.variant !== 'solid'
+    ? 'text-gray-900 dark:text-white font-bold' 
+    : 'text-gray-900 dark:text-white'
+})
+
+// Mobile navigation classes (always solid background)
+const mobileNavLinkClass = 'block text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 dark:border-gray-700 transition-colors'
+const activeMobileNavLinkClass = 'text-gray-900 dark:text-white'
 
 // Scroll handler
 const handleScroll = () => {
