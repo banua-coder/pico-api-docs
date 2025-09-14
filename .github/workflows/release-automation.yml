@@ -26,6 +26,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global init.defaultBranch main
+
+          echo "🔧 Git configuration:"
+          git config --list | grep -E "user\.(name|email)"
 
       - name: Extract version from branch name
         id: version
@@ -140,42 +144,52 @@ jobs:
           CHANGELOG_FILE="${{ steps.tag_info.outputs.changelog_file }}"
 
           echo "🏷️  Creating annotated tag $VERSION..."
+          echo "📄 Tag message file contents:"
+          cat "$CHANGELOG_FILE"
+          echo ""
+
+          # Ensure we're on the main branch and have the latest commit
+          git checkout main
+          echo "📍 Current commit: $(git rev-parse HEAD)"
+          echo "📍 Current branch: $(git branch --show-current)"
 
           # Create annotated tag with changelog
           git tag -a "$VERSION" -F "$CHANGELOG_FILE"
 
-          # Push the tag
-          git push origin "$VERSION"
+          echo "🏷️ Tag created locally. Pushing to origin..."
+
+          # Push the tag with verbose output
+          git push origin "$VERSION" --verbose
 
           echo "✅ Tag $VERSION created and pushed successfully"
+          echo "🔍 Verifying tag exists on remote:"
+          git ls-remote --tags origin | grep "$VERSION" || echo "⚠️ Tag not found in remote (may take a moment to appear)"
 
-      - name: Wait for deployment workflow to trigger
+      - name: Trigger deployment workflow
         if: steps.check_tag.outputs.tag_exists == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${{ steps.version.outputs.version }}"
 
-          echo "🚀 Waiting for deployment workflow to trigger for tag $VERSION..."
+          echo "🚀 Triggering deployment workflow for tag $VERSION..."
 
-          # Wait a moment for the tag push to trigger the deployment workflow
-          sleep 5
+          # Wait a moment for tag to be processed
+          sleep 3
 
-          # Check if deployment workflow has started
-          echo "🔍 Checking for deployment workflow runs..."
+          # Trigger deployment workflow using workflow_dispatch
+          gh workflow run deploy.yml --ref main --field tag="$VERSION"
 
-          # Get the latest workflow runs for deploy.yml
-          WORKFLOW_RUNS=$(gh run list --workflow=deploy.yml --limit=5 --json status,headBranch,createdAt,conclusion)
-
-          # Check if a run for our tag exists
-          if echo "$WORKFLOW_RUNS" | jq -r ".[] | select(.headBranch==\"$VERSION\")"; then
+          if [ $? -eq 0 ]; then
             echo "✅ Deployment workflow triggered successfully for $VERSION"
+            echo "🔍 Monitor progress at: https://github.com/${{ github.repository }}/actions/workflows/deploy.yml"
           else
-            echo "⚠️ Deployment workflow may not have triggered automatically. Please check manually."
-            echo "   You can manually trigger deployment by:"
-            echo "   1. Go to Actions tab"
-            echo "   2. Select 'Deploy Documentation to Production' workflow"
-            echo "   3. Re-run the workflow for tag $VERSION"
+            echo "⚠️ Failed to trigger deployment workflow automatically."
+            echo "🛠️ Manual fallback steps:"
+            echo "   1. Go to: https://github.com/${{ github.repository }}/actions/workflows/deploy.yml"
+            echo "   2. Click 'Run workflow'"
+            echo "   3. Enter tag: $VERSION"
+            echo "   4. Click 'Run workflow' button"
           fi
 
       # STEP 2: SYNC DEVELOP WITH MAIN AND CREATE BACK-MERGE
@@ -249,33 +263,34 @@ jobs:
           echo "🔄 Checking for develop-specific changes..."
 
           # Try to merge develop to see if there are any develop-specific changes
-          if git merge origin/develop --no-commit --no-ff 2>/dev/null; then
-            # Check if there are actual changes from develop
-            if git diff --cached --quiet; then
-              echo "✅ No develop-specific changes to preserve"
-              git merge --abort
-              # Stay on main-based branch
-            else
-              echo "📝 Found develop-specific changes to preserve"
-              # Get the list of changed files
-              CHANGED_FILES=$(git diff --cached --name-only)
-              echo "Changed files from develop: $CHANGED_FILES"
+          echo "🔍 Checking if develop has changes that need to be preserved..."
 
-              # Abort the merge
-              git merge --abort
+          # Use git merge-tree to check for conflicts without actually merging
+          MERGE_BASE=$(git merge-base origin/main origin/develop)
 
-              # Now create the branch from develop instead
-              git checkout -b "${BACKMERGE_BRANCH}_temp" origin/develop
-              git branch -D "$BACKMERGE_BRANCH"
-              git branch -m "${BACKMERGE_BRANCH}_temp" "$BACKMERGE_BRANCH"
-            fi
-          else
-            echo "⚠️ Conflicts detected between main and develop"
-            git merge --abort
+          # Check if there would be conflicts
+          if git merge-tree "$MERGE_BASE" origin/main origin/develop | grep -q "<<<<<<< ";
+          then
+            echo "⚠️ Merge conflicts detected between main and develop"
+            echo "📝 Creating branch from develop to preserve develop-specific changes"
             # Create from develop in this case
             git checkout -b "${BACKMERGE_BRANCH}_temp" origin/develop
             git branch -D "$BACKMERGE_BRANCH" 2>/dev/null || true
             git branch -m "${BACKMERGE_BRANCH}_temp" "$BACKMERGE_BRANCH"
+          else
+            # Check if develop has commits ahead of main
+            DEVELOP_AHEAD_COUNT=$(git rev-list --count origin/main..origin/develop)
+
+            if [ "$DEVELOP_AHEAD_COUNT" -gt 0 ]; then
+              echo "📝 Develop has $DEVELOP_AHEAD_COUNT commits ahead of main - preserving develop changes"
+              # Create from develop to preserve its changes
+              git checkout -b "${BACKMERGE_BRANCH}_temp" origin/develop
+              git branch -D "$BACKMERGE_BRANCH" 2>/dev/null || true
+              git branch -m "${BACKMERGE_BRANCH}_temp" "$BACKMERGE_BRANCH"
+            else
+              echo "✅ No develop-specific changes to preserve - using main as base"
+              # Stay on main-based branch
+            fi
           fi
 
           # Verify we're on the correct branch
@@ -300,17 +315,25 @@ jobs:
           fi
 
           # Attempt merge with automatic conflict resolution
-          if ! git merge --no-ff "$MERGE_TARGET" -m "chore: back-merge ${{ steps.version.outputs.version }} from main to develop
+          MERGE_COMMIT_MSG="chore: back-merge ${{ steps.version.outputs.version }} from main to develop
 
           Automated back-merge of ${{ steps.version.outputs.type }} ${{ steps.version.outputs.version }} from main branch.
 
           Original PR: ${{ github.event.pull_request.html_url }}
           Merged commit: ${{ github.event.pull_request.merge_commit_sha }}
           Tag created: ${{ steps.version.outputs.version }}
-          Branch: $BACKMERGE_BRANCH"; then
-            
-            echo "⚠️ Merge conflicts detected, resolving automatically..."
-            
+          Branch: $BACKMERGE_BRANCH"
+
+          if ! git merge --no-ff "$MERGE_TARGET" -m "$MERGE_COMMIT_MSG"; then
+
+            echo "⚠️ Merge conflicts detected, attempting automatic resolution..."
+
+            # Check if we're actually in a merge state
+            if [ ! -f ".git/MERGE_HEAD" ]; then
+              echo "❌ Not in merge state but merge failed. Exiting."
+              exit 1
+            fi
+
             # For version-related conflicts, intelligently resolve based on versions
             if git status --porcelain | grep -q "package.json"; then
               echo "🔄 Resolving version conflict in package.json..."
@@ -318,11 +341,9 @@ jobs:
               # Get versions from both branches
               MAIN_VERSION=$(git show origin/main:package.json | jq -r '.version' 2>/dev/null || echo "0.0.0")
               DEVELOP_VERSION=$(git show origin/develop:package.json | jq -r '.version' 2>/dev/null || echo "0.0.0")
-              CURRENT_VERSION=$(jq -r '.version' package.json 2>/dev/null || echo "0.0.0")
 
               echo "  Main version: $MAIN_VERSION"
               echo "  Develop version: $DEVELOP_VERSION"
-              echo "  Current (conflicted) version: $CURRENT_VERSION"
 
               # Use the higher version number
               if [ "$(printf '%s\n' "$MAIN_VERSION" "$DEVELOP_VERSION" | sort -V | tail -n1)" = "$DEVELOP_VERSION" ]; then
@@ -342,27 +363,34 @@ jobs:
               git checkout --ours CHANGELOG.md
               git add CHANGELOG.md
             fi
-            
-            # Check for any remaining conflicts
-            if git status --porcelain | grep -q "^UU\|^AA"; then
-              echo "❌ Unresolved conflicts remain after automatic resolution"
-              git status --porcelain
-              echo "Manual intervention required - marking PR for review"
-              
-              # Stage resolved files
-              git add .
-              git commit -m "resolve: automatic conflict resolution for back-merge
-              
-              Conflicts resolved automatically:
-              - Version files: kept develop branch versions (newer)
-              - Other conflicts may require manual review"
-            else
-              # All conflicts resolved, stage and commit
-              git add .
-              git commit -m "resolve: automatic conflict resolution for back-merge
-              
-              Successfully resolved version conflicts by keeping develop branch changes."
+
+            # Resolve any other simple conflicts by taking "ours" (current branch)
+            CONFLICTED_FILES=$(git status --porcelain | grep "^UU" | awk '{print $2}')
+            if [ -n "$CONFLICTED_FILES" ]; then
+              echo "🔄 Resolving remaining conflicts by keeping current branch version..."
+              for file in $CONFLICTED_FILES; do
+                echo "  Resolving: $file"
+                git checkout --ours "$file"
+                git add "$file"
+              done
             fi
+
+            # Check if all conflicts are resolved
+            if git status --porcelain | grep -q "^UU\|^AA"; then
+              echo "❌ Some conflicts still remain unresolved"
+              git status --porcelain
+              echo "🔄 Aborting merge and creating branch for manual resolution"
+              git merge --abort
+
+              # Create a simple branch from current state for manual review
+              echo "📝 Creating back-merge branch without conflicts for manual review"
+            else
+              # All conflicts resolved, complete the merge
+              echo "✅ All conflicts resolved, completing merge..."
+              git commit -m "$MERGE_COMMIT_MSG"
+            fi
+          else
+            echo "✅ Merge completed successfully without conflicts"
           fi
 
           # Push the back-merge branch
