@@ -27,6 +27,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Fetch main branch
+        run: |
+          echo "🔄 Fetching main branch for comparison..."
+          git fetch origin main:main
+          echo "✅ Main branch fetched successfully"
+
       - name: Extract version and type from branch name
         id: branch_info
         run: |
@@ -97,8 +103,8 @@ jobs:
           LABEL="${{ steps.branch_info.outputs.label }}"
 
           # Generate commit summary for the PR description
-          COMMITS=$(git log --oneline main..HEAD | head -10)
-          COMMIT_COUNT=$(git rev-list --count main..HEAD)
+          COMMITS=$(git log --oneline origin/main..HEAD | head -10)
+          COMMIT_COUNT=$(git rev-list --count origin/main..HEAD)
 
           gh pr create \
             --base main \
@@ -149,8 +155,8 @@ jobs:
           echo "🔄 Updating existing PR #$PR_NUMBER with latest changes"
 
           # Generate commit summary for the PR description
-          COMMITS=$(git log --oneline main..HEAD | head -10)
-          COMMIT_COUNT=$(git rev-list --count main..HEAD)
+          COMMITS=$(git log --oneline origin/main..HEAD | head -10)
+          COMMIT_COUNT=$(git rev-list --count origin/main..HEAD)
 
           gh pr edit "$PR_NUMBER" \
             --title "$TYPE: $VERSION" \
