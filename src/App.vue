@@ -2,7 +2,7 @@
   <div id="app" class="transition-colors duration-200">
     <router-view v-slot="{ Component, route }">
       <transition 
-        :name="route.meta.transition || 'slide-left'" 
+        :name="(route.meta?.transition as string) || 'slide-left'" 
         mode="out-in"
       >
         <component :is="Component" :key="route.path" />
