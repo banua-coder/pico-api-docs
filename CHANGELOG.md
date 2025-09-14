@@ -1,3 +1,37 @@
+## [v1.2.0] - 2025-09-14
+
+### Added
+
+- Implement liquid glass navigation and improve mobile ux (6f1240d)
+- Enhance documentation with persistent sidebar and rt calculation examples (b4d9501)
+- Implement selective dark mode image treatment and fix footer text size (4dd9192)
+- Implement comprehensive frontend design improvements (7096d2d)
+- Implement syntax highlighting with prism.js for api documentation (45f87aa)
+
+### Changed
+
+- Remove redundant quick api overview section from home page (8602ce4)
+
+### Fixed
+
+- Resolve all context access warnings in deploy.yml (5b6dcae)
+- Resolve github actions workflow conflicts and deployment issues (99190d1)
+- Improve mobile layout for hero section and data sources (ae203aa)
+- Improve getting started section mobile layout to prevent cropping (087696b)
+- Improve mobile responsiveness for samsung a33 and small screens (f9f4fe3)
+- Correct changelog script arguments in workflows (327cdea)
+
+### CI/CD
+
+- Fix release automation workflow (workflow) (bf8c2f6)
+
+### Maintenance
+
+- Add claude.md configuration file (52d8463)
+- Bump version to v1.2.0 for next development cycle (f2cfa92)
+- Bump version to v1.2.0 for next development cycle (08a8d1e)
+
+
 ## [v1.1.1] - 2025-09-08
 
 ### Fixed
