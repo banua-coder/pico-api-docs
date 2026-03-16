@@ -1,8 +1,8 @@
 <template>
   <section v-show="isActive" id="vaccination" class="mb-16">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Vaccination</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">Endpoints for COVID-19 vaccination data including national records, Sulawesi Tengah province data, and vaccination center locations.</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.vaccination.title') }}</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.vaccination.description') }}</p>
     </div>
 
     <!-- National Vaccinations -->
@@ -111,9 +111,11 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
+const { t } = useI18n()
 
 const nationalVaccinationRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/vaccination/national?page=1&per_page=10" \\
   -H "Accept: application/json"`

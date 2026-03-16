@@ -186,11 +186,26 @@
       "errorResponse": "Respons Error",
       "errorFields": "Field Error",
       "statusCodes": {
-        "200": { "title": "OK", "description": "Permintaan berhasil" },
-        "400": { "title": "Bad Request", "description": "Parameter tidak valid atau permintaan salah format" },
-        "404": { "title": "Not Found", "description": "Endpoint atau resource tidak ditemukan" },
-        "429": { "title": "Too Many Requests", "description": "Batas rate terlampaui" },
-        "500": { "title": "Internal Server Error", "description": "Server mengalami error yang tidak terduga" }
+        "200": {
+          "title": "OK",
+          "description": "Permintaan berhasil"
+        },
+        "400": {
+          "title": "Bad Request",
+          "description": "Parameter tidak valid atau permintaan salah format"
+        },
+        "404": {
+          "title": "Not Found",
+          "description": "Endpoint atau resource tidak ditemukan"
+        },
+        "429": {
+          "title": "Too Many Requests",
+          "description": "Batas rate terlampaui"
+        },
+        "500": {
+          "title": "Internal Server Error",
+          "description": "Server mengalami error yang tidak terduga"
+        }
       },
       "fieldDescriptions": {
         "status": "Selalu \"error\" untuk respons error",
@@ -307,17 +322,41 @@
       },
       "caseClassifications": {
         "title": "Klasifikasi Kasus",
-        "positive": { "title": "Kasus Positif", "description": "Infeksi COVID-19 yang dikonfirmasi melalui tes" },
-        "recovered": { "title": "Kasus Sembuh", "description": "Pasien yang telah sembuh dari COVID-19" },
-        "deceased": { "title": "Kasus Meninggal", "description": "Kematian yang disebabkan oleh COVID-19" },
-        "active": { "title": "Kasus Aktif", "description": "Pasien yang saat ini terinfeksi (positif - sembuh - meninggal)" }
+        "positive": {
+          "title": "Kasus Positif",
+          "description": "Infeksi COVID-19 yang dikonfirmasi melalui tes"
+        },
+        "recovered": {
+          "title": "Kasus Sembuh",
+          "description": "Pasien yang telah sembuh dari COVID-19"
+        },
+        "deceased": {
+          "title": "Kasus Meninggal",
+          "description": "Kematian yang disebabkan oleh COVID-19"
+        },
+        "active": {
+          "title": "Kasus Aktif",
+          "description": "Pasien yang saat ini terinfeksi (positif - sembuh - meninggal)"
+        }
       },
       "dataTypes": {
         "title": "Tipe Data",
-        "daily": { "title": "Data Harian", "description": "Kasus baru yang dilaporkan untuk hari tertentu" },
-        "cumulative": { "title": "Data Kumulatif", "description": "Total kasus yang terakumulasi sejak awal pelacakan" },
-        "percentages": { "title": "Persentase", "description": "Distribusi kasus sebagai persentase dari total kasus positif" },
-        "serialInterval": { "title": "Interval Serial", "description": "Waktu antara onset gejala pada kasus berturut-turut dalam rantai transmisi" }
+        "daily": {
+          "title": "Data Harian",
+          "description": "Kasus baru yang dilaporkan untuk hari tertentu"
+        },
+        "cumulative": {
+          "title": "Data Kumulatif",
+          "description": "Total kasus yang terakumulasi sejak awal pelacakan"
+        },
+        "percentages": {
+          "title": "Persentase",
+          "description": "Distribusi kasus sebagai persentase dari total kasus positif"
+        },
+        "serialInterval": {
+          "title": "Interval Serial",
+          "description": "Waktu antara onset gejala pada kasus berturut-turut dalam rantai transmisi"
+        }
       },
       "indonesianTerminology": {
         "title": "Terminologi COVID-19 Indonesia",
@@ -376,6 +415,90 @@
           "currentFlow": "Resmi: Suspect → Probable → Konfirmasi (Simtomatis/Asimtomatis)",
           "legacyFlow": "Lama: ODP → PDP → OTG → Konfirmasi"
         }
+      }
+    },
+    "regencies": {
+      "title": "Kabupaten/Kota",
+      "description": "Endpoint untuk data kabupaten/kota dan statistik COVID-19 di Sulawesi Tengah.",
+      "listTitle": "Daftar Kabupaten/Kota",
+      "listDescription": "Dapatkan semua kabupaten/kota di Sulawesi Tengah (paginasi)",
+      "detailTitle": "Detail Kabupaten/Kota",
+      "detailDescription": "Dapatkan satu kabupaten/kota berdasarkan ID/kode",
+      "casesTitle": "Kasus per Kabupaten/Kota",
+      "casesDescription": "Dapatkan riwayat kasus COVID-19 untuk kabupaten/kota tertentu",
+      "parameters": {
+        "page": "Nomor halaman",
+        "perPage": "Item per halaman (maks: 100)",
+        "loadAll": "Kembalikan semua data tanpa paginasi",
+        "code": "ID Kabupaten/Kota (contoh: 7271 untuk Kota Palu)"
+      }
+    },
+    "hospitals": {
+      "title": "Rumah Sakit",
+      "description": "Endpoint untuk data rumah sakit termasuk ketersediaan tempat tidur dan informasi kontak di Sulawesi Tengah.",
+      "listTitle": "Daftar Rumah Sakit",
+      "listDescription": "Dapatkan semua rumah sakit dengan ketersediaan tempat tidur (paginasi)",
+      "detailTitle": "Detail Rumah Sakit",
+      "detailDescription": "Dapatkan satu rumah sakit berdasarkan kode dengan detail lengkap",
+      "parameters": {
+        "page": "Nomor halaman",
+        "perPage": "Item per halaman (maks: 100)",
+        "loadAll": "Kembalikan semua rumah sakit tanpa paginasi",
+        "code": "Kode rumah sakit (contoh: 7200001)"
+      }
+    },
+    "taskForces": {
+      "title": "Gugus Tugas",
+      "description": "Posko gugus tugas COVID-19 dikelompokkan berdasarkan kabupaten/kota di Sulawesi Tengah, beserta informasi kontak.",
+      "listTitle": "Daftar Gugus Tugas",
+      "listDescription": "Dapatkan semua posko gugus tugas COVID-19 dikelompokkan berdasarkan kabupaten/kota (paginasi)",
+      "parameters": {
+        "page": "Nomor halaman (paginasi per kabupaten/kota)",
+        "perPage": "Kabupaten/kota per halaman (maks: 100)",
+        "loadAll": "Kembalikan semua gugus tugas tanpa paginasi"
+      }
+    },
+    "vaccination": {
+      "title": "Vaksinasi",
+      "description": "Endpoint untuk data vaksinasi COVID-19 termasuk data nasional, data Sulawesi Tengah, dan lokasi pusat vaksinasi.",
+      "nationalTitle": "Data Vaksinasi Nasional",
+      "nationalDescription": "Data vaksinasi nasional (paginasi)",
+      "provinceTitle": "Data Vaksinasi Provinsi",
+      "provinceDescription": "Data vaksinasi Sulawesi Tengah (paginasi)",
+      "locationsTitle": "Lokasi Vaksinasi",
+      "locationsDescription": "Pusat vaksinasi di Sulawesi Tengah (paginasi)",
+      "parameters": {
+        "page": "Nomor halaman",
+        "perPage": "Item per halaman (maks: 100)",
+        "loadAll": "Kembalikan semua data tanpa paginasi"
+      }
+    },
+    "statistics": {
+      "title": "Statistik",
+      "description": "Statistik COVID-19 terperinci di Sulawesi Tengah, termasuk data kasus berdasarkan jenis kelamin, statistik pengujian, dan jenis tes.",
+      "genderTitle": "Kasus Berdasarkan Jenis Kelamin",
+      "genderDescription": "Semua data kasus COVID-19 berdasarkan jenis kelamin untuk Sulawesi Tengah",
+      "latestGenderTitle": "Kasus Jenis Kelamin Terbaru",
+      "latestGenderDescription": "Data kasus COVID-19 berdasarkan jenis kelamin terbaru",
+      "testsTitle": "Tes COVID-19",
+      "testsDescription": "Statistik pengujian COVID-19 untuk Sulawesi Tengah",
+      "testTypesTitle": "Jenis Tes",
+      "testTypesDescription": "Jenis tes COVID-19 yang tersedia"
+    },
+    "pagination": {
+      "title": "Paginasi",
+      "description": "Semua endpoint daftar mendukung parameter paginasi.",
+      "page": "Nomor halaman (default: 1)",
+      "perPage": "Item per halaman (default: 10, maks: 100)",
+      "loadAll": "Kembalikan semua data tanpa paginasi",
+      "responseFields": {
+        "data": "Array item untuk halaman saat ini",
+        "page": "Nomor halaman saat ini",
+        "perPage": "Item per halaman",
+        "total": "Total jumlah item",
+        "totalPages": "Total jumlah halaman",
+        "hasNext": "Apakah ada halaman berikutnya",
+        "hasPrev": "Apakah ada halaman sebelumnya"
       }
     }
   },
