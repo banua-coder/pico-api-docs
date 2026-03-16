@@ -1,8 +1,8 @@
 <template>
   <section v-show="isActive" id="regencies" class="mb-16">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Regencies (Kabupaten/Kota)</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">Endpoints for regency/city data and COVID-19 case statistics in Sulawesi Tengah.</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.regencies.title') }}</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.regencies.description') }}</p>
     </div>
 
     <!-- List Regencies -->
@@ -12,13 +12,13 @@
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
           <code class="text-white font-mono text-lg">/api/v1/regencies</code>
         </div>
-        <p class="text-blue-100">Get all regencies/cities in Sulawesi Tengah (paginated)</p>
+        <p class="text-blue-100">{{ t('documentation.regencies.listDescription') }}</p>
       </div>
 
       <div class="p-8">
         <div class="grid lg:grid-cols-2 gap-8 mb-8">
           <div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Query Parameters</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.pagination.title') }}</h3>
             <div class="overflow-x-auto">
               <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">
                 <thead class="bg-gray-50 dark:bg-gray-900">
@@ -34,31 +34,29 @@
                     <td class="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">page</td>
                     <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
                     <td class="py-3 px-4 text-gray-500">1</td>
-                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Page number</td>
+                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">{{ t('documentation.regencies.parameters.page') }}</td>
                   </tr>
                   <tr class="border-b dark:border-gray-600">
                     <td class="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">per_page</td>
                     <td class="py-3 px-4 text-gray-600 dark:text-gray-400">integer</td>
                     <td class="py-3 px-4 text-gray-500">10</td>
-                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Items per page (max: 100)</td>
+                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">{{ t('documentation.regencies.parameters.perPage') }}</td>
                   </tr>
                   <tr>
                     <td class="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">load_all</td>
                     <td class="py-3 px-4 text-gray-600 dark:text-gray-400">boolean</td>
                     <td class="py-3 px-4 text-gray-500">false</td>
-                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Return all data without pagination</td>
+                    <td class="py-3 px-4 text-gray-600 dark:text-gray-400">{{ t('documentation.regencies.parameters.loadAll') }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-
           <div>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Request</h3>
             <CodeBlock :code="listRegenciesRequest" language="bash" title="cURL" />
           </div>
         </div>
-
         <div>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Response</h3>
           <CodeBlock :code="listRegenciesResponse" language="json" title="200 OK" />
@@ -73,9 +71,8 @@
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
           <code class="text-white font-mono text-lg">/api/v1/regencies/{code}</code>
         </div>
-        <p class="text-indigo-100">Get a single regency by its ID/code</p>
+        <p class="text-indigo-100">{{ t('documentation.regencies.detailDescription') }}</p>
       </div>
-
       <div class="p-8 grid lg:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Path Parameters</h3>
@@ -89,7 +86,7 @@
             <tbody>
               <tr>
                 <td class="py-3 px-4 font-mono text-blue-600 dark:text-blue-400">code</td>
-                <td class="py-3 px-4 text-gray-600 dark:text-gray-400">Regency ID (e.g. 7271 for Kota Palu)</td>
+                <td class="py-3 px-4 text-gray-600 dark:text-gray-400">{{ t('documentation.regencies.parameters.code') }}</td>
               </tr>
             </tbody>
           </table>
@@ -108,9 +105,8 @@
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
           <code class="text-white font-mono text-lg">/api/v1/regencies/{code}/cases</code>
         </div>
-        <p class="text-purple-100">Get COVID-19 case history for a specific regency</p>
+        <p class="text-purple-100">{{ t('documentation.regencies.casesDescription') }}</p>
       </div>
-
       <div class="p-8 grid lg:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Request</h3>
@@ -126,9 +122,11 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
+const { t } = useI18n()
 
 const listRegenciesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/regencies?page=1&per_page=10" \\
   -H "Accept: application/json"`

@@ -1,8 +1,8 @@
 <template>
   <section v-show="isActive" id="statistics" class="mb-16">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Statistics</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">Endpoints for detailed COVID-19 statistics in Sulawesi Tengah, including gender-based case data, testing statistics, and test types.</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.statistics.title') }}</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.statistics.description') }}</p>
     </div>
 
     <!-- Gender Cases -->
@@ -98,9 +98,11 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
+const { t } = useI18n()
 
 const genderCasesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/stats/gender" \\
   -H "Accept: application/json"`

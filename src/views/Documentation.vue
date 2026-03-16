@@ -158,7 +158,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      Regional Data
+                      {{ t('documentation.regencies.title') }}
                     </button>
                     <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.regional ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -167,12 +167,12 @@
                   <ul v-show="expandedSections.regional" class="ml-7 mt-2 space-y-1">
                     <li>
                       <a href="#regencies" @click="setActiveSection('regencies')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'regencies' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Regencies
+                        {{ t('documentation.regencies.listTitle') }}
                       </a>
                     </li>
                     <li>
                       <a href="#task-forces" @click="setActiveSection('task-forces')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'task-forces' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Task Forces
+                        {{ t('documentation.taskForces.title') }}
                       </a>
                     </li>
                   </ul>
@@ -185,7 +185,7 @@
                       <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                       </svg>
-                      Healthcare Data
+                      {{ t('documentation.hospitals.title') }}
                     </button>
                     <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.healthcare ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -194,17 +194,17 @@
                   <ul v-show="expandedSections.healthcare" class="ml-7 mt-2 space-y-1">
                     <li>
                       <a href="#hospitals" @click="setActiveSection('hospitals')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'hospitals' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Hospitals
+                        {{ t('documentation.hospitals.title') }}
                       </a>
                     </li>
                     <li>
                       <a href="#vaccination" @click="setActiveSection('vaccination')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'vaccination' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Vaccination
+                        {{ t('documentation.vaccination.title') }}
                       </a>
                     </li>
                     <li>
                       <a href="#statistics" @click="setActiveSection('statistics')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'statistics' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Statistics
+                        {{ t('documentation.statistics.title') }}
                       </a>
                     </li>
                   </ul>
@@ -315,7 +315,7 @@ import TaskForcesSection from '@/components/documentation/TaskForcesSection.vue'
 import VaccinationSection from '@/components/documentation/VaccinationSection.vue'
 import StatisticsSection from '@/components/documentation/StatisticsSection.vue'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 // Version from package.json
 const version = packageJson.version
