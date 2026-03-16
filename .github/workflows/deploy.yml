@@ -1,4 +1,4 @@
-name: Deploy Documentation to Production
+name: Build & Deploy
 
 on:
   push:
@@ -7,50 +7,92 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag to deploy (e.g., v1.0.0)'
-        required: true
+        description: 'Tag to deploy (e.g., v1.3.0)'
+        required: false
         type: string
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: banua-coder/pico-api-docs
+
 jobs:
-  deploy:
-    uses: banua-coder/banua-coder-workflow/.github/workflows/deploy-on-tag.yml@main
-    with:
-      deploy-provider: ssh
-      node-version: "22"
-      build-command: pnpm install && pnpm build
-      deploy-path: ${{ vars.DOCS_DEPLOY_PATH }}
-      backup-enabled: true
-      backup-keep: 3
-    secrets:
-      SSH_HOST: ${{ secrets.SSH_HOST }}
-      SSH_USER: ${{ secrets.SSH_USER }}
-      SSH_KEY: ${{ secrets.SSH_KEY }}
-      SSH_PORT: ${{ secrets.SSH_PORT }}
-
-  health-check:
+  build-and-push:
     runs-on: ubuntu-latest
-    needs: deploy
-    if: needs.deploy.result == 'success'
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-      - name: Verify deployment
-        env:
-          DOCS_URL: ${{ secrets.DOCS_URL }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+
+    steps:
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Add server to known hosts
         run: |
-          if [ -z "$DOCS_URL" ]; then
-            echo "ℹ️ No DOCS_URL configured, skipping health check"
-            exit 0
+          mkdir -p ~/.ssh
+          ssh-keyscan -H -p ${{ secrets.DEPLOY_PORT }} ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
+        run: |
+          ssh -p ${{ secrets.DEPLOY_PORT }} ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << 'ENDSSH'
+            set -e
+            echo "🚀 Deploying pico-api-docs..."
+            cd ${{ secrets.DEPLOY_PATH }}
+            docker compose pull
+            docker compose up -d
+            echo "✅ Deployment complete"
+            docker ps | grep pico
+          ENDSSH
+
+      - name: Health check
+        run: |
+          echo "⏳ Waiting for container to start..."
+          sleep 10
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.HEALTH_CHECK_URL }})
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Health check passed (HTTP $STATUS)"
+          else
+            echo "❌ Health check failed (HTTP $STATUS)"
+            exit 1
           fi
-
-          echo "🔍 Checking $DOCS_URL..."
-          for i in 1 2 3; do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$DOCS_URL")
-            if [ "$STATUS" = "200" ]; then
-              echo "✅ Health check passed (HTTP $STATUS)"
-              exit 0
-            fi
-            echo "⏳ Attempt $i failed (HTTP $STATUS), retrying..."
-            sleep 5
-          done
-
-          echo "❌ Health check failed after 3 attempts"
-          exit 1
