@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  ci:
+    uses: banua-coder/banua-coder-workflow/.github/workflows/ci-node.yml@main
+    with:
+      node-version: "22"
+      package-manager: pnpm
+      pnpm-version: "10"
+      run-lint: false
+      run-typecheck: false
+      run-tests: false
+      run-coverage: false
+      run-build: true
+      build-command: pnpm build
