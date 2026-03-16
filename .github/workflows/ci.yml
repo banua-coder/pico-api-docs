@@ -15,8 +15,9 @@ jobs:
       pnpm-version: "10.15.1"
       run-lint: true
       run-typecheck: true
-      run-tests: false
+      run-tests: true
       run-coverage: false
+      test-command: pnpm test
       run-build: true
       lint-command: pnpm lint
       typecheck-command: pnpm typecheck
