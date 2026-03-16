@@ -1,8 +1,8 @@
 <template>
   <section v-show="isActive" id="task-forces" class="mb-16">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Task Forces (Gugus Tugas)</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">COVID-19 task force posts (posko) grouped by regency in Sulawesi Tengah, with contact information.</p>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.taskForces.title') }}</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.taskForces.description') }}</p>
     </div>
 
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -67,9 +67,11 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
+const { t } = useI18n()
 
 const listTaskForcesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/task-forces?page=1&per_page=5" \\
   -H "Accept: application/json"`
