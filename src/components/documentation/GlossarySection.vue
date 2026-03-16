@@ -45,7 +45,7 @@
                     <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.stable') }}</span>
                   </div>
                   <div class="flex items-center p-2 bg-green-50 dark:bg-green-900/30 rounded-lg">
-                    <span class="font-mono font-bold text-green-600 dark:text-green-400 mr-2">Rt < 1:</span>
+                    <span class="font-mono font-bold text-green-600 dark:text-green-400 mr-2">Rt &lt; 1:</span>
                     <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.declining') }}</span>
                   </div>
                 </div>
