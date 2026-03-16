@@ -18,4 +18,6 @@ jobs:
       run-tests: false
       run-coverage: false
       run-build: true
+      lint-command: pnpm lint
+      typecheck-command: pnpm typecheck
       build-command: pnpm build
