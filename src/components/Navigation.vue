@@ -174,7 +174,6 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 // Navigation scroll behavior
-const navbar = ref<HTMLElement | null>(null)
 const scrollY = ref(0)
 const isScrolled = ref(false)
 

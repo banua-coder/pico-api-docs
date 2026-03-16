@@ -152,35 +152,62 @@
 
                 <!-- Regional Endpoints -->
                 <li>
-                  <div class="flex items-center justify-between opacity-60">
-                    <div class="flex items-center px-3 py-2 text-sm rounded-lg flex-1 text-left cursor-not-allowed">
-                      <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="flex items-center justify-between">
+                    <button @click="toggleSection('regional')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex-1 text-left">
+                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      <span class="text-gray-500 dark:text-gray-400">Regional Data</span>
-                      <span class="ml-auto text-xs bg-pico-sky/30 dark:bg-pico-sky/40 text-pico-deep dark:text-pico-sky px-2 py-1 rounded-md font-medium">Coming Soon</span>
-                    </div>
+                      Regional Data
+                    </button>
+                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.regional ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
                   </div>
-                  <div class="ml-7 mt-1 text-xs text-gray-400 dark:text-gray-500 px-3">
-                    Central Sulawesi • City/Regency Data
-                  </div>
+                  <ul v-show="expandedSections.regional" class="ml-7 mt-2 space-y-1">
+                    <li>
+                      <a href="#regencies" @click="setActiveSection('regencies')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'regencies' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
+                        Regencies
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#task-forces" @click="setActiveSection('task-forces')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'task-forces' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
+                        Task Forces
+                      </a>
+                    </li>
+                  </ul>
                 </li>
 
                 <!-- Healthcare Endpoints -->
                 <li>
-                  <div class="flex items-center justify-between opacity-60">
-                    <div class="flex items-center px-3 py-2 text-sm rounded-lg flex-1 text-left cursor-not-allowed">
-                      <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="flex items-center justify-between">
+                    <button @click="toggleSection('healthcare')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex-1 text-left">
+                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                       </svg>
-                      <span class="text-gray-500 dark:text-gray-400">Healthcare Data</span>
-                      <span class="ml-auto text-xs bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 px-2 py-1 rounded-md font-medium">Coming Soon</span>
-                    </div>
+                      Healthcare Data
+                    </button>
+                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.healthcare ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
                   </div>
-                  <div class="ml-7 mt-1 text-xs text-gray-400 dark:text-gray-500 px-3">
-                    Hospital Beds • Vaccines • Testing Centers
-                  </div>
+                  <ul v-show="expandedSections.healthcare" class="ml-7 mt-2 space-y-1">
+                    <li>
+                      <a href="#hospitals" @click="setActiveSection('hospitals')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'hospitals' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
+                        Hospitals
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#vaccination" @click="setActiveSection('vaccination')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'vaccination' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
+                        Vaccination
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#statistics" @click="setActiveSection('statistics')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'statistics' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
+                        Statistics
+                      </a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </div>
@@ -253,6 +280,11 @@
           <NationalHistoricalSection :isActive="activeSection === 'national-historical'" />
           <ProvincesSection :isActive="activeSection === 'provinces'" />
           <ProvinceCasesSection :isActive="activeSection === 'province-cases'" />
+          <RegenciesSection :isActive="activeSection === 'regencies'" />
+          <HospitalsSection :isActive="activeSection === 'hospitals'" />
+          <TaskForcesSection :isActive="activeSection === 'task-forces'" />
+          <VaccinationSection :isActive="activeSection === 'vaccination'" />
+          <StatisticsSection :isActive="activeSection === 'statistics'" />
           <AuthenticationSection :isActive="activeSection === 'authentication'" />
           <ErrorHandlingSection :isActive="activeSection === 'error-handling'" />
           <GlossarySection :isActive="activeSection === 'glossary'" />
@@ -277,6 +309,11 @@ import ProvinceCasesSection from '@/components/documentation/ProvinceCasesSectio
 import AuthenticationSection from '@/components/documentation/AuthenticationSection.vue'
 import ErrorHandlingSection from '@/components/documentation/ErrorHandlingSection.vue'
 import GlossarySection from '@/components/documentation/GlossarySection.vue'
+import RegenciesSection from '@/components/documentation/RegenciesSection.vue'
+import HospitalsSection from '@/components/documentation/HospitalsSection.vue'
+import TaskForcesSection from '@/components/documentation/TaskForcesSection.vue'
+import VaccinationSection from '@/components/documentation/VaccinationSection.vue'
+import StatisticsSection from '@/components/documentation/StatisticsSection.vue'
 
 const { locale } = useI18n()
 
