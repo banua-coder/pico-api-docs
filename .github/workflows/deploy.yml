@@ -3,7 +3,7 @@ name: Deploy Documentation to Production
 on:
   push:
     tags:
-      - "v*.*.*" # Triggers on version tags like v1.0.0, v2.1.3, etc.
+      - "v*.*.*"
   workflow_dispatch:
     inputs:
       tag:
@@ -12,459 +12,45 @@ on:
         type: string
 
 jobs:
-  build-and-deploy:
+  deploy:
+    uses: banua-coder/banua-coder-workflow/.github/workflows/deploy-on-tag.yml@main
+    with:
+      deploy-provider: ssh
+      node-version: "22"
+      build-command: pnpm install && pnpm build
+      deploy-path: ${{ vars.DOCS_DEPLOY_PATH }}
+      backup-enabled: true
+      backup-keep: 3
+    secrets:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_KEY: ${{ secrets.SSH_KEY }}
+      SSH_PORT: ${{ secrets.SSH_PORT }}
+
+  health-check:
     runs-on: ubuntu-latest
-
+    needs: deploy
+    if: needs.deploy.result == 'success'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.inputs.tag || github.ref }}
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 10.15.1
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          # No cache since pnpm-lock.yaml is excluded from git
-
-      - name: Get version from tag
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION="${{ github.event.inputs.tag }}"
-          else
-            VERSION="${{ github.ref }}"
-            VERSION="${VERSION#refs/tags/}"
-          fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Deploying documentation version: $VERSION"
-
-      - name: Install dependencies
-        run: |
-          echo "📦 Installing dependencies..."
-          # Install dependencies without frozen lockfile since lockfile is not committed
-          pnpm install
-
-      - name: Build documentation site
-        run: |
-          echo "📦 Building Vue.js documentation site..."
-          pnpm run build
-
-          echo "✅ Build completed successfully"
-          echo "📊 Build output:"
-          ls -la dist/
-
-      - name: Prepare deployment package
-        run: |
-          echo "📋 Preparing deployment package..."
-
-          # Create deployment directory
-          mkdir -p deploy-package
-
-          # Copy built files
-          cp -r dist/* deploy-package/
-
-          # Copy essential server files
-          cp .htaccess deploy-package/
-          cp public/api-down.html deploy-package/
-
-          # Copy favicon if exists
-          cp public/favicon.ico deploy-package/ 2>/dev/null || echo "⚠️ favicon.ico not found, skipping"
-
-          # Ensure logos are included
-          mkdir -p deploy-package/assets
-          cp public/sulteng-*.webp deploy-package/assets/ 2>/dev/null || echo "ℹ️ Logos already in dist or not found"
-
-          # Create deployment info
-          cat > deploy-package/DEPLOY_INFO.txt << EOF
-          PICO SulTeng COVID-19 API Documentation
-          Version: $VERSION
-          Deployed: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
-          Built with: Vue.js + Vite
-          Target: Hostinger Shared Hosting
-          EOF
-
-          echo "✅ Deployment package prepared"
-          echo "📊 Package contents:"
-          ls -la deploy-package/
-          echo "📏 Package size: $(du -sh deploy-package | cut -f1)"
-
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.8.0
-        env:
-          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-        with:
-          ssh-private-key: ${{ env.DEPLOY_SSH_KEY }}
-          log-public-key: false
-
-      - name: Add server to known hosts
-        env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "Adding $DEPLOY_HOST:$DEPLOY_PORT to known hosts..."
-          ssh-keyscan -H -p $DEPLOY_PORT $DEPLOY_HOST >> ~/.ssh/known_hosts
-
-      - name: Test SSH connection
-        env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          echo "Testing SSH connection to $DEPLOY_HOST:$DEPLOY_PORT..."
-          ssh -p $DEPLOY_PORT -o ConnectTimeout=10 -o BatchMode=yes $DEPLOY_USER@$DEPLOY_HOST 'echo "SSH connection successful"'
-
-      - name: Deploy to production server
-        env:
-          VERSION: ${{ env.VERSION }}
-          DEPLOY_PATH: ${{ secrets.DOCS_DEPLOY_PATH }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-        run: |
-          echo "🚀 Starting deployment of documentation $VERSION to production..."
-
-          # Create temporary deployment archive
-          tar -czf docs-$VERSION.tar.gz -C deploy-package .
-
-          # Upload deployment package
-          echo "📤 Uploading deployment package..."
-          scp -P $DEPLOY_PORT docs-$VERSION.tar.gz $DEPLOY_USER@$DEPLOY_HOST:/tmp/
-
-          # Execute deployment script on remote server
-          ssh -p $DEPLOY_PORT $DEPLOY_USER@$DEPLOY_HOST << EOF
-            set -e
-
-            DEPLOY_PATH="$DEPLOY_PATH"
-            VERSION="$VERSION"
-            TEMP_ARCHIVE="/tmp/docs-\${VERSION}.tar.gz"
-            BACKUP_DIR=""
-            
-            echo "🔍 Checking deployment environment..."
-            echo "Deploy path: \$DEPLOY_PATH"
-
-            # Create deployment directory if it doesn't exist
-            mkdir -p "\$DEPLOY_PATH"
-            cd "\$DEPLOY_PATH"
-            
-            echo "📁 Current directory contents:"
-            ls -la
-            
-            echo "💾 Creating backup of current deployment..."
-            if [ -f "index.html" ]; then
-              BACKUP_DIR="../docs-backup-\$(date +%Y%m%d_%H%M%S)"
-              mkdir -p "\$BACKUP_DIR"
-              cp -r * "\$BACKUP_DIR/" 2>/dev/null || echo "⚠️ Some files couldn't be backed up"
-              echo "✅ Backup created at: \$BACKUP_DIR"
-              echo "BACKUP_DIR=\$BACKUP_DIR" > /tmp/backup_path.txt
-            else
-              echo "ℹ️ No existing deployment found, skipping backup"
-              echo "BACKUP_DIR=" > /tmp/backup_path.txt
-            fi
-            
-            echo "📦 Extracting new deployment..."
-            tar -xzf "\$TEMP_ARCHIVE" -C .
-            
-            echo "🔧 Setting proper permissions..."
-            find . -type f -name "*.html" -exec chmod 644 {} \;
-            find . -type f -name "*.css" -exec chmod 644 {} \;
-            find . -type f -name "*.js" -exec chmod 644 {} \;
-            find . -type f -name "*.json" -exec chmod 644 {} \;
-            find . -type f -name ".htaccess" -exec chmod 644 {} \;
-            find . -type d -exec chmod 755 {} \;
-            
-            echo "🧹 Cleaning up temporary files..."
-            rm -f "\$TEMP_ARCHIVE"
-            
-            echo "✅ New deployment files deployed!"
-            echo "📊 Deployed files:"
-            ls -la | head -20
-          EOF
-
-      - name: Verify deployment and handle rollback
-        env:
-          VERSION: ${{ env.VERSION }}
-          DEPLOY_PATH: ${{ secrets.DOCS_DEPLOY_PATH }}
-          DOCS_URL: ${{ secrets.DOCS_URL }}
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-        run: |
-          echo "🔍 Verifying deployment..."
-          sleep 5  # Give the site time to propagate
-
-          HEALTH_CHECK_PASSED=false
-
-          # Check if the documentation site is accessible
-          if [ -n "$DOCS_URL" ]; then
-            echo "Testing documentation site at: $DOCS_URL"
-
-            # Perform multiple health checks
-            CHECKS_PASSED=0
-            TOTAL_CHECKS=3
-
-            for i in $(seq 1 $TOTAL_CHECKS); do
-              echo "Health check attempt $i/$TOTAL_CHECKS..."
-
-              # Check if site responds with 200
-              if curl -f -s -I "$DOCS_URL" | head -n1 | grep -q "200"; then
-                echo "✅ HTTP status check passed"
-
-                # Check if it's serving the Vue.js app content
-                if curl -f -s "$DOCS_URL" | grep -q "PICO SulTeng\|pico-api-docs"; then
-                  echo "✅ Content verification passed"
-                  CHECKS_PASSED=$((CHECKS_PASSED + 1))
-                else
-                  echo "❌ Content verification failed"
-                fi
-              else
-                echo "❌ HTTP status check failed"
-              fi
-
-              if [ $i -lt $TOTAL_CHECKS ]; then
-                sleep 3
-              fi
-            done
-
-            # Determine if health check passed (majority of checks must pass)
-            if [ $CHECKS_PASSED -ge 2 ]; then
-              HEALTH_CHECK_PASSED=true
-              echo "✅ Health checks passed ($CHECKS_PASSED/$TOTAL_CHECKS)"
-            else
-              HEALTH_CHECK_PASSED=false
-              echo "❌ Health checks failed ($CHECKS_PASSED/$TOTAL_CHECKS)"
-            fi
-          else
-            echo "ℹ️ No documentation URL configured - skipping health check"
-            HEALTH_CHECK_PASSED=true  # Assume success if no URL to test
-          fi
-
-          # Handle success/failure
-          ssh -p $DEPLOY_PORT $DEPLOY_USER@$DEPLOY_HOST << EOF
-            # Read backup path from previous step
-            if [ -f "/tmp/backup_path.txt" ]; then
-              BACKUP_DIR=\$(grep "BACKUP_DIR=" /tmp/backup_path.txt | cut -d'=' -f2)
-            else
-              BACKUP_DIR=""
-            fi
-
-            if [ "$HEALTH_CHECK_PASSED" = "true" ]; then
-              echo "🎉 Deployment verification successful!"
-              
-              # Clean up backup if it exists
-              if [ -n "\$BACKUP_DIR" ] && [ -d "\$BACKUP_DIR" ]; then
-                echo "🧹 Removing backup directory: \$BACKUP_DIR"
-                rm -rf "\$BACKUP_DIR"
-                echo "✅ Backup cleaned up successfully"
-              fi
-
-              # Clean up backup path file
-              rm -f /tmp/backup_path.txt
-
-              echo "✅ Deployment $VERSION completed successfully!"
-
-            else
-              echo "❌ Deployment verification failed! Rolling back..."
-
-              if [ -n "\$BACKUP_DIR" ] && [ -d "\$BACKUP_DIR" ]; then
-                DEPLOY_PATH="$DEPLOY_PATH"
-                cd "\$DEPLOY_PATH"
-                
-                echo "🔄 Restoring from backup: \$BACKUP_DIR"
-                
-                # Remove failed deployment
-                rm -rf ./* .[^.]* 2>/dev/null || true
-                
-                # Restore backup
-                cp -r "\$BACKUP_DIR"/* . 2>/dev/null || echo "⚠️ Some backup files couldn't be restored"
-                cp -r "\$BACKUP_DIR"/.[^.]* . 2>/dev/null || true
-                
-                echo "✅ Rollback completed - previous version restored"
-                
-                # Keep backup for investigation
-                echo "📁 Backup preserved for investigation: \$BACKUP_DIR"
-                
-              else
-                echo "❌ No backup available for rollback!"
-                echo "⚠️ Manual intervention required"
-              fi
-              
-              # Clean up backup path file
-              rm -f /tmp/backup_path.txt
-
-              echo "❌ Deployment $VERSION failed and rolled back"
-              exit 1
-            fi
-          EOF
-
-          # Exit with error if health check failed
-          if [ "$HEALTH_CHECK_PASSED" = "false" ]; then
-            echo "❌ Deployment failed health checks and was rolled back"
-            exit 1
-          fi
-
-      - name: Create deployment summary
-        env:
-          VERSION: ${{ env.VERSION }}
-          DOCS_DEPLOY_PATH: ${{ secrets.DOCS_DEPLOY_PATH }}
-          DOCS_URL: ${{ secrets.DOCS_URL }}
-        run: |
-          echo "## 📚 Documentation Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version**: $VERSION" >> $GITHUB_STEP_SUMMARY
-          echo "- **Target**: $DOCS_DEPLOY_PATH" >> $GITHUB_STEP_SUMMARY
-          echo "- **Status**: ✅ Deployed successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- **Site**: ${DOCS_URL:-'URL not configured'}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📋 What was deployed" >> $GITHUB_STEP_SUMMARY
-          echo "- Vue.js documentation site" >> $GITHUB_STEP_SUMMARY
-          echo "- API proxy configuration (.htaccess)" >> $GITHUB_STEP_SUMMARY
-          echo "- Maintenance page (api-down.html)" >> $GITHUB_STEP_SUMMARY
-          echo "- Static assets and images" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### ✅ Next Steps" >> $GITHUB_STEP_SUMMARY
-          echo "1. Verify site functionality at $DOCS_URL" >> $GITHUB_STEP_SUMMARY
-          echo "2. Test Vue Router navigation" >> $GITHUB_STEP_SUMMARY
-          echo "3. Verify API proxy is working (if backend is running)" >> $GITHUB_STEP_SUMMARY
-
-  create-release:
-    runs-on: ubuntu-latest
-    needs: build-and-deploy
-    if: needs.build-and-deploy.result == 'success'
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.inputs.tag || github.ref }}
-
-      - name: Get version and release info
-        id: release_info
-        run: |
-          # Extract version based on trigger type
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION="${{ github.event.inputs.tag }}"
-          else
-            VERSION="${{ github.ref }}"
-            VERSION="${VERSION#refs/tags/}"
-          fi
-
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Detected version: $VERSION"
-
-          # Get the previous tag for changelog
-          PREVIOUS_TAG=$(git tag --sort=-version:refname | grep -A1 "^$VERSION$" | tail -n1)
-          if [ -z "$PREVIOUS_TAG" ] || [ "$PREVIOUS_TAG" = "$VERSION" ]; then
-            PREVIOUS_TAG=$(git tag --sort=-version:refname | head -n2 | tail -n1)
-          fi
-          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
-          echo "Previous tag: $PREVIOUS_TAG"
-
-      - name: Generate release notes
-        id: release_notes
+      - name: Verify deployment
         env:
           DOCS_URL: ${{ secrets.DOCS_URL }}
         run: |
-          VERSION=${{ steps.release_info.outputs.version }}
-          PREVIOUS_TAG=${{ steps.release_info.outputs.previous_tag }}
-
-          # Create release notes
-          cat > release_notes.md << EOF
-          ## 📚 PICO SulTeng COVID-19 API Documentation ${{ steps.release_info.outputs.version }}
-
-          **Deployment**: ✅ Successfully deployed to production
-          **Site**: ${DOCS_URL:-'Documentation site'}
-
-          ### 🆕 What's New
-
-          EOF
-
-          # Get commits since last tag
-          if [ -n "$PREVIOUS_TAG" ]; then
-            echo "Changes since $PREVIOUS_TAG:" >> release_notes.md
-            echo "" >> release_notes.md
-            
-            git log --pretty=format:"- %s" "$PREVIOUS_TAG..$VERSION" | \
-            grep -v "Merge branch\|Merge pull request" | \
-            head -20 >> release_notes.md
-          else
-            echo "- Initial documentation release" >> release_notes.md
+          if [ -z "$DOCS_URL" ]; then
+            echo "ℹ️ No DOCS_URL configured, skipping health check"
+            exit 0
           fi
 
-          # Add deployment details
-          cat >> release_notes.md << EOF
-
-          ### 🚀 Deployment Details
-
-          - **Built with**: Vue.js 3 + Vite + TypeScript
-          - **Features**: Responsive design, bilingual support (ID/EN), API integration
-          - **Deployment Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
-          - **Server**: Hostinger Shared Hosting
-
-          ### 🔗 Quick Links
-
-          - [Documentation Site](${DOCS_URL:-'#'})
-          - [API Health Check](${DOCS_URL:-'https://pico-api.banuacoder.com'}/api/v1/health)
-          - [Repository](https://github.com/banua-coder/pico-api-docs)
-
-          ### 📱 Features Included
-
-          - 🌐 Bilingual support (Indonesian/English)
-          - 📊 Interactive API documentation
-          - 💻 Responsive design for all devices
-          - 🔄 Real-time API integration
-          - 📈 COVID-19 data visualization
-          - 🖼️ Official Central Sulawesi branding
-          EOF
-
-          # Set output for GitHub Actions
-          echo 'RELEASE_NOTES<<EOF' >> $GITHUB_OUTPUT
-          cat release_notes.md >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION=${{ steps.release_info.outputs.version }}
-
-          # Create the release
-          gh release create "$VERSION" \
-            --title "📚 Documentation $VERSION" \
-            --notes "${{ steps.release_notes.outputs.RELEASE_NOTES }}" \
-            --target main
-
-  notification:
-    runs-on: ubuntu-latest
-    needs: [build-and-deploy, create-release]
-    if: always()
-
-    steps:
-      - name: Notify deployment status
-        env:
-          DOCS_URL: ${{ secrets.DOCS_URL }}
-        run: |
-          DEPLOY_STATUS="${{ needs.build-and-deploy.result }}"
-          RELEASE_STATUS="${{ needs.create-release.result }}"
-
-          if [ "$DEPLOY_STATUS" == "success" ]; then
-            echo "✅ Documentation deployment successful for ${{ github.ref_name }}"
-            echo "🌐 Site should be available at: $DOCS_URL"
-
-            if [ "$RELEASE_STATUS" == "success" ]; then
-              echo "✅ GitHub release created successfully"
-            else
-              echo "⚠️ GitHub release creation failed, but deployment succeeded"
+          echo "🔍 Checking $DOCS_URL..."
+          for i in 1 2 3; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$DOCS_URL")
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Health check passed (HTTP $STATUS)"
+              exit 0
             fi
-          else
-            echo "❌ Documentation deployment failed for ${{ github.ref_name }}"
-            exit 1
-          fi
+            echo "⏳ Attempt $i failed (HTTP $STATUS), retrying..."
+            sleep 5
+          done
+
+          echo "❌ Health check failed after 3 attempts"
+          exit 1
