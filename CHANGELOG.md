@@ -168,6 +168,28 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [v1.3.2] - 2026-03-25
+
+### 🐛 Bug Fixes
+
+-  trigger deploy on release published instead of tag push (ab066a1)
+
+### 📚 Documentation
+
+-  update changelog for v1.3.1 (a1b7bfd)
+
+### 🔧 Chores
+
+-  prepare v1.3.2 hotfix (9b501e3)
+-  bump version to v1.3.2 (943664a)
+-  bump version to v1.3.2 (65df9d3)
+
+### 📝 Other Changes
+
+- Merge branch 'hotfix/v1.3.2' into chore/prepare-hotfix-v1.3.2 (e62ff4e)
+- Merge pull request #55 from banua-coder/chore/prepare-hotfix-v1.3.2 (2c6e06f)
+- Merge pull request #56 from banua-coder/hotfix/v1.3.2 (3604173)
+
 ## [v1.3.1] - 2026-03-25
 
 ### 🐛 Bug Fixes
