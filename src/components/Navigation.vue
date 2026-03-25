@@ -1,268 +1,67 @@
 <template>
-  <nav ref="navbar" class="fixed w-full top-0 left-0 z-50 transition-all duration-500 ease-out px-4 sm:px-6 lg:px-8 pt-4" :class="navbarClass">
-    <div class="max-w-7xl mx-auto rounded-2xl transition-all duration-500 ease-out" :class="innerContainerClass">
-      <div class="flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 flex items-center space-x-3">
-            <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-10 w-auto logo-dark-mode">
-            <router-link to="/" class="text-2xl font-bold gradient-text flex items-center">PICO SulTeng</router-link>
-          </div>
+  <nav class="fixed w-full top-0 left-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+          <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-7 w-auto">
+          <router-link to="/" class="text-base font-semibold text-gray-900 dark:text-white">PICO SulTeng</router-link>
         </div>
-        
-        <!-- Desktop Navigation -->
-        <div class="hidden md:block">
-          <div class="ml-10 flex items-baseline space-x-4">
-            <router-link 
-              to="/" 
-              :class="[navLinkClass, { [activeNavLinkClass]: $route.path === '/' }]"
-            >
-              {{ t('nav.home') }}
-            </router-link>
-            <router-link 
-              to="/docs" 
-              :class="[navLinkClass, { [activeNavLinkClass]: $route.path === '/docs' }]"
-            >
-              {{ t('nav.documentation') }}
-            </router-link>
-            <router-link 
-              to="/api" 
-              :class="[navLinkClass, { [activeNavLinkClass]: $route.path === '/api' }]"
-            >
-              {{ t('nav.apiReference') }}
-            </router-link>
-            <a :href="API_V1_URL" target="_blank" class="bg-pico-blue hover:bg-pico-deep text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-              {{ t('nav.liveApi') }}
-            </a>
-            <!-- Theme & Language Controls -->
-            <div class="flex items-center space-x-2 ml-4">
-              <!-- Language Toggle -->
-              <button 
-                @click="toggleLanguage"
-                class="flex items-center justify-center px-3 py-2 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 bg-white hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
-                :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
-              >
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-                </svg>
-                <span class="ml-1.5 text-sm font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'EN' : 'ID' }}</span>
-              </button>
-              
-              <!-- Theme Toggle -->
-              <ThemeToggle />
-            </div>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center space-x-6">
+          <router-link to="/" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" :class="{ 'text-gray-900 dark:text-white font-medium': $route.path === '/' }">
+            {{ t('nav.home') }}
+          </router-link>
+          <router-link to="/docs" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" :class="{ 'text-gray-900 dark:text-white font-medium': $route.path === '/docs' }">
+            {{ t('nav.documentation') }}
+          </router-link>
+          <a :href="SWAGGER_URL" target="_blank" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+            {{ t('nav.swaggerUi') }}
+          </a>
+          <div class="flex items-center space-x-2 ml-2 pl-4 border-l border-gray-200 dark:border-gray-700">
+            <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500">
+              {{ locale === 'en' ? 'EN' : 'ID' }}
+            </button>
+            <ThemeToggle />
           </div>
         </div>
 
-        <!-- Mobile menu button -->
-        <div class="md:hidden">
-          <!-- Hamburger button -->
-          <button 
-            @click="toggleMobileMenu"
-            type="button"
-            class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-pico-blue hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pico-blue transition-colors"
-            :aria-expanded="mobileMenuOpen"
-            aria-label="Toggle mobile navigation menu"
-            :aria-controls="mobileMenuOpen ? 'mobile-menu' : undefined"
-          >
-            <span class="sr-only">Open main menu</span>
-            <!-- Hamburger icon -->
-            <svg 
-              class="block h-5 w-5 transition-transform duration-200"
-              :class="{ 'rotate-90': mobileMenuOpen }"
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path 
-                stroke-linecap="round" 
-                stroke-linejoin="round" 
-                stroke-width="2" 
-                :d="mobileMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"
-              />
-            </svg>
-          </button>
-        </div>
+        <!-- Mobile hamburger -->
+        <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 text-gray-600 dark:text-gray-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="mobileOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'" />
+          </svg>
+        </button>
       </div>
     </div>
 
-    <!-- Mobile menu overlay -->
-    <div 
-      v-if="mobileMenuOpen"
-      class="fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity duration-200 md:hidden"
-      @click="closeMobileMenu"
-    ></div>
-
     <!-- Mobile menu -->
-    <div 
-      id="mobile-menu"
-      :class="[mobileMenuClass, mobileMenuOpen ? 'translate-x-0' : 'translate-x-full']"
-      role="navigation"
-      :aria-hidden="!mobileMenuOpen"
-    >
-      <div class="p-6 pt-20">
-        <div class="space-y-4">
-          <router-link 
-            to="/" 
-            @click="closeMobileMenu"
-            :class="[mobileNavLinkClass, { [activeMobileNavLinkClass]: $route.path === '/' }]"
-          >
-            {{ t('nav.home') }}
-          </router-link>
-          <router-link 
-            to="/docs" 
-            @click="closeMobileMenu"
-            :class="[mobileNavLinkClass, { [activeMobileNavLinkClass]: $route.path === '/docs' }]"
-          >
-            {{ t('nav.documentation') }}
-          </router-link>
-          <router-link 
-            to="/api" 
-            @click="closeMobileMenu"
-            :class="[mobileNavLinkClass, { [activeMobileNavLinkClass]: $route.path === '/api' }]"
-          >
-            {{ t('nav.apiReference') }}
-          </router-link>
-          <a 
-            :href="API_V1_URL" 
-            target="_blank" 
-            @click="closeMobileMenu"
-            class="block bg-pico-blue hover:bg-pico-deep text-white px-4 py-3 rounded-lg text-base font-medium transition-colors text-center"
-          >
-            {{ t('nav.liveApi') }}
-          </a>
-          
-          <!-- Mobile Controls Section -->
-          <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700 space-y-4">
-            <!-- Language Toggle for Mobile -->
-            <div class="flex items-center justify-between px-3 py-2">
-              <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Language</span>
-              <button 
-                @click="toggleLanguage"
-                class="flex items-center justify-center px-3 py-1.5 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 bg-white hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700"
-                :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
-              >
-                <span class="text-sm font-semibold text-gray-600 dark:text-gray-300">{{ locale === 'en' ? 'EN' : 'ID' }}</span>
-              </button>
-            </div>
-            
-            <!-- Theme Toggle for Mobile -->
-            <div class="flex items-center justify-between px-3 py-2">
-              <span class="text-gray-700 dark:text-gray-300 text-sm font-medium">Theme</span>
-              <ThemeToggle variant="compact" />
-            </div>
-          </div>
-        </div>
+    <div v-if="mobileOpen" class="md:hidden bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 px-4 py-3 space-y-2">
+      <router-link to="/" @click="mobileOpen = false" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.home') }}</router-link>
+      <router-link to="/docs" @click="mobileOpen = false" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.documentation') }}</router-link>
+      <a :href="SWAGGER_URL" target="_blank" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.swaggerUi') }}</a>
+      <div class="flex items-center space-x-3 pt-2 border-t border-gray-100 dark:border-gray-800">
+        <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 px-2 py-1 rounded border border-gray-200 dark:border-gray-700">
+          {{ locale === 'en' ? 'EN' : 'ID' }}
+        </button>
+        <ThemeToggle />
       </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { API_V1_URL } from '@/config/api'
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ThemeToggle from './ThemeToggle.vue'
+import { SWAGGER_URL } from '@/config/api'
 
 const { t, locale } = useI18n()
+const mobileOpen = ref(false)
 
-// Props for styling variants
-interface Props {
-  variant?: 'transparent' | 'solid'
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'transparent'
-})
-
-// Navigation scroll behavior
-const scrollY = ref(0)
-const isScrolled = ref(false)
-
-// Mobile menu state
-const mobileMenuOpen = ref(false)
-
-const navbarClass = computed(() => {
-  if (props.variant === 'solid') {
-    return '!pt-0'
-  }
-  
-  return ''
-})
-
-// Mobile menu background should always be solid
-const mobileMenuClass = computed(() => 
-  'fixed top-0 right-0 z-50 w-64 h-full bg-white dark:bg-gray-900 shadow-lg transform transition-transform duration-300 ease-in-out md:hidden'
-)
-
-const innerContainerClass = computed(() => {
-  if (props.variant === 'solid') {
-    return 'bg-white dark:bg-gray-900 shadow-sm dark:shadow-gray-800/50 !rounded-none'
-  }
-  
-  return isScrolled.value 
-    ? 'bg-white/10 dark:bg-gray-900/10 backdrop-filter backdrop-blur-[20px] backdrop-saturate-[180%] shadow-2xl border border-white/20 dark:border-gray-800/20 md:rounded-2xl' 
-    : 'bg-white/0 dark:bg-gray-900/0 border border-gray-200/0 dark:border-gray-800/0 md:rounded-2xl'
-})
-
-// Dynamic text color classes based on glass state
-const navLinkClass = computed(() => {
-  const baseClasses = 'px-3 py-2 rounded-md text-sm font-medium transition-all duration-200'
-  
-  if (props.variant === 'solid') {
-    return `${baseClasses} text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky`
-  }
-  
-  return isScrolled.value 
-    ? `${baseClasses} text-gray-900 dark:text-white hover:text-pico-blue dark:hover:text-pico-sky font-semibold` 
-    : `${baseClasses} text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky`
-})
-
-const activeNavLinkClass = computed(() => {
-  return isScrolled.value && props.variant !== 'solid'
-    ? 'text-gray-900 dark:text-white font-bold' 
-    : 'text-gray-900 dark:text-white'
-})
-
-// Mobile navigation classes (always solid background)
-const mobileNavLinkClass = 'block text-gray-600 dark:text-gray-300 hover:text-pico-blue dark:hover:text-pico-sky px-3 py-2 rounded-md text-base font-medium border-b border-gray-100 dark:border-gray-700 transition-colors'
-const activeMobileNavLinkClass = 'text-gray-900 dark:text-white'
-
-// Scroll handler
-const handleScroll = () => {
-  scrollY.value = window.scrollY
-  isScrolled.value = scrollY.value > 50
-}
-
-// Toggle language function
 const toggleLanguage = () => {
-  const newLocale = locale.value === 'en' ? 'id' : 'en'
-  locale.value = newLocale
-  localStorage.setItem('pico-language', newLocale)
+  locale.value = locale.value === 'en' ? 'id' : 'en'
+  localStorage.setItem('pico-language', locale.value)
 }
-
-// Mobile menu functions
-const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
-  // Prevent body scroll when menu is open
-  document.body.style.overflow = mobileMenuOpen.value ? 'hidden' : 'auto'
-}
-
-const closeMobileMenu = () => {
-  mobileMenuOpen.value = false
-  document.body.style.overflow = 'auto'
-}
-
-onMounted(() => {
-  if (props.variant === 'transparent') {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-  }
-})
-
-onUnmounted(() => {
-  if (props.variant === 'transparent') {
-    window.removeEventListener('scroll', handleScroll)
-  }
-  // Restore body scroll on component unmount
-  document.body.style.overflow = 'auto'
-})
 </script>

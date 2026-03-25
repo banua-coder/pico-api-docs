@@ -3,7 +3,8 @@
     "home": "Beranda",
     "documentation": "Dokumentasi",
     "apiReference": "Referensi API",
-    "liveApi": "Live API"
+    "liveApi": "Live API",
+    "swaggerUi": "Swagger UI ↗"
   },
   "hero": {
     "badge": "Dipercaya developer • Fokus Sulawesi Tengah",
@@ -92,7 +93,8 @@
       "baseUrl": "URL Dasar",
       "contentType": "Tipe Konten",
       "quickExample": "Contoh Cepat",
-      "noAuthRequired": "Tidak memerlukan autentikasi untuk endpoint publik"
+      "noAuthRequired": "Tidak memerlukan autentikasi untuk endpoint publik",
+      "description": "Dapatkan data COVID-19 Indonesia secara real-time dengan endpoint RESTful kami."
     },
     "nationalLatest": {
       "title": "Dapatkan Data Nasional Terbaru",
@@ -514,5 +516,158 @@
     "centralSulawesi": "Sulawesi Tengah",
     "nationalContext": "konteks nasional",
     "author": "Fajrian Aidil Pratama"
+  },
+  "home": {
+    "allSystemsOperational": "Semua sistem berjalan normal",
+    "apiTitle": "PICO SulTeng COVID-19 API",
+    "baseUrlLabel": "URL DASAR",
+    "getStarted": "Mulai →",
+    "quickStart": "Mulai Cepat",
+    "footerCopyright": "© {year} Banua Coders. PICO SulTeng COVID-19 API.",
+    "footerDocumentation": "Dokumentasi",
+    "footerSwaggerUi": "Swagger UI",
+    "features": {
+      "fast": {
+        "title": "Cepat & Andal",
+        "desc": "Dibangun dengan Go untuk waktu respons di bawah 100ms dan ketersediaan tinggi."
+      },
+      "regional": {
+        "title": "Fokus Regional",
+        "desc": "Data COVID-19 khusus Sulawesi Tengah."
+      },
+      "restful": {
+        "title": "RESTful JSON",
+        "desc": "REST API standar dengan respons JSON dan dukungan CORS."
+      },
+      "documented": {
+        "title": "Terdokumentasi",
+        "desc": "Dokumentasi lengkap dengan contoh untuk setiap endpoint."
+      }
+    }
+  },
+  "docs": {
+    "sidebar": {
+      "groups": {
+        "introduction": "Pendahuluan",
+        "coreResources": "Sumber Data Utama",
+        "healthInfrastructure": "Infrastruktur Kesehatan",
+        "statistics": "Statistik",
+        "vaccination": "Vaksinasi"
+      },
+      "items": {
+        "overview": "Ikhtisar",
+        "authentication": "Autentikasi",
+        "errors": "Error",
+        "pagination": "Paginasi",
+        "nationalCases": "Kasus Nasional",
+        "provinces": "Provinsi",
+        "provinceCases": "Kasus Provinsi",
+        "regencies": "Kabupaten/Kota",
+        "hospitals": "Rumah Sakit",
+        "taskForces": "Gugus Tugas",
+        "genderStats": "Statistik Gender",
+        "testStatistics": "Statistik Tes",
+        "testTypes": "Jenis Tes",
+        "national": "Nasional",
+        "province": "Provinsi",
+        "locations": "Lokasi"
+      }
+    },
+    "authentication": {
+      "title": "Autentikasi",
+      "description": "API ini dapat diakses secara publik. Tidak diperlukan autentikasi atau API key. Cukup kirim permintaan ke endpoint dan terima respons JSON.",
+      "noKeyNote": "Tidak diperlukan API key. Semua endpoint dapat diakses secara publik."
+    },
+    "errors": {
+      "title": "Error",
+      "description": "API menggunakan kode status HTTP standar. Error mengembalikan body JSON dengan field {field} yang mendeskripsikan masalah.",
+      "codeHeader": "Kode",
+      "meaningHeader": "Arti",
+      "codes": {
+        "200": "OK — Permintaan berhasil.",
+        "400": "Bad Request — Parameter query tidak valid.",
+        "404": "Not Found — Resource tidak ditemukan.",
+        "500": "Internal Server Error — Terjadi kesalahan pada server."
+      }
+    },
+    "paginationSection": {
+      "title": "Paginasi",
+      "description": "Endpoint yang dipaginasi menerima parameter query {page}, {perPage}, dan {loadAll}."
+    },
+    "table": {
+      "name": "Nama",
+      "type": "Tipe",
+      "required": "Wajib",
+      "description": "Deskripsi",
+      "queryParameters": "Parameter Query",
+      "parameters": "Parameter",
+      "requiredBadge": "wajib",
+      "optionalBadge": "opsional",
+      "default": "Default"
+    },
+    "sections": {
+      "nationalLatest": {
+        "description": "Mengembalikan data COVID-19 nasional terbaru.",
+        "leftText": "Dapatkan statistik COVID-19 nasional terkini termasuk kasus terkonfirmasi, kesembuhan, dan kematian. Tidak diperlukan parameter."
+      },
+      "nationalHistorical": {
+        "description": "Mengembalikan data COVID-19 nasional historis dengan paginasi."
+      },
+      "provinces": {
+        "description": "Mengembalikan daftar semua provinsi di Indonesia."
+      },
+      "provinceCases": {
+        "description": "Mengembalikan data kasus COVID-19 untuk Sulawesi Tengah (province_id: 72)."
+      },
+      "regencies": {
+        "description": "Mengembalikan daftar kabupaten/kota di Sulawesi Tengah."
+      },
+      "hospitals": {
+        "description": "Mengembalikan rumah sakit dan fasilitas kesehatan di Sulawesi Tengah."
+      },
+      "taskForces": {
+        "description": "Mengembalikan kontak dan informasi gugus tugas COVID-19."
+      },
+      "genderStats": {
+        "description": "Mengembalikan statistik COVID-19 berdasarkan gender dengan rincian kelompok usia.",
+        "leftText": "Mengembalikan statistik gender dan kelompok usia bersarang untuk kasus positif, PDP, ODP, dan kematian."
+      },
+      "testStats": {
+        "description": "Mengembalikan statistik pengujian COVID-19 untuk Sulawesi Tengah."
+      },
+      "testTypes": {
+        "description": "Mengembalikan jenis tes COVID-19 yang tersedia.",
+        "leftText": "Mengembalikan daftar jenis tes COVID-19 yang tersedia dalam sistem (misal: PCR, Antigen)."
+      },
+      "vaccinationNational": {
+        "description": "Mengembalikan data vaksinasi nasional dengan rincian kelompok bersarang.",
+        "leftText": "Mengembalikan catatan vaksinasi dengan data harian/kumulatif bersarang dan rincian kelompok (tenaga kesehatan, lansia, petugas publik, masyarakat umum, remaja)."
+      },
+      "vaccinationProvince": {
+        "description": "Mengembalikan data vaksinasi Sulawesi Tengah (struktur sama dengan nasional).",
+        "leftText": "Data vaksinasi untuk Sulawesi Tengah (province_id: 72). Struktur respons bersarang sama dengan endpoint nasional."
+      },
+      "vaccinationLocations": {
+        "description": "Mengembalikan lokasi pusat vaksinasi di Sulawesi Tengah."
+      }
+    },
+    "params": {
+      "page": {
+        "description": "Nomor halaman.",
+        "default": "1"
+      },
+      "perPage": {
+        "description": "Hasil per halaman (maks 100).",
+        "default": "10"
+      },
+      "loadAll": {
+        "description": "Kembalikan semua data tanpa paginasi.",
+        "default": "false"
+      }
+    },
+    "common": {
+      "response": "Respons",
+      "curl": "cURL"
+    }
   }
 }

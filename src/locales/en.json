@@ -3,7 +3,8 @@
     "home": "Home",
     "documentation": "Documentation",
     "apiReference": "API Reference",
-    "liveApi": "Live API"
+    "liveApi": "Live API",
+    "swaggerUi": "Swagger UI ↗"
   },
   "hero": {
     "badge": "Trusted by developers • Central Sulawesi focused",
@@ -92,7 +93,8 @@
       "baseUrl": "Base URL",
       "contentType": "Content Type",
       "quickExample": "Quick Example",
-      "noAuthRequired": "No authentication required for public endpoints"
+      "noAuthRequired": "No authentication required for public endpoints",
+      "description": "Get real-time Indonesian COVID-19 data with our RESTful endpoints."
     },
     "nationalLatest": {
       "title": "Get Latest National Data",
@@ -514,5 +516,158 @@
     "centralSulawesi": "Central Sulawesi",
     "nationalContext": "national context",
     "author": "Fajrian Aidil Pratama"
+  },
+  "home": {
+    "allSystemsOperational": "All systems operational",
+    "apiTitle": "PICO SulTeng COVID-19 API",
+    "baseUrlLabel": "BASE URL",
+    "getStarted": "Get Started →",
+    "quickStart": "Quick Start",
+    "footerCopyright": "© {year} Banua Coders. PICO SulTeng COVID-19 API.",
+    "footerDocumentation": "Documentation",
+    "footerSwaggerUi": "Swagger UI",
+    "features": {
+      "fast": {
+        "title": "Fast & Reliable",
+        "desc": "Built with Go for sub-100ms response times and high availability."
+      },
+      "regional": {
+        "title": "Regional Focus",
+        "desc": "Specialized COVID-19 data for Central Sulawesi (Sulawesi Tengah)."
+      },
+      "restful": {
+        "title": "RESTful JSON",
+        "desc": "Standard REST API with JSON responses and CORS support."
+      },
+      "documented": {
+        "title": "Well Documented",
+        "desc": "Comprehensive docs with examples for every endpoint."
+      }
+    }
+  },
+  "docs": {
+    "sidebar": {
+      "groups": {
+        "introduction": "Introduction",
+        "coreResources": "Core Resources",
+        "healthInfrastructure": "Health Infrastructure",
+        "statistics": "Statistics",
+        "vaccination": "Vaccination"
+      },
+      "items": {
+        "overview": "Overview",
+        "authentication": "Authentication",
+        "errors": "Errors",
+        "pagination": "Pagination",
+        "nationalCases": "National Cases",
+        "provinces": "Provinces",
+        "provinceCases": "Province Cases",
+        "regencies": "Regencies",
+        "hospitals": "Hospitals",
+        "taskForces": "Task Forces",
+        "genderStats": "Gender Stats",
+        "testStatistics": "Test Statistics",
+        "testTypes": "Test Types",
+        "national": "National",
+        "province": "Province",
+        "locations": "Locations"
+      }
+    },
+    "authentication": {
+      "title": "Authentication",
+      "description": "This API is publicly accessible. No authentication or API key is required. Simply send requests to the endpoints and receive JSON responses.",
+      "noKeyNote": "No API key required. All endpoints are publicly accessible."
+    },
+    "errors": {
+      "title": "Errors",
+      "description": "The API uses standard HTTP status codes. Errors return a JSON body with a {field} field describing the issue.",
+      "codeHeader": "Code",
+      "meaningHeader": "Meaning",
+      "codes": {
+        "200": "OK — Request succeeded.",
+        "400": "Bad Request — Invalid query parameters.",
+        "404": "Not Found — Resource does not exist.",
+        "500": "Internal Server Error — Server-side error."
+      }
+    },
+    "paginationSection": {
+      "title": "Pagination",
+      "description": "Paginated endpoints accept {page}, {perPage}, and {loadAll} query parameters."
+    },
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "required": "Required",
+      "description": "Description",
+      "queryParameters": "Query Parameters",
+      "parameters": "Parameters",
+      "requiredBadge": "required",
+      "optionalBadge": "optional",
+      "default": "Default"
+    },
+    "sections": {
+      "nationalLatest": {
+        "description": "Returns the latest national COVID-19 case data.",
+        "leftText": "Get the most recent national COVID-19 statistics including confirmed cases, recoveries, and deaths. No parameters required."
+      },
+      "nationalHistorical": {
+        "description": "Returns historical national COVID-19 data with pagination."
+      },
+      "provinces": {
+        "description": "Returns a list of all provinces in Indonesia."
+      },
+      "provinceCases": {
+        "description": "Returns COVID-19 case data for Sulawesi Tengah (province_id: 72)."
+      },
+      "regencies": {
+        "description": "Returns a list of regencies in Sulawesi Tengah."
+      },
+      "hospitals": {
+        "description": "Returns hospitals and health facilities in Sulawesi Tengah."
+      },
+      "taskForces": {
+        "description": "Returns COVID-19 task force contacts and information."
+      },
+      "genderStats": {
+        "description": "Returns gender-based COVID-19 statistics with age group breakdown.",
+        "leftText": "Returns nested gender and age group statistics for positive cases, PDP (persons under monitoring), ODP, and deceased."
+      },
+      "testStats": {
+        "description": "Returns COVID-19 testing statistics for Sulawesi Tengah."
+      },
+      "testTypes": {
+        "description": "Returns available COVID-19 test types.",
+        "leftText": "Returns a list of COVID-19 test types available in the system (e.g., PCR, Antigen)."
+      },
+      "vaccinationNational": {
+        "description": "Returns national vaccination data with nested group breakdown.",
+        "leftText": "Returns vaccination records with nested daily/cumulative data and group breakdowns (health workers, elderly, public officers, public, teenagers)."
+      },
+      "vaccinationProvince": {
+        "description": "Returns Sulawesi Tengah vaccination data (same structure as national).",
+        "leftText": "Vaccination data for Sulawesi Tengah (province_id: 72). Same nested response structure as the national endpoint."
+      },
+      "vaccinationLocations": {
+        "description": "Returns vaccination center locations in Sulawesi Tengah."
+      }
+    },
+    "params": {
+      "page": {
+        "description": "Page number.",
+        "default": "1"
+      },
+      "perPage": {
+        "description": "Results per page (max 100).",
+        "default": "10"
+      },
+      "loadAll": {
+        "description": "Return all records without pagination.",
+        "default": "false"
+      }
+    },
+    "common": {
+      "response": "Response",
+      "curl": "cURL"
+    }
   }
 }

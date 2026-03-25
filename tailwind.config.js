@@ -22,14 +22,17 @@ export default {
         },
         pico: {
           'sky': '#5dade2',
-          'blue': '#3498db', 
+          'blue': '#3498db',
           'deep': '#2980b9',
-          'accent': '#2c5f8a',
+          'accent': '#635bff',
           'dark': '#1f4e79'
+        },
+        gray: {
+          950: '#0d0f12',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Oxygen', 'Ubuntu', 'sans-serif'],
       },
     },
   },
