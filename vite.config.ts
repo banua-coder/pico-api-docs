@@ -39,7 +39,6 @@ export default defineConfig({
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
         manualChunks: (id) => {
-          // Node modules vendor chunks
           if (id.includes('node_modules')) {
             // Vue core
             if (id.includes('vue/') && !id.includes('vue-router') && !id.includes('vue-i18n')) {
@@ -49,9 +48,14 @@ export default defineConfig({
             if (id.includes('vue-router') || id.includes('vue-i18n')) {
               return 'vue-ecosystem'
             }
-            // Code syntax highlighting and math
-            if (id.includes('prismjs') || id.includes('vue-prism-component') || id.includes('katex')) {
-              return 'syntax-vendor'
+            // prismjs + all language plugins MUST stay in same chunk
+            // to avoid "Prism is not defined" runtime error
+            if (id.includes('prismjs') || id.includes('vue-prism-component')) {
+              return 'prism-vendor'
+            }
+            // katex separately is fine
+            if (id.includes('katex')) {
+              return 'katex-vendor'
             }
             // Animation and UI libraries
             if (id.includes('aos')) {
@@ -76,12 +80,9 @@ export default defineConfig({
         },
       },
     },
-    // Increase chunk size warning limit to 1000kB for vendor chunks
     chunkSizeWarningLimit: 1000,
-    // Split chunks more aggressively
     cssCodeSplit: true,
   },
-  // Performance optimizations
   optimizeDeps: {
     include: [
       'vue',
