@@ -17,9 +17,9 @@
       </div>
 
       <nav class="space-y-5">
-        <div v-for="group in navGroups" :key="group.title">
+        <div v-for="group in navGroups" :key="group.titleKey">
           <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2 px-3">
-            {{ group.title }}
+            {{ t(`docs.sidebar.groups.${group.titleKey}`) }}
           </div>
           <ul class="space-y-0.5">
             <li v-for="item in group.items" :key="item.id">
@@ -29,7 +29,7 @@
                 class="sidebar-link"
                 :class="{ active: activeSection === item.id }"
               >
-                {{ item.label }}
+                {{ t(`docs.sidebar.items.${item.labelKey}`) }}
               </a>
             </li>
           </ul>
@@ -53,7 +53,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 
 const toggleLanguage = () => {
   locale.value = locale.value === 'en' ? 'id' : 'en'
@@ -69,44 +69,44 @@ const selectSection = (id: string) => {
 
 const navGroups = [
   {
-    title: 'Introduction',
+    titleKey: 'introduction',
     items: [
-      { id: 'overview', label: 'Overview' },
-      { id: 'authentication', label: 'Authentication' },
-      { id: 'errors', label: 'Errors' },
-      { id: 'pagination', label: 'Pagination' },
+      { id: 'overview', labelKey: 'overview' },
+      { id: 'authentication', labelKey: 'authentication' },
+      { id: 'errors', labelKey: 'errors' },
+      { id: 'pagination', labelKey: 'pagination' },
     ],
   },
   {
-    title: 'Core Resources',
+    titleKey: 'coreResources',
     items: [
-      { id: 'national-latest', label: 'National Cases' },
-      { id: 'provinces', label: 'Provinces' },
-      { id: 'province-cases', label: 'Province Cases' },
-      { id: 'regencies', label: 'Regencies' },
+      { id: 'national-latest', labelKey: 'nationalCases' },
+      { id: 'provinces', labelKey: 'provinces' },
+      { id: 'province-cases', labelKey: 'provinceCases' },
+      { id: 'regencies', labelKey: 'regencies' },
     ],
   },
   {
-    title: 'Health Infrastructure',
+    titleKey: 'healthInfrastructure',
     items: [
-      { id: 'hospitals', label: 'Hospitals' },
-      { id: 'task-forces', label: 'Task Forces' },
+      { id: 'hospitals', labelKey: 'hospitals' },
+      { id: 'task-forces', labelKey: 'taskForces' },
     ],
   },
   {
-    title: 'Statistics',
+    titleKey: 'statistics',
     items: [
-      { id: 'gender-stats', label: 'Gender Stats' },
-      { id: 'test-statistics', label: 'Test Statistics' },
-      { id: 'test-types', label: 'Test Types' },
+      { id: 'gender-stats', labelKey: 'genderStats' },
+      { id: 'test-statistics', labelKey: 'testStatistics' },
+      { id: 'test-types', labelKey: 'testTypes' },
     ],
   },
   {
-    title: 'Vaccination',
+    titleKey: 'vaccination',
     items: [
-      { id: 'vaccination-national', label: 'National' },
-      { id: 'vaccination-province', label: 'Province' },
-      { id: 'vaccination-locations', label: 'Locations' },
+      { id: 'vaccination-national', labelKey: 'national' },
+      { id: 'vaccination-province', labelKey: 'province' },
+      { id: 'vaccination-locations', labelKey: 'locations' },
     ],
   },
 ]

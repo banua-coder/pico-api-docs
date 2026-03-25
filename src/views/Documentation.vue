@@ -39,32 +39,32 @@
 
           <!-- Authentication -->
           <section id="authentication">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Authentication</h2>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">This API is publicly accessible. No authentication or API key is required. Simply send requests to the endpoints and receive JSON responses.</p>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{{ t('docs.authentication.title') }}</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ t('docs.authentication.description') }}</p>
             <div class="flex items-start space-x-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg text-sm">
               <svg class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
               </svg>
-              <span class="text-blue-800 dark:text-blue-300">No API key required. All endpoints are publicly accessible.</span>
+              <span class="text-blue-800 dark:text-blue-300">{{ t('docs.authentication.noKeyNote') }}</span>
             </div>
           </section>
 
           <!-- Errors -->
           <section id="errors">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Errors</h2>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">The API uses standard HTTP status codes. Errors return a JSON body with a <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">message</code> field describing the issue.</p>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{{ t('docs.errors.title') }}</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ t('docs.errors.description', { field: 'message' }) }}</p>
             <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
               <table class="params-table">
                 <thead>
                   <tr>
-                    <th>Code</th>
-                    <th>Meaning</th>
+                    <th>{{ t('docs.errors.codeHeader') }}</th>
+                    <th>{{ t('docs.errors.meaningHeader') }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="err in errorCodes" :key="err.code">
                     <td><code class="text-xs font-mono text-gray-700 dark:text-gray-300">{{ err.code }}</code></td>
-                    <td class="text-xs text-gray-600 dark:text-gray-400">{{ err.meaning }}</td>
+                    <td class="text-xs text-gray-600 dark:text-gray-400">{{ t(`docs.errors.codes.${err.code}`) }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -73,8 +73,8 @@
 
           <!-- Pagination -->
           <section id="pagination">
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Pagination</h2>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">Paginated endpoints accept <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">page</code>, <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">per_page</code>, and <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">load_all</code> query parameters.</p>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{{ t('docs.paginationSection.title') }}</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ t('docs.paginationSection.description', { page: 'page', perPage: 'per_page', loadAll: 'load_all' }) }}</p>
             <div class="code-panel">
               <pre><code>{{ paginationExample }}</code></pre>
             </div>
@@ -85,135 +85,135 @@
         <div class="border-t border-gray-200 dark:border-gray-800">
 
           <!-- National Latest -->
-          <ApiSection section-id="national-latest" method="GET" :endpoint="`${API_V1_URL}/national/latest`" description="Returns the latest national COVID-19 case data.">
+          <ApiSection section-id="national-latest" method="GET" :endpoint="`${API_V1_URL}/national/latest`" :description="t('docs.sections.nationalLatest.description')">
             <template #left>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Get the most recent national COVID-19 statistics including confirmed cases, recoveries, and deaths. No parameters required.</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.nationalLatest.leftText') }}</p>
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': nationalLatestResponse, 'cURL': `curl -X GET &quot;${API_V1_URL}/national/latest&quot; \\\n  -H &quot;Accept: application/json&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: nationalLatestResponse, [t('docs.common.curl')]: `curl -X GET &quot;${API_V1_URL}/national/latest&quot; \\\n  -H &quot;Accept: application/json&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- National Historical -->
-          <ApiSection section-id="national-historical" method="GET" :endpoint="`${API_V1_URL}/national`" description="Returns historical national COVID-19 data with pagination.">
+          <ApiSection section-id="national-historical" method="GET" :endpoint="`${API_V1_URL}/national`" :description="t('docs.sections.nationalHistorical.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': nationalHistoricalResponse, 'cURL': `curl &quot;${API_V1_URL}/national?page=1&per_page=10&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: nationalHistoricalResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/national?page=1&per_page=10&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Provinces -->
-          <ApiSection section-id="provinces" method="GET" :endpoint="`${API_V1_URL}/provinces`" description="Returns a list of all provinces in Indonesia.">
+          <ApiSection section-id="provinces" method="GET" :endpoint="`${API_V1_URL}/provinces`" :description="t('docs.sections.provinces.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': provincesResponse, 'cURL': `curl &quot;${API_V1_URL}/provinces&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: provincesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/provinces&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Province Cases -->
-          <ApiSection section-id="province-cases" method="GET" :endpoint="`${API_V1_URL}/province-cases`" description="Returns COVID-19 case data for Sulawesi Tengah (province_id: 72).">
+          <ApiSection section-id="province-cases" method="GET" :endpoint="`${API_V1_URL}/province-cases`" :description="t('docs.sections.provinceCases.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': provinceCasesResponse, 'cURL': `curl &quot;${API_V1_URL}/province-cases?page=1&per_page=10&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: provinceCasesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/province-cases?page=1&per_page=10&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Regencies -->
-          <ApiSection section-id="regencies" method="GET" :endpoint="`${API_V1_URL}/regencies`" description="Returns a list of regencies in Sulawesi Tengah.">
+          <ApiSection section-id="regencies" method="GET" :endpoint="`${API_V1_URL}/regencies`" :description="t('docs.sections.regencies.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': regenciesResponse, 'cURL': `curl &quot;${API_V1_URL}/regencies&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: regenciesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/regencies&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Hospitals -->
-          <ApiSection section-id="hospitals" method="GET" :endpoint="`${API_V1_URL}/hospitals`" description="Returns hospitals and health facilities in Sulawesi Tengah.">
+          <ApiSection section-id="hospitals" method="GET" :endpoint="`${API_V1_URL}/hospitals`" :description="t('docs.sections.hospitals.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': hospitalsResponse, 'cURL': `curl &quot;${API_V1_URL}/hospitals&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: hospitalsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/hospitals&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Task Forces -->
-          <ApiSection section-id="task-forces" method="GET" :endpoint="`${API_V1_URL}/task-forces`" description="Returns COVID-19 task force contacts and information.">
+          <ApiSection section-id="task-forces" method="GET" :endpoint="`${API_V1_URL}/task-forces`" :description="t('docs.sections.taskForces.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': taskForcesResponse, 'cURL': `curl &quot;${API_V1_URL}/task-forces&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: taskForcesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/task-forces&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Gender Stats -->
-          <ApiSection section-id="gender-stats" method="GET" :endpoint="`${API_V1_URL}/stats/gender`" description="Returns gender-based COVID-19 statistics with age group breakdown.">
+          <ApiSection section-id="gender-stats" method="GET" :endpoint="`${API_V1_URL}/stats/gender`" :description="t('docs.sections.genderStats.description')">
             <template #left>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Returns nested gender and age group statistics for positive cases, PDP (persons under monitoring), ODP, and deceased.</p>
-              <ParamsTable :params="paginationParams" title="Parameters" />
+              <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.genderStats.leftText') }}</p>
+              <ParamsTable :params="paginationParams" :title="t('docs.table.parameters')" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': genderStatsResponse, 'cURL': `curl &quot;${API_V1_URL}/stats/gender&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: genderStatsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/stats/gender&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Test Statistics -->
-          <ApiSection section-id="test-statistics" method="GET" :endpoint="`${API_V1_URL}/stats/tests`" description="Returns COVID-19 testing statistics for Sulawesi Tengah.">
+          <ApiSection section-id="test-statistics" method="GET" :endpoint="`${API_V1_URL}/stats/tests`" :description="t('docs.sections.testStats.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': testStatsResponse, 'cURL': `curl &quot;${API_V1_URL}/stats/tests&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: testStatsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/stats/tests&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Test Types -->
-          <ApiSection section-id="test-types" method="GET" :endpoint="`${API_V1_URL}/stats/test-types`" description="Returns available COVID-19 test types.">
+          <ApiSection section-id="test-types" method="GET" :endpoint="`${API_V1_URL}/stats/test-types`" :description="t('docs.sections.testTypes.description')">
             <template #left>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Returns a list of COVID-19 test types available in the system (e.g., PCR, Antigen).</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.testTypes.leftText') }}</p>
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': testTypesResponse, 'cURL': `curl &quot;${API_V1_URL}/stats/test-types&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: testTypesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/stats/test-types&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Vaccination National -->
-          <ApiSection section-id="vaccination-national" method="GET" :endpoint="`${API_V1_URL}/vaccination/national`" description="Returns national vaccination data with nested group breakdown.">
+          <ApiSection section-id="vaccination-national" method="GET" :endpoint="`${API_V1_URL}/vaccination/national`" :description="t('docs.sections.vaccinationNational.description')">
             <template #left>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Returns vaccination records with nested daily/cumulative data and group breakdowns (health workers, elderly, public officers, public, teenagers).</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">{{ t('docs.sections.vaccinationNational.leftText') }}</p>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': vaccinationNationalResponse, 'cURL': `curl &quot;${API_V1_URL}/vaccination/national?page=1&per_page=10&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: vaccinationNationalResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/vaccination/national?page=1&per_page=10&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Vaccination Province -->
-          <ApiSection section-id="vaccination-province" method="GET" :endpoint="`${API_V1_URL}/vaccination/province`" description="Returns Sulawesi Tengah vaccination data (same structure as national).">
+          <ApiSection section-id="vaccination-province" method="GET" :endpoint="`${API_V1_URL}/vaccination/province`" :description="t('docs.sections.vaccinationProvince.description')">
             <template #left>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Vaccination data for Sulawesi Tengah (province_id: 72). Same nested response structure as the national endpoint.</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.vaccinationProvince.leftText') }}</p>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': vaccinationProvinceResponse, 'cURL': `curl &quot;${API_V1_URL}/vaccination/province?page=1&per_page=10&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: vaccinationProvinceResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/vaccination/province?page=1&per_page=10&quot;` }" />
             </template>
           </ApiSection>
 
           <!-- Vaccination Locations -->
-          <ApiSection section-id="vaccination-locations" method="GET" :endpoint="`${API_V1_URL}/vaccination/locations`" description="Returns vaccination center locations in Sulawesi Tengah.">
+          <ApiSection section-id="vaccination-locations" method="GET" :endpoint="`${API_V1_URL}/vaccination/locations`" :description="t('docs.sections.vaccinationLocations.description')">
             <template #left>
               <ParamsTable :params="paginationParams" />
             </template>
             <template #right>
-              <CodePanel :code-map="{ 'Response': vaccinationLocationsResponse, 'cURL': `curl &quot;${API_V1_URL}/vaccination/locations?load_all=true&quot;` }" />
+              <CodePanel :code-map="{ [t('docs.common.response')]: vaccinationLocationsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/vaccination/locations?load_all=true&quot;` }" />
             </template>
           </ApiSection>
 
@@ -224,7 +224,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Navigation from '@/components/Navigation.vue'
 import DocSidebar from '@/components/DocSidebar.vue'
@@ -239,17 +239,17 @@ const activeSection = ref('overview')
 const sidebarOpen = ref(false)
 
 const errorCodes = [
-  { code: '200', meaning: 'OK — Request succeeded.' },
-  { code: '400', meaning: 'Bad Request — Invalid query parameters.' },
-  { code: '404', meaning: 'Not Found — Resource does not exist.' },
-  { code: '500', meaning: 'Internal Server Error — Server-side error.' },
+  { code: '200' },
+  { code: '400' },
+  { code: '404' },
+  { code: '500' },
 ]
 
-const paginationParams: Param[] = [
-  { name: 'page', type: 'integer', required: false, description: 'Page number.', default: '1' },
-  { name: 'per_page', type: 'integer', required: false, description: 'Results per page (max 100).', default: '10' },
-  { name: 'load_all', type: 'boolean', required: false, description: 'Return all records without pagination.', default: 'false' },
-]
+const paginationParams = computed<Param[]>(() => [
+  { name: 'page', type: 'integer', required: false, description: t('docs.params.page.description'), default: t('docs.params.page.default') },
+  { name: 'per_page', type: 'integer', required: false, description: t('docs.params.perPage.description'), default: t('docs.params.perPage.default') },
+  { name: 'load_all', type: 'boolean', required: false, description: t('docs.params.loadAll.description'), default: t('docs.params.loadAll.default') },
+])
 
 const paginationExample = `curl "${API_V1_URL}/provinces?page=2&per_page=5" \\
   -H "Accept: application/json"`

@@ -17,7 +17,7 @@
             {{ t('nav.documentation') }}
           </router-link>
           <a :href="SWAGGER_URL" target="_blank" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-            Swagger UI ↗
+            {{ t('nav.swaggerUi') }}
           </a>
           <div class="flex items-center space-x-2 ml-2 pl-4 border-l border-gray-200 dark:border-gray-700">
             <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500">
@@ -40,7 +40,7 @@
     <div v-if="mobileOpen" class="md:hidden bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 px-4 py-3 space-y-2">
       <router-link to="/" @click="mobileOpen = false" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.home') }}</router-link>
       <router-link to="/docs" @click="mobileOpen = false" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.documentation') }}</router-link>
-      <a :href="SWAGGER_URL" target="_blank" class="block text-sm py-2 text-gray-700 dark:text-gray-300">Swagger UI</a>
+      <a :href="SWAGGER_URL" target="_blank" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.swaggerUi') }}</a>
       <div class="flex items-center space-x-3 pt-2 border-t border-gray-100 dark:border-gray-800">
         <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 px-2 py-1 rounded border border-gray-200 dark:border-gray-700">
           {{ locale === 'en' ? 'EN' : 'ID' }}

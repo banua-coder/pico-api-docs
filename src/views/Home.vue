@@ -9,12 +9,12 @@
         <!-- Status pill -->
         <div class="inline-flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full mb-8">
           <span class="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0"></span>
-          <span>All systems operational</span>
+          <span>{{ t('home.allSystemsOperational') }}</span>
         </div>
 
         <img src="/pico-api-logo.webp" alt="PICO API" class="w-20 h-20 mx-auto mb-6 rounded-2xl" />
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">
-          PICO SulTeng COVID-19 API
+          {{ t('home.apiTitle') }}
         </h1>
         <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto">
           {{ t('hero.tagline') }}
@@ -22,13 +22,13 @@
 
         <!-- Base URL -->
         <div class="inline-flex items-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 mb-8 font-mono text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-gray-400 dark:text-gray-500 mr-2">BASE URL</span>
+          <span class="text-gray-400 dark:text-gray-500 mr-2">{{ t('home.baseUrlLabel') }}</span>
           <span>{{ API_BASE_URL }}</span>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <router-link to="/docs" class="inline-flex items-center justify-center px-5 py-2.5 bg-[#635bff] hover:bg-[#4f46e5] text-white text-sm font-medium rounded-lg transition-colors">
-            Get Started →
+            {{ t('home.getStarted') }}
           </router-link>
           <a :href="SWAGGER_URL" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 text-sm font-medium rounded-lg transition-colors">
             Swagger UI
@@ -41,10 +41,10 @@
     <section class="border-t border-gray-200 dark:border-gray-800">
       <div class="max-w-5xl mx-auto px-6 py-16">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div v-for="feature in features" :key="feature.title" class="space-y-2">
+          <div v-for="feature in features" :key="feature.key" class="space-y-2">
             <div class="text-2xl">{{ feature.icon }}</div>
-            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{{ feature.title }}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">{{ feature.desc }}</p>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{{ t(`home.features.${feature.key}.title`) }}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">{{ t(`home.features.${feature.key}.desc`) }}</p>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
     <!-- Quick start code -->
     <section class="bg-gray-50 dark:bg-gray-900 border-t border-b border-gray-200 dark:border-gray-800">
       <div class="max-w-3xl mx-auto px-6 py-12">
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Quick Start</h2>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">{{ t('home.quickStart') }}</h2>
         <div class="code-panel">
           <div class="flex items-center space-x-2 px-4 py-2 border-b border-gray-700/50 text-xs text-gray-400">
             <span>cURL</span>
@@ -79,10 +79,10 @@
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-gray-800 px-6 py-8">
       <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-        <span>© {{ new Date().getFullYear() }} Banua Coders. PICO SulTeng COVID-19 API.</span>
+        <span>{{ t('home.footerCopyright', { year: new Date().getFullYear() }) }}</span>
         <div class="flex items-center space-x-4">
-          <router-link to="/docs" class="hover:text-gray-900 dark:hover:text-white transition-colors">Documentation</router-link>
-          <a :href="SWAGGER_URL" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors">Swagger UI</a>
+          <router-link to="/docs" class="hover:text-gray-900 dark:hover:text-white transition-colors">{{ t('home.footerDocumentation') }}</router-link>
+          <a :href="SWAGGER_URL" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors">{{ t('home.footerSwaggerUi') }}</a>
         </div>
       </div>
     </footer>
@@ -97,10 +97,10 @@ import { API_BASE_URL, API_V1_URL, SWAGGER_URL } from '@/config/api'
 const { t } = useI18n()
 
 const features = [
-  { icon: '⚡', title: 'Fast & Reliable', desc: 'Built with Go for sub-100ms response times and high availability.' },
-  { icon: '🗺️', title: 'Regional Focus', desc: 'Specialized COVID-19 data for Central Sulawesi (Sulawesi Tengah).' },
-  { icon: '📦', title: 'RESTful JSON', desc: 'Standard REST API with JSON responses and CORS support.' },
-  { icon: '📖', title: 'Well Documented', desc: 'Comprehensive docs with examples for every endpoint.' },
+  { key: 'fast', icon: '⚡' },
+  { key: 'regional', icon: '🗺️' },
+  { key: 'restful', icon: '📦' },
+  { key: 'documented', icon: '📖' },
 ]
 
 const dataSourceLogos = [
