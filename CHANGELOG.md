@@ -1,3 +1,25 @@
+## [v1.3.6] - 2026-03-25
+
+### Fixed
+
+- Do not split components chunk, keep prismjs co-located with codeblock (544d03a)
+- Use workflow_pat org secret instead of workflow_token (7d3c22f)
+- Remove trigger-deploy job (workflow_token not available, rely on pat tag push) (aab8593)
+
+### Documentation
+
+- Update changelog for 1.3.5 (81272a1)
+- Update changelog for 1.3.4 (0bcfe71)
+- Update changelog for v1.3.3 (5e9fb75)
+
+### Maintenance
+
+- Bump version to 1.3.5 (54181e6)
+- Prepare v1.3.5 hotfix (5ef9462)
+- Bump version to 1.3.4 (e5ffb13)
+- Prepare v1.3.4 hotfix (7f6ef19)
+
+
 ## [v1.3.5] - 2026-03-25
 
 ### Fixed
