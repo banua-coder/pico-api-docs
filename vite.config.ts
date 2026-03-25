@@ -56,10 +56,13 @@ export default defineConfig({
             if (id.includes('aos')) {
               return 'ui-vendor'
             }
-            // NOTE: prismjs is intentionally NOT assigned to a manual chunk.
-            // Rollup will co-locate it with its importer (prism-setup.ts →
-            // components chunk), ensuring the singleton and language plugins
-            // share the same module instance at runtime.
+            // prismjs MUST NOT go into vendor chunk — it needs to stay
+            // with its importer (prism-setup.ts) so language plugins can
+            // find the Prism singleton. Return undefined to let Rollup
+            // co-locate it automatically.
+            if (id.includes('prismjs') || id.includes('vue-prism-component')) {
+              return undefined
+            }
             return 'vendor'
           }
           // Locale chunks
