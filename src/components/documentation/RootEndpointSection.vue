@@ -86,7 +86,7 @@
         <!-- Try It Button -->
         <div class="text-center">
           <a 
-            href="https://pico-api.banuacoder.com/swagger/index.html" 
+            :href="SWAGGER_URL" 
             target="_blank"
             class="inline-flex items-center px-6 py-3 bg-pico-blue hover:bg-pico-deep text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
           >
@@ -102,6 +102,7 @@
 </template>
 
 <script setup lang="ts">
+import { SWAGGER_URL, DOCS_URL, API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
@@ -113,13 +114,13 @@ defineProps<Props>()
 const { t } = useI18n()
 
 const curlExample = `curl -X GET \\
-  "https://pico-api.banuacoder.com/api/v1/"`
+  "${API_V1_URL}/"`
 
 const responseExample = `{
   "status": "success",
   "message": "Welcome to PICO SulTeng API",
   "version": "1.0.0",
-  "documentation": "https://pico-api.banuacoder.com/docs",
+  "documentation": "${DOCS_URL}",
   "endpoints": {
     "health": "/health",
     "national": {

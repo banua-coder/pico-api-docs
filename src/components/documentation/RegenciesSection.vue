@@ -122,13 +122,14 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
 const { t } = useI18n()
 
-const listRegenciesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/regencies?page=1&per_page=10" \\
+const listRegenciesRequest = `curl -X GET "${API_V1_URL}/regencies?page=1&per_page=10" \\
   -H "Accept: application/json"`
 
 const listRegenciesResponse = `{
@@ -154,10 +155,10 @@ const listRegenciesResponse = `{
   }
 }`
 
-const getRegencyRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/regencies/7271" \\
+const getRegencyRequest = `curl -X GET "${API_V1_URL}/regencies/7271" \\
   -H "Accept: application/json"`
 
-const getRegencyCasesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/regencies/7271/cases" \\
+const getRegencyCasesRequest = `curl -X GET "${API_V1_URL}/regencies/7271/cases" \\
   -H "Accept: application/json"`
 
 const getRegencyCasesResponse = `{

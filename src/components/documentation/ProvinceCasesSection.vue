@@ -237,7 +237,7 @@
         <!-- Try It Button -->
         <div class="text-center">
           <a 
-            href="https://pico-api.banuacoder.com/swagger/index.html" 
+            :href="SWAGGER_URL" 
             target="_blank"
             class="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
           >
@@ -253,6 +253,7 @@
 </template>
 
 <script setup lang="ts">
+import { SWAGGER_URL, API_V1_URL } from '@/config/api'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
@@ -267,10 +268,10 @@ const { t, tm } = useI18n()
 const featuresList = computed(() => tm('documentation.provinceCases.featuresList') as string[])
 
 const provinceCasesEndpoint = `curl -X GET \\
-  "https://pico-api.banuacoder.com/api/v1/provinces/cases?limit=10"`
+  "${API_V1_URL}/provinces/cases?limit=10"`
 
 const specificProvinceEndpoint = `curl -X GET \\
-  "https://pico-api.banuacoder.com/api/v1/provinces/72/cases?limit=5&start_date=2024-01-01"`
+  "${API_V1_URL}/provinces/72/cases?limit=5&start_date=2024-01-01"`
 
 const provinceCasesResponse = `[
   {

@@ -67,13 +67,14 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
 const { t } = useI18n()
 
-const listTaskForcesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/task-forces?page=1&per_page=5" \\
+const listTaskForcesRequest = `curl -X GET "${API_V1_URL}/task-forces?page=1&per_page=5" \\
   -H "Accept: application/json"`
 
 const listTaskForcesResponse = `{
