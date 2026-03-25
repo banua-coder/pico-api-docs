@@ -157,6 +157,24 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [v1.3.1] - 2026-03-25
+
+### 🐛 Bug Fixes
+
+-  copy pnpm-lock.yaml in Dockerfile before install (e4f4b86)
+
+### 📚 Documentation
+
+-  update changelog for v1.3.0 (72dc9e2)
+
+### 🔧 Chores
+
+-  bump version to v1.3.1 (bb8af5e)
+
+### 📝 Other Changes
+
+- Merge pull request #53 from banua-coder/hotfix/v1.3.1 (dce30e4)
+
 ## [v1.3.0] - 2026-03-25
 
 ### ✨ Features
