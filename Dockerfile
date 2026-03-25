@@ -3,8 +3,8 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
+# Install pnpm (pinned version to match CI)
+RUN npm install -g pnpm@10.15.1
 
 # Copy dependency files
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
