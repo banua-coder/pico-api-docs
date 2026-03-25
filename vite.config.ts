@@ -48,11 +48,6 @@ export default defineConfig({
             if (id.includes('vue-router') || id.includes('vue-i18n')) {
               return 'vue-ecosystem'
             }
-            // prismjs + all language plugins MUST stay in same chunk
-            // to avoid "Prism is not defined" runtime error
-            if (id.includes('prismjs') || id.includes('vue-prism-component')) {
-              return 'prism-vendor'
-            }
             // katex separately is fine
             if (id.includes('katex')) {
               return 'katex-vendor'
@@ -63,20 +58,16 @@ export default defineConfig({
             }
             // Other vendor libraries
             return 'vendor'
-          }
-
-          // Components chunks
-          if (id.includes('src/components/documentation/')) {
-            return 'docs-components'
-          }
-          if (id.includes('src/components/')) {
-            return 'components'
+            // NOTE: prismjs intentionally NOT chunked separately
+            // It must be bundled together with components that use it
+            // to avoid "Prism is not defined" runtime error
           }
 
           // Locale chunks
           if (id.includes('src/locales/')) {
             return 'locales'
           }
+          // Do NOT split components - prismjs needs to be in same chunk as CodeBlock.vue
         },
       },
     },
