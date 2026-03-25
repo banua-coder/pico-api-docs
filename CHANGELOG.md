@@ -1,3 +1,37 @@
+## [v1.3.0] - 2026-03-25
+
+### Added
+
+- Add i18n localization for all new endpoint sections (en + id) (7049a63)
+- Add i18n localization for all new endpoint sections (en + id) (2faf3de)
+- Add eslint config, fix lint errors, enable lint & typecheck in ci (e04e337)
+- Add dockerfile, nginx config, and documentation for new api endpoints (76b621f)
+
+### Fixed
+
+- Explicitly pass lint-command and typecheck-command to reusable ci workflow (59f7f8b)
+- Remove --ext flag from lint script (not supported in eslint v9 flat config) (308828f)
+- Add terser as explicit dev dependency required by vite v8 (6dff0f1)
+- Remove unused navbar ref in navigation.vue to fix vue-tsc build error (7feedac)
+- Track pnpm-lock.yaml in git for reproducible ci builds (90ec9c3)
+- Remove packagemanager field from package.json to fix pnpm version conflict in ci (64c915e)
+- Specify exact pnpm version 10.15.1 to match package.json packagemanager field (06d0800)
+
+### Tests
+
+- Add vitest setup and component tests, enable tests in ci (8d9d56d)
+
+### CI/CD
+
+- Replace deploy workflow with docker build & push to ghcr (bc1cad4)
+- Replace deploy.yml with reusable deploy-on-tag workflow (9b6ce13)
+- Integrate banua-coder-workflow reusable workflows (d791537)
+
+### Maintenance
+
+- Bump version to v1.3.0 for next development cycle (99552b7)
+
+
 ## [v1.2.6] - 2025-09-14
 
 ### Fixed
