@@ -142,7 +142,7 @@
                   </svg>
                 </span>
               </router-link>
-              <a href="https://pico-api.banuacoder.com/swagger/index.html" target="_blank"
+              <a :href="SWAGGER_URL" target="_blank"
                 class="group border-2 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold transition-all duration-500 backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 hover:bg-white/90 dark:hover:bg-gray-800/90 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 text-sm sm:text-base hover:-rotate-1">
                 <span class="flex items-center justify-center">
                   <svg class="w-4 h-4 mr-2 group-hover:scale-110 transition-all duration-300" fill="none"
@@ -341,7 +341,7 @@
                       <div class="text-green-400 mb-1 sm:mb-2 typing-animation overflow-x-auto">
                         <div class="whitespace-nowrap">
                           <span class="text-gray-500">$</span> curl
-                          https://pico-api.banuacoder.com/api/v1/national/latest
+                          {{ API_V1_URL }}/national/latest
                         </div>
                       </div>
                     </div>
@@ -646,7 +646,7 @@
                 </router-link>
               </li>
               <li>
-                <a href="https://pico-api.banuacoder.com/swagger/index.html" target="_blank"
+                <a :href="SWAGGER_URL" target="_blank"
                   class="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group">
                   <span class="w-1 h-1 bg-gray-600 group-hover:bg-blue-400 rounded-full mr-2 transition-colors"></span>
                   Swagger UI
@@ -683,7 +683,7 @@
                 <div class="flex items-center justify-between">
                   <code
                     class="text-xs lg:text-[10px] xl:text-xs font-mono text-transparent bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text whitespace-nowrap">
-                  pico-api.banuacoder.com/api/v1
+                  {{ API_V1_URL }}
                 </code>
                   <button @click="copyApiUrl" class="p-1.5 hover:bg-gray-700/50 rounded-lg transition-colors group">
                     <svg v-if="!apiUrlCopied" class="w-4 h-4 text-gray-400 group-hover:text-white" fill="none"
@@ -728,6 +728,7 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL, SWAGGER_URL } from '@/config/api'
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Navigation from '@/components/Navigation.vue'
@@ -743,7 +744,7 @@ const apiUrlCopied = ref(false)
 
 const copyApiUrl = async () => {
   try {
-    await navigator.clipboard.writeText('https://pico-api.banuacoder.com/api/v1')
+    await navigator.clipboard.writeText(API_V1_URL)
     apiUrlCopied.value = true
     setTimeout(() => {
       apiUrlCopied.value = false

@@ -111,13 +111,14 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
 const { t } = useI18n()
 
-const nationalVaccinationRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/vaccination/national?page=1&per_page=10" \\
+const nationalVaccinationRequest = `curl -X GET "${API_V1_URL}/vaccination/national?page=1&per_page=10" \\
   -H "Accept: application/json"`
 
 const nationalVaccinationResponse = `{
@@ -146,10 +147,10 @@ const nationalVaccinationResponse = `{
   }
 }`
 
-const provinceVaccinationRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/vaccination/province?page=1&per_page=10" \\
+const provinceVaccinationRequest = `curl -X GET "${API_V1_URL}/vaccination/province?page=1&per_page=10" \\
   -H "Accept: application/json"`
 
-const vaccineLocationsRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/vaccination/locations?load_all=true" \\
+const vaccineLocationsRequest = `curl -X GET "${API_V1_URL}/vaccination/locations?load_all=true" \\
   -H "Accept: application/json"`
 
 const vaccineLocationsResponse = `{

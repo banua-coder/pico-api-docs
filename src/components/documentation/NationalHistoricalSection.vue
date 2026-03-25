@@ -239,7 +239,7 @@
 
         <!-- Try It Button -->
         <div class="text-center">
-          <a href="https://pico-api.banuacoder.com/swagger/index.html" 
+          <a :href="SWAGGER_URL" 
              target="_blank" 
              class="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,6 +254,7 @@
 </template>
 
 <script setup lang="ts">
+import { SWAGGER_URL, API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
@@ -265,10 +266,10 @@ defineProps<Props>()
 const { t } = useI18n()
 
 const basicExample = `curl -X GET \\
-  "https://pico-api.banuacoder.com/api/v1/national/historical"`
+  "${API_V1_URL}/national/historical"`
 
 const paginatedExample = `curl -X GET \\
-  "https://pico-api.banuacoder.com/api/v1/national/historical?limit=10&offset=0&start_date=2024-01-01&end_date=2024-01-31"`
+  "${API_V1_URL}/national/historical?limit=10&offset=0&start_date=2024-01-01&end_date=2024-01-31"`
 
 const responseExample = `[
   {

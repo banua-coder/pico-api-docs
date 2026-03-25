@@ -30,7 +30,7 @@
             >
               {{ t('nav.apiReference') }}
             </router-link>
-            <a href="https://pico-api.banuacoder.com/api/v1" target="_blank" class="bg-pico-blue hover:bg-pico-deep text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+            <a :href="API_V1_URL" target="_blank" class="bg-pico-blue hover:bg-pico-deep text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
               {{ t('nav.liveApi') }}
             </a>
             <!-- Theme & Language Controls -->
@@ -123,7 +123,7 @@
             {{ t('nav.apiReference') }}
           </router-link>
           <a 
-            href="https://pico-api.banuacoder.com/api/v1" 
+            :href="API_V1_URL" 
             target="_blank" 
             @click="closeMobileMenu"
             class="block bg-pico-blue hover:bg-pico-deep text-white px-4 py-3 rounded-lg text-base font-medium transition-colors text-center"
@@ -158,6 +158,7 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ThemeToggle from './ThemeToggle.vue'

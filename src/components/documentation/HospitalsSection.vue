@@ -107,13 +107,14 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
 const { t } = useI18n()
 
-const listHospitalsRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/hospitals?page=1&per_page=10" \\
+const listHospitalsRequest = `curl -X GET "${API_V1_URL}/hospitals?page=1&per_page=10" \\
   -H "Accept: application/json"`
 
 const listHospitalsResponse = `{
@@ -148,7 +149,7 @@ const listHospitalsResponse = `{
   }
 }`
 
-const getHospitalRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/hospitals/7200001" \\
+const getHospitalRequest = `curl -X GET "${API_V1_URL}/hospitals/7200001" \\
   -H "Accept: application/json"`
 
 const getHospitalResponse = `{
