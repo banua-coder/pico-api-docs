@@ -8,7 +8,7 @@
         <p class="text-xl text-gray-600 dark:text-gray-400">Complete reference for all PICO SulTeng API endpoints.</p>
         <div class="mt-4 flex items-center space-x-4">
           <span class="text-sm text-gray-500 dark:text-gray-400">Base URL:</span>
-          <code class="bg-gray-100 dark:bg-gray-800 text-pico-deep dark:text-pico-sky px-3 py-1 rounded-lg text-sm font-mono">https://pico-api-go.banuacoder.com/api/v1</code>
+          <code class="bg-gray-100 dark:bg-gray-800 text-pico-deep dark:text-pico-sky px-3 py-1 rounded-lg text-sm font-mono">{{ API_V1_URL }}</code>
         </div>
       </div>
 
@@ -65,6 +65,7 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import Navigation from '@/components/Navigation.vue'
 import { defineComponent, h } from 'vue'
 

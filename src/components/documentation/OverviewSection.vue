@@ -25,7 +25,7 @@
           <div>
             <h3 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 sm:mb-3 md:mb-4">{{ t('documentation.overview.baseUrl') }}</h3>
             <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-2 sm:p-3 md:p-4 font-mono text-[10px] sm:text-xs md:text-sm border dark:border-gray-600 overflow-x-auto">
-              <code class="text-blue-600 whitespace-nowrap block">https://pico-api.banuacoder.com/api/v1</code>
+              <code class="text-blue-600 whitespace-nowrap block">{{ API_V1_URL }}</code>
             </div>
             
             <h3 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100 mt-3 sm:mt-4 md:mt-6 mb-2 sm:mb-3 md:mb-4">{{ t('documentation.overview.contentType') }}</h3>
@@ -58,6 +58,7 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
@@ -69,5 +70,5 @@ defineProps<Props>()
 const { t } = useI18n()
 
 const quickExampleCode = `curl -X GET \\
-  "https://pico-api.banuacoder.com/api/v1/national/latest"`
+  "${API_V1_URL}/national/latest"`
 </script>

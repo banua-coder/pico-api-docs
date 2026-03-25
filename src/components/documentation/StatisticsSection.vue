@@ -98,13 +98,14 @@
 </template>
 
 <script setup lang="ts">
+import { API_V1_URL } from '@/config/api'
 import { useI18n } from 'vue-i18n'
 import CodeBlock from '@/components/CodeBlock.vue'
 
 defineProps<{ isActive: boolean }>()
 const { t } = useI18n()
 
-const genderCasesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/stats/gender" \\
+const genderCasesRequest = `curl -X GET "${API_V1_URL}/stats/gender" \\
   -H "Accept: application/json"`
 
 const genderCasesResponse = `{
@@ -124,10 +125,10 @@ const genderCasesResponse = `{
   ]
 }`
 
-const latestGenderRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/stats/gender/latest" \\
+const latestGenderRequest = `curl -X GET "${API_V1_URL}/stats/gender/latest" \\
   -H "Accept: application/json"`
 
-const testsRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/stats/tests" \\
+const testsRequest = `curl -X GET "${API_V1_URL}/stats/tests" \\
   -H "Accept: application/json"`
 
 const testsResponse = `{
@@ -144,7 +145,7 @@ const testsResponse = `{
   ]
 }`
 
-const testTypesRequest = `curl -X GET "https://pico-api-go.banuacoder.com/api/v1/stats/test-types" \\
+const testTypesRequest = `curl -X GET "${API_V1_URL}/stats/test-types" \\
   -H "Accept: application/json"`
 
 const testTypesResponse = `{
