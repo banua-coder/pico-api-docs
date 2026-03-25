@@ -1,3 +1,14 @@
+## [v1.3.2] - 2026-03-25
+
+### Fixed
+
+- Trigger deploy on release published instead of tag push (ab066a1)
+
+### Documentation
+
+- Update changelog for v1.3.1 (a1b7bfd)
+
+
 ## [v1.3.0] - 2026-03-25
 
 ### Added
