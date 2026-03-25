@@ -1,3 +1,14 @@
+## [v1.3.4] - 2026-03-25
+
+### Fixed
+
+- Remove trigger-deploy job (workflow_token not available, rely on pat tag push) (aab8593)
+
+### Documentation
+
+- Update changelog for v1.3.3 (5e9fb75)
+
+
 ## [v1.3.3] - 2026-03-25
 
 ### Fixed
