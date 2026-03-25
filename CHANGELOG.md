@@ -193,6 +193,27 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [1.3.4] - 2026-03-25
+
+### 🐛 Bug Fixes
+
+-  remove trigger-deploy job (WORKFLOW_TOKEN not available, rely on PAT tag push) (aab8593)
+-  use WORKFLOW_PAT org secret instead of WORKFLOW_TOKEN (7d3c22f)
+
+### 📚 Documentation
+
+-  update changelog for v1.3.3 (5e9fb75)
+
+### 🔧 Chores
+
+-  prepare v1.3.4 hotfix (7f6ef19)
+-  bump version to 1.3.4 (e5ffb13)
+
+### 📝 Other Changes
+
+- Merge pull request #61 from banua-coder/chore/prepare-hotfix-v1.3.4 (1108df2)
+- Merge pull request #62 from banua-coder/hotfix/1.3.4 (b4dbfcc)
+
 ## [v1.3.3] - 2026-03-25
 
 ### 🐛 Bug Fixes
