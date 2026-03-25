@@ -16,5 +16,6 @@ jobs:
       project-type: web-app
       main-branch: main
       develop-branch: develop
+      pnpm-version: "10.15.1"
     secrets:
       GH_PAT: ${{ secrets.WORKFLOW_TOKEN }}

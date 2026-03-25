@@ -1,3 +1,37 @@
+## [v1.3.0] - 2026-03-25
+
+### Added
+
+- Add i18n localization for all new endpoint sections (en + id) (7049a63)
+- Add i18n localization for all new endpoint sections (en + id) (2faf3de)
+- Add eslint config, fix lint errors, enable lint & typecheck in ci (e04e337)
+- Add dockerfile, nginx config, and documentation for new api endpoints (76b621f)
+
+### Fixed
+
+- Explicitly pass lint-command and typecheck-command to reusable ci workflow (59f7f8b)
+- Remove --ext flag from lint script (not supported in eslint v9 flat config) (308828f)
+- Add terser as explicit dev dependency required by vite v8 (6dff0f1)
+- Remove unused navbar ref in navigation.vue to fix vue-tsc build error (7feedac)
+- Track pnpm-lock.yaml in git for reproducible ci builds (90ec9c3)
+- Remove packagemanager field from package.json to fix pnpm version conflict in ci (64c915e)
+- Specify exact pnpm version 10.15.1 to match package.json packagemanager field (06d0800)
+
+### Tests
+
+- Add vitest setup and component tests, enable tests in ci (8d9d56d)
+
+### CI/CD
+
+- Replace deploy workflow with docker build & push to ghcr (bc1cad4)
+- Replace deploy.yml with reusable deploy-on-tag workflow (9b6ce13)
+- Integrate banua-coder-workflow reusable workflows (d791537)
+
+### Maintenance
+
+- Bump version to v1.3.0 for next development cycle (99552b7)
+
+
 ## [v1.2.6] - 2025-09-14
 
 ### Fixed
@@ -123,6 +157,59 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [v1.3.0] - 2026-03-25
+
+### ✨ Features
+
+-  add Dockerfile, nginx config, and documentation for new API endpoints (76b621f)
+-  add ESLint config, fix lint errors, enable lint & typecheck in CI (e04e337)
+-  add i18n localization for all new endpoint sections (EN + ID) (2faf3de)
+-  add i18n localization for all new endpoint sections (EN + ID) (7049a63)
+
+### 🐛 Bug Fixes
+
+-  specify exact pnpm version 10.15.1 to match package.json packageManager field (06d0800)
+-  remove packageManager field from package.json to fix pnpm version conflict in CI (64c915e)
+-  track pnpm-lock.yaml in git for reproducible CI builds (90ec9c3)
+-  remove unused navbar ref in Navigation.vue to fix vue-tsc build error (7feedac)
+-  add terser as explicit dev dependency required by Vite v8 (6dff0f1)
+-  remove --ext flag from lint script (not supported in ESLint v9 flat config) (308828f)
+-  explicitly pass lint-command and typecheck-command to reusable CI workflow (59f7f8b)
+-  add pnpm-version to release workflow (4d5d316)
+
+### 🧪 Tests
+
+-  add Vitest setup and component tests, enable tests in CI (8d9d56d)
+
+### 👷 CI
+
+-  integrate banua-coder-workflow reusable workflows (d791537)
+-  replace deploy.yml with reusable deploy-on-tag workflow (9b6ce13)
+-  replace deploy workflow with Docker build & push to GHCR (bc1cad4)
+
+### 🔧 Chores
+
+-  bump version to v1.3.0 for next development cycle (99552b7)
+-  back-merge v1.2.4 from main to develop (3a4a1bc)
+-  back-merge v1.2.5 from main to develop (b94c5dd)
+-  back-merge v1.2.6 from main to develop (adc3c88)
+-  prepare v1.3.0 release (6e14674)
+-  bump version to v1.3.0 (0aed4b8)
+
+### 📝 Other Changes
+
+- Merge pull request #26 from banua-coder/chore/bump-version-to-v1.3.0-dev (4432dc0)
+- resolve: automatic conflict resolution for back-merge (5428c6d)
+- Merge pull request #30 from banua-coder/chore/back-merge-v1.2.1-to-develop (5c1b6fc)
+- Merge pull request #37 from banua-coder/chore/back-merge-v1.2.4-to-develop (6888dba)
+- Merge pull request #40 from banua-coder/chore/back-merge-v1.2.5-to-develop (53fd83f)
+- Merge pull request #43 from banua-coder/chore/back-merge-v1.2.6-to-develop (73b6f46)
+- Merge pull request #44 from banua-coder/feature/add-new-endpoints-docs (ec5539f)
+- Merge pull request #45 from banua-coder/feature/i18n-localization-new-endpoints (4d24a8f)
+- Merge pull request #46 from banua-coder/feature/add-new-endpoints-docs (9a14761)
+- Merge pull request #47 from banua-coder/chore/prepare-release-v1.3.0 (5a30f8f)
+- Merge pull request #49 from banua-coder/release/v1.3.0 (1cd0f5e)
+
 
 Generated on 2025-09-08
 All changes
