@@ -1,3 +1,52 @@
+## [v1.4.0] - 2026-03-25
+
+### Added
+
+- Add i18n support for all hardcoded text (en + id translations) (02aa5d4)
+- Full docs redesign with stripe-style layout and updated response examples (6a7e4f8)
+- Make all api urls configurable via vite_api_base_url env variable (f9da460)
+
+### Fixed
+
+- Resolve lint error in docsidebar and unused import in home (3d18d5b)
+- Use tag push trigger instead of release published to prevent duplicate deploy runs (af978de)
+- Exclude prismjs from vendor chunk so it co-locates with its consumers (2b4c4ea)
+- Accept both v-prefixed and plain semver tags in deploy trigger (31fe5ac)
+- Pin pnpm to 10.15.1 in dockerfile to match ci (9a273e9)
+- Add pnpm.overrides to match lockfile (prevents lockfile_config_mismatch in docker) (e1c6d62)
+- Do not assign prismjs to manual chunk, let rollup co-locate with importer (40e56cb)
+- Use static imports for prism language plugins (no require, proper es module) (55a8e1c)
+- Restore codeblock.vue with correct prism-setup import (662f463)
+- Import prism from prism-setup to ensure window.prism is set before plugins (2bc66e9)
+- Expose prism to window before language plugins load (3ba7d20)
+- Do not split components chunk, keep prismjs co-located with codeblock (544d03a)
+- Use workflow_pat org secret instead of workflow_token (7d3c22f)
+- Remove trigger-deploy job (workflow_token not available, rely on pat tag push) (aab8593)
+
+### Documentation
+
+- Update changelog for 1.3.8 (a9e1b8d)
+- Update changelog for 1.3.7 (9832774)
+- Update changelog for 1.3.6 (8f0e9a1)
+- Update changelog for 1.3.5 (81272a1)
+- Update changelog for 1.3.4 (0bcfe71)
+- Update changelog for v1.3.3 (5e9fb75)
+
+### Maintenance
+
+- Bump version to 1.3.8 (66900c4)
+- Regenerate pnpm-lock.yaml after adding pnpm.overrides (e0a905e)
+- Bump version to 1.3.7 (3cd0540)
+- Prepare v1.3.7 hotfix (9df6c2e)
+- Bump version to 1.3.6 (c2aba95)
+- Prepare v1.3.6 hotfix (c029ec4)
+- Bump version to 1.3.5 (54181e6)
+- Prepare v1.3.5 hotfix (5ef9462)
+- Bump version to 1.3.4 (e5ffb13)
+- Prepare v1.3.4 hotfix (7f6ef19)
+- Bump version to v1.4.0 for next development cycle (2c0abcd)
+
+
 ## [v1.3.7] - 2026-03-25
 
 ### Fixed
