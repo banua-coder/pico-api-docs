@@ -186,11 +186,26 @@
       "errorResponse": "Error Response",
       "errorFields": "Error Fields",
       "statusCodes": {
-        "200": { "title": "OK", "description": "Request successful" },
-        "400": { "title": "Bad Request", "description": "Invalid parameters or malformed request" },
-        "404": { "title": "Not Found", "description": "Endpoint or resource not found" },
-        "429": { "title": "Too Many Requests", "description": "Rate limit exceeded" },
-        "500": { "title": "Internal Server Error", "description": "Server encountered an unexpected error" }
+        "200": {
+          "title": "OK",
+          "description": "Request successful"
+        },
+        "400": {
+          "title": "Bad Request",
+          "description": "Invalid parameters or malformed request"
+        },
+        "404": {
+          "title": "Not Found",
+          "description": "Endpoint or resource not found"
+        },
+        "429": {
+          "title": "Too Many Requests",
+          "description": "Rate limit exceeded"
+        },
+        "500": {
+          "title": "Internal Server Error",
+          "description": "Server encountered an unexpected error"
+        }
       },
       "fieldDescriptions": {
         "status": "Always \"error\" for error responses",
@@ -307,17 +322,41 @@
       },
       "caseClassifications": {
         "title": "Case Classifications",
-        "positive": { "title": "Positive Cases", "description": "Confirmed COVID-19 infections through testing" },
-        "recovered": { "title": "Recovered Cases", "description": "Patients who have recovered from COVID-19" },
-        "deceased": { "title": "Deceased Cases", "description": "Deaths attributed to COVID-19" },
-        "active": { "title": "Active Cases", "description": "Currently infected patients (positive - recovered - deceased)" }
+        "positive": {
+          "title": "Positive Cases",
+          "description": "Confirmed COVID-19 infections through testing"
+        },
+        "recovered": {
+          "title": "Recovered Cases",
+          "description": "Patients who have recovered from COVID-19"
+        },
+        "deceased": {
+          "title": "Deceased Cases",
+          "description": "Deaths attributed to COVID-19"
+        },
+        "active": {
+          "title": "Active Cases",
+          "description": "Currently infected patients (positive - recovered - deceased)"
+        }
       },
       "dataTypes": {
         "title": "Data Types",
-        "daily": { "title": "Daily Data", "description": "New cases reported for a specific day" },
-        "cumulative": { "title": "Cumulative Data", "description": "Total cases accumulated since the start of tracking" },
-        "percentages": { "title": "Percentages", "description": "Distribution of cases as percentage of total positive cases" },
-        "serialInterval": { "title": "Serial Interval", "description": "Time between symptom onset in successive cases in a chain of transmission" }
+        "daily": {
+          "title": "Daily Data",
+          "description": "New cases reported for a specific day"
+        },
+        "cumulative": {
+          "title": "Cumulative Data",
+          "description": "Total cases accumulated since the start of tracking"
+        },
+        "percentages": {
+          "title": "Percentages",
+          "description": "Distribution of cases as percentage of total positive cases"
+        },
+        "serialInterval": {
+          "title": "Serial Interval",
+          "description": "Time between symptom onset in successive cases in a chain of transmission"
+        }
       },
       "indonesianTerminology": {
         "title": "Indonesian COVID-19 Terminology",
@@ -377,6 +416,90 @@
           "legacyFlow": "Legacy: ODP → PDP → OTG → Confirmed"
         }
       }
+    },
+    "regencies": {
+      "title": "Regencies (Kabupaten/Kota)",
+      "description": "Endpoints for regency/city data and COVID-19 case statistics in Sulawesi Tengah.",
+      "listTitle": "List Regencies",
+      "listDescription": "Get all regencies/cities in Sulawesi Tengah (paginated)",
+      "detailTitle": "Get Regency by ID",
+      "detailDescription": "Get a single regency by its ID/code",
+      "casesTitle": "Get Regency Cases",
+      "casesDescription": "Get COVID-19 case history for a specific regency",
+      "parameters": {
+        "page": "Page number",
+        "perPage": "Items per page (max: 100)",
+        "loadAll": "Return all data without pagination",
+        "code": "Regency ID (e.g. 7271 for Kota Palu)"
+      }
+    },
+    "hospitals": {
+      "title": "Hospitals",
+      "description": "Endpoints for hospital data including bed availability and contact information in Sulawesi Tengah.",
+      "listTitle": "List Hospitals",
+      "listDescription": "Get all hospitals with bed availability (paginated)",
+      "detailTitle": "Get Hospital by Code",
+      "detailDescription": "Get a single hospital by its code with full details",
+      "parameters": {
+        "page": "Page number",
+        "perPage": "Items per page (max: 100)",
+        "loadAll": "Return all hospitals without pagination",
+        "code": "Hospital code (e.g. 7200001)"
+      }
+    },
+    "taskForces": {
+      "title": "Task Forces (Gugus Tugas)",
+      "description": "COVID-19 task force posts (posko) grouped by regency in Sulawesi Tengah, with contact information.",
+      "listTitle": "List Task Forces",
+      "listDescription": "Get all COVID-19 task force posts grouped by regency (paginated)",
+      "parameters": {
+        "page": "Page number (paginates by regency)",
+        "perPage": "Regencies per page (max: 100)",
+        "loadAll": "Return all task forces without pagination"
+      }
+    },
+    "vaccination": {
+      "title": "Vaccination",
+      "description": "Endpoints for COVID-19 vaccination data including national records, Sulawesi Tengah province data, and vaccination center locations.",
+      "nationalTitle": "National Vaccination Data",
+      "nationalDescription": "National vaccination records (paginated)",
+      "provinceTitle": "Province Vaccination Data",
+      "provinceDescription": "Sulawesi Tengah vaccination records (paginated)",
+      "locationsTitle": "Vaccination Locations",
+      "locationsDescription": "Vaccination centers in Sulawesi Tengah (paginated)",
+      "parameters": {
+        "page": "Page number",
+        "perPage": "Items per page (max: 100)",
+        "loadAll": "Return all records without pagination"
+      }
+    },
+    "statistics": {
+      "title": "Statistics",
+      "description": "Detailed COVID-19 statistics in Sulawesi Tengah, including gender-based case data, testing statistics, and test types.",
+      "genderTitle": "Gender Cases",
+      "genderDescription": "All gender-based COVID-19 case data for Sulawesi Tengah",
+      "latestGenderTitle": "Latest Gender Case",
+      "latestGenderDescription": "Latest gender-based COVID-19 case data",
+      "testsTitle": "COVID-19 Tests",
+      "testsDescription": "COVID-19 testing statistics for Sulawesi Tengah",
+      "testTypesTitle": "Test Types",
+      "testTypesDescription": "Available COVID-19 test types"
+    },
+    "pagination": {
+      "title": "Pagination",
+      "description": "All list endpoints support pagination parameters.",
+      "page": "Page number (default: 1)",
+      "perPage": "Items per page (default: 10, max: 100)",
+      "loadAll": "Return all data without pagination",
+      "responseFields": {
+        "data": "Array of items for the current page",
+        "page": "Current page number",
+        "perPage": "Items per page",
+        "total": "Total number of items",
+        "totalPages": "Total number of pages",
+        "hasNext": "Whether there is a next page",
+        "hasPrev": "Whether there is a previous page"
+      }
     }
   },
   "footer": {
@@ -393,4 +516,3 @@
     "author": "Fajrian Aidil Pratama"
   }
 }
-

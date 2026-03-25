@@ -1,0 +1,16 @@
+hotfix v1.2.1
+
+Merged PR: https://github.com/banua-coder/pico-api-docs/pull/29
+Merged by: @ryanaidilp
+
+Changes since v1.2.0:
+
+🚀 Features:
+
+🐛 Bug Fixes:
+- fix: resolve git fetch error in release-automation workflow (87b28f1)
+
+🛠️ Other Changes:
+- chore: prepare v1.2.1 hotfix (a60f969)
+
+🚀 Deployment will be triggered automatically.

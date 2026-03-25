@@ -466,7 +466,7 @@
               Built with Go for lightning-fast API responses with intelligent hybrid pagination system</p>
             <div class="mt-4 sm:mt-6 text-xs sm:text-sm text-green-600 font-medium">
               <span class="bg-green-100 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
-                < 100ms avg response</span>
+                &lt; 100ms avg response</span>
             </div>
           </div>
 
