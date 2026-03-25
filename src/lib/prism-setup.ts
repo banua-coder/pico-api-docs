@@ -1,11 +1,9 @@
 import Prism from 'prismjs'
 
-// Expose Prism as global BEFORE language plugins are loaded.
-// Vite bundles ES modules without window globals; language plugins
-// rely on window.Prism being defined when they execute.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-;(window as any).Prism = Prism
-
+// IMPORTANT: These side-effect imports register language grammars on the
+// Prism singleton imported above. They must all live in this single file so
+// the bundler keeps them in one chunk with the Prism core, guaranteeing the
+// singleton is the same object the language plugins mutate.
 import 'prismjs/components/prism-bash'
 import 'prismjs/components/prism-json'
 import 'prismjs/components/prism-javascript'
