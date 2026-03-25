@@ -212,6 +212,33 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [1.3.5] - 2026-03-25
+
+### 🐛 Bug Fixes
+
+-  remove trigger-deploy job (WORKFLOW_TOKEN not available, rely on PAT tag push) (aab8593)
+-  use WORKFLOW_PAT org secret instead of WORKFLOW_TOKEN (7d3c22f)
+-  do not split components chunk, keep prismjs co-located with CodeBlock (544d03a)
+
+### 📚 Documentation
+
+-  update changelog for v1.3.3 (5e9fb75)
+-  update changelog for 1.3.4 (0bcfe71)
+
+### 🔧 Chores
+
+-  prepare v1.3.4 hotfix (7f6ef19)
+-  bump version to 1.3.4 (e5ffb13)
+-  prepare v1.3.5 hotfix (5ef9462)
+-  bump version to 1.3.5 (54181e6)
+
+### 📝 Other Changes
+
+- Merge pull request #61 from banua-coder/chore/prepare-hotfix-v1.3.4 (1108df2)
+- Merge pull request #62 from banua-coder/hotfix/1.3.4 (b4dbfcc)
+- Merge pull request #64 from banua-coder/chore/prepare-hotfix-v1.3.5 (8eef46c)
+- Merge pull request #65 from banua-coder/hotfix/1.3.5 (132d70e)
+
 ## [1.3.4] - 2026-03-25
 
 ### 🐛 Bug Fixes
