@@ -182,6 +182,32 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [v1.3.3] - 2026-03-25
+
+### 🐛 Bug Fixes
+
+-  add trigger-deploy job after release using PAT (2efcc0a)
+-  remove v prefix from version in package.json (cb6fc35)
+-  keep prismjs and plugins in same chunk to avoid Prism not defined error (8497024)
+-  add push tags trigger alongside release published (b26f420)
+-  remove v prefix from version (1.3.3) (f18c57f)
+
+### 📚 Documentation
+
+-  update changelog for v1.3.2 (4630a21)
+
+### 🔧 Chores
+
+-  prepare v1.3.3 hotfix (c7b531c)
+-  bump version to v1.3.3 (ab60be6)
+-  bump version to v1.3.3 (9c7b1f4)
+
+### 📝 Other Changes
+
+- Merge branch 'hotfix/v1.3.3' into chore/prepare-hotfix-v1.3.3 (31d4700)
+- Merge pull request #58 from banua-coder/chore/prepare-hotfix-v1.3.3 (a667800)
+- Merge pull request #59 from banua-coder/hotfix/v1.3.3 (ccad243)
+
 ## [v1.3.2] - 2026-03-25
 
 ### 🐛 Bug Fixes
