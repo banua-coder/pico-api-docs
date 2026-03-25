@@ -264,6 +264,51 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [1.3.7] - 2026-03-25
+
+### 🐛 Bug Fixes
+
+-  remove trigger-deploy job (WORKFLOW_TOKEN not available, rely on PAT tag push) (aab8593)
+-  use WORKFLOW_PAT org secret instead of WORKFLOW_TOKEN (7d3c22f)
+-  do not split components chunk, keep prismjs co-located with CodeBlock (544d03a)
+-  expose Prism to window before language plugins load (3ba7d20)
+-  import Prism from prism-setup to ensure window.Prism is set before plugins (2bc66e9)
+-  restore CodeBlock.vue with correct prism-setup import (662f463)
+-  use static imports for prism language plugins (no require, proper ES module) (55a8e1c)
+-  do not assign prismjs to manual chunk, let rollup co-locate with importer (40e56cb)
+-  add pnpm.overrides to match lockfile (prevents LOCKFILE_CONFIG_MISMATCH in Docker) (e1c6d62)
+-  pin pnpm to 10.15.1 in Dockerfile to match CI (9a273e9)
+
+### 📚 Documentation
+
+-  update changelog for v1.3.3 (5e9fb75)
+-  update changelog for 1.3.4 (0bcfe71)
+-  update changelog for 1.3.5 (81272a1)
+-  update changelog for 1.3.6 (8f0e9a1)
+
+### 🔧 Chores
+
+-  prepare v1.3.4 hotfix (7f6ef19)
+-  bump version to 1.3.4 (e5ffb13)
+-  prepare v1.3.5 hotfix (5ef9462)
+-  bump version to 1.3.5 (54181e6)
+-  prepare v1.3.6 hotfix (c029ec4)
+-  bump version to 1.3.6 (c2aba95)
+-  prepare v1.3.7 hotfix (9df6c2e)
+-  bump version to 1.3.7 (3cd0540)
+-  regenerate pnpm-lock.yaml after adding pnpm.overrides (e0a905e)
+
+### 📝 Other Changes
+
+- Merge pull request #61 from banua-coder/chore/prepare-hotfix-v1.3.4 (1108df2)
+- Merge pull request #62 from banua-coder/hotfix/1.3.4 (b4dbfcc)
+- Merge pull request #64 from banua-coder/chore/prepare-hotfix-v1.3.5 (8eef46c)
+- Merge pull request #65 from banua-coder/hotfix/1.3.5 (132d70e)
+- Merge pull request #67 from banua-coder/chore/prepare-hotfix-v1.3.6 (6a2e396)
+- Merge pull request #68 from banua-coder/hotfix/1.3.6 (985bc35)
+- Merge pull request #70 from banua-coder/chore/prepare-hotfix-v1.3.7 (72c249a)
+- Merge pull request #71 from banua-coder/hotfix/1.3.7 (95df5e9)
+
 ## [1.3.6] - 2026-03-25
 
 ### 🐛 Bug Fixes
