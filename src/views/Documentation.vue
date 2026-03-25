@@ -1,293 +1,222 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-    <div class="flex min-h-screen">
+  <div class="min-h-screen bg-white dark:bg-gray-950">
+    <!-- Top nav -->
+    <Navigation />
+
+    <div class="flex pt-14">
       <!-- Sidebar -->
-      <aside class="w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 fixed left-0 top-0 bottom-0 z-30 transform transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
-        <!-- Fixed Header -->
-        <div class="flex-shrink-0 p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
-          <div class="flex items-center space-x-3 mb-4">
-            <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-8 w-auto logo-dark-mode">
-            <router-link to="/" class="text-xl font-bold gradient-text">PICO SulTeng</router-link>
-          </div>
-          <h2 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">API Documentation</h2>
-          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-4">PICO SulTeng COVID-19 API</p>
-          
-          <!-- Theme & Language Controls -->
-          <div class="flex items-center space-x-2">
-            <!-- Language Toggle -->
-            <button 
-              @click="toggleLanguage"
-              class="flex items-center justify-center px-3 py-2 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 bg-white hover:bg-gray-50 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-600"
-              :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'} language`"
-            >
-              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-              </svg>
-              <span class="ml-1.5 text-sm font-medium text-gray-700 dark:text-gray-200">{{ locale === 'en' ? 'EN' : 'ID' }}</span>
-            </button>
-            
-            <!-- Theme Toggle -->
-            <ThemeToggle />
-          </div>
-        </div>
+      <DocSidebar
+        :active-section="activeSection"
+        :open="sidebarOpen"
+        @update:active-section="activeSection = $event"
+        @close="sidebarOpen = false"
+      />
 
-        <!-- Scrollable Navigation Menu -->
-        <div class="flex-1 overflow-y-auto p-4 sm:p-6">
-          <nav class="space-y-2">
-            <!-- Getting Started -->
-            <div>
-              <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Getting Started</h3>
-              <ul class="space-y-1">
-                <li>
-                  <a href="#overview" @click="setActiveSection('overview')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'overview' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Overview
-                  </a>
-                </li>
-                <li>
-                  <a href="#authentication" @click="setActiveSection('authentication')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'authentication' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                    Authentication
-                  </a>
-                </li>
-                <li>
-                  <a href="#error-handling" @click="setActiveSection('error-handling')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'error-handling' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Error Handling
-                  </a>
-                </li>
-                <li>
-                  <a href="#glossary" @click="setActiveSection('glossary')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'glossary' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                    Glossary
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- API Endpoints -->
-            <div class="pt-6">
-              <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">API Endpoints</h3>
-              <ul class="space-y-1">
-                <!-- National Endpoints -->
-                <li>
-                  <div class="flex items-center justify-between">
-                    <button @click="toggleSection('national')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex-1 text-left">
-                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                      National Data
-                    </button>
-                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.national ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </div>
-                  <ul v-show="expandedSections.national" class="ml-7 mt-2 space-y-1">
-                    <li>
-                      <a href="#national-latest" @click="setActiveSection('national-latest')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'national-latest' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Latest Data
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#national-historical" @click="setActiveSection('national-historical')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'national-historical' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Historical Data
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-
-                <!-- Core Endpoints -->
-                <li>
-                  <a href="#root-endpoint" @click="setActiveSection('root-endpoint')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'root-endpoint' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    Root Endpoint
-                  </a>
-                </li>
-                <li>
-                  <a href="#health-check" @click="setActiveSection('health-check')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'health-check' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Health Check
-                  </a>
-                </li>
-
-                <!-- Province Endpoints -->
-                <li>
-                  <div class="flex items-center justify-between">
-                    <button @click="toggleSection('provinces')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex-1 text-left">
-                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      </svg>
-                      Province Data
-                    </button>
-                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.provinces ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </div>
-                  <ul v-show="expandedSections.provinces" class="ml-7 mt-2 space-y-1">
-                    <li>
-                      <a href="#provinces" @click="setActiveSection('provinces')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'provinces' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        All Provinces
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#province-cases" @click="setActiveSection('province-cases')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'province-cases' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        Province Cases
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-
-                <!-- Regional Endpoints -->
-                <li>
-                  <div class="flex items-center justify-between">
-                    <button @click="toggleSection('regional')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex-1 text-left">
-                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      </svg>
-                      {{ t('documentation.regencies.title') }}
-                    </button>
-                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.regional ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </div>
-                  <ul v-show="expandedSections.regional" class="ml-7 mt-2 space-y-1">
-                    <li>
-                      <a href="#regencies" @click="setActiveSection('regencies')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'regencies' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        {{ t('documentation.regencies.listTitle') }}
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#task-forces" @click="setActiveSection('task-forces')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'task-forces' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        {{ t('documentation.taskForces.title') }}
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-
-                <!-- Healthcare Endpoints -->
-                <li>
-                  <div class="flex items-center justify-between">
-                    <button @click="toggleSection('healthcare')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex-1 text-left">
-                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                      </svg>
-                      {{ t('documentation.hospitals.title') }}
-                    </button>
-                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 transition-transform" :class="expandedSections.healthcare ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </div>
-                  <ul v-show="expandedSections.healthcare" class="ml-7 mt-2 space-y-1">
-                    <li>
-                      <a href="#hospitals" @click="setActiveSection('hospitals')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'hospitals' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        {{ t('documentation.hospitals.title') }}
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#vaccination" @click="setActiveSection('vaccination')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'vaccination' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        {{ t('documentation.vaccination.title') }}
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#statistics" @click="setActiveSection('statistics')" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors" :class="activeSection === 'statistics' ? 'bg-pico-sky/20 dark:bg-pico-sky/30 text-pico-deep dark:text-pico-sky font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'">
-                        {{ t('documentation.statistics.title') }}
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-
-            <!-- External Links -->
-            <div class="pt-6 border-t border-gray-200 dark:border-gray-700">
-              <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Resources</h3>
-              <ul class="space-y-1">
-                <li>
-                  <a :href="SWAGGER_URL" target="_blank" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                    <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
-                    Interactive API
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/banua-coder/pico-api-go" target="_blank" class="flex items-center px-3 py-2 text-sm rounded-lg transition-colors text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                    <svg class="w-4 h-4 mr-3" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-                    </svg>
-                    Source Code
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-
-        <!-- Fixed Footer -->
-        <div class="flex-shrink-0 p-4 sm:p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-          <div class="text-center">
-            <div class="flex items-center justify-center space-x-2 mb-2">
-              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4M7 4H5C3.9 4 3 4.9 3 6V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4H17M7 4H17M9 9H15M9 13H12"></path>
-              </svg>
-              <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Version {{ version }}</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-500">
-              Built with ❤️ by 
-              <a href="https://github.com/banua-coder" target="_blank" class="text-pico-blue hover:text-pico-deep dark:text-pico-sky dark:hover:text-pico-blue font-medium transition-colors">
-                Banua Coder
-              </a>
-            </p>
-          </div>
-        </div>
-      </aside>
-
-      <!-- Mobile sidebar backdrop -->
-      <div v-if="sidebarOpen" @click="closeSidebar" class="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"></div>
+      <!-- Mobile sidebar toggle -->
+      <button
+        @click="sidebarOpen = true"
+        class="lg:hidden fixed bottom-4 right-4 z-50 p-3 bg-[#635bff] text-white rounded-full shadow-lg"
+        aria-label="Open navigation"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
 
       <!-- Main content -->
-      <main class="flex-1 lg:ml-64 w-full min-w-0 pt-0">
-        <!-- Mobile header with sidebar toggle -->
-        <div class="lg:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-4">
-          <button @click="openSidebar" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            Menu
-          </button>
+      <main class="flex-1 lg:ml-[260px] min-w-0">
+        <!-- Introduction sections (full-width, prose style) -->
+        <div class="max-w-3xl px-6 py-10 space-y-16">
+          <!-- Overview -->
+          <section id="overview">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ t('documentation.overview.title') }}</h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ t('documentation.overview.description') }}</p>
+            <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-sm">
+              <span class="text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase mr-2">Base URL</span>
+              <code class="font-mono text-gray-800 dark:text-gray-200">{{ API_BASE_URL }}</code>
+            </div>
+          </section>
+
+          <!-- Authentication -->
+          <section id="authentication">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Authentication</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">This API is publicly accessible. No authentication or API key is required. Simply send requests to the endpoints and receive JSON responses.</p>
+            <div class="flex items-start space-x-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg text-sm">
+              <svg class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-blue-800 dark:text-blue-300">No API key required. All endpoints are publicly accessible.</span>
+            </div>
+          </section>
+
+          <!-- Errors -->
+          <section id="errors">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Errors</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">The API uses standard HTTP status codes. Errors return a JSON body with a <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">message</code> field describing the issue.</p>
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+              <table class="params-table">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Meaning</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="err in errorCodes" :key="err.code">
+                    <td><code class="text-xs font-mono text-gray-700 dark:text-gray-300">{{ err.code }}</code></td>
+                    <td class="text-xs text-gray-600 dark:text-gray-400">{{ err.meaning }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Pagination -->
+          <section id="pagination">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Pagination</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Paginated endpoints accept <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">page</code>, <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">per_page</code>, and <code class="font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1 rounded">load_all</code> query parameters.</p>
+            <div class="code-panel">
+              <pre><code>{{ paginationExample }}</code></pre>
+            </div>
+          </section>
         </div>
 
-        <div class="p-3 sm:p-4 md:p-6 lg:p-8">
-          <!-- Dynamic Section Components -->
-          <OverviewSection :isActive="activeSection === 'overview'" />
-          <RootEndpointSection :isActive="activeSection === 'root-endpoint'" />
-          <HealthCheckSection :isActive="activeSection === 'health-check'" />
-          <NationalLatestSection :isActive="activeSection === 'national-latest'" />
-          <NationalHistoricalSection :isActive="activeSection === 'national-historical'" />
-          <ProvincesSection :isActive="activeSection === 'provinces'" />
-          <ProvinceCasesSection :isActive="activeSection === 'province-cases'" />
-          <RegenciesSection :isActive="activeSection === 'regencies'" />
-          <HospitalsSection :isActive="activeSection === 'hospitals'" />
-          <TaskForcesSection :isActive="activeSection === 'task-forces'" />
-          <VaccinationSection :isActive="activeSection === 'vaccination'" />
-          <StatisticsSection :isActive="activeSection === 'statistics'" />
-          <AuthenticationSection :isActive="activeSection === 'authentication'" />
-          <ErrorHandlingSection :isActive="activeSection === 'error-handling'" />
-          <GlossarySection :isActive="activeSection === 'glossary'" />
+        <!-- API endpoint sections -->
+        <div class="border-t border-gray-200 dark:border-gray-800">
+
+          <!-- National Latest -->
+          <ApiSection section-id="national-latest" method="GET" :endpoint="`${API_V1_URL}/national/latest`" description="Returns the latest national COVID-19 case data.">
+            <template #left>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Get the most recent national COVID-19 statistics including confirmed cases, recoveries, and deaths. No parameters required.</p>
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': nationalLatestResponse, 'cURL': `curl -X GET &quot;${API_V1_URL}/national/latest&quot; \\\n  -H &quot;Accept: application/json&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- National Historical -->
+          <ApiSection section-id="national-historical" method="GET" :endpoint="`${API_V1_URL}/national`" description="Returns historical national COVID-19 data with pagination.">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': nationalHistoricalResponse, 'cURL': `curl &quot;${API_V1_URL}/national?page=1&per_page=10&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Provinces -->
+          <ApiSection section-id="provinces" method="GET" :endpoint="`${API_V1_URL}/provinces`" description="Returns a list of all provinces in Indonesia.">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': provincesResponse, 'cURL': `curl &quot;${API_V1_URL}/provinces&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Province Cases -->
+          <ApiSection section-id="province-cases" method="GET" :endpoint="`${API_V1_URL}/province-cases`" description="Returns COVID-19 case data for Sulawesi Tengah (province_id: 72).">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': provinceCasesResponse, 'cURL': `curl &quot;${API_V1_URL}/province-cases?page=1&per_page=10&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Regencies -->
+          <ApiSection section-id="regencies" method="GET" :endpoint="`${API_V1_URL}/regencies`" description="Returns a list of regencies in Sulawesi Tengah.">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': regenciesResponse, 'cURL': `curl &quot;${API_V1_URL}/regencies&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Hospitals -->
+          <ApiSection section-id="hospitals" method="GET" :endpoint="`${API_V1_URL}/hospitals`" description="Returns hospitals and health facilities in Sulawesi Tengah.">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': hospitalsResponse, 'cURL': `curl &quot;${API_V1_URL}/hospitals&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Task Forces -->
+          <ApiSection section-id="task-forces" method="GET" :endpoint="`${API_V1_URL}/task-forces`" description="Returns COVID-19 task force contacts and information.">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': taskForcesResponse, 'cURL': `curl &quot;${API_V1_URL}/task-forces&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Gender Stats -->
+          <ApiSection section-id="gender-stats" method="GET" :endpoint="`${API_V1_URL}/stats/gender`" description="Returns gender-based COVID-19 statistics with age group breakdown.">
+            <template #left>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Returns nested gender and age group statistics for positive cases, PDP (persons under monitoring), ODP, and deceased.</p>
+              <ParamsTable :params="paginationParams" title="Parameters" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': genderStatsResponse, 'cURL': `curl &quot;${API_V1_URL}/stats/gender&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Test Statistics -->
+          <ApiSection section-id="test-statistics" method="GET" :endpoint="`${API_V1_URL}/stats/tests`" description="Returns COVID-19 testing statistics for Sulawesi Tengah.">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': testStatsResponse, 'cURL': `curl &quot;${API_V1_URL}/stats/tests&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Test Types -->
+          <ApiSection section-id="test-types" method="GET" :endpoint="`${API_V1_URL}/stats/test-types`" description="Returns available COVID-19 test types.">
+            <template #left>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Returns a list of COVID-19 test types available in the system (e.g., PCR, Antigen).</p>
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': testTypesResponse, 'cURL': `curl &quot;${API_V1_URL}/stats/test-types&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Vaccination National -->
+          <ApiSection section-id="vaccination-national" method="GET" :endpoint="`${API_V1_URL}/vaccination/national`" description="Returns national vaccination data with nested group breakdown.">
+            <template #left>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Returns vaccination records with nested daily/cumulative data and group breakdowns (health workers, elderly, public officers, public, teenagers).</p>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': vaccinationNationalResponse, 'cURL': `curl &quot;${API_V1_URL}/vaccination/national?page=1&per_page=10&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Vaccination Province -->
+          <ApiSection section-id="vaccination-province" method="GET" :endpoint="`${API_V1_URL}/vaccination/province`" description="Returns Sulawesi Tengah vaccination data (same structure as national).">
+            <template #left>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Vaccination data for Sulawesi Tengah (province_id: 72). Same nested response structure as the national endpoint.</p>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': vaccinationProvinceResponse, 'cURL': `curl &quot;${API_V1_URL}/vaccination/province?page=1&per_page=10&quot;` }" />
+            </template>
+          </ApiSection>
+
+          <!-- Vaccination Locations -->
+          <ApiSection section-id="vaccination-locations" method="GET" :endpoint="`${API_V1_URL}/vaccination/locations`" description="Returns vaccination center locations in Sulawesi Tengah.">
+            <template #left>
+              <ParamsTable :params="paginationParams" />
+            </template>
+            <template #right>
+              <CodePanel :code-map="{ 'Response': vaccinationLocationsResponse, 'cURL': `curl &quot;${API_V1_URL}/vaccination/locations?load_all=true&quot;` }" />
+            </template>
+          </ApiSection>
+
         </div>
       </main>
     </div>
@@ -295,78 +224,334 @@
 </template>
 
 <script setup lang="ts">
-import { SWAGGER_URL } from '@/config/api'
-import { ref, reactive, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import ThemeToggle from '@/components/ThemeToggle.vue'
-import packageJson from '../../package.json'
-import OverviewSection from '@/components/documentation/OverviewSection.vue'
-import NationalLatestSection from '@/components/documentation/NationalLatestSection.vue'
-import NationalHistoricalSection from '@/components/documentation/NationalHistoricalSection.vue'
-import RootEndpointSection from '@/components/documentation/RootEndpointSection.vue'
-import HealthCheckSection from '@/components/documentation/HealthCheckSection.vue'
-import ProvincesSection from '@/components/documentation/ProvincesSection.vue'
-import ProvinceCasesSection from '@/components/documentation/ProvinceCasesSection.vue'
-import AuthenticationSection from '@/components/documentation/AuthenticationSection.vue'
-import ErrorHandlingSection from '@/components/documentation/ErrorHandlingSection.vue'
-import GlossarySection from '@/components/documentation/GlossarySection.vue'
-import RegenciesSection from '@/components/documentation/RegenciesSection.vue'
-import HospitalsSection from '@/components/documentation/HospitalsSection.vue'
-import TaskForcesSection from '@/components/documentation/TaskForcesSection.vue'
-import VaccinationSection from '@/components/documentation/VaccinationSection.vue'
-import StatisticsSection from '@/components/documentation/StatisticsSection.vue'
+import Navigation from '@/components/Navigation.vue'
+import DocSidebar from '@/components/DocSidebar.vue'
+import ApiSection from '@/components/ApiSection.vue'
+import CodePanel from '@/components/CodePanel.vue'
+import ParamsTable from '@/components/ParamsTable.vue'
+import type { Param } from '@/components/ParamsTable.vue'
+import { API_BASE_URL, API_V1_URL } from '@/config/api'
 
-const { locale, t } = useI18n()
-
-// Version from package.json
-const version = packageJson.version
-
-// Sidebar state
-const sidebarOpen = ref(false)
+const { t } = useI18n()
 const activeSection = ref('overview')
+const sidebarOpen = ref(false)
 
-// Expandable sections
-const expandedSections = reactive({
-  national: true,
-  provinces: false,
-  regional: false,
-  healthcare: false
-})
+const errorCodes = [
+  { code: '200', meaning: 'OK — Request succeeded.' },
+  { code: '400', meaning: 'Bad Request — Invalid query parameters.' },
+  { code: '404', meaning: 'Not Found — Resource does not exist.' },
+  { code: '500', meaning: 'Internal Server Error — Server-side error.' },
+]
 
-// Functions
-const openSidebar = () => {
-  sidebarOpen.value = true
-}
+const paginationParams: Param[] = [
+  { name: 'page', type: 'integer', required: false, description: 'Page number.', default: '1' },
+  { name: 'per_page', type: 'integer', required: false, description: 'Results per page (max 100).', default: '10' },
+  { name: 'load_all', type: 'boolean', required: false, description: 'Return all records without pagination.', default: 'false' },
+]
 
-const closeSidebar = () => {
-  sidebarOpen.value = false
-}
+const paginationExample = `curl "${API_V1_URL}/provinces?page=2&per_page=5" \\
+  -H "Accept: application/json"`
 
-const setActiveSection = (section: string) => {
-  activeSection.value = section
-  closeSidebar()
-}
+// --- Response examples ---
 
-const toggleSection = (section: keyof typeof expandedSections) => {
-  expandedSections[section] = !expandedSections[section]
-}
-
-// Toggle language function
-const toggleLanguage = () => {
-  const newLocale = locale.value === 'en' ? 'id' : 'en'
-  locale.value = newLocale
-  localStorage.setItem('pico-language', newLocale)
-}
-
-// Initialize
-onMounted(() => {
-  // Set default active section based on URL hash
-  const hash = window.location.hash.substring(1)
-  if (hash) {
-    activeSection.value = hash
+const nationalLatestResponse = `{
+  "status": "success",
+  "data": {
+    "id": 365,
+    "date": "2022-03-01",
+    "positive": 5619727,
+    "recovered": 5398060,
+    "deaths": 149737,
+    "active": 71930
   }
-  
-  // Expand the national section by default since it has content
-  expandedSections.national = true
-})
+}`
+
+const nationalHistoricalResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "date": "2020-03-02",
+        "positive": 2,
+        "recovered": 0,
+        "deaths": 0,
+        "active": 2
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 365,
+      "total_pages": 37,
+      "has_next": true,
+      "has_prev": false
+    }
+  }
+}`
+
+const provincesResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 72,
+        "key": "sulawesi_tengah",
+        "name": "Sulawesi Tengah",
+        "latitude": -1.4300254,
+        "longitude": 121.4456179
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 10, "total": 34 }
+  }
+}`
+
+const provinceCasesResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "province_id": 72,
+        "date": "2021-08-01",
+        "positive": 12842,
+        "recovered": 11045,
+        "deaths": 320,
+        "active": 1477
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 10, "total": 540 }
+  }
+}`
+
+const regenciesResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 7271,
+        "province_id": 72,
+        "key": "kota_palu",
+        "name": "Kota Palu"
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 10, "total": 13 }
+  }
+}`
+
+const hospitalsResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "regency_id": 7271,
+        "name": "RSUD Undata Palu",
+        "address": "Jl. R.E. Martadinata, Palu",
+        "phone": "+62 451-457746",
+        "type": "rujukan",
+        "total_beds": 200,
+        "available_beds": 45
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 10, "total": 32 }
+  }
+}`
+
+const taskForcesResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "regency_id": 7271,
+        "name": "Satgas COVID-19 Kota Palu",
+        "phone": "119 ext 9",
+        "address": "Jl. Samratulangi No.1, Palu"
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 10, "total": 13 }
+  }
+}`
+
+const genderStatsResponse = `{
+  "status": "success",
+  "data": {
+    "positive": {
+      "male": {
+        "total": 8452,
+        "age_groups": {
+          "0_14": 312,
+          "15_19": 445,
+          "20_29": 1205,
+          "30_39": 1876,
+          "40_49": 1654,
+          "50_59": 1432,
+          "60_69": 876,
+          "70_plus": 652
+        }
+      },
+      "female": {
+        "total": 7231,
+        "age_groups": {
+          "0_14": 298,
+          "15_19": 412,
+          "20_29": 1105,
+          "30_39": 1654,
+          "40_49": 1432,
+          "50_59": 1198,
+          "60_69": 765,
+          "70_plus": 367
+        }
+      }
+    },
+    "pdp": {
+      "male": { "total": 3210, "age_groups": { "0_14": 120, "15_19": 230, "20_29": 540 } },
+      "female": { "total": 2890, "age_groups": { "0_14": 110, "15_19": 198, "20_29": 487 } }
+    },
+    "recovered": {
+      "male": { "total": 7890, "age_groups": {} },
+      "female": { "total": 6754, "age_groups": {} }
+    },
+    "deaths": {
+      "male": { "total": 245, "age_groups": {} },
+      "female": { "total": 198, "age_groups": {} }
+    }
+  }
+}`
+
+const testStatsResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "province_id": 72,
+        "date": "2021-08-01",
+        "total_specimen": 1500,
+        "total_positive_specimen": 50,
+        "total_negative_specimen": 1450
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 10, "total": 480 }
+  }
+}`
+
+const testTypesResponse = `{
+  "status": "success",
+  "data": [
+    { "id": 1, "key": "pcr", "name": "PCR" },
+    { "id": 2, "key": "antigen", "name": "Rapid Antigen" },
+    { "id": 3, "key": "antibody", "name": "Rapid Antibody" }
+  ]
+}`
+
+const vaccinationNationalResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "date": "2021-01-13",
+        "target": 2240548,
+        "total": {
+          "daily": {
+            "dose_1": 473,
+            "dose_2": 1535
+          },
+          "cumulative": {
+            "dose_1": 81885,
+            "dose_2": 61974
+          }
+        },
+        "groups": {
+          "health_worker": {
+            "target": 24698,
+            "daily": { "dose_1": 120, "dose_2": 340 },
+            "cumulative": { "dose_1": 18540, "dose_2": 16230 }
+          },
+          "elderly": {
+            "target": 289032,
+            "daily": { "dose_1": 85, "dose_2": 210 },
+            "cumulative": { "dose_1": 12340, "dose_2": 9870 }
+          },
+          "public_officer": {
+            "target": 198450,
+            "daily": { "dose_1": 98, "dose_2": 345 },
+            "cumulative": { "dose_1": 15670, "dose_2": 13240 }
+          },
+          "public": {
+            "target": 1620000,
+            "daily": { "dose_1": 150, "dose_2": 590 },
+            "cumulative": { "dose_1": 28900, "dose_2": 18940 }
+          },
+          "teenager": {
+            "target": 108368,
+            "daily": { "dose_1": 20, "dose_2": 50 },
+            "cumulative": { "dose_1": 6435, "dose_2": 3694 }
+          }
+        }
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 365,
+      "total_pages": 37,
+      "has_next": true,
+      "has_prev": false
+    }
+  }
+}`
+
+const vaccinationProvinceResponse = `{
+  "status": "success",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "province_id": 72,
+        "date": "2021-01-13",
+        "target": 2240548,
+        "total": {
+          "daily": { "dose_1": 473, "dose_2": 1535 },
+          "cumulative": { "dose_1": 81885, "dose_2": 61974 }
+        },
+        "groups": {
+          "health_worker": {
+            "target": 24698,
+            "daily": { "dose_1": 120, "dose_2": 340 },
+            "cumulative": { "dose_1": 18540, "dose_2": 16230 }
+          },
+          "elderly": {
+            "target": 289032,
+            "daily": { "dose_1": 85, "dose_2": 210 },
+            "cumulative": { "dose_1": 12340, "dose_2": 9870 }
+          }
+        }
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 10, "total": 365 }
+  }
+}`
+
+const vaccinationLocationsResponse = `{
+  "status": "success",
+  "data": [
+    {
+      "id": 1,
+      "regency_id": 7271,
+      "name": "Puskesmas Tipo",
+      "address": "Jl. Basuki Rahmat, Palu",
+      "operational_time": "08:00 - 16:00",
+      "is_first_vaccination": true,
+      "is_second_vaccination": true,
+      "daily_vaccination_quota": 100,
+      "vaccination_stock_remaining": 50,
+      "notes": ""
+    }
+  ]
+}`
 </script>
