@@ -1,3 +1,14 @@
+## [v1.3.1] - 2026-03-25
+
+### Fixed
+
+- Copy pnpm-lock.yaml in dockerfile before install (e4f4b86)
+
+### Documentation
+
+- Update changelog for v1.3.0 (72dc9e2)
+
+
 ## [v1.3.0] - 2026-03-25
 
 ### Added
