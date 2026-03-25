@@ -82,28 +82,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
 import { useTheme } from '@/composables/useTheme'
-import Prism from 'prismjs'
-import BaseBadge from './BaseBadge.vue'
-
-// Import commonly used languages
-import 'prismjs/components/prism-bash'
-import 'prismjs/components/prism-json'
-import 'prismjs/components/prism-javascript'
-import 'prismjs/components/prism-typescript'
-import 'prismjs/components/prism-python'
-import 'prismjs/components/prism-go'
-import 'prismjs/components/prism-markup' // Must be loaded before PHP
-import 'prismjs/components/prism-markup-templating' // Required for PHP
-import 'prismjs/components/prism-php'
-import 'prismjs/components/prism-java'
-import 'prismjs/components/prism-c'
-import 'prismjs/components/prism-cpp'
-import 'prismjs/components/prism-csharp'
-import 'prismjs/components/prism-css'
-import 'prismjs/components/prism-scss'
-import 'prismjs/components/prism-yaml'
-import 'prismjs/components/prism-docker'
-import 'prismjs/components/prism-sql'
+import Prism from '@/lib/prism-setup'
 
 interface Props {
   code: string
