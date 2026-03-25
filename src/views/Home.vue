@@ -12,6 +12,7 @@
           <span>All systems operational</span>
         </div>
 
+        <img src="/pico-api-logo.webp" alt="PICO API" class="w-20 h-20 mx-auto mb-6 rounded-2xl" />
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">
           PICO SulTeng COVID-19 API
         </h1>
@@ -67,12 +68,10 @@
     <section class="max-w-5xl mx-auto px-6 py-16">
       <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ t('dataSources.title') }}</h2>
       <p class="text-sm text-gray-600 dark:text-gray-400 mb-8">{{ t('dataSources.subtitle') }}</p>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        <div v-for="source in dataSources" :key="source" class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 p-3 rounded-lg border border-gray-200 dark:border-gray-800">
-          <svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-          <span>{{ source }}</span>
+      <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12">
+        <div v-for="source in dataSourceLogos" :key="source.name" class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+          <img :src="source.logo" :alt="source.name" class="h-12 w-12 object-contain rounded-lg" />
+          <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">{{ source.name }}</span>
         </div>
       </div>
     </section>
@@ -91,7 +90,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Navigation from '@/components/Navigation.vue'
 import { API_BASE_URL, API_V1_URL, SWAGGER_URL } from '@/config/api'
@@ -105,12 +103,12 @@ const features = [
   { icon: '📖', title: 'Well Documented', desc: 'Comprehensive docs with examples for every endpoint.' },
 ]
 
-const dataSources = computed(() => [
-  t('dataSources.partners.inacovid'),
-  t('dataSources.partners.dinkes'),
-  t('dataSources.partners.sultengLawan'),
-  t('dataSources.partners.detexi'),
-  t('dataSources.partners.banuaCoder'),
-  t('dataSources.partners.ethicalHacker'),
-])
+const dataSourceLogos = [
+  { name: 'InaCOVID-19', logo: '/inacovid.webp' },
+  { name: 'Dinkes Sulteng', logo: '/dinkes-sulteng.webp' },
+  { name: 'Sulteng Lawan COVID', logo: '/sulteng-lawan-covid.webp' },
+  { name: 'Detexi', logo: '/detexi.webp' },
+  { name: 'Banua Coder', logo: '/banua-coder.webp' },
+  { name: 'Ethical Hacker ID', logo: '/ethical-hacker-indonesia.webp' },
+]
 </script>

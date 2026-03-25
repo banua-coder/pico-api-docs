@@ -43,7 +43,7 @@
 import { useI18n } from 'vue-i18n'
 import ThemeToggle from './ThemeToggle.vue'
 
-const props = defineProps<{
+defineProps<{
   activeSection: string
   open: boolean
 }>()
