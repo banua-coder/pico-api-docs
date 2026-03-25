@@ -48,26 +48,24 @@ export default defineConfig({
             if (id.includes('vue-router') || id.includes('vue-i18n')) {
               return 'vue-ecosystem'
             }
-            // katex separately is fine
+            // katex
             if (id.includes('katex')) {
               return 'katex-vendor'
             }
-            // Animation and UI libraries
+            // Animation
             if (id.includes('aos')) {
               return 'ui-vendor'
             }
-            // Other vendor libraries
+            // NOTE: prismjs is intentionally NOT assigned to a manual chunk.
+            // Rollup will co-locate it with its importer (prism-setup.ts →
+            // components chunk), ensuring the singleton and language plugins
+            // share the same module instance at runtime.
             return 'vendor'
-            // NOTE: prismjs intentionally NOT chunked separately
-            // It must be bundled together with components that use it
-            // to avoid "Prism is not defined" runtime error
           }
-
           // Locale chunks
           if (id.includes('src/locales/')) {
             return 'locales'
           }
-          // Do NOT split components - prismjs needs to be in same chunk as CodeBlock.vue
         },
       },
     },
@@ -75,13 +73,6 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   optimizeDeps: {
-    include: [
-      'vue',
-      'vue-router',
-      'vue-i18n',
-      'prismjs',
-      'katex',
-      'aos'
-    ],
+    include: ['vue', 'vue-router', 'vue-i18n', 'prismjs', 'katex', 'aos'],
   },
 })
