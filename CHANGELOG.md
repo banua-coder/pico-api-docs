@@ -1,3 +1,17 @@
+## [v1.3.3] - 2026-03-25
+
+### Fixed
+
+- Add push tags trigger alongside release published (b26f420)
+- Keep prismjs and plugins in same chunk to avoid prism not defined error (8497024)
+- Remove v prefix from version in package.json (cb6fc35)
+- Add trigger-deploy job after release using pat (2efcc0a)
+
+### Documentation
+
+- Update changelog for v1.3.2 (4630a21)
+
+
 ## [v1.3.2] - 2026-03-25
 
 ### Fixed
