@@ -1,6 +1,6 @@
 {
   "name": "pico-api-docs",
-  "version": "v1.3.0",
+  "version": "v1.3.1",
   "description": "PICO SulTeng API Documentation - COVID-19 Sulawesi Tengah Data API",
   "main": "index.js",
   "scripts": {
