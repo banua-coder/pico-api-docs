@@ -97,7 +97,7 @@
           <!-- National Historical -->
           <ApiSection section-id="national-historical" method="GET" :endpoint="`${API_V1_URL}/national`" :description="t('docs.sections.nationalHistorical.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="nationalParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: nationalHistoricalResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/national?page=1&per_page=10&quot;` }" />
@@ -107,7 +107,7 @@
           <!-- Provinces -->
           <ApiSection section-id="provinces" method="GET" :endpoint="`${API_V1_URL}/provinces`" :description="t('docs.sections.provinces.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="provincesParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: provincesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/provinces&quot;` }" />
@@ -117,7 +117,7 @@
           <!-- Province Cases -->
           <ApiSection section-id="province-cases" method="GET" :endpoint="`${API_V1_URL}/province-cases`" :description="t('docs.sections.provinceCases.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="nationalParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: provinceCasesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/province-cases?page=1&per_page=10&quot;` }" />
@@ -158,7 +158,7 @@
           <ApiSection section-id="gender-stats" method="GET" :endpoint="`${API_V1_URL}/stats/gender`" :description="t('docs.sections.genderStats.description')">
             <template #left>
               <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.genderStats.leftText') }}</p>
-              <ParamsTable :params="paginationParams" :title="t('docs.table.parameters')" />
+              <p class="text-sm text-gray-500 dark:text-gray-400 italic mt-2">No query parameters.</p>
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: genderStatsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/stats/gender&quot;` }" />
@@ -168,7 +168,7 @@
           <!-- Test Statistics -->
           <ApiSection section-id="test-statistics" method="GET" :endpoint="`${API_V1_URL}/stats/tests`" :description="t('docs.sections.testStats.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <p class="text-sm text-gray-500 dark:text-gray-400 italic">No query parameters.</p>
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: testStatsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/stats/tests&quot;` }" />
@@ -200,7 +200,7 @@
           <ApiSection section-id="vaccination-province" method="GET" :endpoint="`${API_V1_URL}/vaccination/province`" :description="t('docs.sections.vaccinationProvince.description')">
             <template #left>
               <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.vaccinationProvince.leftText') }}</p>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="vaccinationProvinceParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: vaccinationProvinceResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/vaccination/province?page=1&per_page=10&quot;` }" />
@@ -216,6 +216,105 @@
               <CodePanel :code-map="{ [t('docs.common.response')]: vaccinationLocationsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/vaccination/locations?load_all=true&quot;` }" />
             </template>
           </ApiSection>
+
+          <!-- Glossary -->
+          <div id="glossary" class="border-b border-gray-200 dark:border-gray-800">
+            <!-- Section header -->
+            <div class="px-6 py-6 border-b border-gray-200 dark:border-gray-800">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ t('documentation.glossary.title') }}</h2>
+              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ t('documentation.glossary.subtitle') }}</p>
+            </div>
+
+            <!-- Two-column layout -->
+            <div class="api-section-grid">
+              <!-- Left column: glossary content -->
+              <div class="px-6 py-6 border-r border-gray-200 dark:border-gray-800 space-y-8">
+
+                <!-- Reproduction Rate -->
+                <div>
+                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold">Rt</span>
+                    {{ t('documentation.glossary.reproductionRate.title') }}
+                  </h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{{ t('documentation.glossary.reproductionRate.definitionText') }}</p>
+                  <div class="space-y-1.5 text-sm">
+                    <div class="flex items-center gap-2 px-3 py-2 rounded border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
+                      <span class="font-mono font-bold text-red-600 dark:text-red-400 shrink-0">Rt &gt; 1</span>
+                      <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.growing') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2 px-3 py-2 rounded border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20">
+                      <span class="font-mono font-bold text-yellow-600 dark:text-yellow-400 shrink-0">Rt = 1</span>
+                      <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.stable') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2 px-3 py-2 rounded border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20">
+                      <span class="font-mono font-bold text-green-600 dark:text-green-400 shrink-0">Rt &lt; 1</span>
+                      <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.declining') }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Case Classifications -->
+                <div>
+                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-3">{{ t('documentation.glossary.caseClassifications.title') }}</h3>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div v-for="cls in caseClassList" :key="cls.key" class="p-3 rounded border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+                      <div class="flex items-center gap-2 mb-1">
+                        <span :class="cls.dot" class="w-2 h-2 rounded-full shrink-0"></span>
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">{{ t(`documentation.glossary.caseClassifications.${cls.key}.title`) }}</span>
+                      </div>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">{{ t(`documentation.glossary.caseClassifications.${cls.key}.description`) }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Data Types -->
+                <div>
+                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-3">{{ t('documentation.glossary.dataTypes.title') }}</h3>
+                  <div class="space-y-2">
+                    <div v-for="dt in dataTypeList" :key="dt.key" class="p-3 rounded border border-gray-200 dark:border-gray-700">
+                      <span class="text-sm font-medium text-gray-900 dark:text-white">{{ t(`documentation.glossary.dataTypes.${dt.key}.title`) }}</span>
+                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ t(`documentation.glossary.dataTypes.${dt.key}.description`) }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Indonesian Terminology -->
+                <div>
+                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-1">{{ t('documentation.glossary.indonesianTerminology.title') }}</h3>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">{{ t('documentation.glossary.indonesianTerminology.subtitle') }}</p>
+                  <div class="space-y-4">
+                    <div>
+                      <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">{{ t('documentation.glossary.indonesianTerminology.currentTerms') }}</p>
+                      <div class="space-y-1.5">
+                        <div v-for="term in currentTermsList" :key="term" class="flex items-start gap-3 px-3 py-2 rounded border border-gray-200 dark:border-gray-700 text-sm">
+                          <code class="font-mono text-[#635bff] dark:text-[#7b74ff] shrink-0 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.name`) }}</code>
+                          <span class="text-gray-600 dark:text-gray-400 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.translation`) }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">{{ t('documentation.glossary.indonesianTerminology.legacyTerms') }}</p>
+                      <div class="space-y-1.5">
+                        <div v-for="term in legacyTermsList" :key="term" class="flex items-start gap-3 px-3 py-2 rounded border border-gray-200 dark:border-gray-700 text-sm opacity-75">
+                          <code class="font-mono text-gray-500 dark:text-gray-400 shrink-0 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.acronym`) }}</code>
+                          <span class="text-gray-500 dark:text-gray-500 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.translation`) }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Right column: formulas & code examples -->
+              <div class="px-6 py-6 bg-gray-50 dark:bg-[#0d1b2e]">
+                <CodePanel :code-map="{
+                  'Rt Formula': rtFormulaCode,
+                  'Active Cases': 'active = positive - recovered - deceased'
+                }" />
+              </div>
+            </div>
+          </div>
 
         </div>
       </main>
@@ -249,6 +348,27 @@ const paginationParams = computed<Param[]>(() => [
   { name: 'page', type: 'integer', required: false, description: t('docs.params.page.description'), default: t('docs.params.page.default') },
   { name: 'per_page', type: 'integer', required: false, description: t('docs.params.perPage.description'), default: t('docs.params.perPage.default') },
   { name: 'load_all', type: 'boolean', required: false, description: t('docs.params.loadAll.description'), default: t('docs.params.loadAll.default') },
+])
+
+const nationalParams = computed<Param[]>(() => [
+  { name: 'limit', type: 'integer', required: false, description: t('docs.params.limit.description'), default: '50' },
+  { name: 'offset', type: 'integer', required: false, description: t('docs.params.offset.description'), default: '0' },
+  { name: 'page', type: 'integer', required: false, description: t('docs.params.page.description'), default: t('docs.params.page.default') },
+  { name: 'all', type: 'boolean', required: false, description: t('docs.params.all.description'), default: 'false' },
+  { name: 'start_date', type: 'string', required: false, description: t('docs.params.startDate.description'), default: '' },
+  { name: 'end_date', type: 'string', required: false, description: t('docs.params.endDate.description'), default: '' },
+  { name: 'sort', type: 'string', required: false, description: t('docs.params.sort.description'), default: 'date:desc' },
+])
+
+const provincesParams = computed<Param[]>(() => [
+  { name: 'exclude_latest_case', type: 'boolean', required: false, description: t('docs.params.excludeLatestCase.description'), default: 'false' },
+])
+
+const vaccinationProvinceParams = computed<Param[]>(() => [
+  { name: 'page', type: 'integer', required: false, description: t('docs.params.page.description'), default: t('docs.params.page.default') },
+  { name: 'per_page', type: 'integer', required: false, description: t('docs.params.perPage.description'), default: t('docs.params.perPage.default') },
+  { name: 'load_all', type: 'boolean', required: false, description: t('docs.params.loadAll.description'), default: t('docs.params.loadAll.default') },
+  { name: 'province_id', type: 'integer', required: false, description: t('docs.params.provinceId.description'), default: '' },
 ])
 
 const paginationExample = `curl "${API_V1_URL}/provinces?page=2&per_page=5" \\
@@ -554,4 +674,36 @@ const vaccinationLocationsResponse = `{
     }
   ]
 }`
+
+// Glossary data
+const caseClassList = [
+  { key: 'positive', dot: 'bg-blue-500' },
+  { key: 'active', dot: 'bg-yellow-500' },
+  { key: 'recovered', dot: 'bg-green-500' },
+  { key: 'deceased', dot: 'bg-gray-500' },
+]
+
+const dataTypeList = [
+  { key: 'daily' },
+  { key: 'cumulative' },
+  { key: 'percentages' },
+]
+
+const currentTermsList = ['kasusKonfirmasi', 'kasusProbable', 'kontakErat', 'kasusSuspect']
+const legacyTermsList = ['odp', 'pdp']
+
+
+const rtFormulaCode = `# EpiEstim Bayesian Estimation
+# 1. Total infectiousness:
+λ_t = Σ(I_{t-s} × w_s)   for s=1..t-1
+
+# 2. Where:
+#   I_{t-s} = incidence at time (t-s)
+#   w_s     = serial interval probability
+
+# 3. Posterior distribution:
+R_t | data ~ Gamma(a + ΣI_t, b + Σλ_t)
+
+# 4. Point estimate:
+R̂_t = (a + ΣI_t) / (b + Σλ_t)`
 </script>
