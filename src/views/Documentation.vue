@@ -227,7 +227,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Navigation from '@/components/Navigation.vue'
 import DocSidebar from '@/components/DocSidebar.vue'
@@ -241,6 +241,42 @@ import { API_BASE_URL, API_V1_URL } from '@/config/api'
 const { t } = useI18n()
 const activeSection = ref('overview')
 const sidebarOpen = ref(false)
+
+// --- Scroll spy via IntersectionObserver ---
+const sectionIds = [
+  'overview', 'authentication', 'errors', 'pagination',
+  'national-latest', 'national-historical',
+  'provinces', 'province-cases', 'regencies',
+  'hospitals', 'task-forces',
+  'gender-stats', 'test-statistics', 'test-types',
+  'vaccination-national', 'vaccination-province', 'vaccination-locations',
+  'glossary',
+]
+
+let observer: IntersectionObserver | null = null
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      // Pick the topmost visible section
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+      if (visible.length > 0) {
+        activeSection.value = visible[0].target.id
+      }
+    },
+    { rootMargin: '-10% 0px -80% 0px', threshold: 0 }
+  )
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id)
+    if (el) observer!.observe(el)
+  })
+})
+
+onUnmounted(() => {
+  observer?.disconnect()
+})
 
 const errorCodes = [
   { code: '200' },
@@ -284,12 +320,32 @@ const paginationExample = `curl "${API_V1_URL}/provinces?page=2&per_page=5" \\
 const nationalLatestResponse = `{
   "status": "success",
   "data": {
-    "id": 365,
-    "date": "2022-03-01",
-    "positive": 5619727,
-    "recovered": 5398060,
-    "deaths": 149737,
-    "active": 71930
+    "day": 883,
+    "date": "2022-12-18T16:37:54+07:00",
+    "daily": {
+      "positive": 860,
+      "recovered": 2035,
+      "deceased": 14,
+      "active": -1189
+    },
+    "cumulative": {
+      "positive": 6295729,
+      "recovered": 6126860,
+      "deceased": 157730,
+      "active": 11139
+    },
+    "statistics": {
+      "percentages": {
+        "active": 0.177,
+        "recovered": 97.318,
+        "deceased": 2.505
+      },
+      "reproduction_rate": {
+        "value": null,
+        "upper_bound": null,
+        "lower_bound": null
+      }
+    }
   }
 }`
 
@@ -298,19 +354,39 @@ const nationalHistoricalResponse = `{
   "data": {
     "data": [
       {
-        "id": 1,
-        "date": "2020-03-02",
-        "positive": 2,
-        "recovered": 0,
-        "deaths": 0,
-        "active": 2
+        "day": 1,
+        "date": "2020-03-02T00:00:00+07:00",
+        "daily": {
+          "positive": 2,
+          "recovered": 0,
+          "deceased": 0,
+          "active": 2
+        },
+        "cumulative": {
+          "positive": 2,
+          "recovered": 0,
+          "deceased": 0,
+          "active": 2
+        },
+        "statistics": {
+          "percentages": {
+            "active": 100,
+            "recovered": 0,
+            "deceased": 0
+          },
+          "reproduction_rate": {
+            "value": null,
+            "upper_bound": null,
+            "lower_bound": null
+          }
+        }
       }
     ],
     "pagination": {
       "page": 1,
       "per_page": 10,
-      "total": 365,
-      "total_pages": 37,
+      "total": 883,
+      "total_pages": 89,
       "has_next": true,
       "has_prev": false
     }
@@ -319,18 +395,28 @@ const nationalHistoricalResponse = `{
 
 const provincesResponse = `{
   "status": "success",
-  "data": {
-    "data": [
-      {
-        "id": 72,
-        "key": "sulawesi_tengah",
-        "name": "Sulawesi Tengah",
-        "latitude": -1.4300254,
-        "longitude": 121.4456179
+  "data": [
+    {
+      "id": "11",
+      "name": "Aceh",
+      "latest_case": {
+        "day": 538,
+        "date": "2021-08-21T18:17:00+07:00",
+        "daily": {
+          "positive": 382,
+          "recovered": 255,
+          "deceased": 29,
+          "active": 98
+        },
+        "cumulative": {
+          "positive": 29742,
+          "recovered": 22261,
+          "deceased": 1275,
+          "active": 6206
+        }
       }
-    ],
-    "pagination": { "page": 1, "per_page": 10, "total": 34 }
-  }
+    }
+  ]
 }`
 
 const provinceCasesResponse = `{
@@ -338,16 +424,37 @@ const provinceCasesResponse = `{
   "data": {
     "data": [
       {
-        "id": 1,
-        "province_id": 72,
-        "date": "2021-08-01",
-        "positive": 12842,
-        "recovered": 11045,
-        "deaths": 320,
-        "active": 1477
+        "day": 729,
+        "date": "2022-02-27T18:11:00+07:00",
+        "daily": {
+          "positive": 1,
+          "recovered": 463,
+          "deceased": 3,
+          "active": -465
+        },
+        "cumulative": {
+          "positive": 101028,
+          "recovered": 88841,
+          "deceased": 1852,
+          "active": 10335
+        },
+        "statistics": {
+          "percentages": {
+            "active": 10.23,
+            "recovered": 87.94,
+            "deceased": 1.83
+          }
+        }
       }
     ],
-    "pagination": { "page": 1, "per_page": 10, "total": 540 }
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 729,
+      "total_pages": 73,
+      "has_next": true,
+      "has_prev": false
+    }
   }
 }`
 
@@ -356,13 +463,21 @@ const regenciesResponse = `{
   "data": {
     "data": [
       {
-        "id": 7271,
+        "id": 7202,
         "province_id": 72,
-        "key": "kota_palu",
-        "name": "Kota Palu"
+        "name": "Banggai",
+        "created_at": "2021-07-12T16:35:40+07:00",
+        "updated_at": "2021-07-12T16:35:40+07:00"
       }
     ],
-    "pagination": { "page": 1, "per_page": 10, "total": 13 }
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 13,
+      "total_pages": 2,
+      "has_next": true,
+      "has_prev": false
+    }
   }
 }`
 
@@ -371,17 +486,32 @@ const hospitalsResponse = `{
   "data": {
     "data": [
       {
-        "id": 1,
+        "id": 19,
         "regency_id": 7271,
-        "name": "RSUD Undata Palu",
-        "address": "Jl. R.E. Martadinata, Palu",
-        "phone": "+62 451-457746",
-        "type": "rujukan",
-        "total_beds": 200,
-        "available_beds": 45
+        "name": "RS Tk.III 14.06.01 Dr. Sindhu Trisno",
+        "hospital_code": "7271025",
+        "address": "Jl. Sisingamangaraja No.4, Palu",
+        "latitude": -0.8959781,
+        "longitude": 119.8874783,
+        "contacts": [
+          {
+            "id": 132,
+            "contact_type_id": 2,
+            "contact_type_name": "Telepon",
+            "contact_type_icon": "fas fa-phone",
+            "contact": "081213756763"
+          }
+        ]
       }
     ],
-    "pagination": { "page": 1, "per_page": 10, "total": 32 }
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 32,
+      "total_pages": 4,
+      "has_next": true,
+      "has_prev": false
+    }
   }
 }`
 
@@ -390,86 +520,122 @@ const taskForcesResponse = `{
   "data": {
     "data": [
       {
-        "id": 1,
-        "regency_id": 7271,
-        "name": "Satgas COVID-19 Kota Palu",
-        "phone": "119 ext 9",
-        "address": "Jl. Samratulangi No.1, Palu"
+        "regency_id": 7202,
+        "regency_name": "Banggai",
+        "task_forces": [
+          {
+            "id": 1,
+            "regency_id": 7202,
+            "name": "dr. Anang (Kepala Dinkes Banggai)",
+            "contacts": [
+              {
+                "id": 31,
+                "contact_type_id": 2,
+                "contact_type_name": "Telepon",
+                "contact_type_icon": "fas fa-phone",
+                "contact": "081241415651"
+              }
+            ]
+          }
+        ]
       }
     ],
-    "pagination": { "page": 1, "per_page": 10, "total": 13 }
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 13,
+      "total_pages": 2,
+      "has_next": true,
+      "has_prev": false
+    }
   }
 }`
 
 const genderStatsResponse = `{
   "status": "success",
   "data": {
+    "id": 810,
+    "day": 799,
+    "province_id": 72,
     "positive": {
       "male": {
-        "total": 8452,
+        "total": 10199,
         "age_groups": {
-          "0_14": 312,
-          "15_19": 445,
-          "20_29": 1205,
-          "30_39": 1876,
-          "40_49": 1654,
-          "50_59": 1432,
-          "60_69": 876,
-          "70_plus": 652
+          "0_14": 263,
+          "15_19": 898,
+          "20_24": 2888,
+          "25_49": 3180,
+          "50_54": 1978,
+          "55_plus": 991
         }
       },
       "female": {
-        "total": 7231,
+        "total": 12585,
         "age_groups": {
-          "0_14": 298,
-          "15_19": 412,
-          "20_29": 1105,
-          "30_39": 1654,
-          "40_49": 1432,
-          "50_59": 1198,
-          "60_69": 765,
-          "70_plus": 367
+          "0_14": 324,
+          "15_19": 1107,
+          "20_24": 3564,
+          "25_49": 3924,
+          "50_54": 2441,
+          "55_plus": 1223
         }
       }
     },
-    "pdp": {
-      "male": { "total": 3210, "age_groups": { "0_14": 120, "15_19": 230, "20_29": 540 } },
-      "female": { "total": 2890, "age_groups": { "0_14": 110, "15_19": 198, "20_29": 487 } }
-    },
     "recovered": {
-      "male": { "total": 7890, "age_groups": {} },
-      "female": { "total": 6754, "age_groups": {} }
+      "male": { "total": 8921, "age_groups": { "0_14": 230, "15_19": 780, "20_24": 2510, "25_49": 2780, "50_54": 1720, "55_plus": 901 } },
+      "female": { "total": 11002, "age_groups": { "0_14": 290, "15_19": 970, "20_24": 3120, "25_49": 3430, "50_54": 2130, "55_plus": 1062 } }
     },
-    "deaths": {
-      "male": { "total": 245, "age_groups": {} },
-      "female": { "total": 198, "age_groups": {} }
+    "deceased": {
+      "male": { "total": 987, "age_groups": { "0_14": 12, "15_19": 45, "20_24": 123, "25_49": 298, "50_54": 301, "55_plus": 208 } },
+      "female": { "total": 865, "age_groups": { "0_14": 10, "15_19": 38, "20_24": 107, "25_49": 261, "50_54": 263, "55_plus": 186 } }
     }
   }
 }`
 
 const testStatsResponse = `{
   "status": "success",
-  "data": {
-    "data": [
-      {
+  "data": [
+    {
+      "id": 1,
+      "test_type_id": 1,
+      "day": 1,
+      "province_id": 72,
+      "date_from": "2020-03-03T00:00:00+07:00",
+      "process": 0,
+      "invalid": 0,
+      "positive": 0,
+      "negative": 0,
+      "test_type": {
         "id": 1,
-        "province_id": 72,
-        "date": "2021-08-01",
-        "total_specimen": 1500,
-        "total_positive_specimen": 50,
-        "total_negative_specimen": 1450
+        "key": "pcr",
+        "name": "Polymerase Chain Reaction",
+        "sample": "Spesimen saluran pernapasan (swab hidung, tenggorokan, dahak, dsb), tinja",
+        "duration": "Tergantung banyak antrian sampel",
+        "is_recommended": true
       }
-    ],
-    "pagination": { "page": 1, "per_page": 10, "total": 480 }
-  }
+    }
+  ]
 }`
 
 const testTypesResponse = `{
   "status": "success",
   "data": [
-    { "id": 1, "key": "pcr", "name": "PCR" },
-    { "id": 2, "key": "antigen", "name": "Rapid Antigen" },
-    { "id": 3, "key": "antibody", "name": "Rapid Antibody" }
+    {
+      "id": 1,
+      "key": "pcr",
+      "name": "Polymerase Chain Reaction",
+      "sample": "Spesimen saluran pernapasan (swab hidung, tenggorokan, dahak, dsb), tinja",
+      "duration": "Tergantung banyak antrian sampel",
+      "is_recommended": true
+    },
+    {
+      "id": 2,
+      "key": "rdt",
+      "name": "Rapid Diagnostic Test",
+      "sample": "Tergantung tes (Antibodi atau Antigen)",
+      "duration": "Tergantung tes (Antibodi atau Antigen)",
+      "is_recommended": false
+    }
   ]
 }`
 
@@ -479,43 +645,44 @@ const vaccinationNationalResponse = `{
     "data": [
       {
         "id": 1,
-        "date": "2021-01-13",
-        "target": 2240548,
+        "day": 1,
+        "date": "2021-02-01T18:21:00+07:00",
+        "target": 208265720,
         "total": {
-          "daily": {
-            "dose_1": 473,
-            "dose_2": 1535
-          },
-          "cumulative": {
-            "dose_1": 81885,
-            "dose_2": 61974
-          }
+          "daily": { "dose_1": 0, "dose_2": 0 },
+          "cumulative": { "dose_1": 0, "dose_2": 0 },
+          "coverage": { "dose_1": 0, "dose_2": 0 }
         },
         "groups": {
-          "health_worker": {
-            "target": 24698,
-            "daily": { "dose_1": 120, "dose_2": 340 },
-            "cumulative": { "dose_1": 18540, "dose_2": 16230 }
-          },
           "elderly": {
-            "target": 289032,
-            "daily": { "dose_1": 85, "dose_2": 210 },
-            "cumulative": { "dose_1": 12340, "dose_2": 9870 }
+            "target": 21553118,
+            "daily": { "dose_1": 0, "dose_2": 0 },
+            "cumulative": { "dose_1": 0, "dose_2": 0 },
+            "coverage": { "dose_1": 0, "dose_2": 0 }
           },
-          "public_officer": {
-            "target": 198450,
-            "daily": { "dose_1": 98, "dose_2": 345 },
-            "cumulative": { "dose_1": 15670, "dose_2": 13240 }
+          "health_worker": {
+            "target": 1468764,
+            "daily": { "dose_1": 0, "dose_2": 0 },
+            "cumulative": { "dose_1": 0, "dose_2": 0 },
+            "coverage": { "dose_1": 0, "dose_2": 0 }
           },
           "public": {
-            "target": 1620000,
-            "daily": { "dose_1": 150, "dose_2": 590 },
-            "cumulative": { "dose_1": 28900, "dose_2": 18940 }
+            "target": 0,
+            "daily": { "dose_1": 0, "dose_2": 0 },
+            "cumulative": { "dose_1": 0, "dose_2": 0 },
+            "coverage": { "dose_1": 0, "dose_2": 0 }
+          },
+          "public_officer": {
+            "target": 17327167,
+            "daily": { "dose_1": 0, "dose_2": 0 },
+            "cumulative": { "dose_1": 0, "dose_2": 0 },
+            "coverage": { "dose_1": 0, "dose_2": 0 }
           },
           "teenager": {
-            "target": 108368,
-            "daily": { "dose_1": 20, "dose_2": 50 },
-            "cumulative": { "dose_1": 6435, "dose_2": 3694 }
+            "target": 0,
+            "daily": { "dose_1": 0, "dose_2": 0 },
+            "cumulative": { "dose_1": 0, "dose_2": 0 },
+            "coverage": { "dose_1": 0, "dose_2": 0 }
           }
         }
       }
@@ -523,8 +690,8 @@ const vaccinationNationalResponse = `{
     "pagination": {
       "page": 1,
       "per_page": 10,
-      "total": 365,
-      "total_pages": 37,
+      "total": 418,
+      "total_pages": 42,
       "has_next": true,
       "has_prev": false
     }
@@ -537,47 +704,68 @@ const vaccinationProvinceResponse = `{
     "data": [
       {
         "id": 1,
+        "day": 93,
+        "date": "2021-05-04T00:00:00+07:00",
         "province_id": 72,
-        "date": "2021-01-13",
         "target": 2240548,
         "total": {
           "daily": { "dose_1": 473, "dose_2": 1535 },
-          "cumulative": { "dose_1": 81885, "dose_2": 61974 }
+          "cumulative": { "dose_1": 81885, "dose_2": 61974 },
+          "coverage": { "dose_1": 3.65, "dose_2": 2.77 }
         },
         "groups": {
+          "elderly": {
+            "target": 25292,
+            "daily": { "dose_1": 37, "dose_2": 295 },
+            "cumulative": { "dose_1": 4210, "dose_2": 3180 },
+            "coverage": { "dose_1": 16.65, "dose_2": 12.57 }
+          },
           "health_worker": {
             "target": 24698,
-            "daily": { "dose_1": 120, "dose_2": 340 },
-            "cumulative": { "dose_1": 18540, "dose_2": 16230 }
-          },
-          "elderly": {
-            "target": 289032,
-            "daily": { "dose_1": 85, "dose_2": 210 },
-            "cumulative": { "dose_1": 12340, "dose_2": 9870 }
+            "daily": { "dose_1": 12, "dose_2": 85 },
+            "cumulative": { "dose_1": 22140, "dose_2": 19870 },
+            "coverage": { "dose_1": 89.64, "dose_2": 80.45 }
           }
         }
       }
     ],
-    "pagination": { "page": 1, "per_page": 10, "total": 365 }
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 365,
+      "total_pages": 37,
+      "has_next": true,
+      "has_prev": false
+    }
   }
 }`
 
 const vaccinationLocationsResponse = `{
   "status": "success",
-  "data": [
-    {
-      "id": 1,
-      "regency_id": 7271,
-      "name": "Puskesmas Tipo",
-      "address": "Jl. Basuki Rahmat, Palu",
-      "operational_time": "08:00 - 16:00",
-      "is_first_vaccination": true,
-      "is_second_vaccination": true,
-      "daily_vaccination_quota": 100,
-      "vaccination_stock_remaining": 50,
-      "notes": ""
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "regency_id": 7271,
+        "name": "Gerai Vaksinasi Presisi Mapolda",
+        "address": "Jl. Soekarno-Hatta, Palu",
+        "operational_time": "08:00 - 12:00",
+        "is_first_vaccination": false,
+        "is_second_vaccination": false,
+        "daily_vaccination_quota": null,
+        "vaccination_stock_remaining": null,
+        "notes": null
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "total": 36,
+      "total_pages": 4,
+      "has_next": true,
+      "has_prev": false
     }
-  ]
+  }
 }`
 
 // Glossary data

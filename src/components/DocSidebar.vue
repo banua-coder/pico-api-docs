@@ -8,6 +8,14 @@
     :class="open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
   >
     <div class="px-4 py-5">
+      <!-- Version badge -->
+      <div class="mb-4">
+        <span class="inline-flex items-center gap-1.5 text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 rounded-full px-2.5 py-1 tracking-wide uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 inline-block"></span>
+          v{{ appVersion }}
+        </span>
+      </div>
+
       <!-- Language + Theme -->
       <div class="flex items-center space-x-2 mb-6">
         <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500 transition-colors">
@@ -42,6 +50,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import ThemeToggle from './ThemeToggle.vue'
+import { version } from '../../package.json'
 
 defineProps<{
   activeSection: string
@@ -54,6 +63,7 @@ const emit = defineEmits<{
 }>()
 
 const { t, locale } = useI18n()
+const appVersion = version
 
 const toggleLanguage = () => {
   locale.value = locale.value === 'en' ? 'id' : 'en'
