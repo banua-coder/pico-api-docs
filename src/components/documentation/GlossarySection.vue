@@ -1,5 +1,5 @@
 <template>
-  <section v-show="isActive" id="glossary" class="mb-12 md:mb-20">
+  <section v-show="isActive" id="glossary" class="mb-12 md:mb-20 px-6 lg:px-10">
 
     <!-- Page Header — Editorial Style -->
     <div class="mb-10 md:mb-14 border-b border-gray-200 dark:border-gray-700 pb-8">
@@ -19,7 +19,7 @@
 
       <!-- Section label -->
       <div class="flex items-baseline gap-4 mb-8">
-        <span class="text-4xl sm:text-5xl font-black text-gray-100 dark:text-gray-800 select-none leading-none">01</span>
+        <span class="text-4xl sm:text-5xl font-black text-gray-200 dark:text-gray-700 select-none leading-none">01</span>
         <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
           {{ t('documentation.glossary.reproductionRate.title') }}
         </h2>
@@ -265,7 +265,7 @@
     <!-- ── Section 02: Case Classifications & Data Types ── -->
     <div class="mb-14 md:mb-20">
       <div class="flex items-baseline gap-4 mb-8">
-        <span class="text-4xl sm:text-5xl font-black text-gray-100 dark:text-gray-800 select-none leading-none">02</span>
+        <span class="text-4xl sm:text-5xl font-black text-gray-200 dark:text-gray-700 select-none leading-none">02</span>
         <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
           {{ t('documentation.glossary.caseClassifications.title') }} &amp; {{ t('documentation.glossary.dataTypes.title') }}
         </h2>
@@ -314,7 +314,7 @@
     <!-- ── Section 03: Indonesian Terminology ── -->
     <div>
       <div class="flex items-baseline gap-4 mb-8">
-        <span class="text-4xl sm:text-5xl font-black text-gray-100 dark:text-gray-800 select-none leading-none">03</span>
+        <span class="text-4xl sm:text-5xl font-black text-gray-200 dark:text-gray-700 select-none leading-none">03</span>
         <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
           {{ t('documentation.glossary.indonesianTerminology.title') }}
         </h2>

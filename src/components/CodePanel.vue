@@ -1,15 +1,15 @@
 <template>
   <div class="space-y-2">
     <!-- Tabs -->
-    <div v-if="tabs.length > 1" class="flex space-x-1 border-b border-gray-700/30">
+    <div v-if="tabs.length > 1" class="flex space-x-1 border-b border-gray-200 dark:border-gray-700/30 bg-gray-50 dark:bg-transparent rounded-t-lg px-2 pt-1">
       <button
         v-for="tab in tabs"
         :key="tab"
         @click="activeTab = tab"
-        class="text-xs px-3 py-1.5 transition-colors"
+        class="text-xs px-3 py-1.5 transition-colors font-medium"
         :class="activeTab === tab
-          ? 'text-white border-b-2 border-[#635bff]'
-          : 'text-gray-400 hover:text-gray-200'"
+          ? 'text-indigo-600 dark:text-white border-b-2 border-indigo-500 dark:border-[#635bff]'
+          : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'"
       >{{ tab }}</button>
     </div>
     <CodeBlock
