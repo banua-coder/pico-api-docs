@@ -218,103 +218,7 @@
           </ApiSection>
 
           <!-- Glossary -->
-          <div id="glossary" class="border-b border-gray-200 dark:border-gray-800">
-            <!-- Section header -->
-            <div class="px-6 py-6 border-b border-gray-200 dark:border-gray-800">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ t('documentation.glossary.title') }}</h2>
-              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ t('documentation.glossary.subtitle') }}</p>
-            </div>
-
-            <!-- Two-column layout -->
-            <div class="api-section-grid">
-              <!-- Left column: glossary content -->
-              <div class="px-6 py-6 border-r border-gray-200 dark:border-gray-800 space-y-8">
-
-                <!-- Reproduction Rate -->
-                <div>
-                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold">Rt</span>
-                    {{ t('documentation.glossary.reproductionRate.title') }}
-                  </h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{{ t('documentation.glossary.reproductionRate.definitionText') }}</p>
-                  <div class="space-y-1.5 text-sm">
-                    <div class="flex items-center gap-2 px-3 py-2 rounded border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20">
-                      <span class="font-mono font-bold text-red-600 dark:text-red-400 shrink-0">Rt &gt; 1</span>
-                      <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.growing') }}</span>
-                    </div>
-                    <div class="flex items-center gap-2 px-3 py-2 rounded border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20">
-                      <span class="font-mono font-bold text-yellow-600 dark:text-yellow-400 shrink-0">Rt = 1</span>
-                      <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.stable') }}</span>
-                    </div>
-                    <div class="flex items-center gap-2 px-3 py-2 rounded border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20">
-                      <span class="font-mono font-bold text-green-600 dark:text-green-400 shrink-0">Rt &lt; 1</span>
-                      <span class="text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.declining') }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Case Classifications -->
-                <div>
-                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-3">{{ t('documentation.glossary.caseClassifications.title') }}</h3>
-                  <div class="grid grid-cols-2 gap-2">
-                    <div v-for="cls in caseClassList" :key="cls.key" class="p-3 rounded border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-                      <div class="flex items-center gap-2 mb-1">
-                        <span :class="cls.dot" class="w-2 h-2 rounded-full shrink-0"></span>
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">{{ t(`documentation.glossary.caseClassifications.${cls.key}.title`) }}</span>
-                      </div>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">{{ t(`documentation.glossary.caseClassifications.${cls.key}.description`) }}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Data Types -->
-                <div>
-                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-3">{{ t('documentation.glossary.dataTypes.title') }}</h3>
-                  <div class="space-y-2">
-                    <div v-for="dt in dataTypeList" :key="dt.key" class="p-3 rounded border border-gray-200 dark:border-gray-700">
-                      <span class="text-sm font-medium text-gray-900 dark:text-white">{{ t(`documentation.glossary.dataTypes.${dt.key}.title`) }}</span>
-                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ t(`documentation.glossary.dataTypes.${dt.key}.description`) }}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Indonesian Terminology -->
-                <div>
-                  <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-1">{{ t('documentation.glossary.indonesianTerminology.title') }}</h3>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">{{ t('documentation.glossary.indonesianTerminology.subtitle') }}</p>
-                  <div class="space-y-4">
-                    <div>
-                      <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">{{ t('documentation.glossary.indonesianTerminology.currentTerms') }}</p>
-                      <div class="space-y-1.5">
-                        <div v-for="term in currentTermsList" :key="term" class="flex items-start gap-3 px-3 py-2 rounded border border-gray-200 dark:border-gray-700 text-sm">
-                          <code class="font-mono text-[#635bff] dark:text-[#7b74ff] shrink-0 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.name`) }}</code>
-                          <span class="text-gray-600 dark:text-gray-400 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.translation`) }}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">{{ t('documentation.glossary.indonesianTerminology.legacyTerms') }}</p>
-                      <div class="space-y-1.5">
-                        <div v-for="term in legacyTermsList" :key="term" class="flex items-start gap-3 px-3 py-2 rounded border border-gray-200 dark:border-gray-700 text-sm opacity-75">
-                          <code class="font-mono text-gray-500 dark:text-gray-400 shrink-0 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.acronym`) }}</code>
-                          <span class="text-gray-500 dark:text-gray-500 text-xs">{{ t(`documentation.glossary.indonesianTerminology.${term}.translation`) }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Right column: formulas & code examples -->
-              <div class="px-6 py-6 bg-gray-50 dark:bg-[#0d1b2e]">
-                <CodePanel :code-map="{
-                  'Rt Formula': rtFormulaCode,
-                  'Active Cases': 'active = positive - recovered - deceased'
-                }" />
-              </div>
-            </div>
-          </div>
+          <GlossarySection :is-active="true" />
 
         </div>
       </main>
@@ -330,6 +234,7 @@ import DocSidebar from '@/components/DocSidebar.vue'
 import ApiSection from '@/components/ApiSection.vue'
 import CodePanel from '@/components/CodePanel.vue'
 import ParamsTable from '@/components/ParamsTable.vue'
+import GlossarySection from '@/components/documentation/GlossarySection.vue'
 import type { Param } from '@/components/ParamsTable.vue'
 import { API_BASE_URL, API_V1_URL } from '@/config/api'
 
@@ -676,34 +581,5 @@ const vaccinationLocationsResponse = `{
 }`
 
 // Glossary data
-const caseClassList = [
-  { key: 'positive', dot: 'bg-blue-500' },
-  { key: 'active', dot: 'bg-yellow-500' },
-  { key: 'recovered', dot: 'bg-green-500' },
-  { key: 'deceased', dot: 'bg-gray-500' },
-]
 
-const dataTypeList = [
-  { key: 'daily' },
-  { key: 'cumulative' },
-  { key: 'percentages' },
-]
-
-const currentTermsList = ['kasusKonfirmasi', 'kasusProbable', 'kontakErat', 'kasusSuspect']
-const legacyTermsList = ['odp', 'pdp']
-
-
-const rtFormulaCode = `# EpiEstim Bayesian Estimation
-# 1. Total infectiousness:
-λ_t = Σ(I_{t-s} × w_s)   for s=1..t-1
-
-# 2. Where:
-#   I_{t-s} = incidence at time (t-s)
-#   w_s     = serial interval probability
-
-# 3. Posterior distribution:
-R_t | data ~ Gamma(a + ΣI_t, b + Σλ_t)
-
-# 4. Point estimate:
-R̂_t = (a + ΣI_t) / (b + Σλ_t)`
 </script>

@@ -53,10 +53,10 @@
     <!-- Code content -->
     <div class="code-container" :class="containerClasses">
       <pre class="code-pre"><code 
-        ref="codeElement" 
+
         :class="codeClasses"
         :data-language="detectedLanguage"
-      >{{ code }}</code></pre>
+      v-html="highlightedCode"></code></pre>
       
       <!-- Line numbers (optional) -->
       <div v-if="showLineNumbers" class="line-numbers" aria-hidden="true">
@@ -80,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useTheme } from '@/composables/useTheme'
 import Prism from '@/lib/prism-setup'
 
@@ -104,7 +104,6 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const { isDark } = useTheme()
-const codeElement = ref<HTMLElement>()
 const copied = ref(false)
 const isDarkMode = ref(false)
 
@@ -219,17 +218,14 @@ const codeClasses = computed(() => [
   }
 ])
 
-const highlightCode = () => {
-  if (codeElement.value) {
-    // Check if the language is available
-    if (!Prism.languages[detectedLanguage.value] && detectedLanguage.value !== 'text') {
-      console.warn(`Language ${detectedLanguage.value} not available in Prism.js`)
-      return
-    }
-    
-    Prism.highlightElement(codeElement.value)
+const highlightedCode = computed(() => {
+  const lang = detectedLanguage.value
+  if (Prism.languages[lang]) {
+    return Prism.highlight(props.code, Prism.languages[lang], lang)
   }
-}
+  // Fallback: escape HTML and return as-is
+  return props.code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+})
 
 const copyToClipboard = async () => {
   try {
@@ -264,15 +260,6 @@ const toggleCodeTheme = () => {
 
 onMounted(() => {
   isDarkMode.value = isDark.value
-  highlightCode()
-})
-
-watch(() => props.code, () => {
-  highlightCode()
-})
-
-watch(() => detectedLanguage.value, () => {
-  highlightCode()
 })
 </script>
 
