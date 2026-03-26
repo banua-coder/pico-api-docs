@@ -313,6 +313,99 @@
 - Add trailing newlines to all source files (a970f94)
 
 # Changelog for v1.0.0
+## [1.4.1] - 2026-03-26
+
+### ✨ Features
+
+-  make all API URLs configurable via VITE_API_BASE_URL env variable (f9da460)
+-  full docs redesign with Stripe-style layout and updated response examples (6a7e4f8)
+-  add i18n support for all hardcoded text (EN + ID translations) (02aa5d4)
+-  add back glossary section with Stripe-style design (cce1f72)
+-  use CodeBlock with Prism syntax highlighting in CodePanel (9ba36b3)
+
+### 🐛 Bug Fixes
+
+-  remove trigger-deploy job (WORKFLOW_TOKEN not available, rely on PAT tag push) (aab8593)
+-  use WORKFLOW_PAT org secret instead of WORKFLOW_TOKEN (7d3c22f)
+-  do not split components chunk, keep prismjs co-located with CodeBlock (544d03a)
+-  expose Prism to window before language plugins load (3ba7d20)
+-  import Prism from prism-setup to ensure window.Prism is set before plugins (2bc66e9)
+-  restore CodeBlock.vue with correct prism-setup import (662f463)
+-  use static imports for prism language plugins (no require, proper ES module) (55a8e1c)
+-  do not assign prismjs to manual chunk, let rollup co-locate with importer (40e56cb)
+-  add pnpm.overrides to match lockfile (prevents LOCKFILE_CONFIG_MISMATCH in Docker) (e1c6d62)
+-  pin pnpm to 10.15.1 in Dockerfile to match CI (9a273e9)
+-  accept both v-prefixed and plain semver tags in deploy trigger (31fe5ac)
+-  exclude prismjs from vendor chunk so it co-locates with its consumers (2b4c4ea)
+-  use tag push trigger instead of release published to prevent duplicate deploy runs (af978de)
+-  resolve lint error in DocSidebar and unused import in Home (3d18d5b)
+-  remove duplicate release-branch-creation workflow (handled by reusable workflow) (ceda3e1)
+-  use CodePanel component for glossary formula code blocks (21faf3f)
+-  show correct parameters for each endpoint (73f3a90)
+
+### 📚 Documentation
+
+-  update changelog for v1.3.3 (5e9fb75)
+-  update changelog for 1.3.4 (0bcfe71)
+-  update changelog for 1.3.5 (81272a1)
+-  update changelog for 1.3.6 (8f0e9a1)
+-  update changelog for 1.3.7 (9832774)
+-  update changelog for 1.3.8 (a9e1b8d)
+-  update changelog for 1.4.0 (f9b08c0)
+
+### 🔧 Chores
+
+-  bump version to v1.4.0 for next development cycle (2c0abcd)
+-  back-merge v1.3.0 to develop (7cace92)
+-  back-merge v1.3.1 to develop (66490af)
+-  back-merge v1.3.2 to develop (7b22074)
+-  back-merge v1.3.3 to develop (473940f)
+-  prepare v1.3.4 hotfix (7f6ef19)
+-  bump version to 1.3.4 (e5ffb13)
+-  back-merge 1.3.4 to develop (44abde5)
+-  prepare v1.3.5 hotfix (5ef9462)
+-  bump version to 1.3.5 (54181e6)
+-  back-merge 1.3.5 to develop (6b81bdf)
+-  prepare v1.3.6 hotfix (c029ec4)
+-  bump version to 1.3.6 (c2aba95)
+-  back-merge 1.3.6 to develop (05d7997)
+-  prepare v1.3.7 hotfix (9df6c2e)
+-  bump version to 1.3.7 (3cd0540)
+-  regenerate pnpm-lock.yaml after adding pnpm.overrides (e0a905e)
+-  back-merge 1.3.7 to develop (e1f8738)
+-  bump version to 1.3.8 (66900c4)
+-  back-merge 1.3.8 to develop (a712d80)
+-  prepare v1.4.0 release (8a52e4e)
+-  bump version to 1.4.1 (5f14ac9)
+
+### 📝 Other Changes
+
+- Merge pull request #48 from banua-coder/chore/bump-version-to-v1.4.0-dev (31cdfb8)
+- Merge pull request #51 from banua-coder/chore/back-merge-v1.3.0 (05c32bc)
+- Merge pull request #54 from banua-coder/chore/back-merge-v1.3.1 (d939de7)
+- Merge pull request #57 from banua-coder/chore/back-merge-v1.3.2 (dd4974b)
+- Merge pull request #60 from banua-coder/chore/back-merge-v1.3.3 (80eb69c)
+- Merge pull request #61 from banua-coder/chore/prepare-hotfix-v1.3.4 (1108df2)
+- Merge pull request #62 from banua-coder/hotfix/1.3.4 (b4dbfcc)
+- Merge pull request #63 from banua-coder/chore/back-merge-1.3.4 (9b7df39)
+- Merge pull request #64 from banua-coder/chore/prepare-hotfix-v1.3.5 (8eef46c)
+- Merge pull request #65 from banua-coder/hotfix/1.3.5 (132d70e)
+- Merge pull request #66 from banua-coder/chore/back-merge-1.3.5 (8d99044)
+- Merge pull request #67 from banua-coder/chore/prepare-hotfix-v1.3.6 (6a2e396)
+- Merge pull request #68 from banua-coder/hotfix/1.3.6 (985bc35)
+- Merge pull request #69 from banua-coder/chore/back-merge-1.3.6 (4e7f847)
+- Merge pull request #70 from banua-coder/chore/prepare-hotfix-v1.3.7 (72c249a)
+- Merge pull request #71 from banua-coder/hotfix/1.3.7 (95df5e9)
+- Merge pull request #72 from banua-coder/chore/back-merge-1.3.7 (ad3828c)
+- Merge pull request #74 from banua-coder/hotfix/1.3.8 (ae7c28f)
+- Merge pull request #75 from banua-coder/chore/back-merge-1.3.8 (9eef133)
+- Merge pull request #76 from banua-coder/fix/remove-duplicate-deploy-trigger (3ed94ef)
+- Merge pull request #77 from banua-coder/feature/configurable-api-url (b150a5a)
+- Merge pull request #78 from banua-coder/feature/docs-redesign-stripe-style (910c96d)
+- Merge pull request #79 from banua-coder/chore/prepare-release-v1.4.0 (87c0b06)
+- Merge pull request #80 from banua-coder/release/1.4.0 (75657a2)
+- Merge pull request #86 from banua-coder/hotfix/1.4.1 (9e66e9f)
+
 ## [1.4.0] - 2026-03-25
 
 ### ✨ Features
