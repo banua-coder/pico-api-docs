@@ -552,7 +552,8 @@
         "coreResources": "Sumber Data Utama",
         "healthInfrastructure": "Infrastruktur Kesehatan",
         "statistics": "Statistik",
-        "vaccination": "Vaksinasi"
+        "vaccination": "Vaksinasi",
+        "reference": "Referensi"
       },
       "items": {
         "overview": "Ikhtisar",
@@ -570,7 +571,8 @@
         "testTypes": "Jenis Tes",
         "national": "Nasional",
         "province": "Provinsi",
-        "locations": "Lokasi"
+        "locations": "Lokasi",
+        "glossary": "Glosarium"
       }
     },
     "authentication": {
@@ -662,6 +664,46 @@
       },
       "loadAll": {
         "description": "Kembalikan semua data tanpa paginasi.",
+        "default": "false"
+      },
+      "limit": {
+        "description": "Jumlah maksimal data yang dikembalikan.",
+        "default": "50"
+      },
+      "offset": {
+        "description": "Jumlah data yang dilewati.",
+        "default": "0"
+      },
+      "all": {
+        "description": "Kembalikan semua data (abaikan limit/offset).",
+        "default": "false"
+      },
+      "startDate": {
+        "description": "Filter data mulai tanggal ini (YYYY-MM-DD).",
+        "default": ""
+      },
+      "endDate": {
+        "description": "Filter data hingga tanggal ini (YYYY-MM-DD).",
+        "default": ""
+      },
+      "sort": {
+        "description": "Urutan data, contoh date:desc atau date:asc.",
+        "default": "date:desc"
+      },
+      "provinceId": {
+        "description": "Filter berdasarkan ID provinsi.",
+        "default": ""
+      },
+      "code": {
+        "description": "Kode kabupaten/kota atau rumah sakit (path parameter).",
+        "default": ""
+      },
+      "day": {
+        "description": "Nomor hari (path parameter).",
+        "default": ""
+      },
+      "excludeLatestCase": {
+        "description": "Jangan sertakan data kasus terbaru dari setiap provinsi.",
         "default": "false"
       }
     },
