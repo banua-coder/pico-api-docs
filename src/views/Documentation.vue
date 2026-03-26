@@ -31,9 +31,19 @@
           <section id="overview">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ t('documentation.overview.title') }}</h1>
             <p class="text-gray-600 dark:text-gray-400 mb-4">{{ t('documentation.overview.description') }}</p>
-            <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-sm">
+            <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 text-sm mb-4">
               <span class="text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase mr-2">Base URL</span>
               <code class="font-mono text-gray-800 dark:text-gray-200">{{ API_BASE_URL }}</code>
+            </div>
+            <!-- Attribution notice -->
+            <div class="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg text-sm">
+              <svg class="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+              <div>
+                <p class="font-semibold text-amber-800 dark:text-amber-400 mb-1">{{ t('documentation.overview.attribution.title') }}</p>
+                <p class="text-amber-700 dark:text-amber-300">{{ t('documentation.overview.attribution.description') }}</p>
+              </div>
             </div>
           </section>
 

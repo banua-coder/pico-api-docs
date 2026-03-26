@@ -94,7 +94,11 @@
       "contentType": "Content Type",
       "quickExample": "Quick Example",
       "noAuthRequired": "No authentication required for public endpoints",
-      "description": "Get real-time Indonesian COVID-19 data with our RESTful endpoints."
+      "description": "Get real-time Indonesian COVID-19 data with our RESTful endpoints.",
+      "attribution": {
+        "title": "Attribution Required",
+        "description": "This API is free to use. If you use our data in your application, website, or research, please provide proper attribution to PICO SulTeng as the data source. A simple credit such as \"Data provided by PICO SulTeng COVID-19 API\" is appreciated."
+      }
     },
     "nationalLatest": {
       "title": "Get Latest National Data",
