@@ -97,7 +97,7 @@
           <!-- National Historical -->
           <ApiSection section-id="national-historical" method="GET" :endpoint="`${API_V1_URL}/national`" :description="t('docs.sections.nationalHistorical.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="nationalParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: nationalHistoricalResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/national?page=1&per_page=10&quot;` }" />
@@ -107,7 +107,7 @@
           <!-- Provinces -->
           <ApiSection section-id="provinces" method="GET" :endpoint="`${API_V1_URL}/provinces`" :description="t('docs.sections.provinces.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="provincesParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: provincesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/provinces&quot;` }" />
@@ -117,7 +117,7 @@
           <!-- Province Cases -->
           <ApiSection section-id="province-cases" method="GET" :endpoint="`${API_V1_URL}/province-cases`" :description="t('docs.sections.provinceCases.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="nationalParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: provinceCasesResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/province-cases?page=1&per_page=10&quot;` }" />
@@ -158,7 +158,7 @@
           <ApiSection section-id="gender-stats" method="GET" :endpoint="`${API_V1_URL}/stats/gender`" :description="t('docs.sections.genderStats.description')">
             <template #left>
               <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.genderStats.leftText') }}</p>
-              <ParamsTable :params="paginationParams" :title="t('docs.table.parameters')" />
+              <p class="text-sm text-gray-500 dark:text-gray-400 italic mt-2">No query parameters.</p>
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: genderStatsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/stats/gender&quot;` }" />
@@ -168,7 +168,7 @@
           <!-- Test Statistics -->
           <ApiSection section-id="test-statistics" method="GET" :endpoint="`${API_V1_URL}/stats/tests`" :description="t('docs.sections.testStats.description')">
             <template #left>
-              <ParamsTable :params="paginationParams" />
+              <p class="text-sm text-gray-500 dark:text-gray-400 italic">No query parameters.</p>
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: testStatsResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/stats/tests&quot;` }" />
@@ -200,7 +200,7 @@
           <ApiSection section-id="vaccination-province" method="GET" :endpoint="`${API_V1_URL}/vaccination/province`" :description="t('docs.sections.vaccinationProvince.description')">
             <template #left>
               <p class="text-sm text-gray-600 dark:text-gray-400">{{ t('docs.sections.vaccinationProvince.leftText') }}</p>
-              <ParamsTable :params="paginationParams" />
+              <ParamsTable :params="vaccinationProvinceParams" />
             </template>
             <template #right>
               <CodePanel :code-map="{ [t('docs.common.response')]: vaccinationProvinceResponse, [t('docs.common.curl')]: `curl &quot;${API_V1_URL}/vaccination/province?page=1&per_page=10&quot;` }" />
@@ -348,6 +348,27 @@ const paginationParams = computed<Param[]>(() => [
   { name: 'page', type: 'integer', required: false, description: t('docs.params.page.description'), default: t('docs.params.page.default') },
   { name: 'per_page', type: 'integer', required: false, description: t('docs.params.perPage.description'), default: t('docs.params.perPage.default') },
   { name: 'load_all', type: 'boolean', required: false, description: t('docs.params.loadAll.description'), default: t('docs.params.loadAll.default') },
+])
+
+const nationalParams = computed<Param[]>(() => [
+  { name: 'limit', type: 'integer', required: false, description: t('docs.params.limit.description'), default: '50' },
+  { name: 'offset', type: 'integer', required: false, description: t('docs.params.offset.description'), default: '0' },
+  { name: 'page', type: 'integer', required: false, description: t('docs.params.page.description'), default: t('docs.params.page.default') },
+  { name: 'all', type: 'boolean', required: false, description: t('docs.params.all.description'), default: 'false' },
+  { name: 'start_date', type: 'string', required: false, description: t('docs.params.startDate.description'), default: '' },
+  { name: 'end_date', type: 'string', required: false, description: t('docs.params.endDate.description'), default: '' },
+  { name: 'sort', type: 'string', required: false, description: t('docs.params.sort.description'), default: 'date:desc' },
+])
+
+const provincesParams = computed<Param[]>(() => [
+  { name: 'exclude_latest_case', type: 'boolean', required: false, description: t('docs.params.excludeLatestCase.description'), default: 'false' },
+])
+
+const vaccinationProvinceParams = computed<Param[]>(() => [
+  { name: 'page', type: 'integer', required: false, description: t('docs.params.page.description'), default: t('docs.params.page.default') },
+  { name: 'per_page', type: 'integer', required: false, description: t('docs.params.perPage.description'), default: t('docs.params.perPage.default') },
+  { name: 'load_all', type: 'boolean', required: false, description: t('docs.params.loadAll.description'), default: t('docs.params.loadAll.default') },
+  { name: 'province_id', type: 'integer', required: false, description: t('docs.params.provinceId.description'), default: '' },
 ])
 
 const paginationExample = `curl "${API_V1_URL}/provinces?page=2&per_page=5" \\

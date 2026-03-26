@@ -665,6 +665,46 @@
       "loadAll": {
         "description": "Return all records without pagination.",
         "default": "false"
+      },
+      "limit": {
+        "description": "Maximum number of records to return.",
+        "default": "50"
+      },
+      "offset": {
+        "description": "Number of records to skip.",
+        "default": "0"
+      },
+      "all": {
+        "description": "Return all records (ignores limit/offset).",
+        "default": "false"
+      },
+      "startDate": {
+        "description": "Filter records from this date (YYYY-MM-DD).",
+        "default": ""
+      },
+      "endDate": {
+        "description": "Filter records until this date (YYYY-MM-DD).",
+        "default": ""
+      },
+      "sort": {
+        "description": "Sort order, e.g. date:desc or date:asc.",
+        "default": "date:desc"
+      },
+      "provinceId": {
+        "description": "Filter by province ID.",
+        "default": ""
+      },
+      "code": {
+        "description": "Regency or hospital code (path parameter).",
+        "default": ""
+      },
+      "day": {
+        "description": "Day number (path parameter).",
+        "default": ""
+      },
+      "excludeLatestCase": {
+        "description": "Exclude the latest case data from each province.",
+        "default": "false"
       }
     },
     "common": {
