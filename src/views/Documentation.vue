@@ -307,43 +307,11 @@
               </div>
 
               <!-- Right column: formulas & code examples -->
-              <div class="px-6 py-6 bg-gray-50 dark:bg-[#0d1b2e] space-y-6">
-
-                <!-- Rt Formula block -->
-                <div>
-                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{{ t('documentation.glossary.reproductionRate.formula') }}</p>
-                  <div class="rounded-lg bg-gray-900 dark:bg-gray-950 border border-gray-700 overflow-hidden">
-                    <div class="px-4 py-2 border-b border-gray-700 flex items-center gap-2">
-                      <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-                      <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-                      <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                      <span class="ml-2 text-xs text-gray-400">{{ t('documentation.glossary.reproductionRate.formulaTitle') }}</span>
-                    </div>
-                    <pre class="px-4 py-4 text-xs font-mono text-green-400 overflow-x-auto whitespace-pre">{{ rtFormulaCode }}</pre>
-                  </div>
-                </div>
-
-                <!-- Calculation method -->
-                <div>
-                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">{{ t('documentation.glossary.reproductionRate.calculationMethod') }}</p>
-                  <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 space-y-2 text-sm">
-                    <p class="font-medium text-gray-800 dark:text-gray-200 text-xs">{{ t('documentation.glossary.reproductionRate.epiEstimTitle') }}</p>
-                    <ul class="space-y-1">
-                      <li v-for="(detail, i) in methodDetails" :key="i" class="text-xs text-gray-600 dark:text-gray-400 flex items-start gap-1.5">
-                        <span class="text-[#635bff] mt-0.5">•</span>{{ detail }}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <!-- Active cases formula -->
-                <div>
-                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Active Cases Formula</p>
-                  <div class="rounded-lg bg-gray-900 dark:bg-gray-950 border border-gray-700 overflow-hidden">
-                    <pre class="px-4 py-4 text-xs font-mono text-blue-400 overflow-x-auto">active = positive - recovered - deceased</pre>
-                  </div>
-                </div>
-
+              <div class="px-6 py-6 bg-gray-50 dark:bg-[#0d1b2e]">
+                <CodePanel :code-map="{
+                  'Rt Formula': rtFormulaCode,
+                  'Active Cases': 'active = positive - recovered - deceased'
+                }" />
               </div>
             </div>
           </div>
@@ -703,10 +671,6 @@ const dataTypeList = [
 const currentTermsList = ['kasusKonfirmasi', 'kasusProbable', 'kontakErat', 'kasusSuspect']
 const legacyTermsList = ['odp', 'pdp']
 
-const methodDetails = computed(() => {
-  const arr = t('documentation.glossary.reproductionRate.methodDetails', { returnObjects: true })
-  return Array.isArray(arr) ? arr : []
-})
 
 const rtFormulaCode = `# EpiEstim Bayesian Estimation
 # 1. Total infectiousness:
