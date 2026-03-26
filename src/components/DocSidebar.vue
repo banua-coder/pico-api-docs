@@ -109,5 +109,11 @@ const navGroups = [
       { id: 'vaccination-locations', labelKey: 'locations' },
     ],
   },
+  {
+    titleKey: 'reference',
+    items: [
+      { id: 'glossary', labelKey: 'glossary' },
+    ],
+  },
 ]
 </script>

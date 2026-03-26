@@ -552,7 +552,8 @@
         "coreResources": "Core Resources",
         "healthInfrastructure": "Health Infrastructure",
         "statistics": "Statistics",
-        "vaccination": "Vaccination"
+        "vaccination": "Vaccination",
+        "reference": "Reference"
       },
       "items": {
         "overview": "Overview",
@@ -570,7 +571,8 @@
         "testTypes": "Test Types",
         "national": "National",
         "province": "Province",
-        "locations": "Locations"
+        "locations": "Locations",
+        "glossary": "Glossary"
       }
     },
     "authentication": {
