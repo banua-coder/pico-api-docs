@@ -265,8 +265,10 @@ onMounted(() => {
 
 <style scoped>
 .code-block-wrapper {
-  @apply rounded-lg overflow-hidden my-4 transition-colors duration-200;
+  @apply rounded-lg my-4 transition-colors duration-200;
   @apply border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900;
+  overflow: hidden; /* keep border-radius clipping */
+  max-width: 100%;
 }
 
 .code-block-wrapper.dark-theme {
@@ -319,8 +321,11 @@ onMounted(() => {
 }
 
 .code-container {
-  @apply relative overflow-x-auto;
-  @apply bg-white dark:bg-gray-900;
+  @apply relative bg-white dark:bg-gray-900;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 .dark-theme .code-container {
@@ -331,6 +336,10 @@ onMounted(() => {
   @apply m-0 p-4 text-xs sm:text-sm font-mono leading-relaxed;
   background: transparent !important;
   font-family: 'Fira Code', 'JetBrains Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+  min-width: min-content;
 }
 
 .code-container code {

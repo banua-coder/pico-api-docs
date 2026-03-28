@@ -108,6 +108,38 @@ body {
   * { animation: none !important; transition-duration: 0.01ms !important; }
 }
 
+/* Mobile overflow fixes */
+@media (max-width: 768px) {
+  /* Ensure code blocks are scrollable on mobile */
+  .code-block-wrapper,
+  .code-container,
+  .code-panel,
+  .code-panel pre {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  /* Ensure params table is scrollable */
+  .params-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .params-table td,
+  .params-table th {
+    white-space: normal;
+    min-width: 80px;
+  }
+
+  .params-table td:last-child {
+    min-width: 150px;
+    white-space: normal;
+  }
+}
+
 /* Dark mode code syntax colors */
 .token-string { color: #a3e4c9; }
 .token-number { color: #f97316; }
