@@ -45,7 +45,7 @@
             <h3 class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
               {{ t('documentation.glossary.reproductionRate.interpretation') }}
             </h3>
-            <div class="divide-y divide-gray-100 dark:divide-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+            <div class="divide-y divide-gray-100 dark:divide-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-x-hidden">
               <div class="flex items-center gap-4 px-4 py-3 bg-red-50 dark:bg-red-950/40">
                 <span class="font-mono text-sm font-bold text-red-600 dark:text-red-400 w-16 shrink-0">Rt &gt; 1</span>
                 <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.growing') }}</span>

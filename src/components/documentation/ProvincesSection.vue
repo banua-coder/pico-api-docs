@@ -5,7 +5,7 @@
       <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.provinces.description') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-x-hidden">
       <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">{{ t('documentation.provinces.endpoint') }}</h2>
         <p class="text-indigo-100">{{ t('documentation.provinces.description') }}</p>

@@ -39,7 +39,7 @@ body {
 .code-panel {
   background: var(--code-bg);
   border-radius: 8px;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .code-panel pre {

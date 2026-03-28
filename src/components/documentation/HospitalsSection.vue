@@ -6,7 +6,7 @@
     </div>
 
     <!-- List Hospitals -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-x-hidden mb-8">
       <div class="bg-gradient-to-r from-red-500 to-pink-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
@@ -66,7 +66,7 @@
     </div>
 
     <!-- Get Hospital by Code -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-x-hidden">
       <div class="bg-gradient-to-r from-pink-600 to-rose-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>

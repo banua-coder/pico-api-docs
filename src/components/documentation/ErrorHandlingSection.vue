@@ -5,7 +5,7 @@
       <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.errorHandling.subtitle') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-x-hidden">
       <div class="bg-gradient-to-r from-red-600 to-rose-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">{{ t('documentation.errorHandling.title') }}</h2>
         <p class="text-red-100">{{ t('documentation.errorHandling.subtitle') }}</p>
