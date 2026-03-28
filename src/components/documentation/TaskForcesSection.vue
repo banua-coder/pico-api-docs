@@ -1,20 +1,20 @@
 <template>
-  <section v-show="isActive" id="task-forces" class="mb-16">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.taskForces.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.taskForces.description') }}</p>
+  <section v-show="isActive" id="task-forces" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.taskForces.title') }}</h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.taskForces.description') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div class="bg-gradient-to-r from-orange-500 to-amber-600 px-8 py-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-r from-orange-500 to-amber-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
-          <code class="text-white font-mono text-lg">/api/v1/task-forces</code>
+          <code class="text-white font-mono text-base sm:text-lg">/api/v1/task-forces</code>
         </div>
         <p class="text-orange-100">Get all COVID-19 task force posts grouped by regency (paginated)</p>
       </div>
 
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <div class="grid lg:grid-cols-2 gap-8 mb-8">
           <div>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Query Parameters</h3>

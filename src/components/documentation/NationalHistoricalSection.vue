@@ -1,15 +1,15 @@
 <template>
-  <section v-show="isActive" id="national-historical" class="mb-16">
-    <div class="mb-8">
+  <section v-show="isActive" id="national-historical" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
       <div class="flex items-center mb-4">
         <div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">{{ t('documentation.nationalHistorical.title') }}</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">{{ t('documentation.nationalHistorical.title') }}</h1>
       </div>
-      <p class="text-lg text-gray-600 dark:text-gray-400 mb-4">{{ t('documentation.nationalHistorical.description') }}</p>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-4">{{ t('documentation.nationalHistorical.description') }}</p>
       
       <!-- Usage Note -->
       <div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-4 border-l-4 border-green-400 dark:border-green-800 mb-6">
@@ -26,8 +26,8 @@
     </div>
 
     <!-- Endpoint Details -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center gap-4">
           <span class="bg-white text-purple-700 px-3 py-1 rounded-lg font-mono text-sm font-bold">GET</span>
           <code class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg font-mono text-sm">/national</code>
@@ -35,9 +35,9 @@
         <p class="text-white/90 mt-2">{{ t('documentation.nationalHistorical.description') }}</p>
       </div>
       
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <!-- Query Parameters -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Parameters</h3>
           <div class="overflow-x-auto">
             <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -98,7 +98,7 @@
         </div>
 
         <!-- Response Fields Table -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Response Fields</h3>
           
           <!-- Array Structure Note -->
@@ -210,7 +210,7 @@
         </div>
 
         <!-- Code Examples -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Requests</h3>
           <div class="grid lg:grid-cols-2 gap-6 mb-6">
             <div>

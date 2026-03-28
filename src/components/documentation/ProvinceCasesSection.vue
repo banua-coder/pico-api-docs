@@ -1,17 +1,17 @@
 <template>
-  <section v-show="isActive" id="province-cases" class="mb-16">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.provinceCases.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.provinceCases.description') }}</p>
+  <section v-show="isActive" id="province-cases" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.provinceCases.title') }}</h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.provinceCases.description') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div class="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-6">
-        <h2 class="text-2xl font-bold text-white mb-2">{{ t('documentation.provinceCases.endpoints') }}</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-r from-purple-600 to-pink-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">{{ t('documentation.provinceCases.endpoints') }}</h2>
         <p class="text-purple-100">{{ t('documentation.provinceCases.description') }}</p>
       </div>
       
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <div class="grid lg:grid-cols-2 gap-8 mb-8">
           <div class="bg-gray-50 dark:bg-gray-900 rounded-xl p-6">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.provinceCases.endpoints') }}</h3>
@@ -43,7 +43,7 @@
         </div>
 
         <!-- Parameters Table -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Parameters</h3>
           <div class="overflow-x-auto">
             <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -98,7 +98,7 @@
         </div>
 
         <!-- Response Fields Table -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Response Fields</h3>
           
           <!-- Province Structure Note -->
@@ -225,7 +225,7 @@
         </div>
 
         <!-- Response Example -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Response Example</h3>
           <CodeBlock 
             :code="provinceCasesResponse"
