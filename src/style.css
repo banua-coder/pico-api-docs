@@ -19,6 +19,13 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   @apply bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100;
   transition: background-color 0.15s ease, color 0.15s ease;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+#app {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 /* Skip link */
@@ -96,6 +103,12 @@ body {
   .api-section-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Prevent grid children from overflowing viewport */
+.api-section-grid > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Scrollbar styling */
