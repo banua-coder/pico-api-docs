@@ -2,9 +2,9 @@
   <div :id="sectionId" class="border-b border-gray-200 dark:border-gray-800">
     <!-- Section header (full width) -->
     <div class="px-6 py-6 border-b border-gray-200 dark:border-gray-800">
-      <div class="flex items-center space-x-3">
-        <span :class="method === 'GET' ? 'badge-get' : 'badge-post'">{{ method }}</span>
-        <code class="text-sm font-mono text-gray-700 dark:text-gray-300">{{ endpoint }}</code>
+      <div class="flex items-center gap-2 flex-wrap min-w-0">
+        <span :class="method === 'GET' ? 'badge-get' : 'badge-post'" class="shrink-0">{{ method }}</span>
+        <code class="text-sm font-mono text-gray-700 dark:text-gray-300 break-all min-w-0">{{ endpoint }}</code>
       </div>
       <p v-if="description" class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{ description }}</p>
     </div>

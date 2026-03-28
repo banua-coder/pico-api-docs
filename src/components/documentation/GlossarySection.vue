@@ -28,7 +28,7 @@
       <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
 
         <!-- Left Column -->
-        <div class="space-y-10">
+        <div class="space-y-10 min-w-0 overflow-x-hidden">
 
           <!-- Definition -->
           <div>
@@ -45,18 +45,18 @@
             <h3 class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
               {{ t('documentation.glossary.reproductionRate.interpretation') }}
             </h3>
-            <div class="divide-y divide-gray-100 dark:divide-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-x-hidden">
-              <div class="flex items-center gap-4 px-4 py-3 bg-red-50 dark:bg-red-950/40">
-                <span class="font-mono text-sm font-bold text-red-600 dark:text-red-400 w-16 shrink-0">Rt &gt; 1</span>
-                <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.growing') }}</span>
+            <div class="divide-y divide-gray-100 dark:divide-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+              <div class="flex items-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-950/40">
+                <span class="font-mono text-sm font-bold text-red-600 dark:text-red-400 w-14 shrink-0">Rt &gt; 1</span>
+                <span class="text-sm text-gray-700 dark:text-gray-300 min-w-0 break-words">{{ t('documentation.glossary.reproductionRate.growing') }}</span>
               </div>
-              <div class="flex items-center gap-4 px-4 py-3 bg-amber-50 dark:bg-amber-950/40">
-                <span class="font-mono text-sm font-bold text-amber-600 dark:text-amber-400 w-16 shrink-0">Rt = 1</span>
-                <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.stable') }}</span>
+              <div class="flex items-center gap-3 px-4 py-3 bg-amber-50 dark:bg-amber-950/40">
+                <span class="font-mono text-sm font-bold text-amber-600 dark:text-amber-400 w-14 shrink-0">Rt = 1</span>
+                <span class="text-sm text-gray-700 dark:text-gray-300 min-w-0 break-words">{{ t('documentation.glossary.reproductionRate.stable') }}</span>
               </div>
-              <div class="flex items-center gap-4 px-4 py-3 bg-green-50 dark:bg-green-950/40">
-                <span class="font-mono text-sm font-bold text-green-600 dark:text-green-400 w-16 shrink-0">Rt &lt; 1</span>
-                <span class="text-sm text-gray-700 dark:text-gray-300">{{ t('documentation.glossary.reproductionRate.declining') }}</span>
+              <div class="flex items-center gap-3 px-4 py-3 bg-green-50 dark:bg-green-950/40">
+                <span class="font-mono text-sm font-bold text-green-600 dark:text-green-400 w-14 shrink-0">Rt &lt; 1</span>
+                <span class="text-sm text-gray-700 dark:text-gray-300 min-w-0 break-words">{{ t('documentation.glossary.reproductionRate.declining') }}</span>
               </div>
             </div>
           </div>
@@ -110,9 +110,10 @@
                       <MathFormula formula="I_{t-s} = \text{incidence at time } (t-s)" />
                       <MathFormula formula="w_s = \text{serial interval probability}" />
                     </template>
-                    <MathFormula
-                      v-else-if="i === 2" formula="R_t | \text{data} \sim \text{Gamma}\left(a + \sum I_t, \, b + \sum \lambda_t\right)"
-                    />
+                    <template v-else-if="i === 2">
+                      <MathFormula formula="R_t \mid \text{data} \sim \text{Gamma}\!\left(a + \textstyle\sum I_t,\right." :display-mode="false" />
+                      <MathFormula formula="\left. b + \textstyle\sum \lambda_t\right)" :display-mode="false" />
+                    </template>
                     <MathFormula
                       v-else formula="\mathbb{E}[R_t | \text{data}] = \frac{a + \sum I_t}{b + \sum \lambda_t}"
                     />
@@ -125,7 +126,7 @@
         </div>
 
         <!-- Right Column -->
-        <div class="space-y-10">
+        <div class="space-y-10 min-w-0 overflow-x-hidden">
 
           <!-- Practical Example -->
           <div>
@@ -184,7 +185,7 @@
                 </div>
 
                 <!-- Bounds -->
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div class="bg-gray-50 dark:bg-gray-900 rounded p-2 border border-gray-200 dark:border-gray-700 space-y-0.5">
                     <p class="font-sans font-semibold text-gray-700 dark:text-gray-300 text-[10px] uppercase tracking-wide">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.title') }}</p>
                     <p class="text-gray-600 dark:text-gray-400">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.formula') }}</p>
@@ -273,7 +274,7 @@
 
       <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
         <!-- Case Classifications -->
-        <div>
+        <div class="min-w-0 overflow-x-hidden">
           <h3 class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-5">
             {{ t('documentation.glossary.caseClassifications.title') }}
           </h3>
