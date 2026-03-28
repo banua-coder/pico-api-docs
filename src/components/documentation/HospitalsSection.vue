@@ -1,21 +1,21 @@
 <template>
-  <section v-show="isActive" id="hospitals" class="mb-16">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.hospitals.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.hospitals.description') }}</p>
+  <section v-show="isActive" id="hospitals" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.hospitals.title') }}</h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.hospitals.description') }}</p>
     </div>
 
     <!-- List Hospitals -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
-      <div class="bg-gradient-to-r from-red-500 to-pink-600 px-8 py-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+      <div class="bg-gradient-to-r from-red-500 to-pink-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
-          <code class="text-white font-mono text-lg">/api/v1/hospitals</code>
+          <code class="text-white font-mono text-base sm:text-lg">/api/v1/hospitals</code>
         </div>
         <p class="text-red-100">Get all hospitals in Sulawesi Tengah with bed availability (paginated)</p>
       </div>
 
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <div class="grid lg:grid-cols-2 gap-8 mb-8">
           <div>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Query Parameters</h3>
@@ -66,16 +66,16 @@
     </div>
 
     <!-- Get Hospital by Code -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div class="bg-gradient-to-r from-pink-600 to-rose-600 px-8 py-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-r from-pink-600 to-rose-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
-          <code class="text-white font-mono text-lg">/api/v1/hospitals/{code}</code>
+          <code class="text-white font-mono text-base sm:text-lg">/api/v1/hospitals/{code}</code>
         </div>
         <p class="text-pink-100">Get a single hospital by its code with full details</p>
       </div>
 
-      <div class="p-8 grid lg:grid-cols-2 gap-8">
+      <div class="p-4 sm:p-6 lg:p-8 grid lg:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Path Parameters</h3>
           <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">

@@ -1,17 +1,17 @@
 <template>
-  <section v-show="isActive" id="authentication" class="mb-16">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.authentication.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.authentication.subtitle') }}</p>
+  <section v-show="isActive" id="authentication" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.authentication.title') }}</h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.authentication.subtitle') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div class="bg-gradient-to-r from-yellow-600 to-orange-600 px-8 py-6">
-        <h2 class="text-2xl font-bold text-white mb-2">{{ t('documentation.authentication.title') }}</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-r from-yellow-600 to-orange-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">{{ t('documentation.authentication.title') }}</h2>
         <p class="text-yellow-100">{{ t('documentation.authentication.subtitle') }}</p>
       </div>
       
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <div class="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-400 dark:border-green-800 p-6 mb-8">
           <div class="flex items-center">
             <svg class="w-6 h-6 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
