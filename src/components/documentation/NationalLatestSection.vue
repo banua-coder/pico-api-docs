@@ -1,13 +1,13 @@
 <template>
-  <section v-show="isActive" id="national-latest" class="mb-16">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.nationalLatest.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.nationalLatest.description') }}</p>
+  <section v-show="isActive" id="national-latest" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.nationalLatest.title') }}</h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.nationalLatest.description') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
       <!-- Endpoint Header -->
-      <div class="bg-gradient-to-r from-pico-blue to-pico-deep px-8 py-6">
+      <div class="bg-gradient-to-r from-pico-blue to-pico-deep px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center gap-4">
           <span class="bg-white text-pico-deep px-3 py-1 rounded-lg font-mono text-sm font-bold">GET</span>
           <code class="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg font-mono text-sm">/national/latest</code>
@@ -15,9 +15,9 @@
         <p class="text-white/90 mt-2">{{ t('documentation.nationalLatest.description') }}</p>
       </div>
       
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <!-- Parameters Table -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Parameters</h3>
           <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-center text-gray-500 dark:text-gray-400">
             No parameters required
@@ -25,7 +25,7 @@
         </div>
 
         <!-- Response Fields Table -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Response Fields</h3>
           <div class="overflow-x-auto">
             <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
@@ -88,7 +88,7 @@
         </div>
 
         <!-- Code Examples -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Request</h3>
           <div class="grid lg:grid-cols-2 gap-6">
             <div>

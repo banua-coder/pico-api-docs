@@ -2,6 +2,7 @@
   <div class="mt-4">
     <h4 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">{{ title || t('docs.table.queryParameters') }}</h4>
     <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+      <div class="overflow-x-auto">
       <table class="params-table">
         <thead>
           <tr>
@@ -23,6 +24,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 </template>

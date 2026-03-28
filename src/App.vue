@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="transition-colors duration-200">
+  <div id="app" class="transition-colors duration-200 overflow-x-hidden">
     <router-view v-slot="{ Component, route }">
       <transition
         :name="(route.meta?.transition as string) || 'slide-left'"

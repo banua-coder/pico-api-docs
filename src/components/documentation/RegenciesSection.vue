@@ -1,21 +1,21 @@
 <template>
-  <section v-show="isActive" id="regencies" class="mb-16">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.regencies.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.regencies.description') }}</p>
+  <section v-show="isActive" id="regencies" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.regencies.title') }}</h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.regencies.description') }}</p>
     </div>
 
     <!-- List Regencies -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
-      <div class="bg-gradient-to-r from-blue-600 to-cyan-600 px-8 py-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+      <div class="bg-gradient-to-r from-blue-600 to-cyan-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
-          <code class="text-white font-mono text-lg">/api/v1/regencies</code>
+          <code class="text-white font-mono text-base sm:text-lg">/api/v1/regencies</code>
         </div>
         <p class="text-blue-100">{{ t('documentation.regencies.listDescription') }}</p>
       </div>
 
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <div class="grid lg:grid-cols-2 gap-8 mb-8">
           <div>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.pagination.title') }}</h3>
@@ -65,15 +65,15 @@
     </div>
 
     <!-- Get Regency by ID -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
-      <div class="bg-gradient-to-r from-indigo-600 to-blue-600 px-8 py-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8">
+      <div class="bg-gradient-to-r from-indigo-600 to-blue-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
-          <code class="text-white font-mono text-lg">/api/v1/regencies/{code}</code>
+          <code class="text-white font-mono text-base sm:text-lg">/api/v1/regencies/{code}</code>
         </div>
         <p class="text-indigo-100">{{ t('documentation.regencies.detailDescription') }}</p>
       </div>
-      <div class="p-8 grid lg:grid-cols-2 gap-8">
+      <div class="p-4 sm:p-6 lg:p-8 grid lg:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Path Parameters</h3>
           <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">
@@ -99,15 +99,15 @@
     </div>
 
     <!-- Get Regency Cases -->
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-6">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
-          <code class="text-white font-mono text-lg">/api/v1/regencies/{code}/cases</code>
+          <code class="text-white font-mono text-base sm:text-lg">/api/v1/regencies/{code}/cases</code>
         </div>
         <p class="text-purple-100">{{ t('documentation.regencies.casesDescription') }}</p>
       </div>
-      <div class="p-8 grid lg:grid-cols-2 gap-8">
+      <div class="p-4 sm:p-6 lg:p-8 grid lg:grid-cols-2 gap-8">
         <div>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Example Request</h3>
           <CodeBlock :code="getRegencyCasesRequest" language="bash" title="cURL" />

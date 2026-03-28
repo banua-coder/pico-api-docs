@@ -1,19 +1,19 @@
 <template>
-  <section v-show="isActive" id="error-handling" class="mb-16">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.errorHandling.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.errorHandling.subtitle') }}</p>
+  <section v-show="isActive" id="error-handling" class="mb-10 md:mb-16">
+    <div class="mb-5 md:mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.errorHandling.title') }}</h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.errorHandling.subtitle') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div class="bg-gradient-to-r from-red-600 to-rose-600 px-8 py-6">
-        <h2 class="text-2xl font-bold text-white mb-2">{{ t('documentation.errorHandling.title') }}</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-r from-red-600 to-rose-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">{{ t('documentation.errorHandling.title') }}</h2>
         <p class="text-red-100">{{ t('documentation.errorHandling.subtitle') }}</p>
       </div>
       
-      <div class="p-8">
+      <div class="p-4 sm:p-6 lg:p-8">
         <!-- Status Codes -->
-        <div class="mb-8">
+        <div class="mb-5 md:mb-8">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{{ t('documentation.errorHandling.httpStatusCodes') }}</h3>
           <div class="grid gap-4">
             <div class="flex items-center p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg">
