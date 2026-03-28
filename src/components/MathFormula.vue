@@ -33,5 +33,23 @@ const renderedMath = computed(() => {
 .katex-formula {
   display: block;
   text-align: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  padding-bottom: 4px; /* space for scrollbar */
+}
+
+/* Ensure KaTeX inner elements don't force overflow */
+.katex-formula :deep(.katex-display) {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  margin: 0.5em 0;
+}
+
+.katex-formula :deep(.katex-html) {
+  overflow-x: auto;
+  max-width: 100%;
 }
 </style>
