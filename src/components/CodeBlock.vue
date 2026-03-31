@@ -267,7 +267,7 @@ onMounted(() => {
 .code-block-wrapper {
   @apply rounded-lg my-4 transition-colors duration-200;
   @apply border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900;
-  overflow: hidden; /* keep border-radius clipping */
+  overflow-x: auto; /* allow horizontal scroll */
   max-width: 100%;
 }
 

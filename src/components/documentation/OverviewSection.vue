@@ -14,7 +14,7 @@
     </div>
 
     <!-- Getting Started Card -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-x-hidden">
       <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <h2 class="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2">{{ t('documentation.overview.gettingStarted') }}</h2>
         <p class="text-sm sm:text-base text-blue-100">{{ t('documentation.overview.gettingStartedSub') }}</p>

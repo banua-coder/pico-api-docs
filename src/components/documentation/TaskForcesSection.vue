@@ -5,7 +5,7 @@
       <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400">{{ t('documentation.taskForces.description') }}</p>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-x-hidden">
       <div class="bg-gradient-to-r from-orange-500 to-amber-600 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div class="flex items-center space-x-3 mb-2">
           <span class="bg-green-400 text-green-900 text-xs font-bold px-2 py-1 rounded">GET</span>
