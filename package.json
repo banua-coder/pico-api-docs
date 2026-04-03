@@ -10,7 +10,10 @@
     "lint": "eslint src",
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +38,7 @@
     "terser": "^5.46.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.4",
+    "vitepress": "^1.6.4",
     "vitest": "^4.1.0",
     "vue-eslint-parser": "^10.4.0",
     "vue-tsc": "^3.0.6"
