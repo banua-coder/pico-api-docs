@@ -8,12 +8,6 @@ Data statistik agregat COVID-19.
 GET /api/v1/covid/statistics
 ```
 
-## Playground
-
-<ApiPlayground
-  endpoint="/api/v1/covid/statistics"
-/>
-
 ## Contoh Request
 
 ```bash

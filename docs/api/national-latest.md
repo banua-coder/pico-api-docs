@@ -8,12 +8,6 @@ Data COVID-19 nasional Indonesia paling terkini.
 GET /api/v1/covid/national/latest
 ```
 
-## Playground
-
-<ApiPlayground
-  endpoint="/api/v1/covid/national/latest"
-/>
-
 ## Field Respons
 
 | Field | Tipe | Keterangan |

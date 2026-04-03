@@ -8,17 +8,6 @@ Data COVID-19 per kabupaten/kota.
 GET /api/v1/covid/regencies
 ```
 
-## Playground
-
-<ApiPlayground
-  endpoint="/api/v1/covid/regencies"
-  :params="[
-    { name: 'page', type: 'number', placeholder: '1', default: '1', description: 'Nomor halaman' },
-    { name: 'per_page', type: 'number', placeholder: '10', default: '10', description: 'Data per halaman' },
-    { name: 'province_id', type: 'string', placeholder: 'sulteng', description: 'Filter berdasarkan ID provinsi' },
-  ]"
-/>
-
 ## Parameter Query
 
 | Parameter | Tipe | Wajib | Keterangan |

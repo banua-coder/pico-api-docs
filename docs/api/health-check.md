@@ -8,12 +8,6 @@ Cek status API dan konektivitas database.
 GET /api/v1/health
 ```
 
-## Playground
-
-<ApiPlayground
-  endpoint="/api/v1/health"
-/>
-
 ## Contoh Request
 
 ```bash

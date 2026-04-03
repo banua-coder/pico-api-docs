@@ -8,17 +8,6 @@ Daftar rumah sakit rujukan COVID-19.
 GET /api/v1/covid/hospitals
 ```
 
-## Playground
-
-<ApiPlayground
-  endpoint="/api/v1/covid/hospitals"
-  :params="[
-    { name: 'page', type: 'number', placeholder: '1', default: '1' },
-    { name: 'per_page', type: 'number', placeholder: '10', default: '10' },
-    { name: 'regency_id', type: 'string', placeholder: 'palu', description: 'Filter berdasarkan kabupaten/kota' },
-  ]"
-/>
-
 ## Parameter Query
 
 | Parameter | Tipe | Keterangan |

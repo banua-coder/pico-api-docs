@@ -8,15 +8,6 @@ Data COVID-19 detail untuk provinsi tertentu.
 GET /api/v1/covid/provinces/:id
 ```
 
-## Playground
-
-<ApiPlayground
-  endpoint="/api/v1/covid/provinces/:id"
-  :pathParams="[
-    { name: 'id', placeholder: 'sulteng', default: 'sulteng', description: 'ID provinsi (misal: sulteng, sulsel, dki-jakarta)' },
-  ]"
-/>
-
 ## Parameter Path
 
 | Parameter | Keterangan |
