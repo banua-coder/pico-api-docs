@@ -8,6 +8,18 @@ Riwayat data COVID-19 nasional Indonesia.
 GET /api/v1/covid/national/historical
 ```
 
+## Playground
+
+<ApiPlayground
+  endpoint="/api/v1/covid/national/historical"
+  :params="[
+    { name: 'page', type: 'number', placeholder: '1', default: '1', description: 'Nomor halaman' },
+    { name: 'per_page', type: 'number', placeholder: '10', default: '10', description: 'Data per halaman' },
+    { name: 'start_date', type: 'string', placeholder: '2023-01-01', description: 'Filter tanggal mulai (YYYY-MM-DD)' },
+    { name: 'end_date', type: 'string', placeholder: '2023-01-31', description: 'Filter tanggal akhir (YYYY-MM-DD)' },
+  ]"
+/>
+
 ## Parameter Query
 
 | Parameter | Tipe | Wajib | Keterangan |
@@ -20,35 +32,5 @@ GET /api/v1/covid/national/historical
 ## Contoh Request
 
 ```bash
-# Data historis dengan pagination
 curl "https://pico-api.banuacoder.com/api/v1/covid/national/historical?page=1&per_page=30"
-
-# Filter rentang tanggal
-curl "https://pico-api.banuacoder.com/api/v1/covid/national/historical?start_date=2023-01-01&end_date=2023-01-31"
-```
-
-## Contoh Respons
-
-```json
-{
-  "data": [
-    {
-      "confirmed": 6737000,
-      "recovered": 6591000,
-      "deaths": 161000,
-      "date": "2023-06-30",
-      "new_confirmed": 100,
-      "new_recovered": 150,
-      "new_deaths": 2
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "per_page": 10,
-    "total": 1200,
-    "total_pages": 120
-  },
-  "message": "success",
-  "status": true
-}
 ```

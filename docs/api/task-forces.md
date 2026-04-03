@@ -8,6 +8,12 @@ Daftar gugus tugas penanganan COVID-19 di Sulawesi Tengah.
 GET /api/v1/covid/task-forces
 ```
 
+## Playground
+
+<ApiPlayground
+  endpoint="/api/v1/covid/task-forces"
+/>
+
 ## Contoh Request
 
 ```bash

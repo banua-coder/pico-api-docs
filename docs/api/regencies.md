@@ -1,12 +1,23 @@
 # Kabupaten/Kota
 
-Data COVID-19 per kabupaten/kota di Sulawesi Tengah.
+Data COVID-19 per kabupaten/kota.
 
 ## Endpoint
 
 ```
 GET /api/v1/covid/regencies
 ```
+
+## Playground
+
+<ApiPlayground
+  endpoint="/api/v1/covid/regencies"
+  :params="[
+    { name: 'page', type: 'number', placeholder: '1', default: '1', description: 'Nomor halaman' },
+    { name: 'per_page', type: 'number', placeholder: '10', default: '10', description: 'Data per halaman' },
+    { name: 'province_id', type: 'string', placeholder: 'sulteng', description: 'Filter berdasarkan ID provinsi' },
+  ]"
+/>
 
 ## Parameter Query
 
@@ -20,30 +31,4 @@ GET /api/v1/covid/regencies
 
 ```bash
 curl "https://pico-api.banuacoder.com/api/v1/covid/regencies?province_id=sulteng"
-```
-
-## Contoh Respons
-
-```json
-{
-  "data": [
-    {
-      "id": "palu",
-      "name": "Kota Palu",
-      "province_id": "sulteng",
-      "confirmed": 5000,
-      "recovered": 4800,
-      "deaths": 120,
-      "active": 80
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "per_page": 10,
-    "total": 13,
-    "total_pages": 2
-  },
-  "message": "success",
-  "status": true
-}
 ```

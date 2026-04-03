@@ -8,6 +8,12 @@ Cek status API dan konektivitas database.
 GET /api/v1/health
 ```
 
+## Playground
+
+<ApiPlayground
+  endpoint="/api/v1/health"
+/>
+
 ## Contoh Request
 
 ```bash
@@ -24,15 +30,6 @@ curl https://pico-api.banuacoder.com/api/v1/health
   },
   "message": "API is healthy",
   "status": true
-}
-```
-
-## Contoh Respons (Error)
-
-```json
-{
-  "message": "database connection failed",
-  "status": false
 }
 ```
 

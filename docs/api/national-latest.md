@@ -8,32 +8,11 @@ Data COVID-19 nasional Indonesia paling terkini.
 GET /api/v1/covid/national/latest
 ```
 
-## Contoh Request
+## Playground
 
-```bash
-curl https://pico-api.banuacoder.com/api/v1/covid/national/latest
-```
-
-## Contoh Respons
-
-```json
-{
-  "data": {
-    "confirmed": 6737downstream,
-    "recovered": 6591234,
-    "deaths": 161234,
-    "active": 12345,
-    "date": "2023-06-30",
-    "new_confirmed": 100,
-    "new_recovered": 150,
-    "new_deaths": 2,
-    "fatality_rate": 2.39,
-    "recovery_rate": 97.24
-  },
-  "message": "success",
-  "status": true
-}
-```
+<ApiPlayground
+  endpoint="/api/v1/covid/national/latest"
+/>
 
 ## Field Respons
 
@@ -49,3 +28,9 @@ curl https://pico-api.banuacoder.com/api/v1/covid/national/latest
 | `new_deaths` | `number` | Meninggal baru hari ini |
 | `fatality_rate` | `number` | Tingkat kematian (%) |
 | `recovery_rate` | `number` | Tingkat kesembuhan (%) |
+
+## Contoh Request
+
+```bash
+curl https://pico-api.banuacoder.com/api/v1/covid/national/latest
+```

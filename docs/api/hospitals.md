@@ -1,12 +1,23 @@
 # Rumah Sakit Rujukan
 
-Daftar rumah sakit rujukan COVID-19 di Sulawesi Tengah.
+Daftar rumah sakit rujukan COVID-19.
 
 ## Endpoint
 
 ```
 GET /api/v1/covid/hospitals
 ```
+
+## Playground
+
+<ApiPlayground
+  endpoint="/api/v1/covid/hospitals"
+  :params="[
+    { name: 'page', type: 'number', placeholder: '1', default: '1' },
+    { name: 'per_page', type: 'number', placeholder: '10', default: '10' },
+    { name: 'regency_id', type: 'string', placeholder: 'palu', description: 'Filter berdasarkan kabupaten/kota' },
+  ]"
+/>
 
 ## Parameter Query
 
@@ -20,26 +31,4 @@ GET /api/v1/covid/hospitals
 
 ```bash
 curl "https://pico-api.banuacoder.com/api/v1/covid/hospitals?regency_id=palu"
-```
-
-## Contoh Respons
-
-```json
-{
-  "data": [
-    {
-      "id": "rsud-undata",
-      "name": "RSUD Undata Palu",
-      "address": "Jl. Undata, Palu",
-      "phone": "0451-421195",
-      "type": "Rumah Sakit Umum Daerah",
-      "regency_id": "palu",
-      "is_referral": true,
-      "bed_capacity": 200,
-      "available_beds": 45
-    }
-  ],
-  "message": "success",
-  "status": true
-}
 ```

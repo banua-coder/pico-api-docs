@@ -8,6 +8,16 @@ Daftar semua provinsi Indonesia beserta data COVID-19.
 GET /api/v1/covid/provinces
 ```
 
+## Playground
+
+<ApiPlayground
+  endpoint="/api/v1/covid/provinces"
+  :params="[
+    { name: 'page', type: 'number', placeholder: '1', default: '1', description: 'Nomor halaman' },
+    { name: 'per_page', type: 'number', placeholder: '10', default: '10', description: 'Data per halaman (max 34)' },
+  ]"
+/>
+
 ## Parameter Query
 
 | Parameter | Tipe | Wajib | Keterangan |
@@ -19,29 +29,4 @@ GET /api/v1/covid/provinces
 
 ```bash
 curl "https://pico-api.banuacoder.com/api/v1/covid/provinces?page=1&per_page=34"
-```
-
-## Contoh Respons
-
-```json
-{
-  "data": [
-    {
-      "id": "sulteng",
-      "name": "Sulawesi Tengah",
-      "confirmed": 15000,
-      "recovered": 14500,
-      "deaths": 300,
-      "active": 200
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "per_page": 10,
-    "total": 34,
-    "total_pages": 4
-  },
-  "message": "success",
-  "status": true
-}
 ```

@@ -1,6 +1,6 @@
 # Vaksinasi
 
-Data vaksinasi COVID-19 nasional dan per provinsi.
+Data vaksinasi COVID-19.
 
 ## Endpoint
 
@@ -8,42 +8,22 @@ Data vaksinasi COVID-19 nasional dan per provinsi.
 GET /api/v1/covid/vaccination
 ```
 
+## Playground
+
+<ApiPlayground
+  endpoint="/api/v1/covid/vaccination"
+  :params="[
+    { name: 'province_id', type: 'string', placeholder: 'sulteng', description: 'Filter berdasarkan ID provinsi (kosongkan untuk nasional)' },
+    { name: 'page', type: 'number', placeholder: '1', default: '1' },
+    { name: 'per_page', type: 'number', placeholder: '10', default: '10' },
+  ]"
+/>
+
 ## Parameter Query
 
 | Parameter | Tipe | Keterangan |
 |-----------|------|------------|
 | `province_id` | `string` | Filter berdasarkan provinsi |
-| `page` | `number` | Halaman |
-| `per_page` | `number` | Data per halaman |
-
-## Contoh Request
-
-```bash
-# Vaksinasi nasional
-curl https://pico-api.banuacoder.com/api/v1/covid/vaccination
-
-# Vaksinasi Sulawesi Tengah
-curl "https://pico-api.banuacoder.com/api/v1/covid/vaccination?province_id=sulteng"
-```
-
-## Contoh Respons
-
-```json
-{
-  "data": {
-    "total_target": 208000000,
-    "dose1": 170000000,
-    "dose2": 140000000,
-    "dose3": 50000000,
-    "dose1_percentage": 81.73,
-    "dose2_percentage": 67.31,
-    "dose3_percentage": 24.04,
-    "updated_at": "2023-06-30"
-  },
-  "message": "success",
-  "status": true
-}
-```
 
 ## Field Respons
 
