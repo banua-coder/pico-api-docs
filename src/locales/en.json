@@ -1,221 +1,5 @@
 {
-  "nav": {
-    "home": "Home",
-    "documentation": "Documentation",
-    "apiReference": "API Reference",
-    "liveApi": "Live API",
-    "swaggerUi": "Swagger UI ↗"
-  },
-  "hero": {
-    "badge": "Trusted by developers • Central Sulawesi focused",
-    "title": "PICO SulTeng",
-    "subtitle": "COVID-19 API",
-    "description": "Comprehensive COVID-19 data API for {region}",
-    "descriptionSub": "with {context} and real-time updates",
-    "tagline": "Built for developers who need reliable, fast, and well-documented health data",
-    "getStarted": "Get Started",
-    "apiDocs": "API Docs",
-    "downloadApp": "Download PICO App",
-    "apiStatus": "API Status: Live & Healthy"
-  },
-  "features": {
-    "title": "Powerful Features",
-    "subtitle": "Everything you need for reliable COVID-19 data integration in Central Sulawesi",
-    "realTimeData": {
-      "title": "Real-time Data",
-      "description": "Up-to-date COVID-19 statistics for Central Sulawesi with daily updates and comprehensive metrics",
-      "badge": "Live updates every 24h"
-    },
-    "highPerformance": {
-      "title": "High Performance",
-      "description": "Built with Go for lightning-fast API responses with intelligent hybrid pagination system",
-      "badge": "< 100ms avg response"
-    },
-    "secureReliable": {
-      "title": "Secure & Reliable",
-      "description": "Robust error handling and secure data access"
-    },
-    "richDocumentation": {
-      "title": "Rich Documentation",
-      "description": "Interactive Swagger UI with examples"
-    },
-    "regionalFocus": {
-      "title": "Regional Focus",
-      "description": "Specialized for Central Sulawesi data"
-    },
-    "developerFriendly": {
-      "title": "Developer Friendly",
-      "description": "RESTful API with JSON responses, CORS support, and flexible query parameters"
-    }
-  },
-  "apiPreview": {
-    "title": "Quick API Overview",
-    "subtitle": "Essential endpoints to get you started",
-    "healthCheck": {
-      "title": "Health Check",
-      "description": "Check API status and database connectivity"
-    },
-    "nationalData": {
-      "title": "National Data",
-      "description": "National COVID-19 statistics and latest data"
-    },
-    "provinceData": {
-      "title": "Province Data",
-      "description": "Province information and case data with pagination"
-    },
-    "specificProvince": {
-      "title": "Specific Province",
-      "description": "Central Sulawesi specific COVID-19 data"
-    }
-  },
-  "dataSources": {
-    "title": "Trusted Data Sources",
-    "subtitle": "Our API aggregates data from reliable sources to ensure accuracy and completeness",
-    "trustedBy": "Data aggregated from",
-    "partners": {
-      "inacovid": "INACOVID-19 - National COVID-19 Task Force",
-      "dinkes": "Central Sulawesi Health Department",
-      "sultengLawan": "Central Sulawesi Anti-COVID-19 Campaign",
-      "detexi": "Detexi - Health Technology Platform",
-      "banuaCoder": "Banua Coders - Development Team",
-      "ethicalHacker": "Ethical Hacker Indonesia - Security Partner"
-    }
-  },
   "documentation": {
-    "title": "API Documentation",
-    "subtitle": "Comprehensive guide for integrating with the PICO SulTeng COVID-19 API",
-    "overview": {
-      "title": "API Documentation",
-      "subtitle": "Comprehensive guide for integrating with the PICO SulTeng COVID-19 API. Get real-time Indonesian COVID-19 data with our RESTful endpoints.",
-      "apiStatus": "API Status: Operational",
-      "gettingStarted": "Getting Started",
-      "gettingStartedSub": "Quick start guide to using the PICO SulTeng API",
-      "baseUrl": "Base URL",
-      "contentType": "Content Type",
-      "quickExample": "Quick Example",
-      "noAuthRequired": "No authentication required for public endpoints",
-      "description": "Get real-time Indonesian COVID-19 data with our RESTful endpoints."
-    },
-    "nationalLatest": {
-      "title": "Get Latest National Data",
-      "description": "Retrieve the most recent national COVID-19 statistics for Indonesia.",
-      "request": "Request",
-      "response": "Response",
-      "responseFields": "Response Fields",
-      "tryLiveApi": "Try Live API"
-    },
-    "nationalHistorical": {
-      "title": "Get Historical National Data",
-      "description": "Retrieve comprehensive historical COVID-19 data for Indonesia with flexible date filtering and sorting options. This endpoint is ideal for trend analysis, data visualization, and research purposes, allowing you to access daily statistics from the beginning of the pandemic.",
-      "usageNote": "Use this endpoint when you need time-series data, want to analyze trends over specific periods, or require historical context for current statistics. For real-time or latest data only, use the /national/latest endpoint instead.",
-      "queryParameters": "Query Parameters",
-      "parameter": "Parameter",
-      "type": "Type",
-      "descriptionLabel": "Description",
-      "default": "Default",
-      "exampleRequest": "Example Request",
-      "tryIt": "Try It",
-      "testInBrowser": "Test in Browser"
-    },
-    "rootEndpoint": {
-      "title": "Get All Available Endpoints",
-      "description": "Retrieve a list of all available API endpoints with descriptions and usage examples.",
-      "endpoint": "GET /",
-      "response": "Response",
-      "responseDescription": "Returns JSON object containing all available endpoints with their descriptions"
-    },
-    "healthCheck": {
-      "title": "Health Check",
-      "description": "Check API health status and database connectivity. Essential for monitoring API availability.",
-      "endpoint": "GET /health",
-      "responses": "Responses",
-      "status200": "200: API is healthy and operational",
-      "status503": "503: API is degraded or experiencing issues"
-    },
-    "provinces": {
-      "title": "Get All Provinces",
-      "description": "Retrieve all Indonesian provinces with their latest COVID-19 case data.",
-      "endpoint": "GET /provinces",
-      "queryParameters": "Query Parameters",
-      "excludeLatestCase": "exclude_latest_case (boolean) - Optional: exclude latest case data from response"
-    },
-    "provinceCases": {
-      "title": "Get Province Cases",
-      "description": "Retrieve COVID-19 cases for specific provinces with hybrid pagination and flexible filtering options.",
-      "endpoints": "Endpoints",
-      "allProvinces": "GET /provinces/cases - All provinces cases data",
-      "specificProvince": "GET /provinces/{provinceId}/cases - Specific province cases",
-      "parameters": [
-        "limit (integer) - Records per page for pagination",
-        "offset (integer) - Number of records to skip",
-        "all (boolean) - Return all data without pagination",
-        "start_date (string) - Filter data from this date (YYYY-MM-DD)",
-        "end_date (string) - Filter data until this date (YYYY-MM-DD)",
-        "sort (string) - Sorting options (e.g., date:desc, date:asc)"
-      ],
-      "features": "Key Features",
-      "featuresList": [
-        "Hybrid pagination support",
-        "Flexible date filtering",
-        "Multiple sorting options",
-        "Province-specific data access"
-      ]
-    },
-    "authentication": {
-      "title": "Authentication",
-      "subtitle": "API access and security information",
-      "noAuthRequired": "No Authentication Required",
-      "noAuthDescription": "All PICO SulTeng API endpoints are publicly accessible and do not require authentication keys or tokens.",
-      "rateLimiting": "Rate Limiting",
-      "bestPractices": "Best Practices",
-      "rateLimitDetails": [
-        "100 requests per minute per IP",
-        "20 burst size for initial requests",
-        "No API key required",
-        "CORS enabled for all origins"
-      ],
-      "practiceDetails": [
-        "Cache responses appropriately",
-        "Use HTTPS for secure connections",
-        "Handle rate limit responses"
-      ]
-    },
-    "errorHandling": {
-      "title": "Error Handling",
-      "subtitle": "HTTP status codes and error responses",
-      "httpStatusCodes": "HTTP Status Codes",
-      "errorResponseFormat": "Error Response Format",
-      "errorResponse": "Error Response",
-      "errorFields": "Error Fields",
-      "statusCodes": {
-        "200": {
-          "title": "OK",
-          "description": "Request successful"
-        },
-        "400": {
-          "title": "Bad Request",
-          "description": "Invalid parameters or malformed request"
-        },
-        "404": {
-          "title": "Not Found",
-          "description": "Endpoint or resource not found"
-        },
-        "429": {
-          "title": "Too Many Requests",
-          "description": "Rate limit exceeded"
-        },
-        "500": {
-          "title": "Internal Server Error",
-          "description": "Server encountered an unexpected error"
-        }
-      },
-      "fieldDescriptions": {
-        "status": "Always \"error\" for error responses",
-        "code": "HTTP status code",
-        "message": "Human-readable error message",
-        "details": "Additional error information"
-      }
-    },
     "glossary": {
       "title": "Glossary",
       "subtitle": "Key terms and concepts used in the PICO SulTeng COVID-19 API",
@@ -418,298 +202,448 @@
           "legacyFlow": "Legacy: ODP → PDP → OTG → Confirmed"
         }
       }
-    },
-    "regencies": {
-      "title": "Regencies (Kabupaten/Kota)",
-      "description": "Endpoints for regency/city data and COVID-19 case statistics in Sulawesi Tengah.",
-      "listTitle": "List Regencies",
-      "listDescription": "Get all regencies/cities in Sulawesi Tengah (paginated)",
-      "detailTitle": "Get Regency by ID",
-      "detailDescription": "Get a single regency by its ID/code",
-      "casesTitle": "Get Regency Cases",
-      "casesDescription": "Get COVID-19 case history for a specific regency",
-      "parameters": {
-        "page": "Page number",
-        "perPage": "Items per page (max: 100)",
-        "loadAll": "Return all data without pagination",
-        "code": "Regency ID (e.g. 7271 for Kota Palu)"
-      }
-    },
-    "hospitals": {
-      "title": "Hospitals",
-      "description": "Endpoints for hospital data including bed availability and contact information in Sulawesi Tengah.",
-      "listTitle": "List Hospitals",
-      "listDescription": "Get all hospitals with bed availability (paginated)",
-      "detailTitle": "Get Hospital by Code",
-      "detailDescription": "Get a single hospital by its code with full details",
-      "parameters": {
-        "page": "Page number",
-        "perPage": "Items per page (max: 100)",
-        "loadAll": "Return all hospitals without pagination",
-        "code": "Hospital code (e.g. 7200001)"
-      }
-    },
-    "taskForces": {
-      "title": "Task Forces (Gugus Tugas)",
-      "description": "COVID-19 task force posts (posko) grouped by regency in Sulawesi Tengah, with contact information.",
-      "listTitle": "List Task Forces",
-      "listDescription": "Get all COVID-19 task force posts grouped by regency (paginated)",
-      "parameters": {
-        "page": "Page number (paginates by regency)",
-        "perPage": "Regencies per page (max: 100)",
-        "loadAll": "Return all task forces without pagination"
-      }
-    },
-    "vaccination": {
-      "title": "Vaccination",
-      "description": "Endpoints for COVID-19 vaccination data including national records, Sulawesi Tengah province data, and vaccination center locations.",
-      "nationalTitle": "National Vaccination Data",
-      "nationalDescription": "National vaccination records (paginated)",
-      "provinceTitle": "Province Vaccination Data",
-      "provinceDescription": "Sulawesi Tengah vaccination records (paginated)",
-      "locationsTitle": "Vaccination Locations",
-      "locationsDescription": "Vaccination centers in Sulawesi Tengah (paginated)",
-      "parameters": {
-        "page": "Page number",
-        "perPage": "Items per page (max: 100)",
-        "loadAll": "Return all records without pagination"
-      }
-    },
-    "statistics": {
-      "title": "Statistics",
-      "description": "Detailed COVID-19 statistics in Sulawesi Tengah, including gender-based case data, testing statistics, and test types.",
-      "genderTitle": "Gender Cases",
-      "genderDescription": "All gender-based COVID-19 case data for Sulawesi Tengah",
-      "latestGenderTitle": "Latest Gender Case",
-      "latestGenderDescription": "Latest gender-based COVID-19 case data",
-      "testsTitle": "COVID-19 Tests",
-      "testsDescription": "COVID-19 testing statistics for Sulawesi Tengah",
-      "testTypesTitle": "Test Types",
-      "testTypesDescription": "Available COVID-19 test types"
-    },
-    "pagination": {
-      "title": "Pagination",
-      "description": "All list endpoints support pagination parameters.",
-      "page": "Page number (default: 1)",
-      "perPage": "Items per page (default: 10, max: 100)",
-      "loadAll": "Return all data without pagination",
-      "responseFields": {
-        "data": "Array of items for the current page",
-        "page": "Current page number",
-        "perPage": "Items per page",
-        "total": "Total number of items",
-        "totalPages": "Total number of pages",
-        "hasNext": "Whether there is a next page",
-        "hasPrev": "Whether there is a previous page"
-      }
     }
+  },
+  "site": {
+    "name": "PICO SulTeng API"
+  },
+  "nav": {
+    "primary": "Main",
+    "home": "Home",
+    "documentation": "Documentation",
+    "glossary": "Data and methods",
+    "swagger": "Swagger UI",
+    "homeLogo": "PICO SulTeng, home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "ui": {
+    "skip": "Skip to main content",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyCode": "Copy {name} code",
+    "copyUrl": "Copy URL",
+    "copyBaseUrl": "Copy base URL",
+    "opensNewTab": "(opens in a new tab)",
+    "retry": "Try again",
+    "codeTabs": "Example format",
+    "theme": {
+      "label": "Switch to {next} theme. Current: {current}.",
+      "light": "light",
+      "dark": "dark",
+      "system": "system"
+    },
+    "language": {
+      "label": "Language: {current}. Switch to {next}.",
+      "en": "English",
+      "id": "Indonesian"
+    }
+  },
+  "search": {
+    "open": "Search documentation",
+    "button": "Search",
+    "title": "Search",
+    "label": "Search pages and endpoint paths",
+    "placeholder": "Search pages or endpoint paths",
+    "results": "Search results",
+    "page": "Page",
+    "endpoint": "Endpoint",
+    "empty": "No results for \"{query}\".",
+    "close": "Close search",
+    "count": "No results | 1 result | {count} results",
+    "hint": "Up and down arrows to move, Enter to open, Esc to close."
   },
   "footer": {
-    "description": "Comprehensive COVID-19 data API for Central Sulawesi, providing real-time statistics and historical data.",
-    "createdBy": "Created by {author}",
-    "quickLinks": "Quick Links",
-    "apiBaseUrl": "API Base URL",
-    "picoApp": "PICO Mobile App",
-    "copyright": "© 2024 Banua Coders. All rights reserved."
-  },
-  "common": {
-    "centralSulawesi": "Central Sulawesi",
-    "nationalContext": "national context",
-    "author": "Fajrian Aidil Pratama"
+    "copyright": "© {year} Banua Coder. PICO SulTeng API.",
+    "source": "Source code"
   },
   "home": {
-    "allSystemsOperational": "All systems operational",
-    "apiTitle": "PICO SulTeng COVID-19 API",
-    "baseUrlLabel": "BASE URL",
-    "getStarted": "Get Started →",
-    "quickStart": "Quick Start",
-    "footerCopyright": "© {year} Banua Coders. PICO SulTeng COVID-19 API.",
-    "footerDocumentation": "Documentation",
-    "footerSwaggerUi": "Swagger UI",
-    "features": {
-      "fast": {
-        "title": "Fast & Reliable",
-        "desc": "Built with Go for sub-100ms response times and high availability."
-      },
-      "regional": {
-        "title": "Regional Focus",
-        "desc": "Specialized COVID-19 data for Central Sulawesi (Sulawesi Tengah)."
-      },
-      "restful": {
-        "title": "RESTful JSON",
-        "desc": "Standard REST API with JSON responses and CORS support."
-      },
-      "documented": {
-        "title": "Well Documented",
-        "desc": "Comprehensive docs with examples for every endpoint."
-      }
-    }
+    "metaTitle": "PICO SulTeng API - COVID-19 data for Sulawesi Tengah",
+    "metaDescription": "Province-level COVID-19 data for Sulawesi Tengah (Central Sulawesi), down to regency, hospital, task force and vaccination. Documented endpoints, formulas and data sources.",
+    "promise": "Province-level COVID-19 data for Sulawesi Tengah, down to regency, hospital, task force and vaccination.",
+    "baseUrl": "Base URL",
+    "cta": "Read the docs",
+    "statTitle": "Latest records",
+    "province": "Sulawesi Tengah",
+    "national": "Indonesia",
+    "latestRecord": "Latest record: {date}",
+    "loading": "Loading the latest record",
+    "noRecord": "No record available",
+    "rows": {
+      "positive": "Confirmed (cumulative)",
+      "recovered": "Recovered (cumulative)",
+      "deceased": "Deceased (cumulative)",
+      "active": "Active (cumulative)"
+    },
+    "historicalNote": "Historical data. Each figure carries the date of its record.",
+    "error": "The latest records could not be loaded. The API may be unreachable.",
+    "offline": "You are offline. Reconnect to load the latest records.",
+    "health": {
+      "checking": "Checking API status",
+      "healthy": "API healthy, checked at {time}",
+      "unavailable": "API status unavailable"
+    },
+    "coversTitle": "What the API covers",
+    "coversText": "Six resource groups. Each row shows one real path and opens its page.",
+    "group": "Group",
+    "examplePath": "Example path",
+    "holds": "What it holds",
+    "groups": {
+      "service": "Health check and the API index.",
+      "national": "National case records, from day 1 to the latest.",
+      "regions": "Cases for every province and the regencies of Sulawesi Tengah.",
+      "facilities": "Hospitals with bed availability, and task force posts with contacts.",
+      "statistics": "Cases by gender and age group, and COVID-19 tests.",
+      "vaccination": "National and Sulawesi Tengah vaccination, and vaccination sites."
+    },
+    "methodsText": "How each figure is defined, how the reproduction rate is estimated, which terms changed over time, and where the data comes from.",
+    "methodsCta": "Read data and methods"
+  },
+  "dataSources": {
+    "title": "Data sources",
+    "subtitle": "Records come from these organisations and projects."
+  },
+  "endpoints": {
+    "root": "Serves this documentation site.",
+    "apiIndex": "API title, version and links to the endpoints.",
+    "health": "Health check with database status.",
+    "national": "National case records, oldest first by default.",
+    "nationalLatest": "The latest national record.",
+    "nationalDay": "National record for one day number.",
+    "provinces": "All provinces, each with its latest case record.",
+    "provinceDetail": "One province by ID.",
+    "provincesCases": "Case records for all provinces.",
+    "provinceCases": "Case records for one province. Use 72 for Sulawesi Tengah.",
+    "regencies": "Regencies and cities of Sulawesi Tengah.",
+    "regencyDetail": "One regency by code.",
+    "regencyCases": "Case history of one regency.",
+    "hospitals": "Hospitals with bed availability.",
+    "hospitalDetail": "One hospital by hospital code.",
+    "taskForces": "Task force posts grouped by regency.",
+    "genderStats": "Cases by gender and age group, one record per day.",
+    "genderLatest": "The latest gender and age group record.",
+    "testStats": "Testing statistics per test type and day.",
+    "testTypes": "Available test types.",
+    "vaccinationNational": "National vaccination records.",
+    "vaccinationProvince": "Sulawesi Tengah vaccination records.",
+    "vaccinationLocations": "Vaccination sites in Sulawesi Tengah."
   },
   "docs": {
-    "sidebar": {
-      "groups": {
-        "introduction": "Introduction",
-        "coreResources": "Core Resources",
-        "healthInfrastructure": "Health Infrastructure",
-        "statistics": "Statistics",
-        "vaccination": "Vaccination",
-        "reference": "Reference"
+    "groups": {
+      "start": "Start",
+      "basics": "Basics",
+      "service": "Service",
+      "national": "National",
+      "regions": "Regions",
+      "facilities": "Health facilities",
+      "statistics": "Statistics",
+      "vaccination": "Vaccination"
+    },
+    "endpointGroups": {
+      "service": "Service",
+      "national": "National",
+      "regions": "Provinces and regencies",
+      "facilities": "Hospitals and task forces",
+      "statistics": "Statistics",
+      "vaccination": "Vaccination"
+    },
+    "pages": {
+      "overview": {
+        "nav": "Overview",
+        "title": "Overview",
+        "description": "Start with one request, then learn the base URL, the response format and what the API covers."
       },
-      "items": {
-        "overview": "Overview",
-        "authentication": "Authentication",
-        "errors": "Errors",
-        "pagination": "Pagination",
-        "nationalCases": "National Cases",
-        "provinces": "Provinces",
-        "provinceCases": "Province Cases",
-        "regencies": "Regencies",
-        "hospitals": "Hospitals",
-        "taskForces": "Task Forces",
-        "genderStats": "Gender Stats",
-        "testStatistics": "Test Statistics",
-        "testTypes": "Test Types",
-        "national": "National",
-        "province": "Province",
-        "locations": "Locations",
-        "glossary": "Glossary"
-      }
-    },
-    "authentication": {
-      "title": "Authentication",
-      "description": "This API is publicly accessible. No authentication or API key is required. Simply send requests to the endpoints and receive JSON responses.",
-      "noKeyNote": "No API key required. All endpoints are publicly accessible."
-    },
-    "errors": {
-      "title": "Errors",
-      "description": "The API uses standard HTTP status codes. Errors return a JSON body with a {field} field describing the issue.",
-      "codeHeader": "Code",
-      "meaningHeader": "Meaning",
-      "codes": {
-        "200": "OK — Request succeeded.",
-        "400": "Bad Request — Invalid query parameters.",
-        "404": "Not Found — Resource does not exist.",
-        "500": "Internal Server Error — Server-side error."
-      }
-    },
-    "paginationSection": {
-      "title": "Pagination",
-      "description": "Paginated endpoints accept {page}, {perPage}, and {loadAll} query parameters."
-    },
-    "table": {
-      "name": "Name",
-      "type": "Type",
-      "required": "Required",
-      "description": "Description",
-      "queryParameters": "Query Parameters",
-      "parameters": "Parameters",
-      "requiredBadge": "required",
-      "optionalBadge": "optional",
-      "default": "Default"
-    },
-    "sections": {
+      "endpoints": {
+        "nav": "Endpoints",
+        "title": "All endpoints",
+        "description": "One row per endpoint. Select a path to read its parameters and copy a working request. A tinted chip marks the paginated ones."
+      },
+      "glossary": {
+        "nav": "Data and methods",
+        "title": "Data and methods",
+        "description": "How the figures are defined and calculated, which terms changed over time, and where the data comes from."
+      },
+      "authentication": {
+        "nav": "Authentication",
+        "title": "Authentication and limits",
+        "description": "No API key is needed. Read how the rate limit headers and CORS work."
+      },
+      "errors": {
+        "nav": "Errors",
+        "title": "Errors and status codes",
+        "description": "What each status code means, a real error body, and what to do about it."
+      },
+      "pagination": {
+        "nav": "Pagination",
+        "title": "Pagination",
+        "description": "Two paging styles, checked against the live API, and which endpoints use each."
+      },
+      "health": {
+        "nav": "Health check",
+        "title": "Health check",
+        "description": "Check that the API and its database are up.",
+        "body": "Returns the service status, version, a timestamp and database connection counts. The home page calls this endpoint."
+      },
+      "apiIndex": {
+        "nav": "API index",
+        "title": "API index",
+        "description": "The API title, version and a map of its endpoints.",
+        "body": "Returns the API title and version, links to the OpenAPI files and Swagger UI, and the list of endpoints. The root path / serves this documentation site, not JSON."
+      },
       "nationalLatest": {
-        "description": "Returns the latest national COVID-19 case data.",
-        "leftText": "Get the most recent national COVID-19 statistics including confirmed cases, recoveries, and deaths. No parameters required."
+        "nav": "Latest national record",
+        "title": "Latest national record",
+        "description": "Returns the most recent national COVID-19 record.",
+        "body": "The newest national record: daily and cumulative counts, case percentages and the reproduction rate when one exists. The date field is the date of the record, not today."
       },
       "nationalHistorical": {
-        "description": "Returns historical national COVID-19 data with pagination."
+        "nav": "National history",
+        "title": "National history",
+        "description": "Returns national records day by day, with paging, date filters and sorting.",
+        "body": "By default the oldest record comes first. Pass sort=date:desc for the newest first. Dates that cannot be read are ignored. A record for a single day is at the day path shown below."
       },
       "provinces": {
-        "description": "Returns a list of all provinces in Indonesia."
+        "nav": "Provinces",
+        "title": "Provinces",
+        "description": "Lists the Indonesian provinces, each with its latest case record.",
+        "body": "Returns a plain array, so there is no paging. Each province carries its latest case record unless you exclude it."
       },
       "provinceCases": {
-        "description": "Returns COVID-19 case data for Sulawesi Tengah (province_id: 72)."
+        "nav": "Province cases",
+        "title": "Province cases",
+        "description": "Daily and cumulative cases for all provinces, or for one province such as Sulawesi Tengah (72).",
+        "body": "Put a province ID in the path for one province, for example 72 for Sulawesi Tengah. Without an ID, the cases path returns every province. The newest record comes first."
       },
       "regencies": {
-        "description": "Returns a list of regencies in Sulawesi Tengah."
+        "nav": "Regencies",
+        "title": "Regencies",
+        "description": "Lists the regencies and cities of Sulawesi Tengah, with detail and case history.",
+        "body": "The list pages with page and per_page. The detail and case history paths return the whole result without paging."
       },
       "hospitals": {
-        "description": "Returns hospitals and health facilities in Sulawesi Tengah."
+        "nav": "Hospitals",
+        "title": "Hospitals",
+        "description": "Hospitals in Sulawesi Tengah with bed availability and contacts."
       },
       "taskForces": {
-        "description": "Returns COVID-19 task force contacts and information."
+        "nav": "Task forces",
+        "title": "Task forces",
+        "description": "COVID-19 task force posts grouped by regency, with contacts."
       },
       "genderStats": {
-        "description": "Returns gender-based COVID-19 statistics with age group breakdown.",
-        "leftText": "Returns nested gender and age group statistics for positive cases, PDP (persons under monitoring), ODP, and deceased."
+        "nav": "Gender statistics",
+        "title": "Gender statistics",
+        "description": "Cases by gender and age group for Sulawesi Tengah.",
+        "body": "Returns every record, one per day, as a plain array. Each record is nested by case type (positive and PDP), gender and age group. Use the latest path when you only need the newest record."
       },
-      "testStats": {
-        "description": "Returns COVID-19 testing statistics for Sulawesi Tengah."
+      "testStatistics": {
+        "nav": "Test statistics",
+        "title": "Test statistics",
+        "description": "COVID-19 testing figures for Sulawesi Tengah.",
+        "body": "Returns every record as a plain array: one per test type per day, each with its test type embedded."
       },
       "testTypes": {
-        "description": "Returns available COVID-19 test types.",
-        "leftText": "Returns a list of COVID-19 test types available in the system (e.g., PCR, Antigen)."
+        "nav": "Test types",
+        "title": "Test types",
+        "description": "The COVID-19 test types the API knows about.",
+        "body": "The sample and duration fields are written in Indonesian."
       },
       "vaccinationNational": {
-        "description": "Returns national vaccination data with nested group breakdown.",
-        "leftText": "Returns vaccination records with nested daily/cumulative data and group breakdowns (health workers, elderly, public officers, public, teenagers)."
+        "nav": "National vaccination",
+        "title": "National vaccination",
+        "description": "National vaccination records with daily, cumulative and coverage figures per group.",
+        "body": "Each record has a total and a breakdown by group: health workers, the elderly, public officers, the public and teenagers. Figures are nested as daily, cumulative and coverage, for dose 1 and dose 2."
       },
       "vaccinationProvince": {
-        "description": "Returns Sulawesi Tengah vaccination data (same structure as national).",
-        "leftText": "Vaccination data for Sulawesi Tengah (province_id: 72). Same nested response structure as the national endpoint."
+        "nav": "Sulawesi Tengah vaccination",
+        "title": "Sulawesi Tengah vaccination",
+        "description": "Vaccination records for Sulawesi Tengah, in the same shape as the national ones.",
+        "body": "Same nested structure as the national endpoint, for province 72."
       },
       "vaccinationLocations": {
-        "description": "Returns vaccination center locations in Sulawesi Tengah."
+        "nav": "Vaccination sites",
+        "title": "Vaccination sites",
+        "description": "Vaccination sites in Sulawesi Tengah with address and opening hours."
       }
     },
-    "params": {
-      "page": {
-        "description": "Page number.",
-        "default": "1"
-      },
-      "perPage": {
-        "description": "Results per page (max 100).",
-        "default": "10"
-      },
-      "loadAll": {
-        "description": "Return all records without pagination.",
-        "default": "false"
-      },
-      "limit": {
-        "description": "Maximum number of records to return.",
-        "default": "50"
-      },
-      "offset": {
-        "description": "Number of records to skip.",
-        "default": "0"
-      },
-      "all": {
-        "description": "Return all records (ignores limit/offset).",
-        "default": "false"
-      },
-      "startDate": {
-        "description": "Filter records from this date (YYYY-MM-DD).",
-        "default": ""
-      },
-      "endDate": {
-        "description": "Filter records until this date (YYYY-MM-DD).",
-        "default": ""
-      },
-      "sort": {
-        "description": "Sort order, e.g. date:desc or date:asc.",
-        "default": "date:desc"
-      },
-      "provinceId": {
-        "description": "Filter by province ID.",
-        "default": ""
-      },
-      "code": {
-        "description": "Regency or hospital code (path parameter).",
-        "default": ""
-      },
-      "day": {
-        "description": "Day number (path parameter).",
-        "default": ""
-      },
-      "excludeLatestCase": {
-        "description": "Exclude the latest case data from each province.",
-        "default": "false"
-      }
+    "sidebar": {
+      "label": "Documentation",
+      "sections": "Sections",
+      "close": "Close navigation",
+      "version": "Site version {version}"
+    },
+    "toc": {
+      "anchor": "Link to this section",
+      "title": "On this page",
+      "label": "On this page"
+    },
+    "pager": {
+      "label": "Previous and next page",
+      "prev": "Previous",
+      "next": "Next"
     },
     "common": {
       "response": "Response",
       "curl": "cURL"
+    },
+    "endpoint": {
+      "parameters": "Parameters",
+      "noParams": "This endpoint takes no query parameters.",
+      "paging": {
+        "page": "This endpoint pages with page and per_page.",
+        "offset": "This endpoint pages with limit and offset."
+      },
+      "seePagination": "How pagination works",
+      "related": "Also in this section",
+      "example": "Example",
+      "trimmed": "Example body, trimmed to one record where the result is a list."
+    },
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "use": "Use",
+      "description": "Description",
+      "required": "required",
+      "optional": "optional",
+      "deprecated": "deprecated",
+      "default": "Default",
+      "in": {
+        "query": "query",
+        "path": "path"
+      },
+      "legend": "Filled pill: required. Outline pill: optional. Dashed pill: deprecated."
+    },
+    "params": {
+      "page": {
+        "description": "Page number, starting at 1."
+      },
+      "perPage": {
+        "description": "Records per page. Maximum 100."
+      },
+      "loadAll": {
+        "description": "Set to true to get every record as a plain array, with no pagination object."
+      },
+      "limit": {
+        "description": "Records per request. Maximum 1000."
+      },
+      "offset": {
+        "description": "Number of records to skip."
+      },
+      "all": {
+        "description": "Set to true to get every record as a plain array, with no pagination object."
+      },
+      "startDate": {
+        "description": "Only records from this date (YYYY-MM-DD)."
+      },
+      "endDate": {
+        "description": "Only records up to this date (YYYY-MM-DD)."
+      },
+      "sort": {
+        "description": "Sort order: date:asc or date:desc."
+      },
+      "provinceId": {
+        "description": "Province ID in the path. 72 is Sulawesi Tengah."
+      },
+      "excludeLatestCase": {
+        "description": "Leave the latest case record out of each province."
+      }
+    },
+    "endpointsIndex": {
+      "method": "Method",
+      "path": "Path",
+      "paginated": "Paginated",
+      "paged": {
+        "page": "page",
+        "offset": "offset",
+        "none": "not paginated"
+      }
+    },
+    "overview": {
+      "firstRequest": "Your first request",
+      "step1": "Copy the request below and run it in a terminal. It needs no API key.",
+      "step2": "Read the JSON that comes back. The Response tab shows its shape.",
+      "step3": "Change the path to ask for something else.",
+      "expect": "You get an object with status \"success\" and a data object that holds the latest national record. The date field is the date of that record. Counts sit under daily and cumulative. The statistics object holds percentages and the reproduction rate, which can be null.",
+      "historicalTitle": "The data is historical",
+      "historical": "The API serves COVID-19 records that were already collected. It is not a live feed. Read the date field of a record before you quote a figure.",
+      "next": "Where to go next",
+      "baseUrl": "Base URL",
+      "format": "Format",
+      "method": "Method",
+      "methodValue": "GET only. Every endpoint reads data.",
+      "envelope": "Envelope",
+      "envelopeValue": "A successful response has status \"success\" and the result in data.",
+      "coverage": "What the API covers",
+      "coverageText": "Province-level COVID-19 data for Sulawesi Tengah, down to regency, hospital, task force and vaccination, plus national and all-province records for context. Data and methods explains the definitions and the sources."
+    },
+    "authentication": {
+      "noKeyTitle": "No API key",
+      "noKey": "Every endpoint is public. Send a plain GET request. There is nothing to sign up for.",
+      "limitsTitle": "Rate limits",
+      "limitsText": "Every response carries two headers about the request limit. When this page was written, the limit header read 100.",
+      "header": "Header",
+      "limitHeader": "The maximum number of requests allowed.",
+      "remainingHeader": "Requests you have left.",
+      "checkHeaders": "Check the headers",
+      "practiceTitle": "Good practice",
+      "cors": "Browsers can call the API directly: CORS allows any origin.",
+      "cache": "Cache what you reuse instead of asking again.",
+      "https": "Use HTTPS."
+    },
+    "errors": {
+      "shapeTitle": "Error body",
+      "shapeText": "When a request fails, the HTTP status tells you why. The body is JSON with status \"error\" and a message in the error field.",
+      "fieldTitle": "The field is called error",
+      "fieldText": "Read the error key, not message. Some messages are in Indonesian and some are in English.",
+      "summary": "Status codes",
+      "codeHeader": "Code",
+      "meaningHeader": "Meaning",
+      "remedyHeader": "What to do",
+      "examples": "Examples",
+      "body": "Response body, status {code}",
+      "codes": {
+        "200": {
+          "title": "OK",
+          "meaning": "The request worked.",
+          "remedy": "Read data, and check the date of the record.",
+          "when": "A normal response. The body has status \"success\" and your data."
+        },
+        "400": {
+          "title": "Bad request",
+          "meaning": "A path or query value is not valid, for example a day that is not a number.",
+          "remedy": "Fix the value and send the request again. Do not retry it unchanged.",
+          "when": "This request asks for the day \"abc\", which is not a number."
+        },
+        "404": {
+          "title": "Not found",
+          "meaning": "The record or the path does not exist.",
+          "remedy": "Check the code or ID against the list endpoint, then try again.",
+          "when": "This regency code does not exist."
+        },
+        "500": {
+          "title": "Server error",
+          "meaning": "The server failed while it handled a valid request.",
+          "remedy": "Wait a few seconds and retry with a growing delay. Check the health endpoint. If it keeps failing, open an issue on the source repository.",
+          "when": "We could not trigger a 500 on demand, so the body below is a shape, not a captured response. It uses the same envelope as 400 and 404."
+        }
+      },
+      "note404": "An unknown path is not JSON. The body is the plain text \"404 page not found\".",
+      "note500": "Shape only. No real 500 was captured."
+    },
+    "pagination": {
+      "intro": "List endpoints page their results in one of two styles. Which style applies depends on the endpoint, so check the lists below. Everything on this page was checked against the live API.",
+      "pageStyle": "Page style",
+      "pageText": "Use page and per_page. The response carries a pagination object with page, per_page, total, total_pages, has_next and has_prev.",
+      "pageIgnored": "These endpoints ignore limit, offset and all.",
+      "offsetStyle": "Offset style",
+      "offsetText": "Use limit and offset. The response carries a pagination object with limit, offset, total, total_pages, page, has_next and has_prev.",
+      "offsetIgnored": "These endpoints ignore page, per_page and load_all. The page number in the response is worked out from offset and limit.",
+      "usedBy": "Used by",
+      "edge": "Edge cases",
+      "edgeAll": "load_all=true (page style) and all=true (offset style) return every record as a plain array in data, without a pagination object.",
+      "edgeInvalid": "A zero or non-numeric value falls back to the default. Large values are capped: per_page at 100 and limit at 1000.",
+      "edgePast": "A page past total_pages returns status 200 with data set to null.",
+      "edgeNone": "Some endpoints are not paginated. The provinces list, the statistics endpoints and each regency case history return a plain array."
     }
   }
 }

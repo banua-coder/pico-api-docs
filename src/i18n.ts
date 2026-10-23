@@ -1,35 +1,20 @@
 import { createI18n } from 'vue-i18n'
+import en from './locales/en.json'
+import id from './locales/id.json'
 
-// Lazy load locale messages
-const loadLocaleMessages = async () => {
-  const modules = import.meta.glob('./locales/*.json')
-  const messages: Record<string, any> = {}
+export type Locale = 'en' | 'id'
 
-  for (const path in modules) {
-    const mod = await modules[path]() as { default: any }
-    const locale = path.replace('./locales/', '').replace('.json', '')
-    messages[locale] = mod.default
-  }
+const stored = (() => {
+  try { return localStorage.getItem('pico-language') } catch { return null }
+})()
+const initial: Locale = stored === 'id' ? 'id' : 'en'
 
-  return messages
-}
-
-// Get saved language or default to English
-const savedLanguage = localStorage.getItem('pico-language') || 'en'
-
-// Create i18n instance with lazy loading
+// Both locales are bundled (a few KB gzipped) so no key ever flashes before load.
 const i18n = createI18n({
   legacy: false,
-  locale: savedLanguage,
+  locale: initial,
   fallbackLocale: 'en',
-  messages: {}
-})
-
-// Load messages asynchronously
-loadLocaleMessages().then(messages => {
-  Object.keys(messages).forEach(locale => {
-    i18n.global.setLocaleMessage(locale, messages[locale])
-  })
+  messages: { en, id },
 })
 
 export default i18n
