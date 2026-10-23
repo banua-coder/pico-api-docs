@@ -1,17 +1,17 @@
 <template>
   <div class="space-y-10">
-    <p class="max-w-prose leading-relaxed">{{ t('docs.endpointsIndex.intro') }}</p>
     <section v-for="g in groups" :key="g.id">
       <h2 class="h2 mb-3">{{ t(`docs.endpointGroups.${g.id}`) }}</h2>
       <div class="table-card">
-        <table class="data-table params-table">
+        <table class="data-table params-table table-fixed">
+          <colgroup><col class="w-24" /><col class="w-[34%]" /><col /><col class="w-36" /></colgroup>
           <caption class="sr-only">{{ t(`docs.endpointGroups.${g.id}`) }}</caption>
           <thead>
             <tr>
-              <th scope="col" class="w-20">{{ t('docs.endpointsIndex.method') }}</th>
+              <th scope="col">{{ t('docs.endpointsIndex.method') }}</th>
               <th scope="col">{{ t('docs.endpointsIndex.path') }}</th>
               <th scope="col">{{ t('docs.table.description') }}</th>
-              <th scope="col" class="w-32">{{ t('docs.endpointsIndex.paginated') }}</th>
+              <th scope="col">{{ t('docs.endpointsIndex.paginated') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -22,7 +22,8 @@
               </td>
               <td class="p-desc text-muted">{{ t(`endpoints.${e.id}`) }}</td>
               <td class="p-type whitespace-nowrap">
-                <span class="state-pill" :class="e.paging ? 'state-tint' : 'state-off'">{{ t(`docs.endpointsIndex.paged.${e.paging ?? 'none'}`) }}</span>
+                <span v-if="e.paging" class="state-pill state-tint">{{ t(`docs.endpointsIndex.paged.${e.paging}`) }}</span>
+                <span v-else><span aria-hidden="true" class="text-muted">&mdash;</span><span class="sr-only">{{ t('docs.endpointsIndex.paged.none') }}</span></span>
               </td>
             </tr>
           </tbody>

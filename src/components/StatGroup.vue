@@ -9,12 +9,12 @@
       </p>
     </div>
     <dl>
-      <div v-for="row in rows" :key="row.key" class="flex h-12 items-center justify-between gap-4 border-t border-rule-soft">
+      <div v-for="row in rows" :key="row.key" class="flex min-h-12 items-center justify-between gap-3 py-1.5 sm:gap-4 border-t border-rule-soft">
         <dt class="min-w-0 text-sm leading-[18px] text-ink-soft">
           {{ t(`home.rows.${row.key}`) }}
-          <code class="block break-all text-[10px] leading-[14px] text-muted sm:text-[11px]">{{ path }}.{{ row.key }}</code>
+          <code class="block break-all text-[11px] leading-[14px] text-muted">{{ path }}.{{ row.key }}</code>
         </dt>
-        <dd class="num text-right text-[22px] font-[650] leading-8 tracking-[-0.01em]">
+        <dd class="num text-right text-lg font-bold sm:text-[22px] leading-8 tracking-[-0.01em]">
           <span v-if="row.value !== null">{{ nf.format(row.value) }}</span>
           <span v-else class="inline-block h-6 w-20 rounded align-middle" :class="loading ? 'bg-sunk' : ''"><span v-if="!loading" aria-label="n/a">&ndash;</span></span>
         </dd>

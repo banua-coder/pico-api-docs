@@ -14,8 +14,11 @@
   DARK   ink #e6edf7 on ground/surface/sunk/tint 15.9/14.8/15.3/13.3; ink-soft #c3cfe0 11.9/11.0/11.5/10.0;
          muted #9aaac0 7.9/7.4/7.7/6.6; brand text #7db4ee 8.6/8.0/8.3/7.2; on-brand #f6f8fb on button blue #2a62b0 5.7
          (hover #2f6bbd 5.0); success #3fbf86 on surface 7.5; focus accent #4ea9e3 on ground 7.2, on surface 6.7.
-  CODE   code ink #dbe7f7 on #0f1b2d 13.8 (15.2 on dark #0a101c); keyword #7db4ee 7.9; string #a7e3b8 11.8;
+  CODE   light theme panel #0f1b2d: code ink #dbe7f7 13.8; keyword/function #7db4ee 7.9; string #a7e3b8 11.8;
          number #f2d28b 11.8; punctuation #8fa3bf 6.7; comment #8196b0 5.7; tab text #9aabc4 7.4; ring #4ea9e3 6.7.
+         Dark theme panel #050911 (deeper than ground #0b1220, hairline = the page rule): ink 15.9; keyword 9.1; string 13.6;
+         number 13.6; punctuation 7.7; comment 6.6; tab text 8.5; ring 7.7.
+  Radii: 8px on cards, panels, code, modal and promo band; 6px controls; 999px pills. Scrim rgb(11 18 32 / .6) is the same in both themes.
   Hairlines (rule #dbe3ee, rule-strong #b8c4d6) are decoration or dividers; every control also carries a text label.
 */
 :root {
@@ -39,6 +42,8 @@
   --code-ink: 219 231 247;
   --code-muted: 154 171 196;
   --code-rule: 38 53 77;
+  --logo-plate: 251 252 254;
+  --scrim: 11 18 32;
   --focus: 42 98 176;
   --shadow-card: 0 1px 2px rgb(15 27 45 / 0.06), 0 8px 24px rgb(15 27 45 / 0.06);
   --shadow-pop: 0 4px 12px rgb(15 27 45 / 0.08), 0 24px 64px rgb(15 27 45 / 0.22);
@@ -73,7 +78,9 @@
   --brand-solid-hover: 47 107 189;
   --brand-tint: 20 35 61;
   --success: 63 191 134;
-  --code: 10 16 28;
+  --code: 5 9 17;
+  --code-rule: 34 48 73;
+  --logo-plate: 230 237 247;
   --focus: 78 169 227;
   --shadow-card: 0 1px 2px rgb(3 7 14 / 0.35);
   --shadow-pop: 0 24px 64px rgb(3 7 14 / 0.6);
@@ -125,7 +132,7 @@
   .h1 {
     font-size: clamp(2.25rem, 1.4rem + 3.6vw, 3.5rem);
     line-height: 1.143;
-    font-weight: 650;
+    font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
@@ -248,10 +255,19 @@
   .code-block .btn-ghost:hover { background: rgb(var(--code-ink) / 0.08); color: rgb(var(--code-ink)); }
   .code-block .token.comment, .code-block .token.prolog { color: #8196b0; }
   .code-block .token.punctuation, .code-block .token.operator { color: #8fa3bf; }
-  .code-block .token.property, .code-block .token.attr-name, .code-block .token.function { color: #dbe7f7; }
+  .code-block .token.property, .code-block .token.attr-name { color: #dbe7f7; }
   .code-block .token.string, .code-block .token.attr-value { color: #a7e3b8; }
   .code-block .token.number, .code-block .token.boolean, .code-block .token.constant { color: #f2d28b; }
-  .code-block .token.keyword, .code-block .token.null, .code-block .token.builtin, .code-block .token.parameter { color: #7db4ee; }
+  .code-block .token.function, .code-block .token.keyword, .code-block .token.null, .code-block .token.builtin, .code-block .token.parameter { color: #7db4ee; }
+
+  /* Heading anchor: appears on hover or keyboard focus of the heading. */
+  h2[id], h3[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+  .heading-anchor {
+    @apply ml-2 rounded px-1 font-normal text-muted no-underline opacity-0 transition-opacity;
+  }
+  :is(h2, h3):hover > .heading-anchor, .heading-anchor:focus-visible { @apply opacity-100; }
+  .heading-anchor:hover { @apply text-brand; }
+  @media (hover: none) { .heading-anchor { @apply opacity-60; } }
 
   /* Home stat card */
   .stat-card {

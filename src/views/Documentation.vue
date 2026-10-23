@@ -13,7 +13,7 @@
           :aria-expanded="sidebarOpen"
           @click="sidebarOpen = true"
         >
-          <Icon name="menu" />
+          <Icon name="panel-left" />
           <span class="text-muted">{{ t('docs.sidebar.sections') }}</span>
           <Icon name="chevron-right" :size="14" class="text-muted" />
           <span class="truncate">{{ t(`docs.pages.${section.key}.nav`) }}</span>
@@ -98,6 +98,20 @@ const closeSidebar = () => {
   sidebarOpen.value = false
   nextTick(() => menuBtn.value?.focus())
 }
+// While the drawer is open the page behind the scrim is inert, focus moves into the drawer, and Esc closes it from anywhere.
+const INERT_BEHIND_DRAWER = ['header', 'footer', '#main-content']
+const setInert = (on: boolean) => INERT_BEHIND_DRAWER.forEach((sel) => document.querySelector(sel)?.toggleAttribute('inert', on))
+watch(sidebarOpen, async (isOpen) => {
+  setInert(isOpen)
+  if (!isOpen) return
+  await nextTick()
+  document.querySelector<HTMLElement>('#doc-sidebar button, #doc-sidebar a')?.focus()
+})
+const onEsc = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && sidebarOpen.value) { e.preventDefault(); closeSidebar() }
+}
+const desktop = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)') : undefined
+const onBreakpoint = () => { if (desktop?.matches) closeSidebar() }
 
 // --- "On this page": h2/h3 of the current section ---
 const content = ref<HTMLElement>()
@@ -117,12 +131,21 @@ function rebuildToc() {
   const list: TocItem[] = []
   spy?.disconnect()
   root.querySelectorAll<HTMLElement>('h2, h3').forEach((el) => {
-    const text = el.textContent?.trim() ?? ''
+    const text = Array.from(el.childNodes).filter((n) => !(n as HTMLElement).classList?.contains('heading-anchor')).map((n) => n.textContent).join('').trim()
     if (!text) return
     let id = el.id || slugify(text) || 'section'
     while (used.has(id)) id += '-2'
     used.add(id)
     el.id = id
+    let anchor = el.querySelector<HTMLAnchorElement>(':scope > .heading-anchor')
+    if (!anchor) {
+      anchor = document.createElement('a')
+      anchor.className = 'heading-anchor'
+      anchor.textContent = '#'
+      el.appendChild(anchor)
+    }
+    anchor.href = `#${id}`
+    anchor.setAttribute('aria-label', t('docs.toc.anchor'))
     list.push({ id, text, level: el.tagName === 'H3' ? 3 : 2 })
     spy?.observe(el)
   })
@@ -133,6 +156,8 @@ function rebuildToc() {
 const schedule = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(rebuildToc) }
 
 onMounted(() => {
+  window.addEventListener('keydown', onEsc)
+  desktop?.addEventListener('change', onBreakpoint)
   spy = new IntersectionObserver(
     (entries) => {
       const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
@@ -148,6 +173,9 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onEsc)
+  desktop?.removeEventListener('change', onBreakpoint)
+  setInert(false)
   mutation?.disconnect()
   spy?.disconnect()
   cancelAnimationFrame(raf)

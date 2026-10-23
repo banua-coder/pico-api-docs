@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl space-y-12">
+  <div class="space-y-12">
     <p class="max-w-prose leading-relaxed">{{ t('docs.pagination.intro') }}</p>
 
     <section>

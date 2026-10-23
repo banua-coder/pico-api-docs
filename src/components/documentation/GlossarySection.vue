@@ -11,10 +11,10 @@
         </h2>
       </div>
 
-      <div class="grid min-[1400px]:grid-cols-2 gap-10">
+      <div class="grid min-[1900px]:grid-cols-2 gap-10">
 
         <!-- Left Column -->
-        <div class="space-y-10 min-w-0 overflow-x-hidden">
+        <div class="space-y-10 min-w-0">
 
           <!-- Definition -->
           <div>
@@ -52,11 +52,11 @@
             <h3 class="h3 text-ink mb-3">
               {{ t('documentation.glossary.reproductionRate.calculationMethod') }}
             </h3>
-            <div class="border-l border-rule-strong pl-4 space-y-1">
+            <div class="rounded-lg border border-rule bg-sunk p-4 space-y-1">
               <p class="text-sm font-semibold text-ink">
                 {{ t('documentation.glossary.reproductionRate.epiEstimTitle') }}
               </p>
-              <ul class="space-y-0.5 text-sm text-muted">
+              <ul class="space-y-0.5 text-sm text-ink-soft">
                 <li v-for="(detail, index) in methodDetails" :key="index">{{ detail }}</li>
               </ul>
             </div>
@@ -67,7 +67,7 @@
             <h3 class="h3 text-ink mb-3">
               {{ t('documentation.glossary.reproductionRate.dataAvailability') }}
             </h3>
-            <p class="text-sm text-muted leading-relaxed">
+            <p class="text-base text-ink leading-relaxed">
               {{ t('documentation.glossary.reproductionRate.dataAvailabilityText') }}
             </p>
           </div>
@@ -77,7 +77,7 @@
             <h3 class="h3 text-ink mb-4">
               {{ t('documentation.glossary.reproductionRate.formula') }}
             </h3>
-            <p class="text-sm text-muted mb-4 leading-relaxed">
+            <p class="text-base text-ink mb-4 leading-relaxed">
               {{ t('documentation.glossary.reproductionRate.formulaDescription') }}
             </p>
             <div class="space-y-3">
@@ -85,10 +85,10 @@
                 v-for="(_, i) in [0,1,2,3]" :key="i"
                 class="flex gap-3 items-start"
               >
-                <span class="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-sunk text-muted text-xs font-bold flex items-center justify-center">{{ i + 1 }}</span>
+                <span class="mt-0.5 shrink-0 w-6 h-6 rounded-full bg-sunk text-ink-soft text-xs font-bold flex items-center justify-center">{{ i + 1 }}</span>
                 <div class="flex-1 min-w-0">
-                  <p class="text-xs text-muted mb-1">{{ t(`documentation.glossary.reproductionRate.formulaSteps.${i}`) }}</p>
-                  <div class="bg-surface px-3 py-2 overflow-x-auto rounded-md border border-rule">
+                  <p class="text-sm text-ink-soft mb-1">{{ t(`documentation.glossary.reproductionRate.formulaSteps.${i}`) }}</p>
+                  <div class="bg-surface px-4 py-3 overflow-x-auto text-base rounded-md border border-rule">
                     <MathFormula
                       v-if="i === 0" formula="\lambda_t = \sum_{s=1}^{t-1} I_{t-s} \cdot w_s"
                     />
@@ -112,7 +112,7 @@
         </div>
 
         <!-- Right Column -->
-        <div class="space-y-10 min-w-0 overflow-x-hidden">
+        <div class="space-y-10 min-w-0">
 
           <!-- Practical Example -->
           <div>
@@ -124,85 +124,82 @@
             </p>
 
             <!-- Time Series Table -->
-            <div class="overflow-x-auto mb-5">
-              <table class="w-full text-xs border-collapse">
+            <div class="table-card mb-5">
+              <table class="data-table">
+                <caption class="sr-only">{{ t('documentation.glossary.reproductionRate.practicalExample.subtitle') }}</caption>
                 <thead>
-                  <tr class="border-b-2 border-rule">
-                    <th class="text-left py-2 px-3 font-semibold text-muted text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.table.day') }}</th>
-                    <th class="text-left py-2 px-3 font-semibold text-muted text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.table.date') }}</th>
-                    <th class="text-right py-2 px-3 font-semibold text-muted text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.table.newCases') }}</th>
+                  <tr>
+                    <th scope="col">{{ t('documentation.glossary.reproductionRate.practicalExample.table.day') }}</th>
+                    <th scope="col">{{ t('documentation.glossary.reproductionRate.practicalExample.table.date') }}</th>
+                    <th scope="col" class="text-right">{{ t('documentation.glossary.reproductionRate.practicalExample.table.newCases') }}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(row, index) in exampleData" :key="index"
-                    class="border-b border-rule"
-                    :class="row.current ? 'bg-sunk' : ''"
-                  >
-                    <td class="py-2 px-3 font-mono" :class="row.current ? 'font-bold text-brand' : 'text-muted'">{{ row.day }}</td>
-                    <td class="py-2 px-3" :class="row.current ? 'font-semibold text-brand' : 'text-muted'">{{ row.date }}</td>
-                    <td class="py-2 px-3 text-right font-mono font-semibold" :class="row.current ? 'text-brand' : 'text-ink'">{{ row.cases }}</td>
+                  <tr v-for="(row, index) in exampleData" :key="index" :class="row.current ? 'bg-brand-tint' : ''">
+                    <td class="py-2 font-mono" :class="row.current ? 'font-bold text-brand' : 'text-ink-soft'">{{ row.day }}</td>
+                    <td class="py-2" :class="row.current ? 'font-semibold text-brand' : 'text-ink-soft'">{{ row.date }}</td>
+                    <td class="py-2 text-right font-mono font-semibold" :class="row.current ? 'text-brand' : 'text-ink'">{{ row.cases }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             <!-- Step-by-step Calculation -->
-            <div class="space-y-4 text-xs font-mono">
-              <div class="border-l border-rule-strong pl-4 space-y-1">
-                <p class="font-sans font-semibold text-ink text-xs not-italic mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.title') }}</p>
-                <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.formula') }}</p>
-                <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.calculation') }}</p>
+            <div class="space-y-4 text-sm font-mono">
+              <div class="rounded-lg border border-rule bg-sunk p-4 space-y-1">
+                <p class="font-sans font-semibold text-ink text-sm mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.title') }}</p>
+                <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.formula') }}</p>
+                <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.calculation') }}</p>
               </div>
-              <div class="border-l border-rule-strong pl-4 space-y-1">
-                <p class="font-sans font-semibold text-ink text-xs not-italic mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step2.title') }}</p>
-                <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step2.formula') }}</p>
-                <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step2.calculation') }}</p>
+              <div class="rounded-lg border border-rule bg-sunk p-4 space-y-1">
+                <p class="font-sans font-semibold text-ink text-sm mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step2.title') }}</p>
+                <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step2.formula') }}</p>
+                <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step2.calculation') }}</p>
               </div>
-              <div class="border-l border-rule-strong pl-4 space-y-2">
-                <p class="font-sans font-semibold text-ink text-xs not-italic mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.title') }}</p>
-                <p class="font-sans not-italic text-muted italic text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.explanation') }}</p>
+              <div class="rounded-lg border border-rule bg-sunk p-4 space-y-2">
+                <p class="font-sans font-semibold text-ink text-sm mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.title') }}</p>
+                <p class="font-sans text-sm text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.explanation') }}</p>
                 
                 <!-- Gamma Quantile -->
-                <div class="bg-surface p-2 rounded-md border border-rule space-y-0.5">
-                  <p class="font-sans font-semibold text-ink text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.title') }}</p>
-                  <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.formula') }}</p>
-                  <p class="font-sans not-italic text-muted text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.description') }}</p>
+                <div class="bg-surface p-3 rounded-md border border-rule space-y-0.5">
+                  <p class="font-sans font-semibold text-ink text-sm">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.title') }}</p>
+                  <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.formula') }}</p>
+                  <p class="font-sans text-sm text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.description') }}</p>
                 </div>
 
                 <!-- Bounds -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <div class="bg-surface p-2 rounded-md border border-rule space-y-0.5">
-                    <p class="font-sans font-semibold text-ink text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.title') }}</p>
-                    <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.formula') }}</p>
-                    <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.wilsonHilfertyFormula') }}</p>
+                  <div class="bg-surface p-3 rounded-md border border-rule space-y-0.5">
+                    <p class="font-sans font-semibold text-ink text-sm">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.title') }}</p>
+                    <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.formula') }}</p>
+                    <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.wilsonHilfertyFormula') }}</p>
                     <p class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.calculation') }}</p>
                   </div>
-                  <div class="bg-surface p-2 rounded-md border border-rule space-y-0.5">
-                    <p class="font-sans font-semibold text-ink text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.title') }}</p>
-                    <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.formula') }}</p>
+                  <div class="bg-surface p-3 rounded-md border border-rule space-y-0.5">
+                    <p class="font-sans font-semibold text-ink text-sm">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.title') }}</p>
+                    <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.formula') }}</p>
                     <p class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.calculation') }}</p>
                   </div>
                 </div>
 
                 <!-- Summary -->
-                <div class="text-muted space-y-0.5">
+                <div class="text-ink space-y-0.5">
                   <p>{{ t('documentation.glossary.reproductionRate.practicalExample.step3.formulas.lowerBound') }}</p>
                   <p>{{ t('documentation.glossary.reproductionRate.practicalExample.step3.formulas.upperBound') }}</p>
                   <p class="font-semibold text-ink mt-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.confidenceInterval') }}</p>
-                  <p class="font-sans not-italic text-xs text-muted italic mt-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.mathematicalNote') }}</p>
+                  <p class="font-sans text-sm text-ink mt-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.mathematicalNote') }}</p>
                 </div>
 
                 <!-- Result -->
                 <div class="bg-surface rounded-md border border-rule-strong px-3 py-2">
                   <span class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.result.title') }}</span>
-                  <span class="font-sans not-italic text-xs text-ink ml-1">{{ t('documentation.glossary.reproductionRate.practicalExample.result.interpretation') }}</span>
+                  <span class="font-sans text-sm text-ink ml-1">{{ t('documentation.glossary.reproductionRate.practicalExample.result.interpretation') }}</span>
                 </div>
               </div>
             </div>
 
-            <p class="mt-4 text-xs text-muted italic">
-              <span class="not-italic font-semibold text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.note.title') }}</span>
+            <p class="mt-4 text-sm text-ink-soft">
+              <span class="font-semibold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.note.title') }}</span>
               {{ t('documentation.glossary.reproductionRate.practicalExample.note.content') }}
             </p>
           </div>
@@ -217,12 +214,12 @@
                 <p class="text-sm font-semibold text-ink leading-snug">
                   Cori, A., Ferguson, N. M., Fraser, C., & Cauchemez, S. (2013)
                 </p>
-                <p class="text-xs text-brand font-medium mt-0.5">American Journal of Epidemiology</p>
-                <p class="text-xs text-muted mt-0.5 leading-relaxed">
+                <p class="text-sm text-brand font-medium mt-0.5">American Journal of Epidemiology</p>
+                <p class="text-sm text-ink-soft mt-0.5 leading-relaxed">
                   A new framework and software to estimate time-varying reproduction numbers during epidemics. 178(9), 1505–1512.
                 </p>
                 <a href="https://doi.org/10.1093/aje/kwt133" target="_blank" rel="noopener noreferrer"
-                   class="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-brand underline-offset-4 hover:underline">
+                   class="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-brand underline-offset-4 hover:underline">
                   DOI: 10.1093/aje/kwt133 <Icon name="external" :size="12" />
                 </a>
               </div>
@@ -230,12 +227,12 @@
                 <p class="text-sm font-semibold text-ink leading-snug">
                   Thompson, R. N., et al. (2019)
                 </p>
-                <p class="text-xs text-brand font-medium mt-0.5">Epidemics</p>
-                <p class="text-xs text-muted mt-0.5 leading-relaxed">
+                <p class="text-sm text-brand font-medium mt-0.5">Epidemics</p>
+                <p class="text-sm text-ink-soft mt-0.5 leading-relaxed">
                   Improved inference of time-varying reproduction numbers during infectious disease outbreaks. 29, 100356.
                 </p>
                 <a href="https://doi.org/10.1016/j.epidem.2019.100356" target="_blank" rel="noopener noreferrer"
-                   class="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-brand underline-offset-4 hover:underline">
+                   class="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-brand underline-offset-4 hover:underline">
                   DOI: 10.1016/j.epidem.2019.100356 <Icon name="external" :size="12" />
                 </a>
               </div>
@@ -259,7 +256,7 @@
 
       <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
         <!-- Case Classifications -->
-        <div class="min-w-0 overflow-x-hidden">
+        <div class="min-w-0">
           <h3 class="h3 text-ink mb-5">
             {{ t('documentation.glossary.caseClassifications.title') }}
           </h3>
@@ -327,7 +324,7 @@
             <h4 class="font-semibold text-ink mb-0.5">
               {{ t(`documentation.glossary.indonesianTerminology.${key}.name`) }}
             </h4>
-            <p class="text-xs font-medium text-brand mb-2">
+            <p class="text-sm font-medium text-brand mb-2">
               {{ t(`documentation.glossary.indonesianTerminology.${key}.translation`) }}
             </p>
             <p class="text-sm text-muted leading-relaxed">
@@ -357,10 +354,10 @@
             <h4 class="text-sm font-semibold text-ink mb-0.5">
               {{ t(`documentation.glossary.indonesianTerminology.${key}.fullName`) }}
             </h4>
-            <p class="text-xs text-muted mb-2">
+            <p class="text-sm text-muted mb-2">
               {{ t(`documentation.glossary.indonesianTerminology.${key}.translation`) }}
             </p>
-            <p class="text-xs text-muted leading-relaxed mb-3">
+            <p class="text-sm text-muted leading-relaxed mb-3">
               {{ t(`documentation.glossary.indonesianTerminology.${key}.description`) }}
             </p>
             <span class="inline-flex items-center gap-1.5 rounded-full border border-rule-strong px-2 py-0.5 text-xs font-semibold text-ink">
@@ -380,18 +377,18 @@
         </p>
 
         <!-- Official Quote -->
-        <blockquote class="border-l border-rule-strong pl-4 mb-6 italic text-sm text-muted">
+        <blockquote class="mb-6 rounded-lg border border-rule bg-brand-tint p-4 text-base text-ink">
           "{{ t('documentation.glossary.indonesianTerminology.classificationProgression.officialQuote') }}"
-          <footer class="mt-1 text-xs not-italic text-muted">— Kementerian Kesehatan RI</footer>
+          <footer class="mt-1 text-sm text-ink-soft">— Kementerian Kesehatan RI</footer>
         </blockquote>
 
         <!-- Flow diagrams -->
         <div class="space-y-4">
           <div>
-            <p class="text-xs font-semibold text-muted mb-2">
+            <p class="text-sm font-semibold text-muted mb-2">
               {{ t('documentation.glossary.indonesianTerminology.classificationProgression.currentFlow') }}
             </p>
-            <div class="flex flex-wrap items-center gap-2 text-xs">
+            <div class="flex flex-wrap items-center gap-2 text-sm">
               <span class="rounded-lg border border-rule bg-surface px-3 py-1 font-medium text-ink">Suspect</span>
               <Icon name="arrow-right" :size="14" class="text-muted" />
               <span class="rounded-lg border border-rule bg-surface px-3 py-1 font-medium text-ink">Probable</span>
@@ -402,10 +399,10 @@
             </div>
           </div>
           <div>
-            <p class="text-xs font-semibold text-muted mb-2">
+            <p class="text-sm font-semibold text-muted mb-2">
               {{ t('documentation.glossary.indonesianTerminology.classificationProgression.legacyFlow') }}
             </p>
-            <div class="flex flex-wrap items-center gap-2 text-xs">
+            <div class="flex flex-wrap items-center gap-2 text-sm">
               <span class="rounded-lg border border-rule bg-surface px-3 py-1 font-medium text-ink">ODP</span>
               <Icon name="arrow-right" :size="14" class="text-muted" />
               <span class="rounded-lg border border-rule bg-surface px-3 py-1 font-medium text-ink">PDP</span>

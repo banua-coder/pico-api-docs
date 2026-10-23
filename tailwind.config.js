@@ -19,6 +19,8 @@ export default {
         'on-brand': token('on-brand'),
         accent: token('accent'),
         success: token('success'),
+        plate: token('logo-plate'),
+        scrim: token('scrim'),
         code: { DEFAULT: token('code'), ink: token('code-ink'), muted: token('code-muted') },
       },
       fontFamily: {

@@ -1,11 +1,11 @@
 <template>
   <Teleport to="body">
-    <div v-if="open" class="fixed inset-0 z-[70] bg-[rgb(11_18_32/0.6)] px-4 pt-[10vh]" @mousedown.self="close">
+    <div v-if="open" class="fixed inset-0 z-[70] bg-scrim/60 px-4 pt-[10vh]" @mousedown.self="close">
       <div
         role="dialog"
         aria-modal="true"
         :aria-label="t('search.title')"
-        class="mx-auto flex max-h-[75vh] w-full max-w-[40rem] flex-col overflow-hidden rounded-xl border border-rule bg-surface text-ink shadow-pop"
+        class="mx-auto flex max-h-[75vh] w-full max-w-[40rem] flex-col overflow-hidden rounded-lg border border-rule bg-surface text-ink shadow-pop"
         @keydown="onPanelKey"
       >
         <div class="flex items-center gap-3 border-b border-rule px-4">

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl space-y-10">
+  <div class="space-y-10">
     <Callout :title="t('docs.authentication.noKeyTitle')">{{ t('docs.authentication.noKey') }}</Callout>
 
     <section>

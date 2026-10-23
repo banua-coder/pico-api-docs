@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl space-y-12">
+  <div class="space-y-12">
     <section>
       <h2 class="h2 mb-3">{{ t('docs.overview.firstRequest') }}</h2>
       <ol class="mb-5 max-w-prose list-decimal space-y-2 pl-5 leading-relaxed marker:font-bold">

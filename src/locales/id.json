@@ -228,7 +228,7 @@
     "retry": "Coba lagi",
     "codeTabs": "Format contoh",
     "theme": {
-      "label": "Tema: {current}. Ganti ke {next}.",
+      "label": "Ganti ke tema {next}. Saat ini: {current}.",
       "light": "terang",
       "dark": "gelap",
       "system": "sistem"
@@ -356,7 +356,7 @@
       "endpoints": {
         "nav": "Endpoint",
         "title": "Semua endpoint",
-        "description": "Semua endpoint dalam satu halaman. Pilih satu untuk membaca parameternya dan menyalin permintaan yang berfungsi."
+        "description": "Satu baris per endpoint. Pilih path untuk membaca parameternya dan menyalin permintaan yang berfungsi. Chip berwarna menandai endpoint berpaginasi."
       },
       "glossary": {
         "nav": "Data dan metode",
@@ -473,6 +473,7 @@
       "version": "Versi situs {version}"
     },
     "toc": {
+      "anchor": "Tautan ke bagian ini",
       "title": "Di halaman ini",
       "label": "Di halaman ini"
     },
@@ -548,14 +549,13 @@
       }
     },
     "endpointsIndex": {
-      "intro": "Satu baris per endpoint. Pilih path untuk membaca parameternya dan menyalin permintaan. Chip berwarna berarti endpoint memakai paginasi.",
       "method": "Metode",
       "path": "Path",
       "paginated": "Paginasi",
       "paged": {
         "page": "page",
         "offset": "offset",
-        "none": "tidak"
+        "none": "tanpa paginasi"
       }
     },
     "overview": {

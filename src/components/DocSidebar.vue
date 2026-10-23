@@ -1,5 +1,5 @@
 <template>
-  <div v-if="open" class="fixed inset-0 top-nav z-30 bg-[rgb(11_18_32/0.6)] lg:hidden" aria-hidden="true" @click="$emit('close')" />
+  <div v-if="open" class="fixed inset-0 top-nav z-30 bg-scrim/60 lg:hidden" aria-hidden="true" @click="$emit('close')" />
   <div
     class="w-rail shrink-0 lg:sticky lg:top-nav lg:flex lg:h-[calc(100vh-var(--nav-h))]"
     :class="open ? 'max-lg:fixed max-lg:inset-y-0 max-lg:top-nav max-lg:z-40 max-lg:flex max-lg:w-[min(20rem,88vw)] max-lg:shadow-pop' : 'max-lg:hidden'"
@@ -14,7 +14,7 @@
         <button type="button" class="touch-target flex h-10 min-w-0 flex-1 items-center gap-2 rounded-lg border border-rule bg-ground px-3 text-sm text-muted transition-colors hover:border-rule-strong lg:bg-surface" :aria-label="t('search.open')" @click="onSearch">
           <Icon name="search" :size="16" />
           <span class="flex-1 text-left">{{ t('search.button') }}</span>
-          <kbd class="rounded border border-b-2 border-rule bg-surface/60 px-1.5 text-xs leading-4">/</kbd>
+          <kbd class="rounded border border-rule bg-surface/60 px-1.5 text-xs leading-4">/</kbd>
         </button>
         <button type="button" class="btn-ghost touch-target inline-flex h-10 w-10 items-center justify-center rounded-lg lg:hidden" :aria-label="t('docs.sidebar.close')" @click="$emit('close')">
           <Icon name="close" />

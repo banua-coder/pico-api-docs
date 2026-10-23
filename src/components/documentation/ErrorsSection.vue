@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl space-y-10">
+  <div class="space-y-10">
     <section>
       <h2 class="h2 mb-3">{{ t('docs.errors.shapeTitle') }}</h2>
       <p class="mb-4 max-w-prose leading-relaxed">{{ t('docs.errors.shapeText') }}</p>

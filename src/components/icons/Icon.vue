@@ -19,7 +19,7 @@
 // One stroke family for every icon: 24 grid, 1.75 stroke, round caps and joins.
 export type IconName =
   | 'search' | 'menu' | 'close' | 'copy' | 'check' | 'external' | 'sun' | 'moon' | 'monitor'
-  | 'chevron-right' | 'chevron-left' | 'chevron-down' | 'info' | 'alert' | 'arrow-right' | 'list'
+  | 'chevron-right' | 'chevron-left' | 'chevron-down' | 'info' | 'alert' | 'arrow-right' | 'list' | 'panel-left'
 
 withDefaults(defineProps<{ name: IconName; size?: number }>(), { size: 18 })
 
@@ -39,6 +39,7 @@ const paths: Record<IconName, string> = {
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
   alert: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 17.5v.5"/>',
   'arrow-right': '<path d="M4 12h16M14 6l6 6-6 6"/>',
+  'panel-left': '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/>',
   list: '<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
 }
 </script>

@@ -228,7 +228,7 @@
     "retry": "Try again",
     "codeTabs": "Example format",
     "theme": {
-      "label": "Theme: {current}. Switch to {next}.",
+      "label": "Switch to {next} theme. Current: {current}.",
       "light": "light",
       "dark": "dark",
       "system": "system"
@@ -356,7 +356,7 @@
       "endpoints": {
         "nav": "Endpoints",
         "title": "All endpoints",
-        "description": "Every endpoint on one page. Pick one to read its parameters and copy a working request."
+        "description": "One row per endpoint. Select a path to read its parameters and copy a working request. A tinted chip marks the paginated ones."
       },
       "glossary": {
         "nav": "Data and methods",
@@ -473,6 +473,7 @@
       "version": "Site version {version}"
     },
     "toc": {
+      "anchor": "Link to this section",
       "title": "On this page",
       "label": "On this page"
     },
@@ -548,14 +549,13 @@
       }
     },
     "endpointsIndex": {
-      "intro": "One row per endpoint. Select a path to read its parameters and copy a request. A tinted chip means the endpoint is paginated.",
       "method": "Method",
       "path": "Path",
       "paginated": "Paginated",
       "paged": {
         "page": "page",
         "offset": "offset",
-        "none": "no"
+        "none": "not paginated"
       }
     },
     "overview": {

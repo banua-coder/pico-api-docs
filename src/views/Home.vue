@@ -80,7 +80,7 @@
 
     <!-- Data and methods -->
     <section aria-labelledby="methods-title" class="mx-auto max-w-[90rem] px-4 pb-16 md:px-8 lg:px-16">
-      <div class="flex flex-col gap-6 rounded-xl border border-brand/15 bg-brand-tint p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+      <div class="flex flex-col gap-6 rounded-lg border border-brand/15 bg-brand-tint p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
         <div class="max-w-2xl">
           <h2 id="methods-title" class="h2">{{ t('nav.glossary') }}</h2>
           <p class="mt-2 text-lg leading-7 text-ink-soft">{{ t('home.methodsText') }}</p>
@@ -99,8 +99,8 @@
         <ul class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
           <li v-for="s in sources" :key="s.name">
             <a :href="s.url" target="_blank" rel="noopener noreferrer" class="flex h-full flex-col items-center gap-3 rounded-lg border border-rule bg-surface p-3 text-center transition-colors hover:border-rule-strong hover:bg-sunk">
-              <span class="flex h-24 w-full items-center justify-center rounded-md bg-surface p-3 dark:bg-[#e6edf7]">
-                <img :src="s.logo" :alt="s.name" width="64" height="64" loading="lazy" class="h-16 w-full object-contain" />
+              <span class="flex h-24 w-full items-center justify-center rounded-md bg-plate p-3">
+                <img :src="s.logo" :alt="s.name" width="64" height="64" loading="lazy" class="h-full w-full object-contain" />
               </span>
               <span class="text-sm font-medium text-ink">{{ s.name }}</span>
               <span class="sr-only">{{ t('ui.opensNewTab') }}</span>
