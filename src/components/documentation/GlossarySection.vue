@@ -1,8 +1,6 @@
 <template>
   <div class="min-w-0">
 
-    <p class="mb-10 max-w-prose text-base leading-relaxed text-muted">{{ t('documentation.glossary.cardSubtitle') }}</p>
-
     <!-- ── Section 01: Reproduction Rate ── -->
     <div class="mb-14 md:mb-20">
 

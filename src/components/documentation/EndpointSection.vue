@@ -3,8 +3,8 @@
     <div class="min-w-0 space-y-8 min-[1400px]:col-span-2">
       <div class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 border border-rule-strong bg-surface p-3">
         <span class="method-mark">{{ primary.method }}</span>
-        <code class="min-w-0 flex-1 break-all text-sm">{{ url }}</code>
-        <CopyButton :text="url" :label="t('ui.copyUrl')" />
+        <code class="order-last min-w-0 basis-full text-sm [overflow-wrap:anywhere] sm:order-none sm:flex-1 sm:basis-auto">{{ url }}</code>
+        <CopyButton :text="url" :label="t('ui.copyUrl')" class="ml-auto sm:ml-0" />
       </div>
     </div>
 
