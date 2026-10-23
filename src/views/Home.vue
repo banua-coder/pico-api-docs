@@ -3,7 +3,7 @@
     <!-- First viewport: promise and request on the left, indigo ledger of the latest record on the right -->
     <section aria-labelledby="home-title">
       <div class="mx-auto grid max-w-[90rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)]">
-        <div class="flex min-w-0 flex-col px-4 py-10 sm:px-8 lg:justify-between lg:gap-8 lg:py-14">
+        <div class="min-w-0 px-4 py-10 sm:px-8 lg:py-14">
           <div>
           <div class="flex items-center gap-4">
             <img src="/pico-api-logo.webp" alt="" width="64" height="64" class="h-14 w-14 bg-field-ink p-1 sm:h-16 sm:w-16" />
@@ -20,7 +20,7 @@
           </div>
 
           <div class="mt-5 max-w-xl">
-            <CodeBlock :code="curl" language="bash" title="cURL" :copy-label="t('ui.copyCode', { name: 'cURL' })" />
+            <CodePanel :curl="curl" :response="nationalLatestResponse" />
           </div>
           </div>
 
@@ -109,9 +109,9 @@
         <li v-for="s in sources" :key="s.name" class="bg-surface">
           <a :href="s.url" target="_blank" rel="noopener noreferrer" class="flex h-full flex-col items-center gap-3 p-4 text-center hover:bg-sunk">
             <span class="flex h-20 w-full items-center justify-center bg-field-ink p-2">
-              <img :src="s.logo" :alt="s.name" loading="lazy" class="max-h-16 max-w-full object-contain" />
+              <img :src="s.logo" :alt="s.name" width="64" height="64" loading="lazy" class="h-16 w-full object-contain" />
             </span>
-            <span class="text-sm font-semibold">{{ s.name }}</span>
+            <span class="text-sm font-semibold text-ink">{{ s.name }}</span>
             <span class="sr-only">{{ t('ui.opensNewTab') }}</span>
           </a>
         </li>
@@ -126,11 +126,12 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BarkBorder from '@/components/BarkBorder.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import CodeBlock from '@/components/CodeBlock.vue'
+import CodePanel from '@/components/CodePanel.vue'
 import CopyButton from '@/components/CopyButton.vue'
 import Icon from '@/components/icons/Icon.vue'
 import LedgerBlock from '@/components/LedgerBlock.vue'
 import { API_BASE_URL, API_V1_URL } from '@/config/api'
+import { nationalLatestResponse } from '@/data/responses'
 import { endpoints, GROUP_IDS, groupExamples } from '@/data/endpoints'
 import { useHealth, useLatestRecords } from '@/composables/useLatestRecords'
 

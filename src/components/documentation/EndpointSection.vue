@@ -8,10 +8,15 @@
       </div>
     </div>
 
-    <div class="min-w-0 space-y-8 max-[1599px]:order-2">
-      <p v-if="hasBody" class="max-w-prose leading-relaxed">{{ t(`docs.pages.${key}.body`) }}</p>
+    <p v-if="hasBody" class="min-w-0 max-w-prose leading-relaxed min-[1600px]:col-start-1">{{ t(`docs.pages.${key}.body`) }}</p>
 
-      <section>
+    <section class="min-w-0 min-[1600px]:col-start-2 min-[1600px]:row-span-3 min-[1600px]:row-start-2 min-[1600px]:sticky min-[1600px]:top-[calc(var(--nav-h)+1.5rem)] min-[1600px]:self-start">
+      <h2 class="ledger-title mb-3 text-2xl">{{ t('docs.endpoint.example') }}</h2>
+      <CodePanel :curl="doc.curl" :response="doc.response" />
+      <p class="mt-2 text-xs text-muted">{{ t('docs.endpoint.trimmed') }}</p>
+    </section>
+
+    <section class="min-w-0 min-[1600px]:col-start-1">
         <h2 class="ledger-title mb-3 text-2xl">{{ t('docs.endpoint.parameters') }}</h2>
         <ParamsTable v-if="doc.params.length" :params="doc.params" :title="t('docs.endpoint.parameters')" />
         <p v-else class="border border-rule-strong bg-surface p-3 text-sm text-muted">{{ t('docs.endpoint.noParams') }}</p>
@@ -19,9 +24,9 @@
           {{ t(`docs.endpoint.paging.${primary.paging}`) }}
           <router-link to="/docs/pagination" class="font-semibold text-indigo underline underline-offset-4">{{ t('docs.endpoint.seePagination') }}</router-link>
         </p>
-      </section>
+    </section>
 
-      <section v-if="related.length">
+    <section v-if="related.length" class="min-w-0 min-[1600px]:col-start-1">
         <h2 class="ledger-title mb-3 text-2xl">{{ t('docs.endpoint.related') }}</h2>
         <ul class="border border-rule-strong bg-surface">
           <li v-for="e in related" :key="e.id" class="border-b border-rule p-3 last:border-b-0">
@@ -30,13 +35,6 @@
           </li>
         </ul>
       </section>
-    </div>
-
-    <section class="min-w-0 max-[1599px]:order-1 min-[1600px]:sticky min-[1600px]:top-[calc(var(--nav-h)+1.5rem)] min-[1600px]:self-start">
-      <h2 class="ledger-title mb-3 text-2xl">{{ t('docs.endpoint.example') }}</h2>
-      <CodePanel :curl="doc.curl" :response="doc.response" />
-      <p class="mt-2 text-xs text-muted">{{ t('docs.endpoint.trimmed') }}</p>
-    </section>
   </div>
 </template>
 
