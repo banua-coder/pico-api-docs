@@ -1,0 +1,38 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "#a5927b",
+        "createdAt": "2026-10-23T05:48:58.136Z",
+        "reason": "assistant decision: Prism comment color, muted bark tone in the code panel; contrast measured above 4.5:1; record in DESIGN.md at next documenter run"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#c4dcf5",
+        "createdAt": "2026-10-23T05:48:58.184Z",
+        "reason": "assistant decision: Prism number color, pale tint of the logo blue after the red swap; 11.8:1 on code panel; record in DESIGN.md at next documenter run"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#4ea9e3",
+        "createdAt": "2026-10-23T05:48:58.230Z",
+        "reason": "assistant decision: logo light blue (measured from public/pico-api-logo.webp) used for Prism keywords and the BarkBorder accent; 6.4:1 on code panel; record in DESIGN.md at next documenter run"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#56667c",
+        "createdAt": "2026-10-23T06:04:22.048Z",
+        "reason": "assistant decision: muted text color of the approved canon comp (mock file, not shipped) and of the new light tokens; darkened to 4.5:1 on the ground; will be recorded in DESIGN.md at the next documenter run"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-23T06:14:04.169Z",
+        "reason": "assistant decision, not a user confirmation: the user chose the category standard (canon card) with Stripe Docs as the quality bar, and Read-mode docs are served well by a workhorse UI face; the user did not name Inter"
+      }
+    ]
+  }
+}

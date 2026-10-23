@@ -31,7 +31,7 @@
         >
           <Icon name="search" :size="16" />
           <span class="hidden flex-1 text-left md:inline">{{ t('search.button') }}</span>
-          <kbd class="hidden rounded border border-b-2 border-rule bg-surface/60 px-1.5 text-xs leading-4 text-muted md:inline">/</kbd>
+          <kbd class="hidden rounded border border-rule bg-surface/60 px-1.5 text-xs leading-4 text-muted md:inline">/</kbd>
         </button>
         <div class="hidden items-center gap-2 md:flex">
           <LanguageToggle />

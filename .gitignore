@@ -104,3 +104,9 @@ temp/
 # Claude Code specific
 .claude
 CLAUDE.mdimage.png
+
+# Design review artifacts (screenshots, mocks, critique snapshots)
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/critique/
+.playwright-mcp/
