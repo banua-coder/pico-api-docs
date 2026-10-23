@@ -1,129 +1,67 @@
 <template>
-  <!-- Mobile overlay -->
-  <div v-if="open" class="fixed inset-0 bg-black/30 z-30 lg:hidden" @click="$emit('close')"></div>
-
-  <!-- Sidebar -->
-  <aside
-    class="fixed top-14 left-0 bottom-0 z-40 w-[260px] bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto flex-shrink-0 transition-transform duration-200"
-    :class="open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+  <div v-if="open" class="fixed inset-0 top-nav z-30 bg-scrim/60 lg:hidden" aria-hidden="true" @click="$emit('close')" />
+  <div
+    class="w-rail shrink-0 lg:sticky lg:top-nav lg:flex lg:h-[calc(100vh-var(--nav-h))]"
+    :class="open ? 'max-lg:fixed max-lg:inset-y-0 max-lg:top-nav max-lg:z-40 max-lg:flex max-lg:w-[min(20rem,88vw)] max-lg:shadow-pop' : 'max-lg:hidden'"
   >
-    <div class="px-4 py-5">
-      <!-- Version badge -->
-      <div class="mb-4">
-        <span class="inline-flex items-center gap-1.5 text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 rounded-full px-2.5 py-1 tracking-wide uppercase">
-          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 inline-block"></span>
-          v{{ appVersion }}
-        </span>
-      </div>
-
-      <!-- Language + Theme -->
-      <div class="flex items-center space-x-2 mb-6">
-        <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500 transition-colors">
-          {{ locale === 'en' ? 'EN' : 'ID' }}
+    <aside
+      id="doc-sidebar"
+      :aria-label="t('docs.sidebar.label')"
+      class="flex min-w-0 flex-1 flex-col overflow-y-auto border-r border-rule bg-surface lg:bg-ground"
+      @keydown.esc="$emit('close')"
+    >
+      <div class="flex items-center gap-2 p-4 pb-2">
+        <button type="button" class="touch-target flex h-10 min-w-0 flex-1 items-center gap-2 rounded-lg border border-rule bg-ground px-3 text-sm text-muted transition-colors hover:border-rule-strong lg:bg-surface" :aria-label="t('search.open')" @click="onSearch">
+          <Icon name="search" :size="16" />
+          <span class="flex-1 text-left">{{ t('search.button') }}</span>
+          <kbd class="rounded border border-rule bg-surface/60 px-1.5 text-xs leading-4">/</kbd>
         </button>
-        <ThemeToggle />
+        <button type="button" class="btn-ghost touch-target inline-flex h-10 w-10 items-center justify-center rounded-lg lg:hidden" :aria-label="t('docs.sidebar.close')" @click="$emit('close')">
+          <Icon name="close" />
+        </button>
       </div>
 
-      <nav class="space-y-5">
-        <div v-for="group in navGroups" :key="group.titleKey">
-          <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2 px-3">
-            {{ t(`docs.sidebar.groups.${group.titleKey}`) }}
-          </div>
-          <ul class="space-y-0.5">
-            <li v-for="item in group.items" :key="item.id">
-              <a
-                :href="`#${item.id}`"
-                @click.prevent="selectSection(item.id)"
-                class="sidebar-link"
-                :class="{ active: activeSection === item.id }"
+      <nav :aria-label="t('docs.sidebar.sections')" class="flex-1 px-4 pb-4">
+        <section v-for="group in groups" :key="group.id" :aria-labelledby="`grp-${group.id}`" class="mt-5">
+          <p :id="`grp-${group.id}`" class="label px-3 pb-1 text-muted">{{ t(`docs.groups.${group.id}`) }}</p>
+          <ul>
+            <li v-for="s in group.items" :key="s.slug">
+              <router-link
+                :to="`/docs/${s.slug}`"
+                class="flex h-9 items-center rounded-md px-3 text-sm transition-colors"
+                :class="s.slug === current ? 'bg-brand-tint font-semibold text-brand' : 'text-ink-soft hover:bg-sunk hover:text-ink'"
+                :aria-current="s.slug === current ? 'page' : undefined"
+                @click="$emit('close')"
               >
-                {{ t(`docs.sidebar.items.${item.labelKey}`) }}
-              </a>
+                {{ t(`docs.pages.${s.key}.nav`) }}
+              </router-link>
             </li>
           </ul>
-        </div>
+        </section>
       </nav>
-    </div>
-  </aside>
+      <p class="border-t border-rule px-7 py-3 text-xs text-muted">{{ t('docs.sidebar.version', { version }) }}</p>
+    </aside>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import ThemeToggle from './ThemeToggle.vue'
+import Icon from '@/components/icons/Icon.vue'
+import { useSearch } from '@/composables/useSearch'
+import { SECTION_GROUPS, sections } from '@/data/sections'
 import { version } from '../../package.json'
 
-defineProps<{
-  activeSection: string
-  open: boolean
-}>()
+defineProps<{ current: string; open: boolean }>()
+const emit = defineEmits<{ close: [] }>()
 
-const emit = defineEmits<{
-  (e: 'update:activeSection', val: string): void
-  (e: 'close'): void
-}>()
+const { t } = useI18n()
+const { openSearch } = useSearch()
 
-const { t, locale } = useI18n()
-const appVersion = version
+const groups = computed(() => SECTION_GROUPS.map((id) => ({ id, items: sections.filter((s) => s.group === id) })))
 
-const toggleLanguage = () => {
-  locale.value = locale.value === 'en' ? 'id' : 'en'
-  localStorage.setItem('pico-language', locale.value)
-}
-
-const selectSection = (id: string) => {
-  emit('update:activeSection', id)
+function onSearch() {
   emit('close')
-  const el = document.getElementById(id)
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  openSearch()
 }
-
-const navGroups = [
-  {
-    titleKey: 'introduction',
-    items: [
-      { id: 'overview', labelKey: 'overview' },
-      { id: 'authentication', labelKey: 'authentication' },
-      { id: 'errors', labelKey: 'errors' },
-      { id: 'pagination', labelKey: 'pagination' },
-    ],
-  },
-  {
-    titleKey: 'coreResources',
-    items: [
-      { id: 'national-latest', labelKey: 'nationalCases' },
-      { id: 'provinces', labelKey: 'provinces' },
-      { id: 'province-cases', labelKey: 'provinceCases' },
-      { id: 'regencies', labelKey: 'regencies' },
-    ],
-  },
-  {
-    titleKey: 'healthInfrastructure',
-    items: [
-      { id: 'hospitals', labelKey: 'hospitals' },
-      { id: 'task-forces', labelKey: 'taskForces' },
-    ],
-  },
-  {
-    titleKey: 'statistics',
-    items: [
-      { id: 'gender-stats', labelKey: 'genderStats' },
-      { id: 'test-statistics', labelKey: 'testStatistics' },
-      { id: 'test-types', labelKey: 'testTypes' },
-    ],
-  },
-  {
-    titleKey: 'vaccination',
-    items: [
-      { id: 'vaccination-national', labelKey: 'national' },
-      { id: 'vaccination-province', labelKey: 'province' },
-      { id: 'vaccination-locations', labelKey: 'locations' },
-    ],
-  },
-  {
-    titleKey: 'reference',
-    items: [
-      { id: 'glossary', labelKey: 'glossary' },
-    ],
-  },
-]
 </script>

@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T12:00:00Z",
+  "title": "Design System: PICO SulTeng API Docs",
+  "extensions": {
+    "colorMeta": {
+      "brand": { "role": "primary", "displayName": "Logo Blue", "canonical": "#2a62b0", "tonalRamp": ["#0f2a52", "#173d75", "#1f4f94", "#2a62b0", "#4a7fc4", "#7db4ee", "#b9d5f4", "#e6eef9"] },
+      "accent": { "role": "secondary", "displayName": "Sky Accent", "canonical": "#4ea9e3", "tonalRamp": ["#0f3350", "#175078", "#2478ae", "#4ea9e3", "#6fbbea", "#93cdf0", "#bde1f6", "#e3f2fb"] },
+      "ground": { "role": "neutral", "displayName": "Cool Ground", "canonical": "#f6f8fb", "tonalRamp": ["#0f1b2d", "#3d4d63", "#56667c", "#b8c4d6", "#dbe3ee", "#eef2f8", "#f6f8fb", "#fbfcfe"] },
+      "dark-ground": { "role": "neutral", "displayName": "Night Ground", "canonical": "#0b1220", "tonalRamp": ["#050911", "#0b1220", "#0e1626", "#111a2b", "#1a263b", "#223049", "#34476a", "#9aaac0"] },
+      "code-panel": { "role": "neutral", "displayName": "Code Navy", "canonical": "#0f1b2d", "tonalRamp": ["#050911", "#0f1b2d", "#26354d", "#3d4d63", "#8196b0", "#9aabc4", "#dbe7f7", "#f6f8fb"] },
+      "success": { "role": "tertiary", "displayName": "Live Green", "canonical": "#1f8a5b", "tonalRamp": ["#0d3a27", "#145c3c", "#1f8a5b", "#3fbf86", "#6fd3a5", "#a7e3b8", "#d3f1dd", "#eefaf3"] }
+    },
+    "typographyMeta": {
+      "h1": { "displayName": "Page title", "purpose": "Hero and page titles, 56/64 at desktop, weight 700." },
+      "h2": { "displayName": "Section title", "purpose": "Section headings, 28/36, weight 650." },
+      "h3": { "displayName": "Sub section title", "purpose": "Sub headings, 20/28, weight 600." },
+      "body": { "displayName": "Body", "purpose": "Tables, callouts and prose, 14px and up." },
+      "label": { "displayName": "Label", "purpose": "Sidebar group names, table headers and tabs. 0.8125rem, 600, sentence case." },
+      "page-title": { "displayName": "Docs page title", "purpose": "The h1 on docs pages. 2.25rem on small screens and 2.5rem from sm up, weight 700, line 1.2, tracking -0.03em. The home title uses the h1 display size." },
+      "button": { "displayName": "Button text", "purpose": "Large 48px buttons. 15px, weight 600. Small buttons use 14px." },
+      "brand": { "displayName": "Brand name", "purpose": "The PICO SulTeng name in the nav. 17px, weight 700, tracking -0.01em." },
+      "stat-title": { "displayName": "Stat title", "purpose": "Group titles in the stat card. 17px, weight 650." },
+      "stat-figure": { "displayName": "Stat figure", "purpose": "Numbers in the stat card. 18px on small screens and 22px from sm up, weight 700, tabular." },
+      "caption": { "displayName": "Caption", "purpose": "Method pills, state pills, key hints and the stat card footnote. 0.75rem, weight 600. The smallest size for text people read." },
+      "key-path": { "displayName": "Key path", "purpose": "The JSON path under each stat row. 11px mono, line 14px. The one documented exception to the caption minimum, because it labels a developer value." },
+      "code": { "displayName": "Code", "purpose": "Code panels and inline code, system mono with tabular numerals." }
+    },
+    "shadows": [
+      { "name": "card", "value": "0 1px 2px rgb(15 27 45 / 0.06), 0 8px 24px rgb(15 27 45 / 0.06)", "purpose": "Table cards and code panels. Dark: 0 1px 2px rgb(3 7 14 / 0.35)." },
+      { "name": "stat-card", "value": "0 1px 2px rgb(15 27 45 / 0.04), 0 12px 32px rgb(15 27 45 / 0.06)", "purpose": "Home stat card." },
+      { "name": "pop", "value": "0 4px 12px rgb(15 27 45 / 0.08), 0 24px 64px rgb(15 27 45 / 0.22)", "purpose": "Drawer and search palette. Dark: 0 24px 64px rgb(3 7 14 / 0.6)." },
+      { "name": "button", "value": "0 1px 2px rgb(15 27 45 / 0.2)", "purpose": "Primary button." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Easing for the stat card rise-in." },
+      { "name": "rise-in", "value": "500ms, translateY(12px) and opacity 0 to rest, once on load", "purpose": "The only authored motion. Disabled under prefers-reduced-motion." },
+      { "name": "color-transition", "value": "150ms", "purpose": "Hover color changes on controls." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "table-stack", "value": "container 36rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Logo blue fill for the main action.",
+      "html": "<button class=\"ds-btn-primary\">Get started</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; border: 1px solid #2a62b0; border-radius: 8px; background: #2a62b0; color: #f6f8fb; font: 600 15px 'Inter Variable', system-ui, sans-serif; box-shadow: 0 1px 2px rgb(15 27 45 / 0.2); transition: background-color 150ms; } .ds-btn-primary:hover { background: #1f4f94; border-color: #1f4f94; } .ds-btn-primary:focus-visible { outline: 2px solid #2a62b0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined button beside a primary.",
+      "html": "<button class=\"ds-btn-secondary\">Open Swagger UI</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; border: 1px solid rgb(184 196 214 / 0.6); border-radius: 8px; background: #fbfcfe; color: #0f1b2d; font: 600 15px 'Inter Variable', system-ui, sans-serif; transition: background-color 150ms; } .ds-btn-secondary:hover { background: #eef2f8; } .ds-btn-secondary:focus-visible { outline: 2px solid #2a62b0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Sidebar Item",
+      "kind": "nav",
+      "refersTo": "sidebar-item-active",
+      "description": "36px sidebar row. Active uses the blue tint.",
+      "html": "<a class=\"ds-side ds-side-active\" href=\"#\">Overview</a><a class=\"ds-side\" href=\"#\">Endpoints</a>",
+      "css": ".ds-side { display: flex; align-items: center; height: 36px; padding: 0 12px; border-radius: 6px; color: #3d4d63; font: 400 14px 'Inter Variable', system-ui, sans-serif; text-decoration: none; transition: background-color 150ms, color 150ms; } .ds-side:hover { background: #eef2f8; color: #0f1b2d; } .ds-side-active { background: #e6eef9; color: #2a62b0; font-weight: 600; } .ds-side:focus-visible { outline: 2px solid #2a62b0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Method and State Pills",
+      "kind": "chip",
+      "refersTo": "method-pill",
+      "description": "Method pill plus required, optional and deprecated states. Shape and text carry the state.",
+      "html": "<span class=\"ds-method\">GET</span> <span class=\"ds-state ds-on\">required</span> <span class=\"ds-state ds-off\">optional</span> <span class=\"ds-state ds-dep\">deprecated</span>",
+      "css": ".ds-method { display: inline-flex; padding: 0 8px; border-radius: 999px; background: #e6eef9; color: #2a62b0; font: 700 12px/20px ui-monospace, Menlo, monospace; letter-spacing: 0.02em; } .ds-state { display: inline-flex; padding: 0 8px; border: 1px solid transparent; border-radius: 999px; font: 600 12px/20px 'Inter Variable', system-ui, sans-serif; white-space: nowrap; } .ds-on { background: #2a62b0; border-color: #2a62b0; color: #f6f8fb; } .ds-off { border-color: #b8c4d6; color: #56667c; } .ds-dep { border: 1px dashed #b8c4d6; color: #56667c; text-decoration: line-through; }"
+    },
+    {
+      "name": "Callout",
+      "kind": "card",
+      "refersTo": "callout",
+      "description": "Note with a 1px border on all sides and a small icon.",
+      "html": "<div class=\"ds-callout\" role=\"note\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4M12 8h.01\"/></svg><div><p style=\"margin:0 0 4px;font-weight:600\">Note</p>Data updates daily.</div></div>",
+      "css": ".ds-callout { display: flex; gap: 12px; padding: 16px; border: 1px solid rgb(42 98 176 / 0.25); border-radius: 8px; background: #e6eef9; color: #0f1b2d; font: 400 14px/1.65 'Inter Variable', system-ui, sans-serif; } .ds-callout svg { flex: none; margin-top: 2px; color: #2a62b0; }"
+    },
+    {
+      "name": "Table Card",
+      "kind": "card",
+      "refersTo": "table-card",
+      "description": "Rounded bordered card around a data table.",
+      "html": "<div class=\"ds-table-card\"><table class=\"ds-table\"><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody><tr><td><code>page</code></td><td>integer</td></tr><tr><td><code>limit</code></td><td>integer</td></tr></tbody></table></div>",
+      "css": ".ds-table-card { overflow: hidden; border: 1px solid #dbe3ee; border-radius: 8px; background: #fbfcfe; box-shadow: 0 1px 2px rgb(15 27 45 / 0.06), 0 8px 24px rgb(15 27 45 / 0.06); } .ds-table { width: 100%; border-collapse: collapse; font: 400 14px 'Inter Variable', system-ui, sans-serif; color: #0f1b2d; font-variant-numeric: tabular-nums; } .ds-table th { padding: 10px 16px; background: #eef2f8; color: #56667c; font-size: 13px; font-weight: 600; text-align: left; } .ds-table td { padding: 12px 16px; border-top: 1px solid #e8eef6; vertical-align: top; } .ds-table tr:first-child td { border-top: 0; } .ds-table code { padding: 0 8px; border-radius: 4px; background: #e6eef9; color: #2a62b0; font: 13px/24px ui-monospace, Menlo, monospace; }"
+    },
+    {
+      "name": "Code Panel",
+      "kind": "custom",
+      "refersTo": "code-panel",
+      "description": "Navy panel with cURL and Response tabs and a copy button.",
+      "html": "<div class=\"ds-code\"><div class=\"ds-code-head\"><span class=\"ds-tab ds-tab-on\">cURL</span><span class=\"ds-tab\">Response</span><button class=\"ds-copy\">Copy</button></div><pre><code><span class=\"k\">curl</span> <span class=\"s\">\"https://api.example.com/v1\"</span></code></pre></div>",
+      "css": ".ds-code { overflow: hidden; border: 1px solid #26354d; border-radius: 8px; background: #0f1b2d; color: #dbe7f7; box-shadow: 0 1px 2px rgb(15 27 45 / 0.06), 0 8px 24px rgb(15 27 45 / 0.06); } .ds-code-head { display: flex; align-items: flex-end; gap: 24px; padding: 0 16px; border-bottom: 1px solid #26354d; } .ds-tab { padding: 12px 0 10px; border-bottom: 2px solid transparent; color: #9aabc4; font: 600 13px/24px 'Inter Variable', system-ui, sans-serif; } .ds-tab-on { border-color: #4ea9e3; color: #dbe7f7; } .ds-copy { margin: 0 0 6px auto; height: 32px; padding: 0 12px; border: 1px solid #26354d; border-radius: 6px; background: transparent; color: #9aabc4; font: 600 13px 'Inter Variable', system-ui, sans-serif; } .ds-copy:hover { background: rgb(219 231 247 / 0.08); color: #dbe7f7; } .ds-copy:focus-visible { outline: 2px solid #4ea9e3; outline-offset: 2px; } .ds-code pre { margin: 0; padding: 24px; overflow-x: auto; font: 14px/24px ui-monospace, Menlo, monospace; } .ds-code .k { color: #7db4ee; } .ds-code .s { color: #a7e3b8; }"
+    },
+    {
+      "name": "Stat Card",
+      "kind": "card",
+      "refersTo": "table-card",
+      "description": "Home stat group with a dated record and key path rows.",
+      "html": "<section class=\"ds-stat\"><div class=\"ds-stat-head\"><h3>Sulawesi Tengah</h3><p>Latest record 12 March 2023</p></div><dl><div class=\"ds-row\"><dt>Positive<code>sulteng.positive</code></dt><dd>12.345</dd></div><div class=\"ds-row\"><dt>Recovered<code>sulteng.recovered</code></dt><dd>11.900</dd></div></dl></section>",
+      "css": ".ds-stat { padding: 24px; border: 1px solid #dbe3ee; border-radius: 8px; background: #fbfcfe; box-shadow: 0 1px 2px rgb(15 27 45 / 0.04), 0 12px 32px rgb(15 27 45 / 0.06); font-family: 'Inter Variable', system-ui, sans-serif; color: #0f1b2d; } .ds-stat-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; } .ds-stat h3 { margin: 0; font-size: 17px; font-weight: 650; letter-spacing: -0.01em; } .ds-stat p { margin: 0; font-size: 13px; color: #56667c; font-variant-numeric: tabular-nums; } .ds-stat dl { margin: 0; } .ds-row { display: flex; justify-content: space-between; align-items: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #e8eef6; } .ds-row dt { font-size: 14px; color: #3d4d63; } .ds-row code { display: block; font: 11px/14px ui-monospace, Menlo, monospace; color: #56667c; } .ds-row dd { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clear Reference",
+    "overview": "This is a calm, precise API reference in the Stripe-docs manner. It is built around the blue of the PICO logo. It earns trust by craft, not by ornament. A developer finds an endpoint and copies a working cURL in seconds. A researcher finds a formula and its source.\n\nThe surface is a cool near-white ground with navy ink. One blue carries every action and every active state. Dark navy code panels sit on the page in both themes. Inter sets all the text. Numbers use tabular figures so columns line up. The dark theme is a full peer with its own measured values. It is not an inversion.\n\nThe build matches the approved comp (canon card, seed 8a7291fb). The reviewer sampled the hero pixels and found them equal to the comp: ground (246,248,251), code panel (15,27,45), button (42,98,176).",
+    "keyCharacteristics": [
+      "One blue (logo blue #2a62b0) for action, links and active state. Everything else is neutral.",
+      "Hairline borders and an 8px radius. Depth is a soft two-layer shadow on cards only.",
+      "Dark navy code panels with the cURL and Response tabs and a copy button.",
+      "Tabular numerals everywhere numbers sit in a column.",
+      "State is always shape plus text, never color alone.",
+      "Light and dark are peers. Contrast is measured for both."
+    ],
+    "rules": [
+      { "name": "The One Blue Rule", "body": "Logo blue is the only hue that marks action. Hairlines, text and surfaces stay neutral. Fields are never red, orange or purple. The logo is blue, red clashes with it, and this is a user decision.", "section": "colors" },
+      { "name": "The Measured Contrast Rule", "body": "Every text and ring color in the tokens comment of src/style.css has a measured ratio. Body text stays at 4.5 or higher. Large text and UI stay at 3 or higher. A new color needs a measured number before it ships.", "section": "colors" },
+      { "name": "The No Pure Rule", "body": "Text is never #000 or #fff. Ink is navy. On-brand is the ground color.", "section": "colors" },
+      { "name": "The Tabular Rule", "body": "Code, tables and stat figures use tabular numerals so digits align.", "section": "typography" },
+      { "name": "The Real Subscript Rule", "body": "Symbols like R_t render as a real subscript through subscripts() in src/lib/wrap.ts.", "section": "typography" },
+      { "name": "The Whole Token Rule", "body": "URLs and key paths break only after a slash or a dot, through <wbr> (afterSlash, afterDot in src/lib/wrap.ts). They never break in the middle of a token.", "section": "layout" },
+      { "name": "The Soft Shadow Rule", "body": "Shadows are blurred and low in opacity. Offset hard shadows are not used.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use logo blue (#2a62b0) for every action and active state, and keep all other surfaces neutral.",
+      "Do pair every state with text or shape. Required, optional, paginated, deprecated, warning and success all carry a label.",
+      "Do keep both themes measured. Add dark values whenever you add a light value.",
+      "Do use 8px for cards and panels, 6px for controls and 999px for pills.",
+      "Do use tabular numerals for numbers and code.",
+      "Do break URLs and key paths only after a slash or a dot.",
+      "Do keep a visible focus ring on every control, blue on light and sky on dark and code.",
+      "Do give icon buttons a text label for assistive tech and a 44px target on touch devices."
+    ],
+    "donts": [
+      "Do not use red, orange or purple fields or accents. The logo is blue and red clashes. This is a user decision.",
+      "Do not use gradient text.",
+      "Do not put a small label above a heading to introduce it.",
+      "Do not use a colored side border thicker than 1px. Borders are 1px on all sides.",
+      "Do not use emoji as icons. Icons come from icons/Icon.vue.",
+      "Do not break a URL or key path in the middle of a token.",
+      "Do not signal state by color alone.",
+      "Do not use pure black or pure white for text.",
+      "Do not use the sky accent for text or rings on a light surface. It measures 2.4."
+    ]
+  }
+}

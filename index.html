@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary Meta Tags -->
-    <title>PICO SulTeng API - COVID-19 Central Sulawesi Data API</title>
-    <meta name="title" content="PICO SulTeng API - COVID-19 Central Sulawesi Data API" />
-    <meta name="description" content="Comprehensive COVID-19 data API for Central Sulawesi with real-time statistics, national context, and reliable health data. Built for developers who need fast, documented, and secure access to pandemic data." />
-    <meta name="keywords" content="COVID-19 API, Central Sulawesi, Sulawesi Tengah, pandemic data, health API, Indonesia COVID, PICO API, coronavirus statistics, real-time data, REST API" />
+    <title>PICO SulTeng API - COVID-19 data for Sulawesi Tengah</title>
+    <meta name="title" content="PICO SulTeng API - COVID-19 data for Sulawesi Tengah" />
+    <meta name="description" content="Province-level COVID-19 data for Sulawesi Tengah (Central Sulawesi), down to regency, hospital, task force and vaccination. Documented endpoints, formulas and data sources." />
+    <meta name="keywords" content="COVID-19 API, Central Sulawesi, Sulawesi Tengah, pandemic data, health API, Indonesia COVID, PICO API, coronavirus statistics, REST API" />
     <meta name="author" content="Fajrian Aidil Pratama, Banua Coders" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://pico-api.banuacoder.com" />
@@ -17,8 +17,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pico-api.banuacoder.com" />
-    <meta property="og:title" content="PICO SulTeng API - COVID-19 Central Sulawesi Data API" />
-    <meta property="og:description" content="Comprehensive COVID-19 data API for Central Sulawesi with real-time statistics and reliable health data for developers." />
+    <meta property="og:title" content="PICO SulTeng API - COVID-19 data for Sulawesi Tengah" />
+    <meta property="og:description" content="Province-level COVID-19 data for Sulawesi Tengah (Central Sulawesi), down to regency, hospital, task force and vaccination. Documented endpoints, formulas and data sources." />
     <meta property="og:image" content="https://pico-api.banuacoder.com/pico-api-logo.webp" />
     <meta property="og:site_name" content="PICO SulTeng API" />
     <meta property="og:locale" content="en_US" />
@@ -27,15 +27,15 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://pico-api.banuacoder.com" />
-    <meta property="twitter:title" content="PICO SulTeng API - COVID-19 Central Sulawesi Data API" />
-    <meta property="twitter:description" content="Comprehensive COVID-19 data API for Central Sulawesi with real-time statistics and reliable health data for developers." />
+    <meta property="twitter:title" content="PICO SulTeng API - COVID-19 data for Sulawesi Tengah" />
+    <meta property="twitter:description" content="Province-level COVID-19 data for Sulawesi Tengah (Central Sulawesi), down to regency, hospital, task force and vaccination. Documented endpoints, formulas and data sources." />
     <meta property="twitter:image" content="https://pico-api.banuacoder.com/pico-api-logo.webp" />
     
     <!-- Additional Meta Tags -->
-    <meta name="theme-color" content="#3b82f6" />
-    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <meta name="theme-color" content="#2a62b0" />
+    <meta name="msapplication-TileColor" content="#2a62b0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="PICO SulTeng API" />
     
     <!-- Structured Data -->
@@ -44,7 +44,7 @@
       "@context": "https://schema.org",
       "@type": "WebAPI",
       "name": "PICO SulTeng API",
-      "description": "Comprehensive COVID-19 data API for Central Sulawesi with real-time statistics, national context, and reliable health data.",
+      "description": "Province-level COVID-19 data for Sulawesi Tengah (Central Sulawesi), down to regency, hospital, task force and vaccination. Documented endpoints, formulas and data sources.",
       "url": "https://pico-api.banuacoder.com",
       "provider": {
         "@type": "Organization",
@@ -64,8 +64,25 @@
       "endpoint": "https://pico-api.banuacoder.com/api/v1"
     }
     </script>
+    <script>
+      // Apply the saved theme before first paint so there is no light flash.
+      try {
+        var t = localStorage.getItem('pico-theme');
+        if (t === 'dark' || ((!t || t === 'system') && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    </script>
   </head>
   <body>
+<!--
+THESIS: A calm, precise API reference in the Stripe-docs manner, built around the PICO logo blue; it earns trust by craft, not by ornament.
+OWN-WORLD: Cool near-white ground #f6f8fb, ink #0f1b2d, logo blue #2a62b0 for action, hairline #dbe3ee, 8px radii, dark navy code panels, Inter, tabular numerals. Dark theme is a full peer.
+STORY: A developer finds an endpoint and copies a working cURL in seconds. A researcher finds the formula and its source.
+FIRST VIEWPORT: Title, promise, base URL and cURL panel on the left; a stat card of the latest Sulawesi Tengah and national records, each with its date, on the right.
+FORM: The category standard at full craft (canon card), approved comp .impeccable/mocks/decision/canon.png, seed 8a7291fb.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

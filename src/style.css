@@ -1,161 +1,307 @@
+@import '@fontsource-variable/inter/index.css';
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/*
+  Design tokens: cool near-white ground, ink navy, the PICO logo blue for action.
+  RGB triplets, so Tailwind can apply alpha. The `.dark` block is a full peer, not an inversion.
+  WCAG contrast, measured (body >= 4.5, large text and UI >= 3):
+  LIGHT  ink #0f1b2d on ground/surface/sunk/tint 16.3/16.8/15.4/14.8; ink-soft #3d4d63 8.1/8.4/7.7/7.4;
+         muted #56667c 5.5/5.7/5.2/5.0; brand #2a62b0 5.7/5.9/5.4/5.2; brand-hover #1f4f94 on ground 7.6;
+         on-brand #f6f8fb on brand 5.7, on brand-hover 7.6; success #1f8a5b on surface 4.2 (a 3:1 dot, always beside text).
+         Focus ring: brand #2a62b0 on ground 5.7 (accent #4ea9e3 is only 2.4 on light, so it is used on dark and on code panels).
+  DARK   ink #e6edf7 on ground/surface/sunk/tint 15.9/14.8/15.3/13.3; ink-soft #c3cfe0 11.9/11.0/11.5/10.0;
+         muted #9aaac0 7.9/7.4/7.7/6.6; brand text #7db4ee 8.6/8.0/8.3/7.2; on-brand #f6f8fb on button blue #2a62b0 5.7
+         (hover #2f6bbd 5.0); success #3fbf86 on surface 7.5; focus accent #4ea9e3 on ground 7.2, on surface 6.7.
+  CODE   light theme panel #0f1b2d: code ink #dbe7f7 13.8; keyword/function #7db4ee 7.9; string #a7e3b8 11.8;
+         number #f2d28b 11.8; punctuation #8fa3bf 6.7; comment #8196b0 5.7; tab text #9aabc4 7.4; ring #4ea9e3 6.7.
+         Dark theme panel #050911 (deeper than ground #0b1220, hairline = the page rule): ink 15.9; keyword 9.1; string 13.6;
+         number 13.6; punctuation 7.7; comment 6.6; tab text 8.5; ring 7.7.
+  Radii: 8px on cards, panels, code, modal and promo band; 6px controls; 999px pills. Scrim rgb(11 18 32 / .6) is the same in both themes.
+  Hairlines (rule #dbe3ee, rule-strong #b8c4d6) are decoration or dividers; every control also carries a text label.
+*/
 :root {
+  --ground: 246 248 251;
+  --surface: 251 252 254;
+  --sunk: 238 242 248;
+  --ink: 15 27 45;
+  --ink-soft: 61 77 99;
+  --muted: 86 102 124;
+  --rule: 219 227 238;
+  --rule-soft: 232 238 246;
+  --rule-strong: 184 196 214;
+  --brand: 42 98 176;
+  --brand-solid: 42 98 176;
+  --brand-solid-hover: 31 79 148;
+  --on-brand: 246 248 251;
+  --brand-tint: 230 238 249;
+  --accent: 78 169 227;
+  --success: 31 138 91;
+  --code: 15 27 45;
+  --code-ink: 219 231 247;
+  --code-muted: 154 171 196;
+  --code-rule: 38 53 77;
+  --logo-plate: 251 252 254;
+  --scrim: 11 18 32;
+  --focus: 42 98 176;
+  --shadow-card: 0 1px 2px rgb(15 27 45 / 0.06), 0 8px 24px rgb(15 27 45 / 0.06);
+  --shadow-pop: 0 4px 12px rgb(15 27 45 / 0.08), 0 24px 64px rgb(15 27 45 / 0.22);
+
+  --nav-h: 4rem;
+  --rail-w: 17.5rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  --accent: #635bff;
-  --accent-dark: #4f46e5;
-  --code-bg: #0a2540;
-  --sidebar-width: 260px;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  @apply bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100;
-  transition: background-color 0.15s ease, color 0.15s ease;
-  overflow-x: hidden;
-  max-width: 100vw;
+@media (min-width: 768px) {
+  :root { --nav-h: 4.5rem; }
 }
 
-#app {
-  overflow-x: hidden;
-  max-width: 100vw;
+.dark {
+  --ground: 11 18 32;
+  --surface: 17 26 43;
+  --sunk: 14 22 38;
+  --ink: 230 237 247;
+  --ink-soft: 195 207 224;
+  --muted: 154 170 192;
+  --rule: 34 48 73;
+  --rule-soft: 26 38 59;
+  --rule-strong: 52 71 106;
+  --brand: 125 180 238;
+  --brand-solid: 42 98 176;
+  --brand-solid-hover: 47 107 189;
+  --brand-tint: 20 35 61;
+  --success: 63 191 134;
+  --code: 5 9 17;
+  --code-rule: 34 48 73;
+  --logo-plate: 230 237 247;
+  --focus: 78 169 227;
+  --shadow-card: 0 1px 2px rgb(3 7 14 / 0.35);
+  --shadow-pop: 0 24px 64px rgb(3 7 14 / 0.6);
+  color-scheme: dark;
 }
 
-/* Skip link */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: #000;
-  color: #fff;
-  padding: 8px;
-  text-decoration: none;
-  border-radius: 4px;
-  z-index: 100;
-}
-.skip-link:focus { top: 6px; }
-
-/* Stripe-style code blocks */
-.code-panel {
-  background: var(--code-bg);
-  border-radius: 8px;
-  overflow-x: auto;
-}
-
-.code-panel pre {
-  margin: 0;
-  padding: 1rem 1.25rem;
-  overflow-x: auto;
-  font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', Consolas, monospace;
-  font-size: 0.8125rem;
-  line-height: 1.6;
-  color: #c9d3df;
-}
-
-/* Method badges */
-.badge-get {
-  @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-400;
-}
-.badge-post {
-  @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-400;
-}
-
-/* Params table */
-.params-table {
-  @apply w-full text-sm;
-  border-collapse: collapse;
-}
-.params-table th {
-  @apply text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider py-2 px-3 border-b border-gray-200 dark:border-gray-700;
-}
-.params-table td {
-  @apply py-3 px-3 border-b border-gray-100 dark:border-gray-800 align-top;
-}
-.params-table tr:last-child td {
-  border-bottom: none;
-}
-
-/* Sidebar nav active state */
-.sidebar-link {
-  @apply flex items-center px-3 py-1.5 text-sm rounded text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer;
-}
-.sidebar-link.active {
-  @apply text-[#635bff] dark:text-[#818cf8] bg-purple-50 dark:bg-purple-900/20 font-medium;
-}
-
-/* API section two-column layout */
-.api-section-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-bottom: 1px solid;
-  @apply border-gray-200 dark:border-gray-800;
-}
-
-@media (max-width: 1024px) {
-  .api-section-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Prevent grid children from overflowing viewport */
-.api-section-grid > * {
-  min-width: 0;
-  max-width: 100%;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-600 rounded-full; }
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition-duration: 0.01ms !important; }
-}
-
-/* Mobile overflow fixes */
-@media (max-width: 768px) {
-  /* Ensure code blocks are scrollable on mobile */
-  .code-block-wrapper,
-  .code-container,
-  .code-panel,
-  .code-panel pre {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
+@layer base {
+  html {
+    scroll-padding-top: calc(var(--nav-h) + 1rem);
+    accent-color: rgb(var(--brand-solid));
+    scrollbar-color: rgb(var(--rule-strong)) transparent;
+    scrollbar-width: thin;
   }
 
-  /* Ensure params table is scrollable */
-  .params-table {
-    display: block;
+  body {
+    margin: 0;
+    font-family: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.5;
+    @apply bg-ground text-ink;
+    caret-color: rgb(var(--brand));
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+    color: rgb(var(--ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--focus));
+    outline-offset: 2px;
+  }
+
+  code, kbd, pre, samp {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  table, td, th { font-variant-numeric: tabular-nums; }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--rule-strong)); border-radius: 999px; }
+}
+
+@layer components {
+  /* Type scale: h1 56/64, h2 28/36, h3 20/28, labels 13. */
+  .h1 {
+    font-size: clamp(2.25rem, 1.4rem + 3.6vw, 3.5rem);
+    line-height: 1.143;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .h2 { font-size: 1.75rem; line-height: 2.25rem; font-weight: 650; letter-spacing: -0.015em; text-wrap: balance; }
+  .h3 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+  .label { font-size: 0.8125rem; line-height: 1.25rem; font-weight: 600; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Inline code in prose and tables */
+  .code-chip {
+    @apply rounded bg-brand-tint px-2 font-mono text-brand;
+    font-size: 0.8125rem;
+    line-height: 1.5rem;
+  }
+
+  /* Hairline control: search pill, toggles, copy buttons. */
+  .btn-ghost {
+    @apply rounded-md border border-rule bg-surface text-ink-soft;
+    transition: background-color 150ms, color 150ms, border-color 150ms;
+  }
+  .btn-ghost:hover { @apply bg-sunk text-ink; }
+
+  .skip-link {
+    @apply fixed left-3 z-[100] rounded-md bg-brand-solid px-4 py-2 text-sm font-semibold text-on-brand;
+    top: -4rem;
+  }
+  .skip-link:focus { top: 0.75rem; }
+
+  /* Method pill: tint with brand text. */
+  .method-pill {
+    @apply inline-flex items-center rounded-full bg-brand-tint px-2 font-mono text-brand;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  /* State pills: shape plus text. Filled = on, outline = off, dashed = deprecated. */
+  .state-pill {
+    @apply inline-flex items-center whitespace-nowrap rounded-full border px-2 text-xs font-semibold;
+    line-height: 1.25rem;
+  }
+  .state-on { @apply border-brand-solid bg-brand-solid text-on-brand; }
+  .state-off { @apply border-rule-strong text-muted; }
+  .state-deprecated { @apply border-dashed border-rule-strong text-muted line-through; }
+  .state-tint { @apply border-transparent bg-brand-tint text-brand; }
+
+  /* Rt marks in the glossary: filled, half, hollow squares; always beside text. */
+  .mark {
+    @apply inline-block shrink-0 align-middle;
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 1.5px solid currentColor;
+  }
+  .mark-filled { background: currentColor; }
+  .mark-half { background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
+
+  /* Callout: rounded card, 1px border all round, soft tint, small icon. */
+  .callout {
+    @apply flex gap-3 rounded-lg border border-brand/25 bg-brand-tint p-4 text-sm text-ink;
+    line-height: 1.65;
+  }
+  .callout > svg { @apply mt-0.5 shrink-0 text-brand; }
+  .callout-warning { @apply border-rule-strong bg-sunk; }
+  .callout-warning > svg { @apply text-ink; }
+
+  /* Rounded bordered card around a table. Container for the stacked layout below. */
+  .table-card {
+    @apply min-w-0 overflow-hidden rounded-lg border border-rule bg-surface shadow-card;
+    container-type: inline-size;
+  }
+  .data-table { @apply w-full border-collapse text-sm; }
+  .data-table thead th {
+    @apply bg-sunk px-4 py-2.5 text-left text-muted;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+  .data-table thead th.text-right { text-align: right; }
+  .data-table td { @apply border-t border-rule-soft px-4 py-3 align-top; }
+  .data-table tbody tr:first-child td { border-top: 0; }
+
+  /* When the card is narrow, each row stacks (name + state, type, description). */
+  @container (max-width: 36rem) {
+    .data-table thead { @apply sr-only; }
+    .data-table, .data-table tbody { display: block; }
+    .data-table tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.25rem 0.75rem;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgb(var(--rule-soft));
+    }
+    .data-table tbody tr:first-child { border-top: 0; }
+    .data-table td { display: block; padding: 0; border: 0; }
+    .data-table td.p-name { grid-column: 1; }
+    .data-table td.p-req { grid-column: 2; grid-row: 1; justify-self: end; }
+    .data-table td.p-type { grid-column: 1 / -1; }
+    .data-table td.p-desc { grid-column: 1 / -1; }
+    .data-table td { text-align: left; }
+    .data-table .stack-hide { display: none; }
+    .data-table td[data-label]::before {
+      content: attr(data-label) ": ";
+      color: rgb(var(--muted));
+      font-size: 0.8125rem;
+      font-family: 'Inter Variable', system-ui, sans-serif;
+    }
+  }
+
+  /* Code panels: dark navy in both themes, rounded, hairline border. */
+  .code-block {
+    @apply min-w-0 overflow-hidden rounded-lg border bg-code text-code-ink shadow-card;
+    border-color: rgb(var(--code-rule));
+    --focus: 78 169 227;
+  }
+  .code-block pre {
+    margin: 0;
+    padding: 1.5rem;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    tab-size: 2;
   }
-
-  .params-table td,
-  .params-table th {
-    white-space: normal;
-    min-width: 80px;
+  .code-block code { background: none; }
+  .code-block .btn-ghost {
+    background: transparent;
+    border-color: rgb(var(--code-rule));
+    color: rgb(var(--code-muted));
   }
+  .code-block .btn-ghost:hover { background: rgb(var(--code-ink) / 0.08); color: rgb(var(--code-ink)); }
+  .code-block .token.comment, .code-block .token.prolog { color: #8196b0; }
+  .code-block .token.punctuation, .code-block .token.operator { color: #8fa3bf; }
+  .code-block .token.property, .code-block .token.attr-name { color: #dbe7f7; }
+  .code-block .token.string, .code-block .token.attr-value { color: #a7e3b8; }
+  .code-block .token.number, .code-block .token.boolean, .code-block .token.constant { color: #f2d28b; }
+  .code-block .token.function, .code-block .token.keyword, .code-block .token.null, .code-block .token.builtin, .code-block .token.parameter { color: #7db4ee; }
 
-  .params-table td:last-child {
-    min-width: 150px;
-    white-space: normal;
+  /* Heading anchor: appears on hover or keyboard focus of the heading. */
+  h2[id], h3[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+  .heading-anchor {
+    @apply ml-2 rounded px-1 font-normal text-muted no-underline opacity-0 transition-opacity;
+  }
+  :is(h2, h3):hover > .heading-anchor, .heading-anchor:focus-visible { @apply opacity-100; }
+  .heading-anchor:hover { @apply text-brand; }
+  @media (hover: none) { .heading-anchor { @apply opacity-60; } }
+
+  /* Home stat card */
+  .stat-card {
+    @apply overflow-hidden rounded-lg border border-rule bg-surface;
+    box-shadow: 0 1px 2px rgb(15 27 45 / 0.04), 0 12px 32px rgb(15 27 45 / 0.06);
+  }
+}
+:root.dark .stat-card { box-shadow: var(--shadow-card); }
+
+/* The one authored motion: the stat card rises and fades in once on first load. */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.rise-in { animation: rise-in 500ms var(--ease-out) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Dark mode code syntax colors */
-.token-string { color: #a3e4c9; }
-.token-number { color: #f97316; }
-.token-boolean { color: #60a5fa; }
-.token-null { color: #9ca3af; }
-.token-key { color: #c4b5fd; }
+/* Touch devices: 44px minimum targets for icon buttons. */
+@media (pointer: coarse) {
+  .touch-target { min-width: 44px; min-height: 44px; }
+}
