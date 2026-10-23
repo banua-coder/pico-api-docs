@@ -1,49 +1,43 @@
 <template>
-  <div class="mt-4">
-    <h4 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">{{ title || t('docs.table.queryParameters') }}</h4>
-    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-hidden">
-      <div class="overflow-x-auto">
-      <table class="params-table">
-        <thead>
-          <tr>
-            <th>{{ t('docs.table.name') }}</th>
-            <th>{{ t('docs.table.type') }}</th>
-            <th>{{ t('docs.table.required') }}</th>
-            <th>{{ t('docs.table.description') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="param in params" :key="param.name">
-            <td><code class="text-xs font-mono text-[#635bff] dark:text-purple-400">{{ param.name }}</code></td>
-            <td class="text-xs text-gray-500 dark:text-gray-400">{{ param.type }}</td>
-            <td>
-              <span v-if="param.required" class="text-xs text-amber-600 dark:text-amber-400 font-medium">{{ t('docs.table.requiredBadge') }}</span>
-              <span v-else class="text-xs text-gray-400 dark:text-gray-500">{{ t('docs.table.optionalBadge') }}</span>
-            </td>
-            <td class="text-xs text-gray-600 dark:text-gray-400">{{ param.description }}<span v-if="param.default" class="ml-1 text-gray-400 dark:text-gray-500">{{ t('docs.table.default') }}: <code class="font-mono">{{ param.default }}</code></span></td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-    </div>
+  <div class="params-wrap min-w-0">
+    <table class="ledger params-table">
+      <caption class="sr-only">{{ title }}</caption>
+      <thead>
+        <tr>
+          <th scope="col">{{ t('docs.table.name') }}</th>
+          <th scope="col">{{ t('docs.table.type') }}</th>
+          <th scope="col">{{ t('docs.table.use') }}</th>
+          <th scope="col">{{ t('docs.table.description') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="p in params" :key="p.name">
+          <td class="p-name"><code class="break-all text-[0.8125rem] font-semibold">{{ p.name }}</code></td>
+          <td class="p-type text-muted">{{ p.type }} <span class="text-xs">({{ t(`docs.table.in.${p.in ?? 'query'}`) }})</span></td>
+          <td class="p-req whitespace-nowrap">
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold" :class="stateOf(p) === 'optional' ? 'text-muted' : 'text-ink'">
+              <span class="mark" :class="stateOf(p) === 'required' ? 'mark-filled' : stateOf(p) === 'deprecated' ? 'mark-strike' : ''" aria-hidden="true" />
+              {{ t(`docs.table.${stateOf(p)}`) }}
+            </span>
+          </td>
+          <td class="p-desc text-muted">
+            {{ t(`docs.params.${p.key}.description`) }}
+            <span v-if="p.default" class="ml-1 whitespace-nowrap">{{ t('docs.table.default') }}: <code class="text-ink">{{ p.default }}</code></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p v-if="params.length" class="mt-2 text-xs text-muted">{{ t('docs.table.legend') }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import type { ParamDef } from '@/data/params'
 
-export interface Param {
-  name: string
-  type: string
-  required?: boolean
-  description: string
-  default?: string
-}
-
-defineProps<{
-  params: Param[]
-  title?: string
-}>()
-
+defineProps<{ params: ParamDef[]; title: string }>()
 const { t } = useI18n()
+
+// State is a mark plus a word: filled = required, punched = optional, struck = deprecated.
+const stateOf = (p: ParamDef) => (p.deprecated ? 'deprecated' : p.required ? 'required' : 'optional')
 </script>

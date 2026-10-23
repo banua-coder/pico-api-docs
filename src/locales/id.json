@@ -1,221 +1,5 @@
 {
-  "nav": {
-    "home": "Beranda",
-    "documentation": "Dokumentasi",
-    "apiReference": "Referensi API",
-    "liveApi": "Live API",
-    "swaggerUi": "Swagger UI ↗"
-  },
-  "hero": {
-    "badge": "Dipercaya developer • Fokus Sulawesi Tengah",
-    "title": "PICO SulTeng",
-    "subtitle": "COVID-19 API",
-    "description": "API data COVID-19 komprehensif untuk {region}",
-    "descriptionSub": "dengan {context} dan update real-time",
-    "tagline": "Dibangun untuk developer yang membutuhkan data kesehatan yang andal, cepat, dan terdokumentasi dengan baik",
-    "getStarted": "Mulai Sekarang",
-    "apiDocs": "Dokumentasi API",
-    "downloadApp": "Unduh Aplikasi PICO",
-    "apiStatus": "Status API: Live & Sehat"
-  },
-  "features": {
-    "title": "Fitur Canggih",
-    "subtitle": "Semua yang Anda butuhkan untuk integrasi data COVID-19 yang andal di Sulawesi Tengah",
-    "realTimeData": {
-      "title": "Data Real-time",
-      "description": "Statistik COVID-19 terkini untuk Sulawesi Tengah dengan update harian dan metrik komprehensif",
-      "badge": "Update live setiap 24 jam"
-    },
-    "highPerformance": {
-      "title": "Performa Tinggi",
-      "description": "Dibangun dengan Go untuk respons API yang sangat cepat dengan sistem paginasi hibrid yang cerdas",
-      "badge": "< 100ms respons rata-rata"
-    },
-    "secureReliable": {
-      "title": "Aman & Andal",
-      "description": "Penanganan error yang robust dan akses data yang aman"
-    },
-    "richDocumentation": {
-      "title": "Dokumentasi Lengkap",
-      "description": "Swagger UI interaktif dengan contoh-contoh"
-    },
-    "regionalFocus": {
-      "title": "Fokus Regional",
-      "description": "Khusus untuk data Sulawesi Tengah"
-    },
-    "developerFriendly": {
-      "title": "Ramah Developer",
-      "description": "RESTful API dengan respons JSON, dukungan CORS, dan parameter query fleksibel"
-    }
-  },
-  "apiPreview": {
-    "title": "Gambaran Cepat API",
-    "subtitle": "Endpoint penting untuk memulai",
-    "healthCheck": {
-      "title": "Health Check",
-      "description": "Cek status API dan konektivitas database"
-    },
-    "nationalData": {
-      "title": "Data Nasional",
-      "description": "Statistik COVID-19 nasional dan data terbaru"
-    },
-    "provinceData": {
-      "title": "Data Provinsi",
-      "description": "Informasi provinsi dan data kasus dengan paginasi"
-    },
-    "specificProvince": {
-      "title": "Provinsi Spesifik",
-      "description": "Data COVID-19 khusus Sulawesi Tengah"
-    }
-  },
-  "dataSources": {
-    "title": "Sumber Data Terpercaya",
-    "subtitle": "API kami mengagregasi data dari sumber terpercaya untuk memastikan akurasi dan kelengkapan",
-    "trustedBy": "Data diagregasi dari",
-    "partners": {
-      "inacovid": "INACOVID-19 - Gugus Tugas Nasional COVID-19",
-      "dinkes": "Dinas Kesehatan Sulawesi Tengah",
-      "sultengLawan": "Kampanye Sulteng Lawan COVID-19",
-      "detexi": "Detexi - Platform Teknologi Kesehatan",
-      "banuaCoder": "Banua Coders - Tim Pengembang",
-      "ethicalHacker": "Ethical Hacker Indonesia - Partner Keamanan"
-    }
-  },
   "documentation": {
-    "title": "Dokumentasi API",
-    "subtitle": "Panduan komprehensif untuk integrasi dengan API COVID-19 PICO SulTeng",
-    "overview": {
-      "title": "Dokumentasi API",
-      "subtitle": "Panduan komprehensif untuk integrasi dengan API COVID-19 PICO SulTeng. Dapatkan data COVID-19 Indonesia real-time dengan endpoint RESTful kami.",
-      "apiStatus": "Status API: Operasional",
-      "gettingStarted": "Memulai",
-      "gettingStartedSub": "Panduan cepat menggunakan API PICO SulTeng",
-      "baseUrl": "URL Dasar",
-      "contentType": "Tipe Konten",
-      "quickExample": "Contoh Cepat",
-      "noAuthRequired": "Tidak memerlukan autentikasi untuk endpoint publik",
-      "description": "Dapatkan data COVID-19 Indonesia secara real-time dengan endpoint RESTful kami."
-    },
-    "nationalLatest": {
-      "title": "Dapatkan Data Nasional Terbaru",
-      "description": "Mengambil statistik COVID-19 nasional terbaru untuk Indonesia.",
-      "request": "Permintaan",
-      "response": "Respons",
-      "responseFields": "Field Respons",
-      "tryLiveApi": "Coba API Langsung"
-    },
-    "nationalHistorical": {
-      "title": "Dapatkan Data Nasional Historis",
-      "description": "Ambil data historis COVID-19 Indonesia yang komprehensif dengan opsi filter tanggal dan pengurutan yang fleksibel. Endpoint ini ideal untuk analisis tren, visualisasi data, dan tujuan penelitian, memungkinkan Anda mengakses statistik harian sejak awal pandemi.",
-      "usageNote": "Gunakan endpoint ini ketika Anda membutuhkan data time-series, ingin menganalisis tren dalam periode tertentu, atau memerlukan konteks historis untuk statistik terkini. Untuk data real-time atau terbaru saja, gunakan endpoint /national/latest sebagai gantinya.",
-      "queryParameters": "Parameter Query",
-      "parameter": "Parameter",
-      "type": "Tipe",
-      "descriptionLabel": "Deskripsi",
-      "default": "Default",
-      "exampleRequest": "Contoh Permintaan",
-      "tryIt": "Coba",
-      "testInBrowser": "Tes di Browser"
-    },
-    "rootEndpoint": {
-      "title": "Dapatkan Semua Endpoint yang Tersedia",
-      "description": "Ambil daftar semua endpoint API yang tersedia dengan deskripsi dan contoh penggunaan.",
-      "endpoint": "GET /",
-      "response": "Respons",
-      "responseDescription": "Mengembalikan objek JSON berisi semua endpoint yang tersedia dengan deskripsinya"
-    },
-    "healthCheck": {
-      "title": "Pemeriksaan Kesehatan",
-      "description": "Periksa status kesehatan API dan konektivitas database. Penting untuk memantau ketersediaan API.",
-      "endpoint": "GET /health",
-      "responses": "Respons",
-      "status200": "200: API sehat dan beroperasi normal",
-      "status503": "503: API mengalami penurunan atau masalah"
-    },
-    "provinces": {
-      "title": "Dapatkan Semua Provinsi",
-      "description": "Ambil semua provinsi Indonesia dengan data kasus COVID-19 terbaru mereka.",
-      "endpoint": "GET /provinces",
-      "queryParameters": "Parameter Query",
-      "excludeLatestCase": "exclude_latest_case (boolean) - Opsional: kecualikan data kasus terbaru dari respons"
-    },
-    "provinceCases": {
-      "title": "Dapatkan Kasus Provinsi",
-      "description": "Ambil kasus COVID-19 untuk provinsi tertentu dengan paginasi hibrid dan opsi filtering fleksibel.",
-      "endpoints": "Endpoints",
-      "allProvinces": "GET /provinces/cases - Data kasus semua provinsi",
-      "specificProvince": "GET /provinces/{provinceId}/cases - Kasus provinsi tertentu",
-      "parameters": [
-        "limit (integer) - Jumlah record per halaman untuk paginasi",
-        "offset (integer) - Jumlah record yang dilewati",
-        "all (boolean) - Kembalikan semua data tanpa paginasi",
-        "start_date (string) - Filter data mulai tanggal ini (YYYY-MM-DD)",
-        "end_date (string) - Filter data sampai tanggal ini (YYYY-MM-DD)",
-        "sort (string) - Opsi pengurutan (contoh: date:desc, date:asc)"
-      ],
-      "features": "Fitur Utama",
-      "featuresList": [
-        "Dukungan paginasi hibrid",
-        "Filtering tanggal fleksibel",
-        "Beragam opsi pengurutan",
-        "Akses data spesifik provinsi"
-      ]
-    },
-    "authentication": {
-      "title": "Autentikasi",
-      "subtitle": "Informasi akses API dan keamanan",
-      "noAuthRequired": "Tidak Memerlukan Autentikasi",
-      "noAuthDescription": "Semua endpoint API PICO SulTeng dapat diakses publik dan tidak memerlukan kunci autentikasi atau token.",
-      "rateLimiting": "Pembatasan Rate",
-      "bestPractices": "Praktik Terbaik",
-      "rateLimitDetails": [
-        "100 permintaan per menit per IP",
-        "20 burst size untuk permintaan awal",
-        "Tidak memerlukan kunci API",
-        "CORS diaktifkan untuk semua origin"
-      ],
-      "practiceDetails": [
-        "Cache respons dengan tepat",
-        "Gunakan HTTPS untuk koneksi aman",
-        "Tangani respons batas rate"
-      ]
-    },
-    "errorHandling": {
-      "title": "Penanganan Error",
-      "subtitle": "Kode status HTTP dan respons error",
-      "httpStatusCodes": "Kode Status HTTP",
-      "errorResponseFormat": "Format Respons Error",
-      "errorResponse": "Respons Error",
-      "errorFields": "Field Error",
-      "statusCodes": {
-        "200": {
-          "title": "OK",
-          "description": "Permintaan berhasil"
-        },
-        "400": {
-          "title": "Bad Request",
-          "description": "Parameter tidak valid atau permintaan salah format"
-        },
-        "404": {
-          "title": "Not Found",
-          "description": "Endpoint atau resource tidak ditemukan"
-        },
-        "429": {
-          "title": "Too Many Requests",
-          "description": "Batas rate terlampaui"
-        },
-        "500": {
-          "title": "Internal Server Error",
-          "description": "Server mengalami error yang tidak terduga"
-        }
-      },
-      "fieldDescriptions": {
-        "status": "Selalu \"error\" untuk respons error",
-        "code": "Kode status HTTP",
-        "message": "Pesan error yang dapat dibaca manusia",
-        "details": "Informasi error tambahan"
-      }
-    },
     "glossary": {
       "title": "Glosarium",
       "subtitle": "Istilah dan konsep kunci yang digunakan dalam API COVID-19 PICO SulTeng",
@@ -418,298 +202,449 @@
           "legacyFlow": "Lama: ODP → PDP → OTG → Konfirmasi"
         }
       }
-    },
-    "regencies": {
-      "title": "Kabupaten/Kota",
-      "description": "Endpoint untuk data kabupaten/kota dan statistik COVID-19 di Sulawesi Tengah.",
-      "listTitle": "Daftar Kabupaten/Kota",
-      "listDescription": "Dapatkan semua kabupaten/kota di Sulawesi Tengah (paginasi)",
-      "detailTitle": "Detail Kabupaten/Kota",
-      "detailDescription": "Dapatkan satu kabupaten/kota berdasarkan ID/kode",
-      "casesTitle": "Kasus per Kabupaten/Kota",
-      "casesDescription": "Dapatkan riwayat kasus COVID-19 untuk kabupaten/kota tertentu",
-      "parameters": {
-        "page": "Nomor halaman",
-        "perPage": "Item per halaman (maks: 100)",
-        "loadAll": "Kembalikan semua data tanpa paginasi",
-        "code": "ID Kabupaten/Kota (contoh: 7271 untuk Kota Palu)"
-      }
-    },
-    "hospitals": {
-      "title": "Rumah Sakit",
-      "description": "Endpoint untuk data rumah sakit termasuk ketersediaan tempat tidur dan informasi kontak di Sulawesi Tengah.",
-      "listTitle": "Daftar Rumah Sakit",
-      "listDescription": "Dapatkan semua rumah sakit dengan ketersediaan tempat tidur (paginasi)",
-      "detailTitle": "Detail Rumah Sakit",
-      "detailDescription": "Dapatkan satu rumah sakit berdasarkan kode dengan detail lengkap",
-      "parameters": {
-        "page": "Nomor halaman",
-        "perPage": "Item per halaman (maks: 100)",
-        "loadAll": "Kembalikan semua rumah sakit tanpa paginasi",
-        "code": "Kode rumah sakit (contoh: 7200001)"
-      }
-    },
-    "taskForces": {
-      "title": "Gugus Tugas",
-      "description": "Posko gugus tugas COVID-19 dikelompokkan berdasarkan kabupaten/kota di Sulawesi Tengah, beserta informasi kontak.",
-      "listTitle": "Daftar Gugus Tugas",
-      "listDescription": "Dapatkan semua posko gugus tugas COVID-19 dikelompokkan berdasarkan kabupaten/kota (paginasi)",
-      "parameters": {
-        "page": "Nomor halaman (paginasi per kabupaten/kota)",
-        "perPage": "Kabupaten/kota per halaman (maks: 100)",
-        "loadAll": "Kembalikan semua gugus tugas tanpa paginasi"
-      }
-    },
-    "vaccination": {
-      "title": "Vaksinasi",
-      "description": "Endpoint untuk data vaksinasi COVID-19 termasuk data nasional, data Sulawesi Tengah, dan lokasi pusat vaksinasi.",
-      "nationalTitle": "Data Vaksinasi Nasional",
-      "nationalDescription": "Data vaksinasi nasional (paginasi)",
-      "provinceTitle": "Data Vaksinasi Provinsi",
-      "provinceDescription": "Data vaksinasi Sulawesi Tengah (paginasi)",
-      "locationsTitle": "Lokasi Vaksinasi",
-      "locationsDescription": "Pusat vaksinasi di Sulawesi Tengah (paginasi)",
-      "parameters": {
-        "page": "Nomor halaman",
-        "perPage": "Item per halaman (maks: 100)",
-        "loadAll": "Kembalikan semua data tanpa paginasi"
-      }
-    },
-    "statistics": {
-      "title": "Statistik",
-      "description": "Statistik COVID-19 terperinci di Sulawesi Tengah, termasuk data kasus berdasarkan jenis kelamin, statistik pengujian, dan jenis tes.",
-      "genderTitle": "Kasus Berdasarkan Jenis Kelamin",
-      "genderDescription": "Semua data kasus COVID-19 berdasarkan jenis kelamin untuk Sulawesi Tengah",
-      "latestGenderTitle": "Kasus Jenis Kelamin Terbaru",
-      "latestGenderDescription": "Data kasus COVID-19 berdasarkan jenis kelamin terbaru",
-      "testsTitle": "Tes COVID-19",
-      "testsDescription": "Statistik pengujian COVID-19 untuk Sulawesi Tengah",
-      "testTypesTitle": "Jenis Tes",
-      "testTypesDescription": "Jenis tes COVID-19 yang tersedia"
-    },
-    "pagination": {
-      "title": "Paginasi",
-      "description": "Semua endpoint daftar mendukung parameter paginasi.",
-      "page": "Nomor halaman (default: 1)",
-      "perPage": "Item per halaman (default: 10, maks: 100)",
-      "loadAll": "Kembalikan semua data tanpa paginasi",
-      "responseFields": {
-        "data": "Array item untuk halaman saat ini",
-        "page": "Nomor halaman saat ini",
-        "perPage": "Item per halaman",
-        "total": "Total jumlah item",
-        "totalPages": "Total jumlah halaman",
-        "hasNext": "Apakah ada halaman berikutnya",
-        "hasPrev": "Apakah ada halaman sebelumnya"
-      }
     }
+  },
+  "site": {
+    "name": "PICO SulTeng API"
+  },
+  "nav": {
+    "primary": "Utama",
+    "home": "Beranda",
+    "documentation": "Dokumentasi",
+    "glossary": "Data dan metode",
+    "swagger": "Swagger UI",
+    "homeLogo": "PICO SulTeng, beranda",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu"
+  },
+  "ui": {
+    "skip": "Lewati ke konten utama",
+    "copy": "Salin",
+    "copied": "Tersalin",
+    "copyCode": "Salin kode {name}",
+    "copyUrl": "Salin URL",
+    "copyBaseUrl": "Salin URL dasar",
+    "opensNewTab": "(dibuka di tab baru)",
+    "retry": "Coba lagi",
+    "codeTabs": "Format contoh",
+    "theme": {
+      "label": "Tema: {current}. Ganti ke {next}.",
+      "light": "terang",
+      "dark": "gelap",
+      "system": "sistem"
+    },
+    "language": {
+      "label": "Bahasa: {current}. Ganti ke {next}.",
+      "en": "Inggris",
+      "id": "Indonesia"
+    }
+  },
+  "search": {
+    "open": "Cari di dokumentasi",
+    "button": "Cari",
+    "title": "Pencarian",
+    "label": "Cari halaman dan path endpoint",
+    "placeholder": "Cari halaman atau path endpoint",
+    "results": "Hasil pencarian",
+    "page": "Halaman",
+    "endpoint": "Endpoint",
+    "empty": "Tidak ada hasil untuk \"{query}\".",
+    "close": "Tutup pencarian",
+    "count": "Tidak ada hasil | 1 hasil | {count} hasil",
+    "hint": "Panah atas dan bawah untuk berpindah, Enter untuk membuka, Esc untuk menutup."
   },
   "footer": {
-    "description": "API data COVID-19 komprehensif untuk Sulawesi Tengah, menyediakan statistik real-time dan data historis.",
-    "createdBy": "Dibuat oleh {author}",
-    "quickLinks": "Link Cepat",
-    "apiBaseUrl": "URL Dasar API",
-    "picoApp": "Aplikasi PICO Mobile",
-    "copyright": "© 2024 Banua Coders. Seluruh hak cipta dilindungi."
-  },
-  "common": {
-    "centralSulawesi": "Sulawesi Tengah",
-    "nationalContext": "konteks nasional",
-    "author": "Fajrian Aidil Pratama"
+    "copyright": "© {year} Banua Coder. PICO SulTeng API.",
+    "source": "Kode sumber"
   },
   "home": {
-    "allSystemsOperational": "Semua sistem berjalan normal",
-    "apiTitle": "PICO SulTeng COVID-19 API",
-    "baseUrlLabel": "URL DASAR",
-    "getStarted": "Mulai →",
-    "quickStart": "Mulai Cepat",
-    "footerCopyright": "© {year} Banua Coders. PICO SulTeng COVID-19 API.",
-    "footerDocumentation": "Dokumentasi",
-    "footerSwaggerUi": "Swagger UI",
-    "features": {
-      "fast": {
-        "title": "Cepat & Andal",
-        "desc": "Dibangun dengan Go untuk waktu respons di bawah 100ms dan ketersediaan tinggi."
-      },
-      "regional": {
-        "title": "Fokus Regional",
-        "desc": "Data COVID-19 khusus Sulawesi Tengah."
-      },
-      "restful": {
-        "title": "RESTful JSON",
-        "desc": "REST API standar dengan respons JSON dan dukungan CORS."
-      },
-      "documented": {
-        "title": "Terdokumentasi",
-        "desc": "Dokumentasi lengkap dengan contoh untuk setiap endpoint."
-      }
-    }
+    "metaTitle": "PICO SulTeng API - data COVID-19 Sulawesi Tengah",
+    "metaDescription": "Data COVID-19 tingkat provinsi untuk Sulawesi Tengah, hingga kabupaten/kota, rumah sakit, gugus tugas, dan vaksinasi. Endpoint, rumus, dan sumber data terdokumentasi.",
+    "promise": "Data COVID-19 tingkat provinsi untuk Sulawesi Tengah, hingga kabupaten/kota, rumah sakit, gugus tugas, dan vaksinasi.",
+    "baseUrl": "URL dasar",
+    "firstRequest": "Permintaan pertama Anda",
+    "cta": "Baca dokumentasi",
+    "ledgerTitle": "Catatan terbaru",
+    "province": "Sulawesi Tengah",
+    "national": "Indonesia",
+    "latestRecord": "Catatan terbaru: {date}",
+    "loading": "Memuat catatan terbaru",
+    "noRecord": "Catatan tidak tersedia",
+    "rows": {
+      "positive": "Terkonfirmasi (kumulatif)",
+      "recovered": "Sembuh (kumulatif)",
+      "deceased": "Meninggal (kumulatif)",
+      "active": "Aktif (kumulatif)"
+    },
+    "historicalNote": "Data historis. Setiap angka disertai tanggal catatannya.",
+    "error": "Catatan terbaru gagal dimuat. API mungkin tidak dapat dijangkau.",
+    "offline": "Anda sedang offline. Sambungkan kembali untuk memuat catatan terbaru.",
+    "health": {
+      "checking": "Memeriksa status API",
+      "healthy": "API sehat, diperiksa pukul {time}",
+      "unavailable": "Status API tidak tersedia"
+    },
+    "coversTitle": "Cakupan API",
+    "coversText": "Enam kelompok sumber data. Setiap baris menampilkan satu path nyata dan membuka halamannya.",
+    "group": "Kelompok",
+    "examplePath": "Contoh path",
+    "holds": "Isinya",
+    "groups": {
+      "service": "Cek kesehatan dan indeks API.",
+      "national": "Data kasus nasional, dari hari ke-1 sampai yang terbaru.",
+      "regions": "Kasus setiap provinsi dan kabupaten/kota di Sulawesi Tengah.",
+      "facilities": "Rumah sakit beserta ketersediaan tempat tidur, dan pos gugus tugas beserta kontaknya.",
+      "statistics": "Kasus menurut gender dan kelompok usia, serta tes COVID-19.",
+      "vaccination": "Vaksinasi nasional dan Sulawesi Tengah, serta lokasi vaksinasi."
+    },
+    "methodsText": "Cara setiap angka didefinisikan, cara angka reproduksi diperkirakan, istilah yang berubah dari waktu ke waktu, dan asal datanya.",
+    "methodsCta": "Baca data dan metode"
+  },
+  "dataSources": {
+    "title": "Sumber data",
+    "subtitle": "Data berasal dari lembaga dan proyek berikut."
+  },
+  "endpoints": {
+    "root": "Menyajikan situs dokumentasi ini.",
+    "apiIndex": "Judul, versi, dan tautan ke endpoint API.",
+    "health": "Cek kesehatan beserta status database.",
+    "national": "Data kasus nasional, secara bawaan dari yang paling lama.",
+    "nationalLatest": "Catatan nasional terbaru.",
+    "nationalDay": "Catatan nasional untuk satu nomor hari.",
+    "provinces": "Semua provinsi, masing-masing dengan catatan kasus terbarunya.",
+    "provinceDetail": "Satu provinsi berdasarkan ID.",
+    "provincesCases": "Catatan kasus untuk semua provinsi.",
+    "provinceCases": "Catatan kasus untuk satu provinsi. Gunakan 72 untuk Sulawesi Tengah.",
+    "regencies": "Kabupaten dan kota di Sulawesi Tengah.",
+    "regencyDetail": "Satu kabupaten/kota berdasarkan kode.",
+    "regencyCases": "Riwayat kasus satu kabupaten/kota.",
+    "hospitals": "Rumah sakit beserta ketersediaan tempat tidur.",
+    "hospitalDetail": "Satu rumah sakit berdasarkan kode rumah sakit.",
+    "taskForces": "Pos gugus tugas yang dikelompokkan per kabupaten/kota.",
+    "genderStats": "Kasus menurut gender dan kelompok usia, satu catatan per hari.",
+    "genderLatest": "Catatan gender dan kelompok usia terbaru.",
+    "testStats": "Statistik tes per jenis tes dan per hari.",
+    "testTypes": "Jenis tes yang tersedia.",
+    "vaccinationNational": "Catatan vaksinasi nasional.",
+    "vaccinationProvince": "Catatan vaksinasi Sulawesi Tengah.",
+    "vaccinationLocations": "Lokasi vaksinasi di Sulawesi Tengah."
   },
   "docs": {
-    "sidebar": {
-      "groups": {
-        "introduction": "Pendahuluan",
-        "coreResources": "Sumber Data Utama",
-        "healthInfrastructure": "Infrastruktur Kesehatan",
-        "statistics": "Statistik",
-        "vaccination": "Vaksinasi",
-        "reference": "Referensi"
+    "groups": {
+      "start": "Mulai",
+      "basics": "Dasar",
+      "service": "Layanan",
+      "national": "Nasional",
+      "regions": "Wilayah",
+      "facilities": "Fasilitas kesehatan",
+      "statistics": "Statistik",
+      "vaccination": "Vaksinasi"
+    },
+    "endpointGroups": {
+      "service": "Layanan",
+      "national": "Nasional",
+      "regions": "Provinsi dan kabupaten/kota",
+      "facilities": "Rumah sakit dan gugus tugas",
+      "statistics": "Statistik",
+      "vaccination": "Vaksinasi"
+    },
+    "pages": {
+      "overview": {
+        "nav": "Ikhtisar",
+        "title": "Ikhtisar",
+        "description": "Mulai dari satu permintaan, lalu pelajari URL dasar, format respons, dan cakupan API."
       },
-      "items": {
-        "overview": "Ikhtisar",
-        "authentication": "Autentikasi",
-        "errors": "Error",
-        "pagination": "Paginasi",
-        "nationalCases": "Kasus Nasional",
-        "provinces": "Provinsi",
-        "provinceCases": "Kasus Provinsi",
-        "regencies": "Kabupaten/Kota",
-        "hospitals": "Rumah Sakit",
-        "taskForces": "Gugus Tugas",
-        "genderStats": "Statistik Gender",
-        "testStatistics": "Statistik Tes",
-        "testTypes": "Jenis Tes",
-        "national": "Nasional",
-        "province": "Provinsi",
-        "locations": "Lokasi",
-        "glossary": "Glosarium"
-      }
-    },
-    "authentication": {
-      "title": "Autentikasi",
-      "description": "API ini dapat diakses secara publik. Tidak diperlukan autentikasi atau API key. Cukup kirim permintaan ke endpoint dan terima respons JSON.",
-      "noKeyNote": "Tidak diperlukan API key. Semua endpoint dapat diakses secara publik."
-    },
-    "errors": {
-      "title": "Error",
-      "description": "API menggunakan kode status HTTP standar. Error mengembalikan body JSON dengan field {field} yang mendeskripsikan masalah.",
-      "codeHeader": "Kode",
-      "meaningHeader": "Arti",
-      "codes": {
-        "200": "OK — Permintaan berhasil.",
-        "400": "Bad Request — Parameter query tidak valid.",
-        "404": "Not Found — Resource tidak ditemukan.",
-        "500": "Internal Server Error — Terjadi kesalahan pada server."
-      }
-    },
-    "paginationSection": {
-      "title": "Paginasi",
-      "description": "Endpoint yang dipaginasi menerima parameter query {page}, {perPage}, dan {loadAll}."
-    },
-    "table": {
-      "name": "Nama",
-      "type": "Tipe",
-      "required": "Wajib",
-      "description": "Deskripsi",
-      "queryParameters": "Parameter Query",
-      "parameters": "Parameter",
-      "requiredBadge": "wajib",
-      "optionalBadge": "opsional",
-      "default": "Default"
-    },
-    "sections": {
+      "endpoints": {
+        "nav": "Endpoint",
+        "title": "Semua endpoint",
+        "description": "Semua endpoint dalam satu halaman. Pilih satu untuk membaca parameternya dan menyalin permintaan yang berfungsi."
+      },
+      "glossary": {
+        "nav": "Data dan metode",
+        "title": "Data dan metode",
+        "description": "Cara angka didefinisikan dan dihitung, istilah yang berubah dari waktu ke waktu, dan asal datanya."
+      },
+      "authentication": {
+        "nav": "Autentikasi",
+        "title": "Autentikasi dan batas",
+        "description": "Tidak perlu API key. Pelajari cara kerja header batas laju dan CORS."
+      },
+      "errors": {
+        "nav": "Error",
+        "title": "Error dan kode status",
+        "description": "Arti setiap kode status, contoh isi error yang nyata, dan langkah yang perlu diambil."
+      },
+      "pagination": {
+        "nav": "Paginasi",
+        "title": "Paginasi",
+        "description": "Dua gaya paginasi, diperiksa langsung ke API, dan endpoint mana yang memakai masing-masing."
+      },
+      "health": {
+        "nav": "Cek kesehatan",
+        "title": "Cek kesehatan",
+        "description": "Periksa apakah API dan databasenya berjalan.",
+        "body": "Mengembalikan status layanan, versi, stempel waktu, dan jumlah koneksi database. Beranda memanggil endpoint ini."
+      },
+      "apiIndex": {
+        "nav": "Indeks API",
+        "title": "Indeks API",
+        "description": "Judul API, versi, dan peta endpoint-nya.",
+        "body": "Mengembalikan judul dan versi API, tautan ke berkas OpenAPI dan Swagger UI, serta daftar endpoint. Path root / menyajikan situs dokumentasi ini, bukan JSON."
+      },
       "nationalLatest": {
-        "description": "Mengembalikan data COVID-19 nasional terbaru.",
-        "leftText": "Dapatkan statistik COVID-19 nasional terkini termasuk kasus terkonfirmasi, kesembuhan, dan kematian. Tidak diperlukan parameter."
+        "nav": "Catatan nasional terbaru",
+        "title": "Catatan nasional terbaru",
+        "description": "Mengembalikan catatan COVID-19 nasional terbaru.",
+        "body": "Catatan nasional terbaru: jumlah harian dan kumulatif, persentase kasus, dan angka reproduksi bila ada. Kolom date adalah tanggal catatan, bukan hari ini."
       },
       "nationalHistorical": {
-        "description": "Mengembalikan data COVID-19 nasional historis dengan paginasi."
+        "nav": "Riwayat nasional",
+        "title": "Riwayat nasional",
+        "description": "Mengembalikan catatan nasional hari demi hari, dengan paginasi, filter tanggal, dan pengurutan.",
+        "body": "Secara bawaan catatan paling lama muncul lebih dulu. Gunakan sort=date:desc agar yang terbaru lebih dulu. Tanggal yang tidak dapat dibaca diabaikan. Catatan untuk satu hari ada di path hari di bawah."
       },
       "provinces": {
-        "description": "Mengembalikan daftar semua provinsi di Indonesia."
+        "nav": "Provinsi",
+        "title": "Provinsi",
+        "description": "Daftar provinsi di Indonesia, masing-masing dengan catatan kasus terbarunya.",
+        "body": "Mengembalikan array biasa, jadi tanpa paginasi. Setiap provinsi membawa catatan kasus terbarunya kecuali Anda menyingkirkannya."
       },
       "provinceCases": {
-        "description": "Mengembalikan data kasus COVID-19 untuk Sulawesi Tengah (province_id: 72)."
+        "nav": "Kasus provinsi",
+        "title": "Kasus provinsi",
+        "description": "Kasus harian dan kumulatif untuk semua provinsi, atau satu provinsi seperti Sulawesi Tengah (72).",
+        "body": "Taruh ID provinsi di path untuk satu provinsi, misalnya 72 untuk Sulawesi Tengah. Tanpa ID, path kasus mengembalikan semua provinsi. Catatan terbaru muncul lebih dulu."
       },
       "regencies": {
-        "description": "Mengembalikan daftar kabupaten/kota di Sulawesi Tengah."
+        "nav": "Kabupaten/kota",
+        "title": "Kabupaten/kota",
+        "description": "Daftar kabupaten dan kota di Sulawesi Tengah, beserta detail dan riwayat kasusnya.",
+        "body": "Daftar memakai page dan per_page. Path detail dan riwayat kasus mengembalikan seluruh hasil tanpa paginasi."
       },
       "hospitals": {
-        "description": "Mengembalikan rumah sakit dan fasilitas kesehatan di Sulawesi Tengah."
+        "nav": "Rumah sakit",
+        "title": "Rumah sakit",
+        "description": "Rumah sakit di Sulawesi Tengah beserta ketersediaan tempat tidur dan kontaknya."
       },
       "taskForces": {
-        "description": "Mengembalikan kontak dan informasi gugus tugas COVID-19."
+        "nav": "Gugus tugas",
+        "title": "Gugus tugas",
+        "description": "Pos gugus tugas COVID-19 yang dikelompokkan per kabupaten/kota, beserta kontaknya."
       },
       "genderStats": {
-        "description": "Mengembalikan statistik COVID-19 berdasarkan gender dengan rincian kelompok usia.",
-        "leftText": "Mengembalikan statistik gender dan kelompok usia bersarang untuk kasus positif, PDP, ODP, dan kematian."
+        "nav": "Statistik gender",
+        "title": "Statistik gender",
+        "description": "Kasus menurut gender dan kelompok usia untuk Sulawesi Tengah.",
+        "body": "Mengembalikan semua catatan, satu per hari, sebagai array biasa. Setiap catatan bersarang menurut jenis kasus (positif dan PDP), gender, dan kelompok usia. Gunakan path latest bila hanya perlu catatan terbaru."
       },
-      "testStats": {
-        "description": "Mengembalikan statistik pengujian COVID-19 untuk Sulawesi Tengah."
+      "testStatistics": {
+        "nav": "Statistik tes",
+        "title": "Statistik tes",
+        "description": "Angka pengujian COVID-19 untuk Sulawesi Tengah.",
+        "body": "Mengembalikan semua catatan sebagai array biasa: satu per jenis tes per hari, masing-masing dengan jenis tesnya."
       },
       "testTypes": {
-        "description": "Mengembalikan jenis tes COVID-19 yang tersedia.",
-        "leftText": "Mengembalikan daftar jenis tes COVID-19 yang tersedia dalam sistem (misal: PCR, Antigen)."
+        "nav": "Jenis tes",
+        "title": "Jenis tes",
+        "description": "Jenis tes COVID-19 yang dikenal API.",
+        "body": "Kolom sample dan duration ditulis dalam bahasa Indonesia."
       },
       "vaccinationNational": {
-        "description": "Mengembalikan data vaksinasi nasional dengan rincian kelompok bersarang.",
-        "leftText": "Mengembalikan catatan vaksinasi dengan data harian/kumulatif bersarang dan rincian kelompok (tenaga kesehatan, lansia, petugas publik, masyarakat umum, remaja)."
+        "nav": "Vaksinasi nasional",
+        "title": "Vaksinasi nasional",
+        "description": "Catatan vaksinasi nasional dengan angka harian, kumulatif, dan cakupan per kelompok.",
+        "body": "Setiap catatan memuat total dan rincian per kelompok: tenaga kesehatan, lansia, petugas publik, masyarakat umum, dan remaja. Angka bersarang sebagai harian, kumulatif, dan cakupan, untuk dosis 1 dan dosis 2."
       },
       "vaccinationProvince": {
-        "description": "Mengembalikan data vaksinasi Sulawesi Tengah (struktur sama dengan nasional).",
-        "leftText": "Data vaksinasi untuk Sulawesi Tengah (province_id: 72). Struktur respons bersarang sama dengan endpoint nasional."
+        "nav": "Vaksinasi Sulawesi Tengah",
+        "title": "Vaksinasi Sulawesi Tengah",
+        "description": "Catatan vaksinasi Sulawesi Tengah, dengan bentuk yang sama seperti catatan nasional.",
+        "body": "Struktur bersarang yang sama dengan endpoint nasional, untuk provinsi 72."
       },
       "vaccinationLocations": {
-        "description": "Mengembalikan lokasi pusat vaksinasi di Sulawesi Tengah."
+        "nav": "Lokasi vaksinasi",
+        "title": "Lokasi vaksinasi",
+        "description": "Lokasi vaksinasi di Sulawesi Tengah beserta alamat dan jam operasional."
       }
     },
-    "params": {
-      "page": {
-        "description": "Nomor halaman.",
-        "default": "1"
-      },
-      "perPage": {
-        "description": "Hasil per halaman (maks 100).",
-        "default": "10"
-      },
-      "loadAll": {
-        "description": "Kembalikan semua data tanpa paginasi.",
-        "default": "false"
-      },
-      "limit": {
-        "description": "Jumlah maksimal data yang dikembalikan.",
-        "default": "50"
-      },
-      "offset": {
-        "description": "Jumlah data yang dilewati.",
-        "default": "0"
-      },
-      "all": {
-        "description": "Kembalikan semua data (abaikan limit/offset).",
-        "default": "false"
-      },
-      "startDate": {
-        "description": "Filter data mulai tanggal ini (YYYY-MM-DD).",
-        "default": ""
-      },
-      "endDate": {
-        "description": "Filter data hingga tanggal ini (YYYY-MM-DD).",
-        "default": ""
-      },
-      "sort": {
-        "description": "Urutan data, contoh date:desc atau date:asc.",
-        "default": "date:desc"
-      },
-      "provinceId": {
-        "description": "Filter berdasarkan ID provinsi.",
-        "default": ""
-      },
-      "code": {
-        "description": "Kode kabupaten/kota atau rumah sakit (path parameter).",
-        "default": ""
-      },
-      "day": {
-        "description": "Nomor hari (path parameter).",
-        "default": ""
-      },
-      "excludeLatestCase": {
-        "description": "Jangan sertakan data kasus terbaru dari setiap provinsi.",
-        "default": "false"
-      }
+    "sidebar": {
+      "label": "Dokumentasi",
+      "sections": "Bagian",
+      "close": "Tutup navigasi",
+      "version": "Versi situs {version}"
+    },
+    "toc": {
+      "title": "Di halaman ini",
+      "label": "Di halaman ini"
+    },
+    "pager": {
+      "label": "Halaman sebelumnya dan berikutnya",
+      "prev": "Sebelumnya",
+      "next": "Berikutnya"
     },
     "common": {
       "response": "Respons",
       "curl": "cURL"
+    },
+    "endpoint": {
+      "parameters": "Parameter",
+      "noParams": "Endpoint ini tidak memakai parameter query.",
+      "paging": {
+        "page": "Endpoint ini memakai page dan per_page untuk paginasi.",
+        "offset": "Endpoint ini memakai limit dan offset untuk paginasi."
+      },
+      "seePagination": "Cara kerja paginasi",
+      "related": "Juga di bagian ini",
+      "example": "Contoh",
+      "trimmed": "Contoh isi respons, dipangkas menjadi satu catatan bila hasilnya berupa daftar."
+    },
+    "table": {
+      "name": "Nama",
+      "type": "Tipe",
+      "use": "Sifat",
+      "description": "Deskripsi",
+      "required": "wajib",
+      "optional": "opsional",
+      "deprecated": "usang",
+      "default": "Bawaan",
+      "in": {
+        "query": "query",
+        "path": "path"
+      },
+      "legend": "Tanda terisi: wajib. Tanda kosong: opsional. Tanda dicoret: usang."
+    },
+    "params": {
+      "page": {
+        "description": "Nomor halaman, mulai dari 1."
+      },
+      "perPage": {
+        "description": "Jumlah data per halaman. Maksimum 100."
+      },
+      "loadAll": {
+        "description": "Isi true untuk mendapat semua data sebagai array biasa, tanpa objek pagination."
+      },
+      "limit": {
+        "description": "Jumlah data per permintaan. Maksimum 1000."
+      },
+      "offset": {
+        "description": "Jumlah data yang dilewati."
+      },
+      "all": {
+        "description": "Isi true untuk mendapat semua data sebagai array biasa, tanpa objek pagination."
+      },
+      "startDate": {
+        "description": "Hanya data mulai tanggal ini (YYYY-MM-DD)."
+      },
+      "endDate": {
+        "description": "Hanya data sampai tanggal ini (YYYY-MM-DD)."
+      },
+      "sort": {
+        "description": "Urutan data: date:asc atau date:desc."
+      },
+      "provinceId": {
+        "description": "ID provinsi di path. 72 adalah Sulawesi Tengah."
+      },
+      "excludeLatestCase": {
+        "description": "Jangan sertakan catatan kasus terbaru pada tiap provinsi."
+      }
+    },
+    "endpointsIndex": {
+      "intro": "Satu baris per endpoint. Pilih path untuk membaca parameternya dan menyalin permintaan. Tanda terisi berarti endpoint memakai paginasi.",
+      "method": "Metode",
+      "path": "Path",
+      "paginated": "Paginasi",
+      "paged": {
+        "page": "page",
+        "offset": "offset",
+        "none": "tidak"
+      }
+    },
+    "overview": {
+      "firstRequest": "Permintaan pertama Anda",
+      "step1": "Salin permintaan di bawah dan jalankan di terminal. Tidak perlu API key.",
+      "step2": "Baca JSON yang diterima. Tab Respons menunjukkan bentuknya.",
+      "step3": "Ganti path untuk meminta data lain.",
+      "expect": "Anda menerima objek dengan status \"success\" dan objek data yang berisi catatan nasional terbaru. Kolom date adalah tanggal catatan itu. Jumlah ada di daily dan cumulative. Objek statistics memuat persentase dan angka reproduksi, yang bisa bernilai null.",
+      "historicalTitle": "Datanya bersifat historis",
+      "historical": "API ini menyajikan catatan COVID-19 yang sudah dikumpulkan, bukan siaran langsung. Baca kolom date pada catatan sebelum mengutip angkanya.",
+      "next": "Langkah berikutnya",
+      "baseUrl": "URL dasar",
+      "format": "Format",
+      "method": "Metode",
+      "methodValue": "Hanya GET. Setiap endpoint membaca data.",
+      "envelope": "Pembungkus",
+      "envelopeValue": "Respons sukses memiliki status \"success\" dan hasilnya ada di data.",
+      "coverage": "Cakupan API",
+      "coverageText": "Data COVID-19 tingkat provinsi untuk Sulawesi Tengah, hingga kabupaten/kota, rumah sakit, gugus tugas, dan vaksinasi, ditambah catatan nasional dan seluruh provinsi sebagai konteks. Halaman Data dan metode menjelaskan definisi dan sumbernya."
+    },
+    "authentication": {
+      "noKeyTitle": "Tanpa API key",
+      "noKey": "Setiap endpoint bersifat publik. Kirim permintaan GET biasa. Tidak ada yang perlu didaftarkan.",
+      "limitsTitle": "Batas laju",
+      "limitsText": "Setiap respons membawa dua header tentang batas permintaan. Saat halaman ini ditulis, header batas bernilai 100.",
+      "header": "Header",
+      "limitHeader": "Jumlah maksimum permintaan yang diizinkan.",
+      "remainingHeader": "Sisa permintaan Anda.",
+      "checkHeaders": "Periksa header",
+      "practiceTitle": "Praktik yang baik",
+      "cors": "Browser dapat memanggil API langsung: CORS mengizinkan semua origin.",
+      "cache": "Simpan hasil yang dipakai ulang, jangan meminta berulang-ulang.",
+      "https": "Gunakan HTTPS."
+    },
+    "errors": {
+      "shapeTitle": "Isi error",
+      "shapeText": "Saat permintaan gagal, status HTTP menjelaskan sebabnya. Isinya JSON dengan status \"error\" dan pesan di kolom error.",
+      "fieldTitle": "Kolomnya bernama error",
+      "fieldText": "Baca kunci error, bukan message. Sebagian pesan berbahasa Indonesia dan sebagian berbahasa Inggris.",
+      "summary": "Kode status",
+      "codeHeader": "Kode",
+      "meaningHeader": "Arti",
+      "remedyHeader": "Yang perlu dilakukan",
+      "examples": "Contoh",
+      "body": "Isi respons, status {code}",
+      "codes": {
+        "200": {
+          "title": "OK",
+          "meaning": "Permintaan berhasil.",
+          "remedy": "Baca data, dan periksa tanggal catatannya.",
+          "when": "Respons normal. Isinya memuat status \"success\" dan data Anda."
+        },
+        "400": {
+          "title": "Permintaan tidak valid",
+          "meaning": "Nilai pada path atau query tidak valid, misalnya hari yang bukan angka.",
+          "remedy": "Perbaiki nilainya lalu kirim ulang. Jangan mengulang permintaan yang sama.",
+          "when": "Permintaan ini meminta hari \"abc\", yang bukan angka."
+        },
+        "404": {
+          "title": "Tidak ditemukan",
+          "meaning": "Data atau path tidak ada.",
+          "remedy": "Cocokkan kode atau ID dengan endpoint daftar, lalu coba lagi.",
+          "when": "Kode kabupaten/kota ini tidak ada."
+        },
+        "500": {
+          "title": "Kesalahan server",
+          "meaning": "Server gagal saat memproses permintaan yang valid.",
+          "remedy": "Tunggu beberapa detik lalu coba lagi dengan jeda yang makin panjang. Periksa endpoint health. Jika terus gagal, buka issue di repositori sumber.",
+          "when": "Kami tidak dapat memicu 500 sesuai permintaan, jadi isi di bawah hanya bentuknya, bukan respons yang ditangkap. Pembungkusnya sama dengan 400 dan 404."
+        }
+      },
+      "note404": "Path yang tidak dikenal bukan JSON. Isinya teks biasa \"404 page not found\".",
+      "note500": "Hanya bentuk. Tidak ada respons 500 nyata yang ditangkap."
+    },
+    "pagination": {
+      "intro": "Endpoint daftar membagi hasilnya dengan salah satu dari dua gaya. Gaya yang berlaku bergantung pada endpoint, jadi periksa daftar di bawah. Semua yang ada di halaman ini diperiksa langsung ke API.",
+      "pageStyle": "Gaya halaman",
+      "pageText": "Gunakan page dan per_page. Respons memuat objek pagination dengan page, per_page, total, total_pages, has_next, dan has_prev.",
+      "pageIgnored": "Endpoint ini mengabaikan limit, offset, dan all.",
+      "offsetStyle": "Gaya offset",
+      "offsetText": "Gunakan limit dan offset. Respons memuat objek pagination dengan limit, offset, total, total_pages, page, has_next, dan has_prev.",
+      "offsetIgnored": "Endpoint ini mengabaikan page, per_page, dan load_all. Nomor halaman pada respons dihitung dari offset dan limit.",
+      "usedBy": "Dipakai oleh",
+      "edge": "Kasus khusus",
+      "edgeAll": "load_all=true (gaya halaman) dan all=true (gaya offset) mengembalikan semua data sebagai array biasa di data, tanpa objek pagination.",
+      "edgeInvalid": "Nilai nol atau bukan angka kembali ke nilai bawaan. Nilai besar dibatasi: per_page maksimum 100 dan limit maksimum 1000.",
+      "edgePast": "Halaman melebihi total_pages mengembalikan status 200 dengan data bernilai null.",
+      "edgeNone": "Beberapa endpoint tidak memakai paginasi. Daftar provinsi, endpoint statistik, dan riwayat kasus tiap kabupaten/kota mengembalikan array biasa."
     }
   }
 }

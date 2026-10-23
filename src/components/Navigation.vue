@@ -1,67 +1,104 @@
 <template>
-  <nav class="fixed w-full top-0 left-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-14">
-        <!-- Logo -->
-        <div class="flex items-center space-x-3">
-          <img src="/pico-api-logo.webp" alt="PICO API Logo" class="h-7 w-auto">
-          <router-link to="/" class="text-base font-semibold text-gray-900 dark:text-white">PICO SulTeng</router-link>
-        </div>
+  <header class="on-field fixed inset-x-0 top-0 z-50 bg-field-indigo text-field-ink">
+    <BarkBorder :height="14" animate />
+    <nav :aria-label="t('nav.primary')" class="mx-auto flex h-[3.25rem] max-w-[90rem] items-center gap-4 px-4 sm:px-6">
+      <router-link to="/" class="flex shrink-0 items-center gap-2.5" :aria-label="t('nav.homeLogo')">
+        <img src="/pico-api-logo.webp" alt="" width="28" height="28" class="h-7 w-7 bg-field-ink p-0.5" />
+        <span class="ledger-title text-xl">PICO SulTeng</span>
+      </router-link>
 
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center space-x-6">
-          <router-link to="/" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" :class="{ 'text-gray-900 dark:text-white font-medium': $route.path === '/' }">
-            {{ t('nav.home') }}
+      <ul class="ml-6 hidden items-center gap-1 md:flex">
+        <li v-for="link in links" :key="link.to">
+          <router-link :to="link.to" :class="linkClass" :aria-current="link.active ? 'page' : undefined" :data-active="link.active">
+            {{ link.label }}
           </router-link>
-          <router-link to="/docs" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" :class="{ 'text-gray-900 dark:text-white font-medium': $route.path === '/docs' }">
-            {{ t('nav.documentation') }}
-          </router-link>
-          <a :href="SWAGGER_URL" target="_blank" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-            {{ t('nav.swaggerUi') }}
+        </li>
+        <li>
+          <a :href="SWAGGER_URL" target="_blank" rel="noopener noreferrer" :class="linkClass" class="inline-flex items-center gap-1.5">
+            {{ t('nav.swagger') }}
+            <Icon name="external" :size="14" />
+            <span class="sr-only">{{ t('ui.opensNewTab') }}</span>
           </a>
-          <div class="flex items-center space-x-2 ml-2 pl-4 border-l border-gray-200 dark:border-gray-700">
-            <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors px-2 py-1 rounded border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500">
-              {{ locale === 'en' ? 'EN' : 'ID' }}
-            </button>
-            <ThemeToggle />
-          </div>
+        </li>
+      </ul>
+
+      <div class="ml-auto flex items-center gap-2">
+        <button
+          type="button"
+          class="btn-ghost touch-target inline-flex h-9 items-center gap-2 px-2.5 text-sm md:min-w-48 md:justify-between"
+          :aria-label="t('search.open')"
+          aria-keyshortcuts="/ Control+K Meta+K"
+          @click="openSearch"
+        >
+          <span class="inline-flex items-center gap-2"><Icon name="search" /><span class="hidden md:inline">{{ t('search.button') }}</span></span>
+          <kbd class="hidden border border-field-ink/40 px-1.5 text-xs md:inline">/</kbd>
+        </button>
+        <div class="hidden items-center gap-2 md:flex">
+          <LanguageToggle />
+          <ThemeToggle />
         </div>
-
-        <!-- Mobile hamburger -->
-        <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 text-gray-600 dark:text-gray-400">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="mobileOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'" />
-          </svg>
+        <button
+          type="button"
+          class="btn-ghost touch-target inline-flex h-9 w-9 items-center justify-center md:hidden"
+          :aria-label="mobileOpen ? t('nav.closeMenu') : t('nav.openMenu')"
+          :aria-expanded="mobileOpen"
+          aria-controls="mobile-menu"
+          @click="mobileOpen = !mobileOpen"
+        >
+          <Icon :name="mobileOpen ? 'close' : 'menu'" />
         </button>
       </div>
-    </div>
+    </nav>
 
-    <!-- Mobile menu -->
-    <div v-if="mobileOpen" class="md:hidden bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 px-4 py-3 space-y-2">
-      <router-link to="/" @click="mobileOpen = false" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.home') }}</router-link>
-      <router-link to="/docs" @click="mobileOpen = false" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.documentation') }}</router-link>
-      <a :href="SWAGGER_URL" target="_blank" class="block text-sm py-2 text-gray-700 dark:text-gray-300">{{ t('nav.swaggerUi') }}</a>
-      <div class="flex items-center space-x-3 pt-2 border-t border-gray-100 dark:border-gray-800">
-        <button @click="toggleLanguage" class="text-xs font-medium text-gray-500 dark:text-gray-400 px-2 py-1 rounded border border-gray-200 dark:border-gray-700">
-          {{ locale === 'en' ? 'EN' : 'ID' }}
-        </button>
-        <ThemeToggle />
-      </div>
+    <div v-show="mobileOpen" id="mobile-menu" class="border-t border-field-ink/25 md:hidden">
+      <ul class="mx-auto max-w-[90rem] px-4 py-2">
+        <li v-for="link in links" :key="link.to" class="border-b border-field-ink/15">
+          <router-link :to="link.to" class="block py-3 text-base font-semibold" :aria-current="link.active ? 'page' : undefined" @click="mobileOpen = false">
+            {{ link.label }}
+          </router-link>
+        </li>
+        <li class="border-b border-field-ink/15">
+          <a :href="SWAGGER_URL" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 py-3 text-base font-semibold">
+            {{ t('nav.swagger') }} <Icon name="external" :size="16" />
+            <span class="sr-only">{{ t('ui.opensNewTab') }}</span>
+          </a>
+        </li>
+        <li class="flex items-center gap-2 py-3">
+          <LanguageToggle />
+          <ThemeToggle />
+        </li>
+      </ul>
     </div>
-  </nav>
+    <div class="h-px bg-field-ink/20" aria-hidden="true" />
+  </header>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import ThemeToggle from './ThemeToggle.vue'
+import BarkBorder from '@/components/BarkBorder.vue'
+import Icon from '@/components/icons/Icon.vue'
+import LanguageToggle from '@/components/LanguageToggle.vue'
+import ThemeToggle from '@/components/ThemeToggle.vue'
+import { useSearch } from '@/composables/useSearch'
 import { SWAGGER_URL } from '@/config/api'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
+const route = useRoute()
+const { openSearch } = useSearch()
 const mobileOpen = ref(false)
 
-const toggleLanguage = () => {
-  locale.value = locale.value === 'en' ? 'id' : 'en'
-  localStorage.setItem('pico-language', locale.value)
-}
+const section = computed(() => (route.name === 'docs' ? String(route.params.section) : ''))
+
+const links = computed(() => [
+  { to: '/', label: t('nav.home'), active: route.path === '/' },
+  { to: '/docs', label: t('nav.documentation'), active: route.name === 'docs' && section.value !== 'glossary' },
+  { to: '/docs/glossary', label: t('nav.glossary'), active: section.value === 'glossary' },
+])
+
+watch(() => route.fullPath, () => (mobileOpen.value = false))
+
+const linkClass =
+  'block px-3 py-2 text-sm font-semibold hover:bg-field-ink/15 data-[active=true]:bg-field-ink data-[active=true]:text-field-indigo'
 </script>

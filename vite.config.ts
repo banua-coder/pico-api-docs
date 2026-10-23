@@ -52,10 +52,6 @@ export default defineConfig({
             if (id.includes('katex')) {
               return 'katex-vendor'
             }
-            // Animation
-            if (id.includes('aos')) {
-              return 'ui-vendor'
-            }
             // prismjs MUST NOT go into vendor chunk — it needs to stay
             // with its importer (prism-setup.ts) so language plugins can
             // find the Prism singleton. Return undefined to let Rollup
@@ -76,6 +72,6 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   optimizeDeps: {
-    include: ['vue', 'vue-router', 'vue-i18n', 'prismjs', 'katex', 'aos'],
+    include: ['vue', 'vue-router', 'vue-i18n', 'prismjs', 'katex'],
   },
 })

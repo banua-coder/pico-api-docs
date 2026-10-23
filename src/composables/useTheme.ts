@@ -1,66 +1,44 @@
-import { ref, watch, onMounted } from 'vue'
+import { ref } from 'vue'
 
 export type Theme = 'light' | 'dark' | 'system'
 
+const KEY = 'pico-theme'
 const theme = ref<Theme>('system')
 const isDark = ref(false)
+let started = false
 
+const read = (): Theme => {
+  try {
+    const v = localStorage.getItem(KEY)
+    return v === 'light' || v === 'dark' || v === 'system' ? v : 'system'
+  } catch {
+    return 'system'
+  }
+}
+
+const apply = () => {
+  const dark = theme.value === 'dark' || (theme.value === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.classList.toggle('dark', dark)
+  isDark.value = dark
+}
+
+/** Shared theme state: one source for every toggle. Persists to localStorage `pico-theme`. */
 export function useTheme() {
-  const setTheme = (newTheme: Theme) => {
-    theme.value = newTheme
-    localStorage.setItem('pico-theme', newTheme)
-    updateTheme()
-  }
-
-  const updateTheme = () => {
-    const root = document.documentElement
-    
-    if (theme.value === 'dark' || 
-        (theme.value === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      root.classList.add('dark')
-      isDark.value = true
-    } else {
-      root.classList.remove('dark')
-      isDark.value = false
-    }
-  }
-
-  const toggleTheme = () => {
-    if (theme.value === 'light') {
-      setTheme('dark')
-    } else if (theme.value === 'dark') {
-      setTheme('system')
-    } else {
-      setTheme('light')
-    }
-  }
-
   const initTheme = () => {
-    // Load theme from localStorage
-    const savedTheme = localStorage.getItem('pico-theme') as Theme
-    if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
-      theme.value = savedTheme
-    }
-
-    updateTheme()
-
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    mediaQuery.addEventListener('change', updateTheme)
+    if (started) return
+    started = true
+    theme.value = read()
+    apply()
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', apply)
   }
 
-  // Watch for theme changes
-  watch(theme, updateTheme)
-
-  onMounted(() => {
-    initTheme()
-  })
-
-  return {
-    theme,
-    isDark,
-    setTheme,
-    toggleTheme,
-    initTheme
+  const setTheme = (next: Theme) => {
+    theme.value = next
+    try { localStorage.setItem(KEY, next) } catch { /* private mode: keep in memory */ }
+    apply()
   }
+
+  const toggleTheme = () => setTheme(theme.value === 'light' ? 'dark' : theme.value === 'dark' ? 'system' : 'light')
+
+  return { theme, isDark, setTheme, toggleTheme, initTheme }
 }
