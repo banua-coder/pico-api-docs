@@ -23,7 +23,7 @@
     <section>
       <h2 class="h2 mb-3">{{ t('docs.overview.baseUrl') }}</h2>
       <div class="flex min-w-0 flex-wrap items-center gap-3 rounded-lg border border-rule bg-surface p-3">
-        <code class="min-w-0 flex-1 break-all">{{ API_V1_URL }}</code>
+        <code class="min-w-0 flex-1 [overflow-wrap:anywhere]"><template v-for="(part, i) in afterSlash(API_V1_URL)" :key="i">{{ part }}<wbr></template></code>
         <CopyButton :text="API_V1_URL" :label="t('ui.copyBaseUrl')" />
       </div>
       <dl class="mt-4 grid max-w-prose gap-x-6 gap-y-2 sm:grid-cols-[8rem_1fr]">
@@ -50,6 +50,7 @@ import Callout from '@/components/Callout.vue'
 import CodePanel from '@/components/CodePanel.vue'
 import CopyButton from '@/components/CopyButton.vue'
 import Icon from '@/components/icons/Icon.vue'
+import { afterSlash } from '@/lib/wrap'
 import { API_V1_URL } from '@/config/api'
 import { nationalLatestResponse } from '@/data/responses'
 

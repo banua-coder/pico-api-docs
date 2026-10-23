@@ -210,6 +210,7 @@
     font-size: 0.8125rem;
     font-weight: 600;
   }
+  .data-table thead th.text-right { text-align: right; }
   .data-table td { @apply border-t border-rule-soft px-4 py-3 align-top; }
   .data-table tbody tr:first-child td { border-top: 0; }
 
@@ -230,6 +231,14 @@
     .data-table td.p-req { grid-column: 2; grid-row: 1; justify-self: end; }
     .data-table td.p-type { grid-column: 1 / -1; }
     .data-table td.p-desc { grid-column: 1 / -1; }
+    .data-table td { text-align: left; }
+    .data-table .stack-hide { display: none; }
+    .data-table td[data-label]::before {
+      content: attr(data-label) ": ";
+      color: rgb(var(--muted));
+      font-size: 0.8125rem;
+      font-family: 'Inter Variable', system-ui, sans-serif;
+    }
   }
 
   /* Code panels: dark navy in both themes, rounded, hairline border. */

@@ -12,7 +12,7 @@
       <div v-for="row in rows" :key="row.key" class="flex min-h-12 items-center justify-between gap-3 py-1.5 sm:gap-4 border-t border-rule-soft">
         <dt class="min-w-0 text-sm leading-[18px] text-ink-soft">
           {{ t(`home.rows.${row.key}`) }}
-          <code class="block break-all text-[11px] leading-[14px] text-muted">{{ path }}.{{ row.key }}</code>
+          <code class="block text-[11px] leading-[14px] text-muted [overflow-wrap:anywhere]"><template v-for="(part, i) in afterDot(`${path}.${row.key}`)" :key="i">{{ part }}<wbr></template></code>
         </dt>
         <dd class="num text-right text-lg font-bold sm:text-[22px] leading-8 tracking-[-0.01em]">
           <span v-if="row.value !== null">{{ nf.format(row.value) }}</span>
@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { afterDot } from '@/lib/wrap'
 import type { LatestRecord } from '@/composables/useLatestRecords'
 
 const props = defineProps<{ title: string; record: LatestRecord | null; loading: boolean; locale: string; path: string }>()

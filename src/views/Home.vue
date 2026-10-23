@@ -7,9 +7,9 @@
           <h1 id="home-title" class="h1 mb-4">PICO SulTeng</h1>
           <p class="mb-6 max-w-[37.5rem] text-lg leading-7 text-ink-soft">{{ t('home.promise') }}</p>
 
-          <div class="mb-6 flex items-center gap-2 text-[13px] text-muted">
-            <span>{{ t('home.baseUrl') }}</span>
-            <code class="code-chip min-w-0 break-all">{{ API_BASE_URL }}</code>
+          <div class="mb-6 flex flex-wrap items-center gap-2 text-[13px] text-muted">
+            <span class="basis-full sm:basis-auto">{{ t('home.baseUrl') }}</span>
+            <code class="code-chip min-w-0 max-w-full overflow-x-auto whitespace-nowrap [scrollbar-width:none]">{{ API_BASE_URL }}</code>
             <CopyButton :text="API_BASE_URL" :label="t('ui.copyBaseUrl')" class="!h-6 !w-6 shrink-0" />
           </div>
 
@@ -68,7 +68,7 @@
               <tr v-for="g in groups" :key="g.id">
                 <td class="p-name font-semibold">{{ t(`docs.endpointGroups.${g.id}`) }}</td>
                 <td class="p-type">
-                  <router-link :to="`/docs/${g.example.section}`" class="break-all font-mono text-[0.8125rem] font-medium text-brand underline-offset-4 hover:underline">{{ g.example.path }}</router-link>
+                  <router-link :to="`/docs/${g.example.section}`" class="font-mono text-[0.8125rem] font-medium text-brand underline-offset-4 [overflow-wrap:anywhere] hover:underline"><template v-for="(part, i) in afterSlash(g.example.path)" :key="i">{{ part }}<wbr></template></router-link>
                 </td>
                 <td class="p-desc text-muted">{{ t(`home.groups.${g.id}`) }}</td>
               </tr>
@@ -120,6 +120,7 @@ import CodePanel from '@/components/CodePanel.vue'
 import CopyButton from '@/components/CopyButton.vue'
 import Icon from '@/components/icons/Icon.vue'
 import StatGroup from '@/components/StatGroup.vue'
+import { afterSlash } from '@/lib/wrap'
 import { API_BASE_URL, API_V1_URL } from '@/config/api'
 import { nationalLatestResponse } from '@/data/responses'
 import { endpoints, GROUP_IDS, groupExamples } from '@/data/endpoints'

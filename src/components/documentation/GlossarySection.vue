@@ -131,14 +131,14 @@
                   <tr>
                     <th scope="col">{{ t('documentation.glossary.reproductionRate.practicalExample.table.day') }}</th>
                     <th scope="col">{{ t('documentation.glossary.reproductionRate.practicalExample.table.date') }}</th>
-                    <th scope="col" class="text-right">{{ t('documentation.glossary.reproductionRate.practicalExample.table.newCases') }}</th>
+                    <th scope="col" class="text-right" v-html="subscripts(t('documentation.glossary.reproductionRate.practicalExample.table.newCases'))" />
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(row, index) in exampleData" :key="index" :class="row.current ? 'bg-brand-tint' : ''">
-                    <td class="py-2 font-mono" :class="row.current ? 'font-bold text-brand' : 'text-ink-soft'">{{ row.day }}</td>
-                    <td class="py-2" :class="row.current ? 'font-semibold text-brand' : 'text-ink-soft'">{{ row.date }}</td>
-                    <td class="py-2 text-right font-mono font-semibold" :class="row.current ? 'text-brand' : 'text-ink'">{{ row.cases }}</td>
+                    <td class="p-type py-2 font-mono" :data-label="t('documentation.glossary.reproductionRate.practicalExample.table.day')" :class="row.current ? 'font-bold text-brand' : 'text-ink-soft'">{{ row.day }}</td>
+                    <td class="p-type py-2" :data-label="t('documentation.glossary.reproductionRate.practicalExample.table.date')" :class="row.current ? 'font-semibold text-brand' : 'text-ink-soft'">{{ row.date }}</td>
+                    <td class="p-type py-2 text-right font-mono font-semibold" :data-label="t('documentation.glossary.reproductionRate.practicalExample.table.newCases').replace(/\s*\(.*\)/, '')" :class="row.current ? 'text-brand' : 'text-ink'">{{ row.cases }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -147,7 +147,7 @@
             <!-- Step-by-step Calculation -->
             <div class="space-y-4 text-sm font-mono">
               <div class="rounded-lg border border-rule bg-sunk p-4 space-y-1">
-                <p class="font-sans font-semibold text-ink text-sm mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.title') }}</p>
+                <p class="font-sans font-semibold text-ink text-sm mb-1" v-html="subscripts(t('documentation.glossary.reproductionRate.practicalExample.step1.title'))" />
                 <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.formula') }}</p>
                 <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step1.calculation') }}</p>
               </div>
@@ -158,24 +158,24 @@
               </div>
               <div class="rounded-lg border border-rule bg-sunk p-4 space-y-2">
                 <p class="font-sans font-semibold text-ink text-sm mb-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.title') }}</p>
-                <p class="font-sans text-sm text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.explanation') }}</p>
+                <p class="font-sans text-sm text-ink" v-html="subscripts(t('documentation.glossary.reproductionRate.practicalExample.step3.explanation'))" />
                 
                 <!-- Gamma Quantile -->
-                <div class="bg-surface p-3 rounded-md border border-rule space-y-0.5">
+                <div class="border-t border-rule pt-3 space-y-0.5">
                   <p class="font-sans font-semibold text-ink text-sm">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.title') }}</p>
                   <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.formula') }}</p>
                   <p class="font-sans text-sm text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.description') }}</p>
                 </div>
 
                 <!-- Bounds -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <div class="bg-surface p-3 rounded-md border border-rule space-y-0.5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="border-t border-rule pt-3 space-y-0.5">
                     <p class="font-sans font-semibold text-ink text-sm">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.title') }}</p>
                     <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.formula') }}</p>
                     <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.wilsonHilfertyFormula') }}</p>
                     <p class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.calculation') }}</p>
                   </div>
-                  <div class="bg-surface p-3 rounded-md border border-rule space-y-0.5">
+                  <div class="border-t border-rule pt-3 space-y-0.5">
                     <p class="font-sans font-semibold text-ink text-sm">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.title') }}</p>
                     <p class="text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.formula') }}</p>
                     <p class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.calculation') }}</p>
@@ -191,9 +191,9 @@
                 </div>
 
                 <!-- Result -->
-                <div class="bg-surface rounded-md border border-rule-strong px-3 py-2">
+                <div class="border-t border-rule pt-3">
                   <span class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.result.title') }}</span>
-                  <span class="font-sans text-sm text-ink ml-1">{{ t('documentation.glossary.reproductionRate.practicalExample.result.interpretation') }}</span>
+                  <span class="font-sans text-sm text-ink ml-1" v-html="subscripts(t('documentation.glossary.reproductionRate.practicalExample.result.interpretation'))" />
                 </div>
               </div>
             </div>
@@ -425,6 +425,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Icon from '@/components/icons/Icon.vue'
 import MathFormula from '@/components/MathFormula.vue'
+import { subscripts } from '@/lib/wrap'
 
 const { t, tm } = useI18n()
 

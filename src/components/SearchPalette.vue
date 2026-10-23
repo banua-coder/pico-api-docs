@@ -47,7 +47,7 @@
             <span v-if="item.kind === 'endpoint'" class="method-pill shrink-0">{{ item.method }}</span>
             <span v-else class="state-pill state-off shrink-0">{{ t('search.page') }}</span>
             <span class="min-w-0 flex-1">
-              <span class="block break-all" :class="item.kind === 'endpoint' ? 'font-mono' : 'font-semibold'">{{ item.label }}</span>
+              <span class="block [overflow-wrap:anywhere]" :class="item.kind === 'endpoint' ? 'font-mono' : 'font-semibold'"><template v-for="(part, i) in afterSlash(item.label)" :key="i">{{ part }}<wbr></template></span>
               <span class="block text-muted">{{ item.hint }}</span>
             </span>
           </li>
@@ -66,6 +66,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import Icon from '@/components/icons/Icon.vue'
 import { useSearch } from '@/composables/useSearch'
+import { afterSlash } from '@/lib/wrap'
 import { buildSearchItems, searchItems, type SearchItem } from '@/lib/search'
 
 const { t, locale } = useI18n()

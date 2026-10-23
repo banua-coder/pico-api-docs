@@ -13,7 +13,7 @@
         </thead>
         <tbody>
           <tr v-for="p in params" :key="p.name">
-            <td class="p-name"><code class="break-all text-[0.8125rem] font-semibold">{{ p.name }}</code></td>
+            <td class="p-name"><code class="text-[0.8125rem] font-semibold [overflow-wrap:anywhere]">{{ p.name }}</code></td>
             <td class="p-type text-muted">{{ p.type }} <span class="text-xs">({{ t(`docs.table.in.${p.in ?? 'query'}`) }})</span></td>
             <td class="p-req whitespace-nowrap">
               <span class="state-pill" :class="stateOf(p) === 'required' ? 'state-on' : stateOf(p) === 'deprecated' ? 'state-deprecated' : 'state-off'">{{ t(`docs.table.${stateOf(p)}`) }}</span>

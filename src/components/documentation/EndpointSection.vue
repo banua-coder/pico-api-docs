@@ -30,7 +30,7 @@
         <h2 class="h2 mb-3">{{ t('docs.endpoint.related') }}</h2>
         <ul class="overflow-hidden rounded-lg border border-rule bg-surface shadow-card">
           <li v-for="e in related" :key="e.id" class="border-b border-rule-soft px-4 py-3 last:border-b-0">
-            <code class="break-all text-[0.8125rem] font-semibold">{{ e.path }}</code>
+            <code class="text-[0.8125rem] font-semibold [overflow-wrap:anywhere]"><template v-for="(part, i) in afterSlash(e.path)" :key="i">{{ part }}<wbr></template></code>
             <p class="mt-1 text-sm text-muted">{{ t(`endpoints.${e.id}`) }}</p>
           </li>
         </ul>
@@ -46,6 +46,7 @@ import CopyButton from '@/components/CopyButton.vue'
 import ParamsTable from '@/components/ParamsTable.vue'
 import { endpoints, endpointsOfSection, endpointUrl } from '@/data/endpoints'
 import { sectionDocs } from '@/data/sectionDocs'
+import { afterSlash } from '@/lib/wrap'
 import { findSection } from '@/data/sections'
 
 const props = defineProps<{ slug: string }>()
