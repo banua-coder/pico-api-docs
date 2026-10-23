@@ -3,7 +3,7 @@ import { API_BASE_URL } from '@/config/api'
 /**
  * Single source of truth for every endpoint the docs mention.
  * The Endpoints index, the per-section "also in this section" list, the home
- * resource ledger and the search palette are all built from this list.
+ * resource table and the search palette are all built from this list.
  *
  * paging (verified against the live API, see PaginationSection):
  *   'page'   -> page, per_page (max 100), load_all=true
@@ -20,7 +20,7 @@ export interface Endpoint {
   /** Slug of the docs section that documents it */
   section: string
   paging: Paging
-  /** Resource group for the home ledger and the index */
+  /** Resource group for the home table and the index */
   group: GroupId
 }
 
@@ -61,7 +61,7 @@ export const endpoints: Endpoint[] = [
 
 export const endpointUrl = (ep: Endpoint): string => `${API_BASE_URL}${ep.path}`
 
-/** One real example path per resource group (home ledger). */
+/** One real example path per resource group (home table). */
 export const groupExamples: Record<GroupId, string> = {
   service: 'health',
   national: 'nationalLatest',

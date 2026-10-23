@@ -47,7 +47,7 @@ Live API at `https://pico-api.banuacoder.com/api/v1`, with Swagger UI at `https:
 
 ## Brand Commitments
 
-Keep the PICO SulTeng name and the `sulteng-*.webp` logos in `public/`. Keep the dark and light themes, English and Indonesian support, and the link to Swagger UI for live API testing.
+Keep the PICO SulTeng name and the `sulteng-*.webp` logos in `public/`. The logo is blue (about `#3C78C4`), so red fields clash with it. Use the logo blue, and do not use red as a field color. Keep the dark and light themes, English and Indonesian support, and the link to Swagger UI for live API testing.
 
 ## Evidence on Hand
 

@@ -1,6 +1,6 @@
 <template>
-  <footer class="mt-16 border-t border-rule-strong bg-surface">
-    <div class="mx-auto flex max-w-[90rem] flex-col gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+  <footer class="mt-16 border-t border-rule bg-surface">
+    <div class="mx-auto flex max-w-[90rem] flex-col gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between md:px-8 lg:px-16">
       <p>{{ t('footer.copyright', { year }) }}</p>
       <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
         <li><router-link to="/docs" class="underline underline-offset-4 hover:text-ink">{{ t('nav.documentation') }}</router-link></li>
@@ -17,13 +17,11 @@
         </li>
       </ul>
     </div>
-    <BarkBorder :height="10" />
   </footer>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import BarkBorder from '@/components/BarkBorder.vue'
 import Icon from '@/components/icons/Icon.vue'
 import { SWAGGER_URL } from '@/config/api'
 

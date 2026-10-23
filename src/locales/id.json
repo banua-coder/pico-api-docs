@@ -263,7 +263,7 @@
     "promise": "Data COVID-19 tingkat provinsi untuk Sulawesi Tengah, hingga kabupaten/kota, rumah sakit, gugus tugas, dan vaksinasi.",
     "baseUrl": "URL dasar",
     "cta": "Baca dokumentasi",
-    "ledgerTitle": "Catatan terbaru",
+    "statTitle": "Catatan terbaru",
     "province": "Sulawesi Tengah",
     "national": "Indonesia",
     "latestRecord": "Catatan terbaru: {date}",
@@ -510,7 +510,7 @@
         "query": "query",
         "path": "path"
       },
-      "legend": "Tanda terisi: wajib. Tanda kosong: opsional. Tanda dicoret: usang."
+      "legend": "Pil terisi: wajib. Pil garis: opsional. Pil putus-putus: usang."
     },
     "params": {
       "page": {
@@ -548,7 +548,7 @@
       }
     },
     "endpointsIndex": {
-      "intro": "Satu baris per endpoint. Pilih path untuk membaca parameternya dan menyalin permintaan. Tanda terisi berarti endpoint memakai paginasi.",
+      "intro": "Satu baris per endpoint. Pilih path untuk membaca parameternya dan menyalin permintaan. Chip berwarna berarti endpoint memakai paginasi.",
       "method": "Metode",
       "path": "Path",
       "paginated": "Paginasi",

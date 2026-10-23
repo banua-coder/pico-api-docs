@@ -263,7 +263,7 @@
     "promise": "Province-level COVID-19 data for Sulawesi Tengah, down to regency, hospital, task force and vaccination.",
     "baseUrl": "Base URL",
     "cta": "Read the docs",
-    "ledgerTitle": "Latest records",
+    "statTitle": "Latest records",
     "province": "Sulawesi Tengah",
     "national": "Indonesia",
     "latestRecord": "Latest record: {date}",
@@ -510,7 +510,7 @@
         "query": "query",
         "path": "path"
       },
-      "legend": "Filled mark: required. Empty mark: optional. Struck mark: deprecated."
+      "legend": "Filled pill: required. Outline pill: optional. Dashed pill: deprecated."
     },
     "params": {
       "page": {
@@ -548,7 +548,7 @@
       }
     },
     "endpointsIndex": {
-      "intro": "One row per endpoint. Select a path to read its parameters and copy a request. A filled mark means the endpoint is paginated.",
+      "intro": "One row per endpoint. Select a path to read its parameters and copy a request. A tinted chip means the endpoint is paginated.",
       "method": "Method",
       "path": "Path",
       "paginated": "Paginated",

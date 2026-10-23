@@ -3,7 +3,7 @@
     <p class="max-w-prose leading-relaxed">{{ t('docs.pagination.intro') }}</p>
 
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.pagination.pageStyle') }}</h2>
+      <h2 class="h2 mb-3">{{ t('docs.pagination.pageStyle') }}</h2>
       <p class="mb-4 max-w-prose leading-relaxed">{{ t('docs.pagination.pageText') }}</p>
       <ParamsTable :params="PAGE_PARAMS" :title="t('docs.pagination.pageStyle')" />
       <p class="mt-3 text-sm text-muted">{{ t('docs.pagination.pageIgnored') }}</p>
@@ -12,7 +12,7 @@
     </section>
 
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.pagination.offsetStyle') }}</h2>
+      <h2 class="h2 mb-3">{{ t('docs.pagination.offsetStyle') }}</h2>
       <p class="mb-4 max-w-prose leading-relaxed">{{ t('docs.pagination.offsetText') }}</p>
       <ParamsTable :params="OFFSET_PARAMS" :title="t('docs.pagination.offsetStyle')" />
       <p class="mt-3 text-sm text-muted">{{ t('docs.pagination.offsetIgnored') }}</p>
@@ -21,7 +21,7 @@
     </section>
 
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.pagination.edge') }}</h2>
+      <h2 class="h2 mb-3">{{ t('docs.pagination.edge') }}</h2>
       <ul class="max-w-prose list-disc space-y-2 pl-5 leading-relaxed">
         <li>{{ t('docs.pagination.edgeAll') }}</li>
         <li>{{ t('docs.pagination.edgeInvalid') }}</li>
@@ -82,11 +82,11 @@ const EndpointList = defineComponent({
   setup(props) {
     const list = computed(() => endpoints.filter((e) => e.paging === props.paging))
     return () =>
-      h('div', { class: 'border border-rule-strong bg-surface p-3' }, [
-        h('p', { class: 'ledger-label mb-2 text-muted' }, t('docs.pagination.usedBy')),
+      h('div', { class: 'rounded-lg border border-rule bg-surface p-3' }, [
+        h('p', { class: 'label mb-2 text-muted' }, t('docs.pagination.usedBy')),
         h('ul', { class: 'flex flex-wrap gap-x-5 gap-y-1' },
           list.value.map((e) =>
-            h('li', { key: e.id }, h(RouterLink, { to: `/docs/${e.section}`, class: 'font-mono text-[0.8125rem] underline underline-offset-4' }, () => e.path.replace('/api/v1', '')))),
+            h('li', { key: e.id }, h(RouterLink, { to: `/docs/${e.section}`, class: 'font-mono text-[0.8125rem] underline-offset-4 hover:underline' }, () => e.path.replace('/api/v1', '')))),
         ),
       ])
   },

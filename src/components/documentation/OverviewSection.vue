@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-3xl space-y-12">
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.overview.firstRequest') }}</h2>
+      <h2 class="h2 mb-3">{{ t('docs.overview.firstRequest') }}</h2>
       <ol class="mb-5 max-w-prose list-decimal space-y-2 pl-5 leading-relaxed marker:font-bold">
         <li>{{ t('docs.overview.step1') }}</li>
         <li>{{ t('docs.overview.step2') }}</li>
@@ -13,7 +13,7 @@
       <p class="mt-4 font-semibold">{{ t('docs.overview.next') }}</p>
       <ul class="mt-2 flex flex-wrap gap-x-6 gap-y-2">
         <li v-for="n in nextLinks" :key="n.to">
-          <router-link :to="n.to" class="inline-flex items-center gap-1.5 font-semibold text-indigo underline underline-offset-4">
+          <router-link :to="n.to" class="inline-flex items-center gap-1.5 font-semibold text-brand underline-offset-4 hover:underline">
             {{ n.label }} <Icon name="arrow-right" :size="16" />
           </router-link>
         </li>
@@ -21,23 +21,23 @@
     </section>
 
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.overview.baseUrl') }}</h2>
-      <div class="flex min-w-0 flex-wrap items-center gap-3 border border-rule-strong bg-surface p-3">
+      <h2 class="h2 mb-3">{{ t('docs.overview.baseUrl') }}</h2>
+      <div class="flex min-w-0 flex-wrap items-center gap-3 rounded-lg border border-rule bg-surface p-3">
         <code class="min-w-0 flex-1 break-all">{{ API_V1_URL }}</code>
         <CopyButton :text="API_V1_URL" :label="t('ui.copyBaseUrl')" />
       </div>
       <dl class="mt-4 grid max-w-prose gap-x-6 gap-y-2 sm:grid-cols-[8rem_1fr]">
-        <dt class="ledger-label text-muted">{{ t('docs.overview.format') }}</dt>
+        <dt class="label text-muted">{{ t('docs.overview.format') }}</dt>
         <dd><code>application/json</code></dd>
-        <dt class="ledger-label text-muted">{{ t('docs.overview.method') }}</dt>
+        <dt class="label text-muted">{{ t('docs.overview.method') }}</dt>
         <dd>{{ t('docs.overview.methodValue') }}</dd>
-        <dt class="ledger-label text-muted">{{ t('docs.overview.envelope') }}</dt>
+        <dt class="label text-muted">{{ t('docs.overview.envelope') }}</dt>
         <dd>{{ t('docs.overview.envelopeValue') }}</dd>
       </dl>
     </section>
 
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.overview.coverage') }}</h2>
+      <h2 class="h2 mb-3">{{ t('docs.overview.coverage') }}</h2>
       <p class="max-w-prose leading-relaxed">{{ t('docs.overview.coverageText') }}</p>
     </section>
   </div>

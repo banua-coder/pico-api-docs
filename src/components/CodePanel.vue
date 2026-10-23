@@ -1,7 +1,7 @@
 <template>
   <CodeBlock :code="current.code" :language="current.language" :copy-label="copyLabel" :region-label="current.label" :panel-id="`${uid}-panel`" :labelledby="`${uid}-tab-${selectedId}`">
     <template #tabs>
-      <div role="tablist" :aria-label="t('ui.codeTabs')" class="flex" @keydown="onKey">
+      <div role="tablist" :aria-label="t('ui.codeTabs')" class="flex gap-6" @keydown="onKey">
         <button
           v-for="tab in tabs"
           :id="`${uid}-tab-${tab.id}`"
@@ -12,7 +12,7 @@
           :aria-selected="tab.id === selectedId"
           :aria-controls="`${uid}-panel`"
           :tabindex="tab.id === selectedId ? 0 : -1"
-          class="relative px-3 py-2.5 text-sm font-semibold text-code-ink/75 hover:text-code-ink aria-selected:text-code-ink aria-selected:after:absolute aria-selected:after:inset-x-0 aria-selected:after:bottom-0 aria-selected:after:h-0.5 aria-selected:after:bg-bark"
+          class="border-b-2 border-transparent pb-2.5 pt-3 text-[13px] font-semibold leading-6 text-code-muted transition-colors hover:text-code-ink aria-selected:border-accent aria-selected:text-code-ink"
           @click="select(tab.id)"
         >{{ tab.label }}</button>
       </div>

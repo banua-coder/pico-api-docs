@@ -11,26 +11,25 @@ import { RouterLink } from 'vue-router'
 
 const props = withDefaults(
   defineProps<{
-    /** solid = indigo field, madder = madder field, outline = hairline box */
-    variant?: 'solid' | 'madder' | 'outline'
+    /** primary = logo-blue fill, secondary = outlined */
+    variant?: 'primary' | 'secondary'
     size?: 'sm' | 'md'
     as?: 'button' | 'a' | 'router-link'
     type?: 'button' | 'submit'
   }>(),
-  { variant: 'solid', size: 'md', as: 'button', type: 'button' },
+  { variant: 'primary', size: 'md', as: 'button', type: 'button' },
 )
 
 const tag = computed(() => (props.as === 'router-link' ? RouterLink : props.as))
 
 const variants = {
-  solid: 'bg-field-indigo text-field-ink border-field-indigo on-field hover:bg-ink hover:border-ink',
-  madder: 'bg-field-madder text-field-ink border-field-madder on-field hover:bg-ink hover:border-ink',
-  outline: 'bg-transparent text-ink border-rule-strong hover:bg-sunk',
+  primary: 'border-brand-solid bg-brand-solid text-on-brand shadow-[0_1px_2px_rgb(15_27_45/0.2)] hover:border-brand-solid-hover hover:bg-brand-solid-hover',
+  secondary: 'border-rule-strong/60 bg-surface text-ink hover:bg-sunk',
 }
-const sizes = { sm: 'px-3 py-1.5 text-sm', md: 'px-4 py-2.5 text-sm' }
+const sizes = { sm: 'h-9 px-3 text-sm', md: 'h-12 px-6 text-[15px]' }
 
 const classes = computed(() => [
-  'inline-flex items-center justify-center gap-2 border font-semibold transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed',
+  'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50',
   variants[props.variant],
   sizes[props.size],
 ])

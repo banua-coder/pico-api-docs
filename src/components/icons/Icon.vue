@@ -6,8 +6,8 @@
     fill="none"
     stroke="currentColor"
     stroke-width="1.75"
-    stroke-linecap="square"
-    stroke-linejoin="miter"
+    stroke-linecap="round"
+    stroke-linejoin="round"
     aria-hidden="true"
     focusable="false"
     class="shrink-0"
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-// One stroke family for every icon: 24 grid, 1.75 stroke, square caps, mitred joins.
+// One stroke family for every icon: 24 grid, 1.75 stroke, round caps and joins.
 export type IconName =
   | 'search' | 'menu' | 'close' | 'copy' | 'check' | 'external' | 'sun' | 'moon' | 'monitor'
   | 'chevron-right' | 'chevron-left' | 'chevron-down' | 'info' | 'alert' | 'arrow-right' | 'list'

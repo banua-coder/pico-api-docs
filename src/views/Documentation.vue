@@ -4,7 +4,7 @@
 
     <main id="main-content" class="min-w-0 flex-1" tabindex="-1">
       <!-- Small screens: sections drawer trigger, sticky under the nav (never floats over content). -->
-      <div class="sticky top-nav z-20 border-b border-rule-strong bg-surface lg:hidden">
+      <div class="sticky top-nav z-20 border-b border-rule bg-surface lg:hidden">
         <button
           ref="menuBtn"
           type="button"
@@ -20,39 +20,39 @@
         </button>
       </div>
 
-      <div class="px-4 py-4 sm:px-8 sm:py-6 lg:py-8">
-        <div class="mx-auto flex max-w-[78rem] gap-10">
+      <div class="px-4 py-6 sm:px-8 lg:px-12 lg:py-10">
+        <div class="mx-auto flex max-w-[76rem] gap-12">
           <div class="min-w-0 flex-1">
-            <header class="on-field bg-field-madder px-4 py-4 text-field-ink sm:px-8 sm:py-8">
-              <h1 ref="h1" tabindex="-1" class="ledger-title text-3xl sm:text-5xl focus:outline-none">{{ t(`docs.pages.${section.key}.title`) }}</h1>
-              <p class="mt-2 max-w-3xl text-base sm:mt-3 sm:text-lg">{{ t(`docs.pages.${section.key}.description`) }}</p>
+            <header>
+              <h1 ref="h1" tabindex="-1" class="h1 !text-[2.25rem] !leading-[1.2] focus:outline-none sm:!text-[2.5rem]">{{ t(`docs.pages.${section.key}.title`) }}</h1>
+              <p class="mt-3 max-w-prose text-lg leading-7 text-ink-soft">{{ t(`docs.pages.${section.key}.description`) }}</p>
             </header>
 
-            <details v-if="toc.length" class="mt-4 border border-rule-strong bg-surface xl:hidden">
+            <details v-if="toc.length" class="mt-6 rounded-lg border border-rule bg-surface xl:hidden">
               <summary class="flex min-h-11 cursor-pointer items-center gap-2 px-4 text-sm font-semibold">
                 <Icon name="list" />{{ t('docs.toc.title') }}
               </summary>
               <div class="border-t border-rule px-4 py-3"><OnThisPage :items="toc" :active="activeId" /></div>
             </details>
 
-            <div ref="content" class="mt-8 min-w-0">
+            <div ref="content" class="mt-10 min-w-0">
               <component :is="current" :key="slug" v-bind="section.kind === 'endpoint' ? { slug } : {}" />
             </div>
 
-            <nav :aria-label="t('docs.pager.label')" class="mt-14 grid gap-3 border-t border-rule-strong pt-6 sm:grid-cols-2">
-              <router-link v-if="prev" :to="`/docs/${prev.slug}`" rel="prev" class="group flex items-center gap-3 border border-rule-strong bg-surface p-4 hover:bg-sunk">
+            <nav :aria-label="t('docs.pager.label')" class="mt-16 grid gap-4 sm:grid-cols-2">
+              <router-link v-if="prev" :to="`/docs/${prev.slug}`" rel="prev" class="group flex items-center gap-3 rounded-lg border border-rule bg-surface p-4 transition-colors hover:border-rule-strong hover:bg-sunk">
                 <Icon name="chevron-left" />
-                <span class="min-w-0"><span class="block text-xs text-muted">{{ t('docs.pager.prev') }}</span><span class="block truncate font-semibold">{{ t(`docs.pages.${prev.key}.nav`) }}</span></span>
+                <span class="min-w-0"><span class="block text-xs text-muted">{{ t('docs.pager.prev') }}</span><span class="block truncate font-semibold text-brand">{{ t(`docs.pages.${prev.key}.nav`) }}</span></span>
               </router-link>
               <span v-else class="hidden sm:block" />
-              <router-link v-if="next" :to="`/docs/${next.slug}`" rel="next" class="group flex items-center justify-end gap-3 border border-rule-strong bg-surface p-4 text-right hover:bg-sunk">
-                <span class="min-w-0"><span class="block text-xs text-muted">{{ t('docs.pager.next') }}</span><span class="block truncate font-semibold">{{ t(`docs.pages.${next.key}.nav`) }}</span></span>
+              <router-link v-if="next" :to="`/docs/${next.slug}`" rel="next" class="group flex items-center justify-end gap-3 rounded-lg border border-rule bg-surface p-4 text-right transition-colors hover:border-rule-strong hover:bg-sunk">
+                <span class="min-w-0"><span class="block text-xs text-muted">{{ t('docs.pager.next') }}</span><span class="block truncate font-semibold text-brand">{{ t(`docs.pages.${next.key}.nav`) }}</span></span>
                 <Icon name="chevron-right" />
               </router-link>
             </nav>
           </div>
 
-          <aside v-if="toc.length" :aria-label="t('docs.toc.label')" class="sticky top-[calc(var(--nav-h)+1.5rem)] hidden max-h-[calc(100vh-var(--nav-h)-3rem)] w-52 shrink-0 self-start overflow-y-auto xl:block">
+          <aside v-if="toc.length" :aria-label="t('docs.toc.label')" class="sticky top-[calc(var(--nav-h)+2.5rem)] hidden max-h-[calc(100vh-var(--nav-h)-5rem)] w-52 shrink-0 self-start overflow-y-auto xl:block">
             <OnThisPage :items="toc" :active="activeId" />
           </aside>
         </div>

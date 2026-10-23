@@ -30,7 +30,7 @@ export async function fetchData<T>(path: string, outer?: AbortSignal): Promise<T
 }
 
 /**
- * Latest records for the home ledger:
+ * Latest records for the home table:
  *  - Sulawesi Tengah: /provinces/72/cases?limit=1 (newest record, default order)
  *  - Indonesia: /national/latest
  * Both carry their own date; the data is historical, never "live".

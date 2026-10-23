@@ -1,15 +1,15 @@
 <template>
   <div class="max-w-3xl space-y-10">
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.errors.shapeTitle') }}</h2>
+      <h2 class="h2 mb-3">{{ t('docs.errors.shapeTitle') }}</h2>
       <p class="mb-4 max-w-prose leading-relaxed">{{ t('docs.errors.shapeText') }}</p>
       <Callout tone="warning" :title="t('docs.errors.fieldTitle')">{{ t('docs.errors.fieldText') }}</Callout>
     </section>
 
     <section>
-      <h2 class="ledger-title mb-3 text-3xl">{{ t('docs.errors.summary') }}</h2>
-      <div class="params-wrap">
-        <table class="ledger params-table">
+      <h2 class="h2 mb-3">{{ t('docs.errors.summary') }}</h2>
+      <div class="table-card">
+        <table class="data-table params-table">
           <caption class="sr-only">{{ t('docs.errors.summary') }}</caption>
           <thead>
             <tr>
@@ -30,7 +30,7 @@
     </section>
 
     <section>
-      <h2 class="ledger-title mb-4 text-3xl">{{ t('docs.errors.examples') }}</h2>
+      <h2 class="h2 mb-4">{{ t('docs.errors.examples') }}</h2>
       <div class="space-y-8">
         <div v-for="e in errors" :key="e.code">
           <h3 class="mb-2 text-xl font-bold"><span class="num">{{ e.code }}</span> {{ t(`docs.errors.codes.${e.code}.title`) }}</h3>

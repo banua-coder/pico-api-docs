@@ -10,6 +10,8 @@ export interface SearchItem {
   hint: string
   /** Route to open */
   to: string
+  /** HTTP method, endpoints only */
+  method?: string
 }
 
 type Translate = (key: string) => string
@@ -30,6 +32,7 @@ export function buildSearchItems(t: Translate): SearchItem[] {
       label: e.path,
       hint: t(`endpoints.${e.id}`),
       to: `/docs/${e.section}`,
+      method: e.method,
     })
   }
   return items

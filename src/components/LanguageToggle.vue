@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="touch-target inline-flex h-9 min-w-9 items-center justify-center btn-ghost px-2 text-xs font-bold transition-colors"
+    class="touch-target inline-flex h-10 items-center justify-center rounded-md px-2.5 text-sm font-semibold text-ink-soft transition-colors hover:bg-sunk hover:text-ink"
     :aria-label="t('ui.language.label', { current: t(`ui.language.${locale}`), next: t(`ui.language.${other}`) })"
     @click="toggleLanguage"
   >

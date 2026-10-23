@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-// Bark-Cloth Border tokens. Values live in src/style.css as RGB triplets so the
-// `dark` class swaps the whole set; Tailwind only maps names to them.
+// Design tokens live in src/style.css as RGB triplets so the `dark` class swaps the
+// whole set; Tailwind only maps names to them.
 const token = (name) => `rgb(var(--${name}) / <alpha-value>)`
 
 export default {
@@ -12,27 +12,21 @@ export default {
         ground: token('ground'),
         surface: token('surface'),
         sunk: token('sunk'),
-        ink: token('ink'),
+        ink: { DEFAULT: token('ink'), soft: token('ink-soft') },
         muted: token('muted'),
-        rule: token('rule'),
-        'rule-strong': token('rule-strong'),
-        madder: token('madder'),
-        indigo: token('indigo'),
-        bark: token('bark'),
-        field: {
-          indigo: token('field-indigo'),
-          madder: token('field-madder'),
-          ink: token('on-field'),
-          muted: token('on-field-muted'),
-          bark: token('field-bark'),
-          barkink: token('on-bark'),
-        },
-        code: { DEFAULT: token('code'), ink: token('code-ink') },
+        rule: { DEFAULT: token('rule'), soft: token('rule-soft'), strong: token('rule-strong') },
+        brand: { DEFAULT: token('brand'), solid: token('brand-solid'), 'solid-hover': token('brand-solid-hover'), tint: token('brand-tint') },
+        'on-brand': token('on-brand'),
+        accent: token('accent'),
+        success: token('success'),
+        code: { DEFAULT: token('code'), ink: token('code-ink'), muted: token('code-muted') },
       },
       fontFamily: {
-        sans: ['"Archivo Variable"', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', '"Liberation Mono"', 'monospace'],
+        sans: ['"Inter Variable"', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        mono: ['ui-monospace', '"SF Mono"', 'Menlo', 'Consolas', 'monospace'],
       },
+      lineHeight: { relaxed: '1.65' },
+      boxShadow: { card: 'var(--shadow-card)', pop: 'var(--shadow-pop)' },
       spacing: { nav: 'var(--nav-h)', rail: 'var(--rail-w)' },
       transitionTimingFunction: { out: 'cubic-bezier(0.16, 1, 0.3, 1)' },
     },

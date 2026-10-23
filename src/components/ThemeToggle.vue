@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="touch-target inline-flex h-9 w-9 items-center justify-center btn-ghost transition-colors"
+    class="touch-target btn-ghost inline-flex h-10 w-10 items-center justify-center rounded-lg"
     :aria-label="t('ui.theme.label', { current: t(`ui.theme.${theme}`), next: t(`ui.theme.${next}`) })"
     @click="toggleTheme"
   >

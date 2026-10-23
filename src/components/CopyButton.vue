@@ -1,7 +1,8 @@
 <template>
   <button
     type="button"
-    class="touch-target inline-flex items-center justify-center gap-1.5 btn-ghost px-2 py-1.5 text-xs font-semibold transition-colors"
+    class="touch-target btn-ghost inline-flex h-8 items-center justify-center gap-1.5 text-xs font-semibold"
+    :class="showText ? 'px-2.5' : 'w-8'"
     :aria-label="label"
     @click="copy"
   >

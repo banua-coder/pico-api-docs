@@ -1,8 +1,8 @@
 <template>
   <div class="code-block">
-    <div class="flex items-center justify-between gap-2 border-b border-code-ink/20 pl-1 pr-1.5">
-      <div class="min-w-0 flex-1"><slot name="tabs"><span class="ledger-label px-2.5 text-code-ink/80">{{ title }}</span></slot></div>
-      <CopyButton :text="code" :label="copyLabel" show-text class="m-1 text-code-ink" />
+    <div class="flex items-center justify-between gap-2 border-b px-4" style="border-color: rgb(var(--code-rule))">
+      <div class="min-w-0 flex-1"><slot name="tabs"><span class="label block py-3 text-code-muted">{{ title }}</span></slot></div>
+      <CopyButton :text="code" :label="copyLabel" show-text />
     </div>
     <pre
       tabindex="0"

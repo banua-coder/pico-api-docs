@@ -1,8 +1,8 @@
 <template>
-  <div class="callout" role="note">
+  <div class="callout" :class="{ 'callout-warning': tone === 'warning' }" role="note">
     <Icon :name="tone === 'warning' ? 'alert' : 'info'" :size="20" />
     <div class="min-w-0">
-      <p v-if="title" class="mb-1 font-bold">{{ title }}</p>
+      <p v-if="title" class="mb-1 font-semibold">{{ title }}</p>
       <slot />
     </div>
   </div>
