@@ -1,5 +1,5 @@
 <template>
-  <div v-if="open" class="fixed inset-0 top-nav z-30 bg-ink/50 lg:hidden" aria-hidden="true" @click="$emit('close')" />
+  <div v-if="open" class="fixed inset-0 top-nav z-30 bg-[rgb(20_13_9/0.6)] lg:hidden" aria-hidden="true" @click="$emit('close')" />
   <div
     class="w-rail shrink-0 lg:sticky lg:top-nav lg:flex lg:h-[calc(100vh-var(--nav-h))]"
     :class="open ? 'max-lg:fixed max-lg:inset-y-0 max-lg:top-nav max-lg:z-40 max-lg:flex max-lg:w-[min(20rem,88vw)]' : 'max-lg:hidden'"

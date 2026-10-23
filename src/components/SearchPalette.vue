@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <div v-if="open" class="fixed inset-0 z-[70] bg-ink/60 px-4 pt-[10vh]" @mousedown.self="close">
+    <div v-if="open" class="fixed inset-0 z-[70] bg-[rgb(20_13_9/0.6)] px-4 pt-[10vh]" @mousedown.self="close">
       <div
         role="dialog"
         aria-modal="true"

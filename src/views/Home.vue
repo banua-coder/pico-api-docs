@@ -3,7 +3,7 @@
     <!-- First viewport: promise and request on the left, indigo ledger of the latest record on the right -->
     <section aria-labelledby="home-title">
       <div class="mx-auto grid max-w-[90rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)]">
-        <div class="min-w-0 px-4 py-10 sm:px-8 lg:py-14">
+        <div class="min-w-0 px-4 py-10 sm:px-8 lg:flex lg:flex-col lg:justify-center lg:py-14">
           <div>
           <div class="flex items-center gap-4">
             <img src="/pico-api-logo.webp" alt="" width="64" height="64" class="h-14 w-14 bg-field-ink p-1 sm:h-16 sm:w-16" />
