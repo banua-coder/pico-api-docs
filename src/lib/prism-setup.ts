@@ -1,7 +1,7 @@
-import Prism from 'prismjs'
+import Prism from './prism-global'
 
 // Grammars register on the Prism singleton, so they must live in this one file
-// (and one chunk) with the core. Only the languages the docs show are loaded.
+// (and one chunk) with the core. prism-global publishes window.Prism first. Only the languages the docs show are loaded.
 import 'prismjs/components/prism-bash'
 import 'prismjs/components/prism-json'
 import 'prismjs/components/prism-python'
