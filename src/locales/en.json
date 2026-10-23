@@ -262,7 +262,6 @@
     "metaDescription": "Province-level COVID-19 data for Sulawesi Tengah (Central Sulawesi), down to regency, hospital, task force and vaccination. Documented endpoints, formulas and data sources.",
     "promise": "Province-level COVID-19 data for Sulawesi Tengah, down to regency, hospital, task force and vaccination.",
     "baseUrl": "Base URL",
-    "firstRequest": "Your first request",
     "cta": "Read the docs",
     "ledgerTitle": "Latest records",
     "province": "Sulawesi Tengah",

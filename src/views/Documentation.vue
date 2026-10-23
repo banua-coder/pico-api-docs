@@ -20,12 +20,12 @@
         </button>
       </div>
 
-      <div class="px-4 py-6 sm:px-8 lg:py-8">
+      <div class="px-4 py-4 sm:px-8 sm:py-6 lg:py-8">
         <div class="mx-auto flex max-w-[78rem] gap-10">
           <div class="min-w-0 flex-1">
-            <header class="on-field bg-field-madder px-5 py-6 text-field-ink sm:px-8 sm:py-8">
-              <h1 ref="h1" tabindex="-1" class="ledger-title text-4xl sm:text-5xl focus:outline-none">{{ t(`docs.pages.${section.key}.title`) }}</h1>
-              <p class="mt-3 max-w-3xl text-base sm:text-lg">{{ t(`docs.pages.${section.key}.description`) }}</p>
+            <header class="on-field bg-field-madder px-4 py-4 text-field-ink sm:px-8 sm:py-8">
+              <h1 ref="h1" tabindex="-1" class="ledger-title text-3xl sm:text-5xl focus:outline-none">{{ t(`docs.pages.${section.key}.title`) }}</h1>
+              <p class="mt-2 max-w-3xl text-base sm:mt-3 sm:text-lg">{{ t(`docs.pages.${section.key}.description`) }}</p>
             </header>
 
             <details v-if="toc.length" class="mt-4 border border-rule-strong bg-surface xl:hidden">

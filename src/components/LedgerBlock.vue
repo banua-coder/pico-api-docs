@@ -7,8 +7,11 @@
       <template v-else>{{ t('home.noRecord') }}</template>
     </p>
     <dl class="border-b border-field-ink/25">
-      <div v-for="row in rows" :key="row.key" class="flex items-baseline justify-between gap-4 border-t border-field-ink/25 py-2">
-        <dt class="text-sm sm:text-base">{{ t(`home.rows.${row.key}`) }}</dt>
+      <div v-for="row in rows" :key="row.key" class="flex items-baseline justify-between gap-4 border-t border-field-ink/25 py-1.5">
+        <dt class="min-w-0 text-sm sm:text-base">
+          {{ t(`home.rows.${row.key}`) }}
+          <code class="block break-all text-xs text-field-muted">{{ path }}.{{ row.key }}</code>
+        </dt>
         <dd class="num text-right font-bold" :class="big ? 'text-3xl' : 'text-xl'">
           <span v-if="row.value !== null">{{ nf.format(row.value) }}</span>
           <span v-else class="inline-block h-6 w-20 align-middle" :class="loading ? 'bg-field-ink/20' : ''"><span v-if="!loading" aria-label="n/a">&ndash;</span></span>
@@ -23,7 +26,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { LatestRecord } from '@/composables/useLatestRecords'
 
-const props = defineProps<{ title: string; record: LatestRecord | null; loading: boolean; locale: string; big?: boolean }>()
+const props = defineProps<{ title: string; record: LatestRecord | null; loading: boolean; locale: string; big?: boolean; path: string }>()
 const { t } = useI18n()
 
 const nf = computed(() => new Intl.NumberFormat(props.locale))

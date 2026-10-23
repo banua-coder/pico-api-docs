@@ -24,6 +24,8 @@ export default {
           madder: token('field-madder'),
           ink: token('on-field'),
           muted: token('on-field-muted'),
+          bark: token('field-bark'),
+          barkink: token('on-bark'),
         },
         code: { DEFAULT: token('code'), ink: token('code-ink') },
       },

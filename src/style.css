@@ -6,21 +6,24 @@
 /*
   Bark-Cloth Border design tokens (RGB triplets, so Tailwind can apply alpha).
   Dyes: ink #2b1a12, raw bark #c9a36b, madder #a8281f, indigo #1f3a5f.
-  Contrast (WCAG, measured): light ink/ground 14.0, muted/ground 7.5, madder/ground 5.9,
-  indigo/ground 9.7; dark ink/ground 13.6, muted 7.8, madder 7.8, indigo 8.6.
+  Light grounds are bark tans: ground #e5d8be, surface #f0e8d6, sunk #d6c7a8.
+  Contrast (WCAG, measured) ink/muted/madder/indigo on ground 11.8/7.4/6.0/8.2, on surface
+  13.7/8.5/6.9/9.4, on sunk 10.0/6.2/5.0/6.9; ink on bark field 7.1. Dark ink/ground 13.6, muted 7.8, madder 7.8, indigo 8.6.
   Field text: #efe6d3 on indigo 9.3, on madder 5.7. Focus ring >= 3:1 on every ground.
 */
 :root {
-  --ground: 239 235 228;
-  --surface: 247 244 238;
-  --sunk: 228 221 208;
+  --ground: 229 216 190;
+  --surface: 240 232 214;
+  --sunk: 214 199 168;
   --ink: 43 26 18;
-  --muted: 90 70 55;
-  --rule: 201 191 174;
-  --rule-strong: 138 122 102;
-  --madder: 168 40 31;
+  --muted: 80 60 45;
+  --rule: 190 172 140;
+  --rule-strong: 125 105 78;
+  --madder: 148 34 26;
   --indigo: 31 58 95;
   --bark: 201 163 107;
+  --field-bark: 201 163 107;
+  --on-bark: 43 26 18;
   --field-indigo: 31 58 95;
   --field-madder: 168 40 31;
   --on-field: 239 230 211;
@@ -52,6 +55,8 @@
   --madder: 239 143 132;
   --indigo: 146 180 224;
   --bark: 201 163 107;
+  --field-bark: 201 163 107;
+  --on-bark: 43 26 18;
   --code: 20 13 9;
   --focus: 201 163 107;
   --selection: 168 40 31;
@@ -89,6 +94,11 @@
   /* Dyed fields need a light ring: the page ring would vanish on indigo. */
   .on-field {
     --focus: 239 230 211;
+  }
+
+  /* Raw bark field: dark ink text in both themes, dark ring. */
+  .on-bark {
+    --focus: 31 58 95;
   }
 
   code, kbd, pre, samp {

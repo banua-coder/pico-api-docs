@@ -1,14 +1,14 @@
 <template>
-  <div class="grid gap-8 min-[1400px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] min-[1400px]:gap-10">
-    <div class="min-w-0 space-y-8 min-[1400px]:col-span-2">
+  <div class="grid gap-8 min-[1600px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] min-[1600px]:gap-10">
+    <div class="min-w-0 space-y-8 min-[1600px]:col-span-2">
       <div class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 border border-rule-strong bg-surface p-3">
         <span class="method-mark">{{ primary.method }}</span>
-        <code class="order-last min-w-0 basis-full text-sm [overflow-wrap:anywhere] sm:order-none sm:flex-1 sm:basis-auto">{{ url }}</code>
+        <code class="order-last min-w-0 basis-full text-sm [overflow-wrap:anywhere] sm:order-none sm:flex-1 sm:basis-auto"><template v-for="(part, i) in urlParts" :key="i">{{ part }}<wbr></template></code>
         <CopyButton :text="url" :label="t('ui.copyUrl')" class="ml-auto sm:ml-0" />
       </div>
     </div>
 
-    <div class="min-w-0 space-y-8">
+    <div class="min-w-0 space-y-8 max-[1599px]:order-2">
       <p v-if="hasBody" class="max-w-prose leading-relaxed">{{ t(`docs.pages.${key}.body`) }}</p>
 
       <section>
@@ -32,7 +32,7 @@
       </section>
     </div>
 
-    <section class="min-w-0 min-[1400px]:sticky min-[1400px]:top-[calc(var(--nav-h)+1.5rem)] min-[1400px]:self-start">
+    <section class="min-w-0 max-[1599px]:order-1 min-[1600px]:sticky min-[1600px]:top-[calc(var(--nav-h)+1.5rem)] min-[1600px]:self-start">
       <h2 class="ledger-title mb-3 text-2xl">{{ t('docs.endpoint.example') }}</h2>
       <CodePanel :curl="doc.curl" :response="doc.response" />
       <p class="mt-2 text-xs text-muted">{{ t('docs.endpoint.trimmed') }}</p>
@@ -57,6 +57,7 @@ const doc = computed(() => sectionDocs[props.slug])
 const key = computed(() => findSection(props.slug)?.key ?? '')
 const primary = computed(() => endpoints.find((e) => e.id === doc.value.primary)!)
 const url = computed(() => endpointUrl(primary.value))
+const urlParts = computed(() => url.value.split(/(?<=\/)/))
 const related = computed(() => endpointsOfSection(props.slug).filter((e) => e.id !== primary.value.id))
 const hasBody = computed(() => te(`docs.pages.${key.value}.body`))
 </script>

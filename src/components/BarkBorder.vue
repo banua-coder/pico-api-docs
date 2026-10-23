@@ -1,15 +1,16 @@
 <template>
   <svg
-    class="bark-border block w-full"
-    :class="{ 'weave-in': animate }"
-    :height="height"
+    class="bark-border block"
+    :class="[vertical ? 'h-full' : 'w-full', { 'weave-in': animate }]"
+    :width="vertical ? height : undefined"
+    :height="vertical ? undefined : height"
     aria-hidden="true"
     focusable="false"
     role="presentation"
   >
     <defs>
       <!-- Strict repeat: one 32x16 tile of dyed triangles and diamonds, scaled to the band height. -->
-      <pattern :id="id" :width="tileW" :height="height" patternUnits="userSpaceOnUse">
+      <pattern :id="id" :width="tileW" :height="height" patternUnits="userSpaceOnUse" :patternTransform="vertical ? 'rotate(90)' : undefined">
         <g :transform="`scale(${k})`">
           <rect width="32" height="16" class="bb-bg" />
           <path class="bb-madder" d="M0 0h6L0 6zM26 0h6v6zM0 16h6L0 10zM26 16h6v-6z" />
@@ -19,18 +20,20 @@
         </g>
       </pattern>
     </defs>
-    <rect width="100%" :height="height" :fill="`url(#${id})`" />
+    <rect width="100%" :height="vertical ? '100%' : height" :fill="`url(#${id})`" />
   </svg>
 </template>
 
 <script setup lang="ts">
 import { computed, useId } from 'vue'
 
-const props = withDefaults(defineProps<{ height?: number; animate?: boolean }>(), {
+const props = withDefaults(defineProps<{ height?: number; animate?: boolean; vertical?: boolean }>(), {
   height: 16,
+  vertical: false,
   animate: false,
 })
 
+/** `height` is the band thickness; `vertical` rotates the band to run top to bottom. */
 const id = `bark-${useId()}`
 const k = computed(() => props.height / 16)
 const tileW = computed(() => 32 * k.value)

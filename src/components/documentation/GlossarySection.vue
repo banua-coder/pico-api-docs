@@ -18,7 +18,7 @@
 
           <!-- Definition -->
           <div>
-            <h3 class="ledger-label text-ink mb-3">
+            <h3 class="text-xl font-bold text-ink mb-3">
               {{ t('documentation.glossary.reproductionRate.definition') }}
             </h3>
             <p class="text-base text-ink leading-relaxed">
@@ -28,7 +28,7 @@
 
           <!-- Interpretation — inline editorial callout -->
           <div>
-            <h3 class="ledger-label text-ink mb-4">
+            <h3 class="text-xl font-bold text-ink mb-4">
               {{ t('documentation.glossary.reproductionRate.interpretation') }}
             </h3>
             <div class="divide-y divide-rule border border-rule overflow-hidden">
@@ -49,7 +49,7 @@
 
           <!-- Calculation Method -->
           <div>
-            <h3 class="ledger-label text-ink mb-3">
+            <h3 class="text-xl font-bold text-ink mb-3">
               {{ t('documentation.glossary.reproductionRate.calculationMethod') }}
             </h3>
             <div class="border-l border-rule-strong pl-4 space-y-1">
@@ -64,7 +64,7 @@
 
           <!-- Data Availability -->
           <div>
-            <h3 class="ledger-label text-ink mb-3">
+            <h3 class="text-xl font-bold text-ink mb-3">
               {{ t('documentation.glossary.reproductionRate.dataAvailability') }}
             </h3>
             <p class="text-sm text-muted leading-relaxed">
@@ -74,7 +74,7 @@
 
           <!-- Formula -->
           <div>
-            <h3 class="ledger-label text-ink mb-4">
+            <h3 class="text-xl font-bold text-ink mb-4">
               {{ t('documentation.glossary.reproductionRate.formula') }}
             </h3>
             <p class="text-sm text-muted mb-4 leading-relaxed">
@@ -116,7 +116,7 @@
 
           <!-- Practical Example -->
           <div>
-            <h3 class="ledger-label text-ink mb-4">
+            <h3 class="text-xl font-bold text-ink mb-4">
               {{ t('documentation.glossary.reproductionRate.practicalExample.title') }}
             </h3>
             <p class="text-sm font-medium text-ink mb-4">
@@ -128,9 +128,9 @@
               <table class="w-full text-xs border-collapse">
                 <thead>
                   <tr class="border-b-2 border-rule">
-                    <th class="text-left py-2 px-3 font-semibold text-muted uppercase tracking-wide text-[10px]">{{ t('documentation.glossary.reproductionRate.practicalExample.table.day') }}</th>
-                    <th class="text-left py-2 px-3 font-semibold text-muted uppercase tracking-wide text-[10px]">{{ t('documentation.glossary.reproductionRate.practicalExample.table.date') }}</th>
-                    <th class="text-right py-2 px-3 font-semibold text-muted uppercase tracking-wide text-[10px]">{{ t('documentation.glossary.reproductionRate.practicalExample.table.newCases') }}</th>
+                    <th class="text-left py-2 px-3 font-semibold text-muted uppercase tracking-wide text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.table.day') }}</th>
+                    <th class="text-left py-2 px-3 font-semibold text-muted uppercase tracking-wide text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.table.date') }}</th>
+                    <th class="text-right py-2 px-3 font-semibold text-muted uppercase tracking-wide text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.table.newCases') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -165,21 +165,21 @@
                 
                 <!-- Gamma Quantile -->
                 <div class="bg-surface p-2 border border-rule space-y-0.5">
-                  <p class="font-sans font-semibold text-ink text-xs ledger-label">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.title') }}</p>
+                  <p class="font-sans font-semibold text-ink text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.title') }}</p>
                   <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.formula') }}</p>
-                  <p class="font-sans not-italic text-muted text-[10px]">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.description') }}</p>
+                  <p class="font-sans not-italic text-muted text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.gammaQuantileFormula.description') }}</p>
                 </div>
 
                 <!-- Bounds -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div class="bg-surface p-2 border border-rule space-y-0.5">
-                    <p class="font-sans font-semibold text-ink text-xs ledger-label">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.title') }}</p>
+                    <p class="font-sans font-semibold text-ink text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.title') }}</p>
                     <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.formula') }}</p>
                     <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.wilsonHilfertyFormula') }}</p>
                     <p class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.lowerBoundStep.calculation') }}</p>
                   </div>
                   <div class="bg-surface p-2 border border-rule space-y-0.5">
-                    <p class="font-sans font-semibold text-ink text-xs ledger-label">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.title') }}</p>
+                    <p class="font-sans font-semibold text-ink text-xs">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.title') }}</p>
                     <p class="text-muted">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.formula') }}</p>
                     <p class="font-bold text-ink">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.detailedCalculations.upperBoundStep.calculation') }}</p>
                   </div>
@@ -190,7 +190,7 @@
                   <p>{{ t('documentation.glossary.reproductionRate.practicalExample.step3.formulas.lowerBound') }}</p>
                   <p>{{ t('documentation.glossary.reproductionRate.practicalExample.step3.formulas.upperBound') }}</p>
                   <p class="font-semibold text-ink mt-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.confidenceInterval') }}</p>
-                  <p class="font-sans not-italic text-[10px] text-muted italic mt-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.mathematicalNote') }}</p>
+                  <p class="font-sans not-italic text-xs text-muted italic mt-1">{{ t('documentation.glossary.reproductionRate.practicalExample.step3.mathematicalNote') }}</p>
                 </div>
 
                 <!-- Result -->
@@ -209,7 +209,7 @@
 
           <!-- References -->
           <div>
-            <h3 class="ledger-label text-ink mb-4">
+            <h3 class="text-xl font-bold text-ink mb-4">
               {{ t('documentation.glossary.reproductionRate.references') }}
             </h3>
             <div class="space-y-4">
@@ -260,7 +260,7 @@
       <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
         <!-- Case Classifications -->
         <div class="min-w-0 overflow-x-hidden">
-          <h3 class="ledger-label text-ink mb-5">
+          <h3 class="text-xl font-bold text-ink mb-5">
             {{ t('documentation.glossary.caseClassifications.title') }}
           </h3>
           <dl class="divide-y divide-rule">
@@ -277,7 +277,7 @@
 
         <!-- Data Types -->
         <div>
-          <h3 class="ledger-label text-ink mb-5">
+          <h3 class="text-xl font-bold text-ink mb-5">
             {{ t('documentation.glossary.dataTypes.title') }}
           </h3>
           <dl class="divide-y divide-rule">
@@ -314,7 +314,7 @@
 
       <!-- Current Terms -->
       <div class="mb-10">
-        <h3 class="ledger-label text-ink mb-5 flex items-center gap-2">
+        <h3 class="text-xl font-bold text-ink mb-5 flex items-center gap-2">
           <span class="mark mark-filled" aria-hidden="true" />
           {{ t('documentation.glossary.indonesianTerminology.currentTerms') }}
         </h3>
@@ -339,7 +339,7 @@
 
       <!-- Legacy Terms -->
       <div class="mb-10">
-        <h3 class="ledger-label text-ink mb-5 flex items-center gap-2">
+        <h3 class="text-xl font-bold text-ink mb-5 flex items-center gap-2">
           <span class="mark" aria-hidden="true" />
           {{ t('documentation.glossary.indonesianTerminology.legacyTerms') }}
         </h3>
@@ -372,7 +372,7 @@
 
       <!-- Classification Evolution -->
       <div class="border border-rule p-6">
-        <h3 class="ledger-label text-ink mb-4">
+        <h3 class="text-xl font-bold text-ink mb-4">
           {{ t('documentation.glossary.indonesianTerminology.classificationProgression.title') }}
         </h3>
         <p class="text-sm text-muted mb-5 leading-relaxed">

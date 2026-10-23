@@ -1,26 +1,27 @@
 <template>
   <main id="main-content" tabindex="-1" class="flex-1 focus:outline-none">
     <!-- First viewport: promise and request on the left, indigo ledger of the latest record on the right -->
-    <section aria-labelledby="home-title" class="border-b border-rule-strong">
+    <section aria-labelledby="home-title">
       <div class="mx-auto grid max-w-[90rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)]">
-        <div class="min-w-0 px-4 py-10 sm:px-8 lg:py-14">
+        <div class="flex min-w-0 flex-col px-4 py-10 sm:px-8 lg:justify-between lg:gap-8 lg:py-14">
+          <div>
           <div class="flex items-center gap-4">
             <img src="/pico-api-logo.webp" alt="" width="64" height="64" class="h-14 w-14 bg-field-ink p-1 sm:h-16 sm:w-16" />
             <h1 id="home-title" class="ledger-title text-5xl sm:text-7xl">PICO SulTeng</h1>
           </div>
           <p class="mt-6 max-w-xl text-xl leading-snug sm:text-2xl">{{ t('home.promise') }}</p>
 
-          <div class="mt-8 max-w-xl">
-            <p class="ledger-label mb-1.5 text-muted">{{ t('home.baseUrl') }}</p>
-            <div class="flex items-center justify-between gap-2 border border-rule-strong bg-surface py-1 pl-3 pr-1">
+          <div class="mt-8 flex max-w-xl items-center justify-between gap-2 border border-rule-strong bg-surface py-1 pl-3 pr-1">
+            <div class="min-w-0">
+              <span class="block text-xs font-semibold text-muted">{{ t('home.baseUrl') }}</span>
               <code class="whitespace-nowrap text-sm font-semibold sm:text-base">{{ API_BASE_URL }}</code>
-              <CopyButton :text="API_BASE_URL" :label="t('ui.copyBaseUrl')" />
             </div>
+            <CopyButton :text="API_BASE_URL" :label="t('ui.copyBaseUrl')" />
           </div>
 
           <div class="mt-5 max-w-xl">
-            <p class="ledger-label mb-1.5 text-muted">{{ t('home.firstRequest') }}</p>
             <CodeBlock :code="curl" language="bash" title="cURL" :copy-label="t('ui.copyCode', { name: 'cURL' })" />
+          </div>
           </div>
 
           <div class="mt-6 flex flex-wrap gap-3">
@@ -31,8 +32,8 @@
 
         <section aria-labelledby="ledger-title" class="on-field flex min-w-0 flex-col bg-field-indigo px-4 py-8 text-field-ink sm:px-8 lg:py-14">
           <h2 id="ledger-title" class="ledger-title text-3xl">{{ t('home.ledgerTitle') }}</h2>
-          <LedgerBlock :title="t('home.province')" :record="province" :loading="state === 'loading'" :locale="locale" big />
-          <LedgerBlock :title="t('home.national')" :record="national" :loading="state === 'loading'" :locale="locale" />
+          <LedgerBlock path="data.data[0].cumulative" :title="t('home.province')" :record="province" :loading="state === 'loading'" :locale="locale" big />
+          <LedgerBlock path="data.cumulative" :title="t('home.national')" :record="national" :loading="state === 'loading'" :locale="locale" />
 
           <div class="mt-auto pt-6">
             <p v-if="state === 'error' || state === 'offline'" class="mb-3 flex min-h-12 items-start gap-2 text-sm" role="alert">
@@ -55,6 +56,8 @@
         </section>
       </div>
     </section>
+
+    <BarkBorder :height="14" />
 
     <!-- What the API covers -->
     <section aria-labelledby="covers-title" class="mx-auto max-w-[90rem] px-4 py-14 sm:px-8">
@@ -96,10 +99,12 @@
       </div>
     </section>
 
-    <!-- Data sources -->
-    <section aria-labelledby="sources-title" class="mx-auto max-w-[90rem] px-4 py-14 sm:px-8">
+    <!-- Data sources: a raw bark field -->
+    <BarkBorder :height="14" />
+    <section aria-labelledby="sources-title" class="on-bark bg-field-bark text-field-barkink">
+     <div class="mx-auto max-w-[90rem] px-4 py-14 sm:px-8">
       <h2 id="sources-title" class="ledger-title text-4xl">{{ t('dataSources.title') }}</h2>
-      <p class="mt-2 max-w-prose text-muted">{{ t('dataSources.subtitle') }}</p>
+      <p class="mt-2 max-w-prose">{{ t('dataSources.subtitle') }}</p>
       <ul class="mt-6 grid grid-cols-2 gap-px border border-rule-strong bg-rule-strong sm:grid-cols-3 lg:grid-cols-6">
         <li v-for="s in sources" :key="s.name" class="bg-surface">
           <a :href="s.url" target="_blank" rel="noopener noreferrer" class="flex h-full flex-col items-center gap-3 p-4 text-center hover:bg-sunk">
@@ -111,6 +116,7 @@
           </a>
         </li>
       </ul>
+     </div>
     </section>
   </main>
 </template>
@@ -118,6 +124,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import BarkBorder from '@/components/BarkBorder.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import CodeBlock from '@/components/CodeBlock.vue'
 import CopyButton from '@/components/CopyButton.vue'

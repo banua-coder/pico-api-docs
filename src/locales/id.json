@@ -262,7 +262,6 @@
     "metaDescription": "Data COVID-19 tingkat provinsi untuk Sulawesi Tengah, hingga kabupaten/kota, rumah sakit, gugus tugas, dan vaksinasi. Endpoint, rumus, dan sumber data terdokumentasi.",
     "promise": "Data COVID-19 tingkat provinsi untuk Sulawesi Tengah, hingga kabupaten/kota, rumah sakit, gugus tugas, dan vaksinasi.",
     "baseUrl": "URL dasar",
-    "firstRequest": "Permintaan pertama Anda",
     "cta": "Baca dokumentasi",
     "ledgerTitle": "Catatan terbaru",
     "province": "Sulawesi Tengah",
