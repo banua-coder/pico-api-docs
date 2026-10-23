@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T00:00:00Z",
+  "generatedAt": "2026-10-23T12:00:00Z",
   "title": "Design System: PICO SulTeng API Docs",
   "extensions": {
     "colorMeta": {
@@ -16,7 +16,14 @@
       "h2": { "displayName": "Section title", "purpose": "Section headings, 28/36, weight 650." },
       "h3": { "displayName": "Sub section title", "purpose": "Sub headings, 20/28, weight 600." },
       "body": { "displayName": "Body", "purpose": "Tables, callouts and prose, 14px and up." },
-      "label": { "displayName": "Label", "purpose": "Sidebar groups, table headers, tabs. 13px, 600, sentence case." },
+      "label": { "displayName": "Label", "purpose": "Sidebar group names, table headers and tabs. 0.8125rem, 600, sentence case." },
+      "page-title": { "displayName": "Docs page title", "purpose": "The h1 on docs pages. 2.25rem on small screens and 2.5rem from sm up, weight 700, line 1.2, tracking -0.03em. The home title uses the h1 display size." },
+      "button": { "displayName": "Button text", "purpose": "Large 48px buttons. 15px, weight 600. Small buttons use 14px." },
+      "brand": { "displayName": "Brand name", "purpose": "The PICO SulTeng name in the nav. 17px, weight 700, tracking -0.01em." },
+      "stat-title": { "displayName": "Stat title", "purpose": "Group titles in the stat card. 17px, weight 650." },
+      "stat-figure": { "displayName": "Stat figure", "purpose": "Numbers in the stat card. 18px on small screens and 22px from sm up, weight 700, tabular." },
+      "caption": { "displayName": "Caption", "purpose": "Method pills, state pills, key hints and the stat card footnote. 0.75rem, weight 600. The smallest size for text people read." },
+      "key-path": { "displayName": "Key path", "purpose": "The JSON path under each stat row. 11px mono, line 14px. The one documented exception to the caption minimum, because it labels a developer value." },
       "code": { "displayName": "Code", "purpose": "Code panels and inline code, system mono with tabular numerals." }
     },
     "shadows": [
